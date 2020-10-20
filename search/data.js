@@ -137,4 +137,10 @@ title: "",
 date: "0001-01-01T00:00:00Z",
 body: ""
 },
+{
+url: "https://www.ty07.net/about/",
+title: "about",
+date: "0001-01-01T00:00:00Z",
+body: "about リンク GitHub Twitter Facebook Instagram Lapras PGP"
+},
 ];
