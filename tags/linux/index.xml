@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on Not Good Father</title>
+    <link>https://www.ty07.net/tags/linux/</link>
+    <description>Recent content in linux on Not Good Father</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Tue, 01 Jun 2010 07:39:03 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Xorg</title>
+      <link>https://www.ty07.net/blog/xorg/</link>
+      <pubDate>Tue, 01 Jun 2010 07:39:03 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/xorg/</guid>
+      <description>GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。
+ boot-update grubの設定支援かな？ boot-update で記述されている代物です。 grub-1.97+にしてみたが multiboot にはまだ調整されていないみたい。 次のように記述して(/etc/boot.conf)、 `boot-update&#39; とタイプインするればよい。楽チンだけど、 &amp;ldquo;Backtrack 4&amp;rdquo; は利用側の root-fs を無理やり埋め込まれているので、手直しが必要なのだ。 まぁ、/boot/grub/grub.cfg を手修正すればよい。  boot { path /boot generate grub default &amp;quot;Funtoo Linux&amp;quot; timeout 3 } &amp;quot;Funtoo Linux&amp;quot; { kernel /kernel-genkernel-x86[-v] initrd initramfs-genkernel-x86[-v] params += crypt_root=/dev/sdc2 root_keydev=/dev/sde1 root_key=/keyfile params += dolvm real_root=/dev/mapper/LVG-root params += i915.modeset=1 fbcon=map:1 params += ramdisk=8192 quiet init=/linuxrc } &amp;quot;Backtrack 4&amp;quot; { kernel /bt4/vmlinuz initrd /bt4/initrd.gz params += BOOT=casper boot=casper persistent rw quiet params += real_root=auto }  xorg-1.</description>
+    </item>
+    
+    <item>
+      <title>awesome window manager,again,again</title>
+      <link>https://www.ty07.net/blog/awesome-vm-03/</link>
+      <pubDate>Sat, 13 Feb 2010 22:42:10 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/awesome-vm-03/</guid>
+      <description>awesomeの 設定をしなおしをした。そんなに変更はしていないように見えるけど、tag (他のWMでいうこところのワークスペース）を動的に生成する shifty というのを使ってみた。
+
+ git://github.com/bioe007/awesome-configs.git  </description>
+    </item>
+    
+    <item>
+      <title>New PC 2</title>
+      <link>https://www.ty07.net/blog/new-pc2/</link>
+      <pubDate>Mon, 08 Feb 2010 23:27:24 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/new-pc2/</guid>
+      <description>前のポストの環境から気分転換にディスクフォーマットをしました。 元々の用途が Live CD作成マシンなのでベースのイメージは squashfs でできているので、移行は楽ちんなのだ。
+まずはパーティションレイアウトはこんな感じ。 今回は、LVM2+LUKS で。
+ fdisk -l /dev/sdc  Disk /dev/sdc: 160.0 GB, 160041885696 bytes 255 heads, 63 sectors/track, 19457 cylinders Units = cylinders of 16065 * 512 = 8225280 bytes Sector size (logical/physical): 512 bytes / 512 bytes Disk identifier: 0x1b155f8d Device Boot Start End Blocks Id System /dev/sdc1 1 9436 75794638+ 83 Linux /dev/sdc2 9437 19457 80493682+ 83 Linux  /etc/fstab  LABEL=BOOT	/boot	ext4	noauto,noatime	1 2 LABEL=SWAP	none	swap	sw	0 0 LABEL=ROOT	/	ext4	noatime	0 1 /dev/cdrom	/mnt/cdrom	auto	noauto,ro	0 0 ターゲットは /dev/sdc2 で。/dev/sdc1は Windows でFreeOTFE(LUKS+NTFS) を使って利用しているのだ。 TRUE CRYPTでディスク丸ごとでも よかったんですが、面倒なので。とはいえ、Windowsは pre-install のままな のでどうでもいいんです。 訳ありなファイルは Dekart Private Disk でイメージを作ってポータブルに使っている。便利だね。</description>
+    </item>
+    
+    <item>
+      <title>awesome window manager, again</title>
+      <link>https://www.ty07.net/blog/awesome-vm-02/</link>
+      <pubDate>Sun, 29 Nov 2009 16:08:21 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/awesome-vm-02/</guid>
+      <description>awesome をいじくりまくっています。 他の人の設定を真似して、 githubのリポジトリに追加しました。
+
+ git clone git://shikamaru.fr/config.git http://senyorcaos.homelinux.org/git/?p=awesome34.git;a=blob;f=rc.lua;h=60acb353e4e4c065e9d3fa4bfdbdb4fd4fed93fd;hb=HEAD  </description>
+    </item>
+    
+    <item>
+      <title>New Pc</title>
+      <link>https://www.ty07.net/blog/new-pc/</link>
+      <pubDate>Sat, 14 Nov 2009 14:22:36 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/new-pc/</guid>
+      <description>息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用のディスクに割り当てた。 用途は Live CD作成 マシンかな。
+Live CD のイメージ作成に、 以前は metro を使ってましたが、自分しか使わないのでもっと手軽に。
+パーティションレイアウトはこんな感じで。
+ fdisk -l  ディスク /dev/sdc: 160.0 GB, 160041885696 バイト ヘッド 255, セクタ 63, シリンダ 19457 Units = シリンダ数 of 16065 * 512 = 8225280 バイト ディスク識別子: 0x1b155f8d デバイス ブート 始点 終点 ブロック Id システム /dev/sdc1 1 9436 75794638+ 83 Linux /dev/sdc2 9437 9497 489982+ 83 Linux /dev/sdc3 9498 19457 80003700 83 Linux  /etc/fstab  /dev/sde1	/boot	ext3	noauto,noatime	1 2 /dev/mapper/root	/	ext4	noatime	0 1 /dev/mapper/swap	none	swap	sw	0 0 /dev/cdrom	/mnt/cdrom	auto	noauto,ro	0 0 /dev/fd0	/mnt/floppy	auto	noauto	0 0 none	/proc/sys/fs/binfmt_misc	binfmt_misc	defaults	0 0 /var/tmp/jail/portage	/usr/portage	none	bind,rw	0 0 /var/tmp/jail/local-portage	/usr/local/portage	none	bind,rw	0 0 /var/tmp/jail/distfiles	/usr/portage/distfiles	none	bind,rw	0 0 Live CDの起動は、Grubで。</description>
+    </item>
+    
+    <item>
+      <title>awesome window manager</title>
+      <link>https://www.ty07.net/blog/awesome-vm/</link>
+      <pubDate>Sat, 14 Nov 2009 10:31:49 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/awesome-vm/</guid>
+      <description>最近ウィンドマネジャーを awesome に変更した。 軽量で高機能って感じです。
+スクリーンショットのVLCで再生しているのは、動画ページにあった「悪魔のキッス」です。 最近結婚された常盤貴子さんを祝して入れてみました :-)</description>
+    </item>
+    
+  </channel>
+</rss>

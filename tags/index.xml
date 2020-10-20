@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Bad Father</title>
+    <title>Tags on Not Good Father</title>
     <link>https://www.ty07.net/tags/</link>
-    <description>Recent content in Tags on Bad Father</description>
+    <description>Recent content in Tags on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
     <lastBuildDate>Sat, 18 Jun 2016 11:14:19 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -53,11 +53,65 @@
     </item>
     
     <item>
+      <title>news</title>
+      <link>https://www.ty07.net/tags/news/</link>
+      <pubDate>Sat, 31 Jul 2010 15:14:28 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/tags/news/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>guruplug</title>
       <link>https://www.ty07.net/tags/guruplug/</link>
       <pubDate>Fri, 16 Jul 2010 23:32:33 +0900</pubDate>
       
       <guid>https://www.ty07.net/tags/guruplug/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://www.ty07.net/tags/linux/</link>
+      <pubDate>Tue, 01 Jun 2010 07:39:03 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xorg</title>
+      <link>https://www.ty07.net/tags/xorg/</link>
+      <pubDate>Tue, 01 Jun 2010 07:39:03 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/tags/xorg/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>backtrack</title>
+      <link>https://www.ty07.net/tags/backtrack/</link>
+      <pubDate>Sun, 04 Apr 2010 17:50:17 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/tags/backtrack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xmonad-wm</title>
+      <link>https://www.ty07.net/tags/xmonad-wm/</link>
+      <pubDate>Sat, 06 Mar 2010 19:50:41 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/tags/xmonad-wm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>awesome-wm</title>
+      <link>https://www.ty07.net/tags/awesome-wm/</link>
+      <pubDate>Sat, 13 Feb 2010 22:42:10 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/tags/awesome-wm/</guid>
       <description></description>
     </item>
     
@@ -94,6 +148,15 @@
       <pubDate>Thu, 11 Feb 2010 15:14:00 +0900</pubDate>
       
       <guid>https://www.ty07.net/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>awesome-vm</title>
+      <link>https://www.ty07.net/tags/awesome-vm/</link>
+      <pubDate>Sun, 29 Nov 2009 16:08:21 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/tags/awesome-vm/</guid>
       <description></description>
     </item>
     

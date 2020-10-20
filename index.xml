@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Bad Father</title>
+    <title>Not Good Father</title>
     <link>https://www.ty07.net/</link>
-    <description>Recent content on Bad Father</description>
+    <description>Recent content on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
     <lastBuildDate>Sat, 18 Jun 2016 11:14:19 +0900</lastBuildDate><atom:link href="https://www.ty07.net/index.xml" rel="self" type="application/rss+xml" />
@@ -54,6 +54,17 @@ cd ~/Documents $ hexo init site $ cd site $ npm install 動作確認 $ hexo serv
     </item>
     
     <item>
+      <title>四季・ユートピアノ 中尾幸世さん</title>
+      <link>https://www.ty07.net/blog/nakao-01/</link>
+      <pubDate>Sat, 31 Jul 2010 15:14:28 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/nakao-01/</guid>
+      <description>「四季・ユートピアノ」または「中尾幸世」という女優(朗読家)を知っているだろうか?
+NHKで約20年前に放映した番組の作品である。 演出は世界の佐々木昭一郎 で中尾さんとは2回目の作品となっている。 中尾さんについての情報は微音空間 中尾幸世に詳しく書かれている。
+先週の金曜日(2010-07-30)、45年目の誕生日として自分を祝うために、渋谷のユーロスペースで開催された上映会「佐々木昭一郎というジャンル」の最終日を観賞した。 当日は中尾幸世さんがトークするという情報があったので前売を早めに取った。 お蔭様で満員のユーロスペースでよい席で「四季・ユートピアノ」を懐かしく観れた。</description>
+    </item>
+    
+    <item>
       <title>Guruplug Subquent</title>
       <link>https://www.ty07.net/blog/guruplug-subquent/</link>
       <pubDate>Fri, 16 Jul 2010 23:32:33 +0900</pubDate>
@@ -83,6 +94,16 @@ JTAG ボード 1 を繋ぎ、FTDI USB シリアルデバイス(例では ttyUSB0
     </item>
     
     <item>
+      <title>Xorg</title>
+      <link>https://www.ty07.net/blog/xorg/</link>
+      <pubDate>Tue, 01 Jun 2010 07:39:03 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/xorg/</guid>
+      <description>GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。
+ boot-update grubの設定支援かな？ boot-update で記述されている代物です。 grub-1.97+にしてみたが multiboot にはまだ調整されていないみたい。 次のように記述して(/etc/boot.conf)、 `boot-update&#39; とタイプインするればよい。楽チンだけど、 &amp;ldquo;Backtrack 4&amp;rdquo; は利用側の root-fs を無理やり埋め込まれているので、手直しが必要なのだ。 まぁ、/boot/grub/grub.cfg を手修正すればよい。  boot { path /boot generate grub default &amp;quot;Funtoo Linux&amp;quot; timeout 3 } &amp;quot;Funtoo Linux&amp;quot; { kernel /kernel-genkernel-x86[-v] initrd initramfs-genkernel-x86[-v] params += crypt_root=/dev/sdc2 root_keydev=/dev/sde1 root_key=/keyfile params += dolvm real_root=/dev/mapper/LVG-root params += i915.modeset=1 fbcon=map:1 params += ramdisk=8192 quiet init=/linuxrc } &amp;quot;Backtrack 4&amp;quot; { kernel /bt4/vmlinuz initrd /bt4/initrd.gz params += BOOT=casper boot=casper persistent rw quiet params += real_root=auto }  xorg-1.</description>
+    </item>
+    
+    <item>
       <title>Guruplug Fcc</title>
       <link>https://www.ty07.net/blog/guruplug-fcc/</link>
       <pubDate>Mon, 26 Apr 2010 22:25:00 +0900</pubDate>
@@ -107,6 +128,41 @@ JTAG ボード 1 を繋ぎ、FTDI USB シリアルデバイス(例では ttyUSB0
     </item>
     
     <item>
+      <title>Backtrack USB Encrypt</title>
+      <link>https://www.ty07.net/blog/backtrack-usb-encrypt/</link>
+      <pubDate>Sun, 04 Apr 2010 17:50:17 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/backtrack-usb-encrypt/</guid>
+      <description>backtrack4のフォーラムを読んでいたら教えて君がいたのでフォローした。 内容は distro iso を更新する方法だったが、 bt4-customise.shで出来るよって。
+さらに変更したものをポストしておく。squashfs を LUKS でカプセルするもの。元ネタは下のURL
+  http://forums.remote-exploit.org/backtrack-4-howto/25768-howto-bt4-pre-final-usb-encryption.html
+  bt4-customise.sh [original]
+  #!/bin/bash  btisoname=bt4.iso btmodisoname=`basename $btisoname .iso`-mod.iso luks_image=0 count=2560000 clear echo &amp;#34;##############################################################&amp;#34; echo &amp;#34;[*] BackTrack 4 customisation script&amp;#34; echo &amp;#34;[*] Setting up the build environment...&amp;#34; services=&amp;#34;inetutils-inetd tinyproxy iodined knockd openvpn atftpd ntop nstxd nstxcd apache2 sendmail atd dhcp3-server winbind miredo miredo-server pcscd wicd wacom cups bluetooth binfmt-support mysql vmware vboxdrv kvm nessusd&amp;#34; test -d mnt || mkdir -p mnt test -d extract-cd || mkdir -p extract-cd test -d squashfs || mkdir -p squashfs test -d container || mkdir -p container mount -o loop,ro $btisoname mnt/ rsync --exclude=/casper/filesystem.</description>
+    </item>
+    
+    <item>
+      <title>Backtrack Xmonad</title>
+      <link>https://www.ty07.net/blog/backtrack-xmonad/</link>
+      <pubDate>Mon, 08 Mar 2010 08:23:09 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/backtrack-xmonad/</guid>
+      <description>backtrack4 に xmonad を入れてみた。
+
+ $HOME/.xmonad/xmonad.hs  import XMonad import XMonad.Config.Kde import qualified XMonad.StackSet as W -- to shift and float windows main = xmonad $ kdeConfig { modMask = mod4Mask -- use the Windows button as mod , manageHook = manageHook kdeConfig &amp;lt;+&amp;gt; myManageHook } where myManageHook = composeAll . concat $ [ [ className =? c --&amp;gt; doFloat | c &amp;lt;- myFloats] , [ title =? t --&amp;gt; doFloat | t &amp;lt;- myOtherFloats] , [ className =?</description>
+    </item>
+    
+    <item>
+      <title>xmonad windows manager</title>
+      <link>https://www.ty07.net/blog/xmonad/</link>
+      <pubDate>Sat, 06 Mar 2010 19:50:41 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/xmonad/</guid>
+      <description>awsome 最高と思っていたけど、Xmonad はさらにいいです。 キーボードで操作できて、awesome とは違い設定ファイルがヘタっても前の設定で動作するので使っている側としては安全だよね。 awesome でいいなと思ってたものは大体ある。 bioe007 が書いた awesome の revelation は好きだったのでの、こういうのは xmonad にないか探しているところ。
+
+ git clone git://github.com/jelly/dotfiles.git  </description>
+    </item>
+    
+    <item>
       <title>Guruplug Std</title>
       <link>https://www.ty07.net/blog/guruplug-std/</link>
       <pubDate>Thu, 18 Feb 2010 20:00:43 +0900</pubDate>
@@ -114,6 +170,17 @@ JTAG ボード 1 を繋ぎ、FTDI USB シリアルデバイス(例では ttyUSB0
       <guid>https://www.ty07.net/blog/guruplug-std/</guid>
       <description>今なら(2/28/2010まで)、JTAGモジュールが無料の組み込み 今なら(2/28/2010まで)、JTAGモジュールが無料の組み込みLinuxキットの guruplug std. の注文をした。４月から配送が始まるので５月までには届くだろうか。
  http://www.plugcomputer.org/ http://plugcomputer.org/plugwiki/index.php?title=Main_Page http://www.openplug.org/data/  </description>
+    </item>
+    
+    <item>
+      <title>awesome window manager,again,again</title>
+      <link>https://www.ty07.net/blog/awesome-vm-03/</link>
+      <pubDate>Sat, 13 Feb 2010 22:42:10 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/awesome-vm-03/</guid>
+      <description>awesomeの 設定をしなおしをした。そんなに変更はしていないように見えるけど、tag (他のWMでいうこところのワークスペース）を動的に生成する shifty というのを使ってみた。
+
+ git://github.com/bioe007/awesome-configs.git  </description>
     </item>
     
     <item>
@@ -126,6 +193,65 @@ JTAG ボード 1 を繋ぎ、FTDI USB シリアルデバイス(例では ttyUSB0
 ケータイは Nokia N82 を使っているが、写真は Googleさんに置いている。 Picassaを使ってアップは面倒だったのでスクリプトを作っておいたのだが `git add&#39; していなかったのでディスク初期化で捨ててしまった。仕方がないので作り直し。
 なにかのために、めも。
 インストール  Gdata をインストールしておく。(`emerge dev-python/gdata&#39;) linux-box とペアリングをさせて obexfs でケータイと繋ぐ。  $ hcitool scan Scanning ... 00:1D:FD:91:A8:12 NOKIA N82 $ simple-agent Agent registered $ cat obexfs.sh #! /bin/sh bt=&amp;#34;00:1D:FD:91:A8:12&amp;#34; test -d ~/mnt/n82 || mkdir -p ~/mnt/n82 obexfs -b $bt ~/mnt/n82 $ ./obexfs.sh  ケータイから画像だけ取り出して削除する。  #! /bin/sh  test -d $HOME/mnt/n82/E\:/Images || exit 1 test -d $HOME/images || mkdir -p $HOME/images for f in `find $HOME/mnt/n82/E\:/Images -name &amp;#34;*.</description>
+    </item>
+    
+    <item>
+      <title>New PC 2</title>
+      <link>https://www.ty07.net/blog/new-pc2/</link>
+      <pubDate>Mon, 08 Feb 2010 23:27:24 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/new-pc2/</guid>
+      <description>前のポストの環境から気分転換にディスクフォーマットをしました。 元々の用途が Live CD作成マシンなのでベースのイメージは squashfs でできているので、移行は楽ちんなのだ。
+まずはパーティションレイアウトはこんな感じ。 今回は、LVM2+LUKS で。
+ fdisk -l /dev/sdc  Disk /dev/sdc: 160.0 GB, 160041885696 bytes 255 heads, 63 sectors/track, 19457 cylinders Units = cylinders of 16065 * 512 = 8225280 bytes Sector size (logical/physical): 512 bytes / 512 bytes Disk identifier: 0x1b155f8d Device Boot Start End Blocks Id System /dev/sdc1 1 9436 75794638+ 83 Linux /dev/sdc2 9437 19457 80493682+ 83 Linux  /etc/fstab  LABEL=BOOT	/boot	ext4	noauto,noatime	1 2 LABEL=SWAP	none	swap	sw	0 0 LABEL=ROOT	/	ext4	noatime	0 1 /dev/cdrom	/mnt/cdrom	auto	noauto,ro	0 0 ターゲットは /dev/sdc2 で。/dev/sdc1は Windows でFreeOTFE(LUKS+NTFS) を使って利用しているのだ。 TRUE CRYPTでディスク丸ごとでも よかったんですが、面倒なので。とはいえ、Windowsは pre-install のままな のでどうでもいいんです。 訳ありなファイルは Dekart Private Disk でイメージを作ってポータブルに使っている。便利だね。</description>
+    </item>
+    
+    <item>
+      <title>2009 Final</title>
+      <link>https://www.ty07.net/blog/2009-final/</link>
+      <pubDate>Tue, 29 Dec 2009 10:00:40 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/2009-final/</guid>
+      <description>今年も大晦日を残すところになった。 明日は今年最後（大晦日だから当たり前か）のお仕事だぁ。
+さっき(8:01)、同僚から男子出産の朗報を頂いた。 大晦日前の出産で大変だったと思うが、 クリスマスと正月を挟んだ誕生日なので少し大きくなったらプレゼントに 四苦八苦するのではと、微笑ましく想像する。
+今年の総括!
+  OSS熱再燃 これは再燃というか、例年より少し熱があっただけですが。
+  &amp;ldquo;Soul Flower Union&amp;quot;熱再燃 みんなの歌らしくない「青天井のクラウン」が Youtube にあったんで。 EGO-WRAPIN&amp;rsquo;も同じかな。おなじようなニオイを感じますか？ King Crimson とか Pink Floyd は定盤かな。 そういえば今年はあんまり Jazz 聴いていなかったな。 そのかわり自宅上に住んでいる方にチベット仏教音楽の CD をいただいた。 ゴチデス。
+  やっぱり LAPHROAIG でしょ マスターー。くっさいのください。
+  再燃ばかりで進歩がないのが、おじさんぽい。|o|</description>
+    </item>
+    
+    <item>
+      <title>awesome window manager, again</title>
+      <link>https://www.ty07.net/blog/awesome-vm-02/</link>
+      <pubDate>Sun, 29 Nov 2009 16:08:21 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/awesome-vm-02/</guid>
+      <description>awesome をいじくりまくっています。 他の人の設定を真似して、 githubのリポジトリに追加しました。
+
+ git clone git://shikamaru.fr/config.git http://senyorcaos.homelinux.org/git/?p=awesome34.git;a=blob;f=rc.lua;h=60acb353e4e4c065e9d3fa4bfdbdb4fd4fed93fd;hb=HEAD  </description>
+    </item>
+    
+    <item>
+      <title>New Pc</title>
+      <link>https://www.ty07.net/blog/new-pc/</link>
+      <pubDate>Sat, 14 Nov 2009 14:22:36 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/new-pc/</guid>
+      <description>息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用のディスクに割り当てた。 用途は Live CD作成 マシンかな。
+Live CD のイメージ作成に、 以前は metro を使ってましたが、自分しか使わないのでもっと手軽に。
+パーティションレイアウトはこんな感じで。
+ fdisk -l  ディスク /dev/sdc: 160.0 GB, 160041885696 バイト ヘッド 255, セクタ 63, シリンダ 19457 Units = シリンダ数 of 16065 * 512 = 8225280 バイト ディスク識別子: 0x1b155f8d デバイス ブート 始点 終点 ブロック Id システム /dev/sdc1 1 9436 75794638+ 83 Linux /dev/sdc2 9437 9497 489982+ 83 Linux /dev/sdc3 9498 19457 80003700 83 Linux  /etc/fstab  /dev/sde1	/boot	ext3	noauto,noatime	1 2 /dev/mapper/root	/	ext4	noatime	0 1 /dev/mapper/swap	none	swap	sw	0 0 /dev/cdrom	/mnt/cdrom	auto	noauto,ro	0 0 /dev/fd0	/mnt/floppy	auto	noauto	0 0 none	/proc/sys/fs/binfmt_misc	binfmt_misc	defaults	0 0 /var/tmp/jail/portage	/usr/portage	none	bind,rw	0 0 /var/tmp/jail/local-portage	/usr/local/portage	none	bind,rw	0 0 /var/tmp/jail/distfiles	/usr/portage/distfiles	none	bind,rw	0 0 Live CDの起動は、Grubで。</description>
+    </item>
+    
+    <item>
+      <title>awesome window manager</title>
+      <link>https://www.ty07.net/blog/awesome-vm/</link>
+      <pubDate>Sat, 14 Nov 2009 10:31:49 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/awesome-vm/</guid>
+      <description>最近ウィンドマネジャーを awesome に変更した。 軽量で高機能って感じです。
+スクリーンショットのVLCで再生しているのは、動画ページにあった「悪魔のキッス」です。 最近結婚された常盤貴子さんを祝して入れてみました :-)</description>
     </item>
     
     <item>
