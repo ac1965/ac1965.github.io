@@ -137,12 +137,12 @@ ubifs でルートファイルシステムを構築する準備です。</p>
 <span style="color:#75715e"># cp /tmp/make.conf-arm make.conf</span>
 <span style="color:#75715e"># armv5tel-softfloat-linux-gnueabi-emerge -av @system</span>
 </code></pre></div><ul>
-<li>参考：/usr/armv5tel-softfloat-linux-gnueabi/etc/make.conf
-僕の環境なので同じである必要はない。
-ROOT=&quot;&hellip;&quot; の default は &ldquo;/&rdquo; なので指定しておかないとoverwrite されるので注意
-あと、クロスコンパイルの場合 CBUILD は必要。</li>
+<li>参考：/usr/armv5tel-softfloat-linux-gnueabi/etc/make.conf</li>
 </ul>
-<pre><code># NEVER change this
+<p>僕の環境なので同じである必要はない。
+ROOT=&quot;&hellip;&quot; の default は &ldquo;/&rdquo; なので指定しておかないとoverwrite されるので注意
+あと、クロスコンパイルの場合 CBUILD は必要。</p>
+<pre><code class="language-script" data-lang="script"># NEVER change this
 CHOST=&quot;armv5tel-softfloat-linux-gnueabi&quot;
 CBUILD=i686-pc-linux-gnu
 CHOST=${CHOST}
