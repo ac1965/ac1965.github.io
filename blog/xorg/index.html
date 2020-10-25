@@ -30,7 +30,14 @@
             </ul>
         <div id="TableOfContents-wrapper">
             <div id="TableOfContents-title">Table of Contents</div>
-            <nav id="TableOfContents"></nav></div>
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#maskを外す">MASKを外す</a></li>
+    <li><a href="#emege-xorg-server">emege xorg-server</a></li>
+    <li><a href="#emerge-udev">emerge udev</a></li>
+    <li><a href="#udevルールの追加">udevルールの追加</a></li>
+  </ul>
+</nav></div>
         </div>
     <div id="sidebar-footer">
         <div>Article:  -  2020</div>
@@ -66,9 +73,7 @@
 </aside>
 <article id="article-content">
     <p>GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。</p>
-<ul>
-<li>boot-update</li>
-</ul>
+<h1 id="boot-update">boot-update</h1>
 <p>grubの設定支援かな？
 <a href="http://www.funtoo.org/en/funtoo/core/boot/">boot-update</a>
 で記述されている代物です。
@@ -103,26 +108,24 @@ grub-1.97+にしてみたが multiboot
 	params <span style="color:#f92672">+=</span> BOOT<span style="color:#f92672">=</span>casper boot<span style="color:#f92672">=</span>casper persistent rw quiet
 	params <span style="color:#f92672">+=</span> real_root<span style="color:#f92672">=</span>auto
 <span style="color:#f92672">}</span>
-</code></pre></div><ul>
-<li>xorg-1.8</li>
-</ul>
+</code></pre></div><h1 id="xorg-18">xorg-1.8</h1>
 <p>けっこう放置していたのでトライしてみた。</p>
-<p>**  MASKを外す</p>
+<h2 id="maskを外す">MASKを外す</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#39;x11-base/xorg-server&#39;</span> &gt;&gt; /etc/portage/package.unmask
 echo <span style="color:#e6db74">&#39;x11-base/xorg-server * ~* **&#39;</span> &gt;&gt; /etc/portage/package.keywords/x11-base
-</code></pre></div><p>** emege xorg-server</p>
+</code></pre></div><h2 id="emege-xorg-server">emege xorg-server</h2>
 <p>USE=&ldquo;udev -hal&rdquo; で emerge したけど、キーボードとマウスが認識していない。予想はついていたので、sshd
 をあげて別端末から
 pkill
 した。</p>
 <p><a href="http://body0r.wordpress.com/2010/04/16/xorg-udev-toggle/">ここを参考</a>する。</p>
-<p>** emerge udev</p>
+<h2 id="emerge-udev">emerge udev</h2>
 <p>MASKを外して、udev をアップデート。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#39;sys-fs/udev&#39;</span> &gt;&gt; /etc/portage/package.unmask
 echo <span style="color:#e6db74">&#39;sys-fs/udev * ~* **&#39;</span> &gt;&gt; /etc/portage/package.keywords/sys-fs
 emerge -u udev
-</code></pre></div><p>** udevルールの追加
-j
+</code></pre></div><h2 id="udevルールの追加">udevルールの追加</h2>
+<p>j
 /usr/share/X11/xorg.conf.d
 が system config なので、/etc/X11/xorg.conf.d を掘って
 キーボードとマウスの設定を追加。</p>
