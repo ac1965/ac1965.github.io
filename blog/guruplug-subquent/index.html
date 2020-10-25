@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja-jp">
+<html lang="ja">
     <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -41,8 +41,8 @@
 </nav></div>
         </div>
     <div id="sidebar-footer">
-        <div>Article: 2009-2020 - ac1965 2020</div>
-        <div>Source code: CC0 - ac1965 2020</div>
+        <div>Article:  -  2020</div>
+        <div>Source code: CC0 -  2020</div>
         <div>Cited source codes are under the original licence</div>
     </div>
 </aside>
@@ -51,6 +51,7 @@
                     <a class="nav-link" href="/">Home</a>
                     <a class="nav-link" href="/blog/">Archive</a>
                     <a class="nav-link" href="/tags/">Tags</a>
+                    <a class="nav-link" href="/about/">About</a>
                     </nav>
                 <main id="content-main">
                     <h1>Guruplug Subquent</h1>
@@ -86,9 +87,9 @@
 </ul>
 <h2 id="進行形">進行形</h2>
 <ul>
-<li>Pyblosxom + Paste + Nginx
-python アプリ関係ソフトの、KEYWORD が &ldquo;arm&rdquo; または &ldquo;~arm&rdquo; がついていないでやんの。</li>
+<li>Pyblosxom + Paste + Nginx</li>
 </ul>
+<p>python アプリ関係ソフトの、KEYWORD が &ldquo;arm&rdquo; または &ldquo;~arm&rdquo; がついていないでやんの。</p>
 <p>KEYWORD を無効にしてから、Nginx をインストールして、動作するまでは確認した。
 Nginx の評判通り(軽くて/早い)ではない動作なので調整中。</p>
 <p>Nginx + paster + Pyblosxom での動作は確認できたが、
@@ -97,11 +98,11 @@ Nginx の評判通り(軽くて/早い)ではない動作なので調整中。</
 Apache + mod_wsgi + Pyblosxom で現在は動作している。[2010-07-19]</p>
 <h2 id="将来">将来</h2>
 <ul>
-<li>HoneyPod の実装
-GuruPlug でのアイデアソリューションとして、
-やりたいことは HoneyPod の実装なんだな。体感的に、そんなに遅いマシンではないので期待しちゃっているのだが、
-Nginx が上手く動作していないので期待は遠い。</li>
+<li>HoneyPod の実装</li>
 </ul>
+<p>GuruPlug でのアイデアソリューションとして、
+やりたいことは HoneyPod の実装なんだな。体感的に、そんなに遅いマシンではないので期待しちゃっているのだが、
+Nginx が上手く動作していないので期待は遠い。</p>
 <p>あと iptables が kernel が変わってきちんと動作するかだな。</p>
 <p>iptables は問題なく動作した。honeyd も動作した。
 あとは、ルータで honeyd の virtual-honeypots に食わせるだけだ。</p>
@@ -115,27 +116,27 @@ Nginx が上手く動作していないので期待は遠い。</li>
 <ul>
 <li>U-Boot</li>
 </ul>
-<pre><code>U-Boot 2010.03-01266-g42f7128 (Jul 14 2010 - 10:09:06)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">U-Boot 2010.03-01266-g42f7128 <span style="color:#f92672">(</span>Jul <span style="color:#ae81ff">14</span> <span style="color:#ae81ff">2010</span> - 10:09:06<span style="color:#f92672">)</span>
 Marvell-GuruPlug
 
 SoC:   Kirkwood 88F6281_A0
-DRAM:  512 MB
-NAND:  512 MiB
+DRAM:  <span style="color:#ae81ff">512</span> MB
+NAND:  <span style="color:#ae81ff">512</span> MiB
 In:    serial
 Out:   serial
 Err:   serial
 Net:   egiga0, egiga1
 88E1121 Initialized on egiga0
 88E1121 Initialized on egiga1
-Hit any key to stop autoboot:  3  2  1  0
+Hit any key to stop autoboot:  <span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">0</span>
 
 Marvell&gt;&gt; help
 
-?       - alias for 'help'
+?       - alias <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;help&#39;</span>
 base    - print or set address offset
 bdinfo  - print Board Info structure
-boot    - boot default, i.e., run 'bootcmd'
-bootd   - boot default, i.e., run 'bootcmd'
+boot    - boot default, i.e., run <span style="color:#e6db74">&#39;bootcmd&#39;</span>
+bootd   - boot default, i.e., run <span style="color:#e6db74">&#39;bootcmd&#39;</span>
 bootm   - boot application image from memory
 bootp   - boot image via network using BOOTP/TFTP protocol
 cmp     - memory compare
@@ -147,25 +148,25 @@ echo    - echo args to console
 editenv - edit environment variable
 fatinfo - print information about filesystem
 fatload - load binary file from a dos filesystem
-fatls   - list files in a directory (default /)
-go      - start application at address 'addr'
+fatls   - list files in a directory <span style="color:#f92672">(</span>default /<span style="color:#f92672">)</span>
+go      - start application at address <span style="color:#e6db74">&#39;addr&#39;</span>
 help    - print command description/usage
-iminfo  - print header information for application image
+iminfo  - print header information <span style="color:#66d9ef">for</span> application image
 imxtract- extract a part of a multi-image
-itest   - return true/false on integer compare
-loadb   - load binary file over serial line (kermit mode)
+itest   - <span style="color:#66d9ef">return</span> true/false on integer compare
+loadb   - load binary file over serial line <span style="color:#f92672">(</span>kermit mode<span style="color:#f92672">)</span>
 loads   - load S-Record file over serial line
-loady   - load binary file over serial line (ymodem mode)
+loady   - load binary file over serial line <span style="color:#f92672">(</span>ymodem mode<span style="color:#f92672">)</span>
 loop    - infinite loop on address range
 md      - memory display
 mii     - MII utility commands
-mm      - memory modify (auto-incrementing address)
+mm      - memory modify <span style="color:#f92672">(</span>auto-incrementing address<span style="color:#f92672">)</span>
 mtest   - simple RAM read/write test
-mw      - memory write (fill)
+mw      - memory write <span style="color:#f92672">(</span>fill<span style="color:#f92672">)</span>
 nand    - NAND sub-system
 nboot   - boot from NAND device
 nfs     - boot image via network using NFS protocol
-nm      - memory modify (constant address)
+nm      - memory modify <span style="color:#f92672">(</span>constant address<span style="color:#f92672">)</span>
 ping    - send ICMP ECHO_REQUEST to network host
 printenv- print environment variables
 rarpboot- boot image via network using RARP/TFTP protocol
@@ -173,7 +174,7 @@ reset   - Perform RESET of the CPU
 run     - run commands in an environment variable
 saveenv - save environment variables to persistent storage
 setenv  - set environment variables
-sleep   - delay execution for some time
+sleep   - delay execution <span style="color:#66d9ef">for</span> some time
 source  - run script from memory
 tftpboot- boot image via network using TFTP protocol
 usb     - USB sub-system
@@ -182,70 +183,70 @@ version - print monitor version
 
 Marvell&gt;&gt; printenv
 
-bootcmd=${x_bootcmd_usb}; ${x_bootcmd_kernel}; setenv bootargs ${x_bootargs} ${x_bootargs_root}; bootm 0x6400000;
-bootdelay=3
-baudrate=115200
-x_bootcmd_usb=usb start
-x_bootcmd_kernel=nand read.e 0x6400000 0x100000 0x400000
-x_bootargs=console=ttyS0,115200
-ethaddr=02:50:43:0a:b6:e1
-ipaddr=192.168.1.2
-serverip=192.168.1.123
-mainlineLinux=yes
-ethact=egiga0
-x_bootargs_root_factory=ubi.mtd=2 root=ubi0:rootfs rootfstype=ubifs
-x_bootargs_root=rootwait root=/dev/sda2
-stdin=serial
-stdout=serial
-stderr=serial
-eth1addr=02:50:43:7d:f2:4a
+bootcmd<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>x_bootcmd_usb<span style="color:#e6db74">}</span>; <span style="color:#e6db74">${</span>x_bootcmd_kernel<span style="color:#e6db74">}</span>; setenv bootargs <span style="color:#e6db74">${</span>x_bootargs<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>x_bootargs_root<span style="color:#e6db74">}</span>; bootm 0x6400000;
+bootdelay<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>
+baudrate<span style="color:#f92672">=</span><span style="color:#ae81ff">115200</span>
+x_bootcmd_usb<span style="color:#f92672">=</span>usb start
+x_bootcmd_kernel<span style="color:#f92672">=</span>nand read.e 0x6400000 0x100000 0x400000
+x_bootargs<span style="color:#f92672">=</span>console<span style="color:#f92672">=</span>ttyS0,115200
+ethaddr<span style="color:#f92672">=</span>02:50:43:0a:b6:e1
+ipaddr<span style="color:#f92672">=</span>192.168.1.2
+serverip<span style="color:#f92672">=</span>192.168.1.123
+mainlineLinux<span style="color:#f92672">=</span>yes
+ethact<span style="color:#f92672">=</span>egiga0
+x_bootargs_root_factory<span style="color:#f92672">=</span>ubi.mtd<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> root<span style="color:#f92672">=</span>ubi0:rootfs rootfstype<span style="color:#f92672">=</span>ubifs
+x_bootargs_root<span style="color:#f92672">=</span>rootwait root<span style="color:#f92672">=</span>/dev/sda2
+stdin<span style="color:#f92672">=</span>serial
+stdout<span style="color:#f92672">=</span>serial
+stderr<span style="color:#f92672">=</span>serial
+eth1addr<span style="color:#f92672">=</span>02:50:43:7d:f2:4a
 
 Marvell&gt;&gt; base
 
 Base Address: 0x00000000
 Marvell&gt;&gt; bdinfo
 
-arch_number = 0x00000A63
-env_t       = 0x00000000
-boot_params = 0x00000100
-DRAM bank   = 0x00000000
--&gt; start    = 0x00000000
--&gt; size     = 0x10000000
-DRAM bank   = 0x00000001
--&gt; start    = 0x10000000
--&gt; size     = 0x10000000
-DRAM bank   = 0x00000002
--&gt; start    = 0x00000000
--&gt; size     = 0x00000000
-DRAM bank   = 0x00000003
--&gt; start    = 0x00000000
--&gt; size     = 0x00000000
-ethaddr     = 02:50:43:0a:b6:e1
-ip_addr     = 192.168.1.2
-baudrate    = 115200 bps
+arch_number <span style="color:#f92672">=</span> 0x00000A63
+env_t       <span style="color:#f92672">=</span> 0x00000000
+boot_params <span style="color:#f92672">=</span> 0x00000100
+DRAM bank   <span style="color:#f92672">=</span> 0x00000000
+-&gt; start    <span style="color:#f92672">=</span> 0x00000000
+-&gt; size     <span style="color:#f92672">=</span> 0x10000000
+DRAM bank   <span style="color:#f92672">=</span> 0x00000001
+-&gt; start    <span style="color:#f92672">=</span> 0x10000000
+-&gt; size     <span style="color:#f92672">=</span> 0x10000000
+DRAM bank   <span style="color:#f92672">=</span> 0x00000002
+-&gt; start    <span style="color:#f92672">=</span> 0x00000000
+-&gt; size     <span style="color:#f92672">=</span> 0x00000000
+DRAM bank   <span style="color:#f92672">=</span> 0x00000003
+-&gt; start    <span style="color:#f92672">=</span> 0x00000000
+-&gt; size     <span style="color:#f92672">=</span> 0x00000000
+ethaddr     <span style="color:#f92672">=</span> 02:50:43:0a:b6:e1
+ip_addr     <span style="color:#f92672">=</span> 192.168.1.2
+baudrate    <span style="color:#f92672">=</span> <span style="color:#ae81ff">115200</span> bps
 
 Marvell&gt;&gt; usb start
 
-(Re)start USB...
-USB:   Register 10011 NbrPorts 1
+<span style="color:#f92672">(</span>Re<span style="color:#f92672">)</span>start USB...
+USB:   Register <span style="color:#ae81ff">10011</span> NbrPorts <span style="color:#ae81ff">1</span>
 USB EHCI 1.00
-scanning bus for devices... 3 USB Device(s) found
-       scanning bus for storage devices... Device NOT ready
-   Request Sense returned 00 00 00
-1 Storage Device(s) found
+scanning bus <span style="color:#66d9ef">for</span> devices... <span style="color:#ae81ff">3</span> USB Device<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> found
+       scanning bus <span style="color:#66d9ef">for</span> storage devices... Device NOT ready
+   Request Sense returned <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span>
+<span style="color:#ae81ff">1</span> Storage Device<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> found
 Marvell&gt;&gt; usb tree
 
 
 Device Tree:
-  1  Hub (480 Mb/s, 0mA)
+  <span style="color:#ae81ff">1</span>  Hub <span style="color:#f92672">(</span><span style="color:#ae81ff">480</span> Mb/s, 0mA<span style="color:#f92672">)</span>
   |  u-boot EHCI Host Controller
   |
-  |+-2  Hub (480 Mb/s, 100mA)
+  |+-2  Hub <span style="color:#f92672">(</span><span style="color:#ae81ff">480</span> Mb/s, 100mA<span style="color:#f92672">)</span>
     |   USB2.0 Hub
     |
-    |+-3  Mass Storage (480 Mb/s, 200mA)
+    |+-3  Mass Storage <span style="color:#f92672">(</span><span style="color:#ae81ff">480</span> Mb/s, 200mA<span style="color:#f92672">)</span>
          TDKMedia Transit 079C0903D5C8B88A
-</code></pre><ul>
+</code></pre></div><ul>
 <li>Kernel Boot</li>
 </ul>
 <pre><code>U-Boot 2010.03-01266-g42f7128 (Jul 14 2010 - 10:09:06)
@@ -818,8 +819,8 @@ x11-proto/xproto-7.0.16
         <span class="article-footer-nav">Prev: </span><a href="https://www.ty07.net/blog/guruplug-arrived/">Guruplug Arrived</a>
     </div>
     <div id="footer-for-smartphone">
-        <div>Article: 2009-2020 - ac1965 2020</div>
-        <div>Source code: CC0 - ac1965 2020</div>
+        <div>Article:  -  2020</div>
+        <div>Source code: CC0 -  2020</div>
         <div>Cited source codes are under the original licence</div>
     </div>
 

@@ -5,7 +5,8 @@
     <link>https://www.ty07.net/tags/guruplug/</link>
     <description>Recent content in guruplug on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
+    <language>ja</language>
+    <copyright>Copyright © 2009–2020, YAMASHITA Takao; all rights reserved.</copyright>
     <lastBuildDate>Fri, 16 Jul 2010 23:32:33 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/guruplug/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Guruplug Subquent</title>
@@ -16,10 +17,11 @@
       <description>guruplug が届いてから遊んだこと  U-Bootのアップデート Kernelのアップデート Debian RFS から Gentoo RFS に変更  以上は、確認ずみ。まぁ、いつもすることじゃないので放っておこう。
 wiki にあることで十分。Gentoo RFS については、感単なのは stage3 を持ってくることかな。 インストについては x86 とかと同じ。
 参考にしたポイント
- http://mark.ossdl.de/2009/09/gentoo-on-the-sheevaplug/  進行形  Pyblosxom + Paste + Nginx python アプリ関係ソフトの、KEYWORD が &amp;ldquo;arm&amp;rdquo; または &amp;ldquo;~arm&amp;rdquo; がついていないでやんの。  KEYWORD を無効にしてから、Nginx をインストールして、動作するまでは確認した。 Nginx の評判通り(軽くて/早い)ではない動作なので調整中。
+ http://mark.ossdl.de/2009/09/gentoo-on-the-sheevaplug/  進行形  Pyblosxom + Paste + Nginx  python アプリ関係ソフトの、KEYWORD が &amp;ldquo;arm&amp;rdquo; または &amp;ldquo;~arm&amp;rdquo; がついていないでやんの。
+KEYWORD を無効にしてから、Nginx をインストールして、動作するまでは確認した。 Nginx の評判通り(軽くて/早い)ではない動作なので調整中。
 Nginx + paster + Pyblosxom での動作は確認できたが、 唯一 wbgpager がダメだった。
 トライするのが面倒だったので、 Apache + mod_wsgi + Pyblosxom で現在は動作している。[2010-07-19]
-将来  HoneyPod の実装 GuruPlug でのアイデアソリューションとして、 やりたいことは HoneyPod の実装なんだな。体感的に、そんなに遅いマシンではないので期待しちゃっているのだが、 Nginx が上手く動作していないので期待は遠い。  あと iptables が kernel が変わってきちんと動作するかだな。</description>
+将来  HoneyPod の実装  GuruPlug でのアイデアソリューションとして、 やりたいことは HoneyPod の実装なんだな。体感的に、そんなに遅いマシンではないので期待しちゃっているのだが、 Nginx が上手く動作していないので期待は遠い。</description>
     </item>
     
     <item>
