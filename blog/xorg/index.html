@@ -67,8 +67,9 @@
 <article id="article-content">
     <p>GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。</p>
 <ul>
-<li>boot-update
-grubの設定支援かな？
+<li>boot-update</li>
+</ul>
+<p>grubの設定支援かな？
 <a href="http://www.funtoo.org/en/funtoo/core/boot/">boot-update</a>
 で記述されている代物です。
 grub-1.97+にしてみたが multiboot
@@ -79,60 +80,52 @@ grub-1.97+にしてみたが multiboot
 &ldquo;Backtrack 4&rdquo;
 は利用側の root-fs を無理やり埋め込まれているので、手直しが必要なのだ。
 まぁ、/boot/grub/grub.cfg
-を手修正すればよい。</li>
-</ul>
-<pre><code>boot {
+を手修正すればよい。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">boot <span style="color:#f92672">{</span>
 	path /boot
 	generate grub
-	default &quot;Funtoo Linux&quot;
-	timeout 3
-}
+	default <span style="color:#e6db74">&#34;Funtoo Linux&#34;</span>
+	timeout <span style="color:#ae81ff">3</span>
+<span style="color:#f92672">}</span>
 
-&quot;Funtoo Linux&quot; {
-	kernel /kernel-genkernel-x86[-v]
-	initrd initramfs-genkernel-x86[-v]
-	params += crypt_root=/dev/sdc2 root_keydev=/dev/sde1 root_key=/keyfile
-	params += dolvm real_root=/dev/mapper/LVG-root
-	params += i915.modeset=1 fbcon=map:1
-	params += ramdisk=8192 quiet init=/linuxrc
-}
+<span style="color:#e6db74">&#34;Funtoo Linux&#34;</span> <span style="color:#f92672">{</span>
+	kernel /kernel-genkernel-x86<span style="color:#f92672">[</span>-v<span style="color:#f92672">]</span>
+	initrd initramfs-genkernel-x86<span style="color:#f92672">[</span>-v<span style="color:#f92672">]</span>
+	params <span style="color:#f92672">+=</span> crypt_root<span style="color:#f92672">=</span>/dev/sdc2 root_keydev<span style="color:#f92672">=</span>/dev/sde1 root_key<span style="color:#f92672">=</span>/keyfile
+	params <span style="color:#f92672">+=</span> dolvm real_root<span style="color:#f92672">=</span>/dev/mapper/LVG-root
+	params <span style="color:#f92672">+=</span> i915.modeset<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> fbcon<span style="color:#f92672">=</span>map:1
+	params <span style="color:#f92672">+=</span> ramdisk<span style="color:#f92672">=</span><span style="color:#ae81ff">8192</span> quiet init<span style="color:#f92672">=</span>/linuxrc
+<span style="color:#f92672">}</span>
 
-&quot;Backtrack 4&quot; {
+<span style="color:#e6db74">&#34;Backtrack 4&#34;</span> <span style="color:#f92672">{</span>
 	kernel /bt4/vmlinuz
 	initrd /bt4/initrd.gz
-	params += BOOT=casper boot=casper persistent rw quiet
-	params += real_root=auto
-}
-</code></pre><ul>
-<li>xorg-1.8
-けっこう放置していたのでトライしてみた。</li>
+	params <span style="color:#f92672">+=</span> BOOT<span style="color:#f92672">=</span>casper boot<span style="color:#f92672">=</span>casper persistent rw quiet
+	params <span style="color:#f92672">+=</span> real_root<span style="color:#f92672">=</span>auto
+<span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>xorg-1.8</li>
 </ul>
-<ol>
-<li>MASKを外す</li>
-</ol>
+<p>けっこう放置していたのでトライしてみた。</p>
+<p>**  MASKを外す</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#39;x11-base/xorg-server&#39;</span> &gt;&gt; /etc/portage/package.unmask
 echo <span style="color:#e6db74">&#39;x11-base/xorg-server * ~* **&#39;</span> &gt;&gt; /etc/portage/package.keywords/x11-base
-</code></pre></div><ol start="3">
-<li>emege xorg-server
-USE=&ldquo;udev -hal&rdquo; で emerge したけど、キーボードとマウスが認識していない。予想はついていたので、sshd
+</code></pre></div><p>** emege xorg-server</p>
+<p>USE=&ldquo;udev -hal&rdquo; で emerge したけど、キーボードとマウスが認識していない。予想はついていたので、sshd
 をあげて別端末から
 pkill
-した。</li>
-</ol>
+した。</p>
 <p><a href="http://body0r.wordpress.com/2010/04/16/xorg-udev-toggle/">ここを参考</a>する。</p>
-<ol start="8">
-<li>emerge udev
-MASKを外して、udev をアップデート。</li>
-</ol>
+<p>** emerge udev</p>
+<p>MASKを外して、udev をアップデート。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#39;sys-fs/udev&#39;</span> &gt;&gt; /etc/portage/package.unmask
 echo <span style="color:#e6db74">&#39;sys-fs/udev * ~* **&#39;</span> &gt;&gt; /etc/portage/package.keywords/sys-fs
 emerge -u udev
-</code></pre></div><ol start="11">
-<li>udevルールの追加
+</code></pre></div><p>** udevルールの追加
+j
 /usr/share/X11/xorg.conf.d
 が system config なので、/etc/X11/xorg.conf.d を掘って
-キーボードとマウスの設定を追加。</li>
-</ol>
+キーボードとマウスの設定を追加。</p>
 <p>おけー。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># cat /etc/X11/xorg.conf.d/10-keyboard.conf</span>
 Section <span style="color:#e6db74">&#34;InputClass&#34;</span>
