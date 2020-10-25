@@ -40,6 +40,21 @@
     </item>
     
     <item>
+      <title>About</title>
+      <link>https://www.ty07.net/about/</link>
+      <pubDate>Tue, 28 Apr 2015 11:49:41 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/about/</guid>
+      <description>リンク   GitHub
+  Twitter
+  Facebook
+  Instagram
+  Lapras
+  PGP
+  </description>
+    </item>
+    
+    <item>
       <title>Hexo でハロー</title>
       <link>https://www.ty07.net/blog/hello-world/</link>
       <pubDate>Tue, 28 Apr 2015 08:49:41 +0900</pubDate>
@@ -271,21 +286,6 @@ Live CD のイメージ作成に、 以前は metro を使ってましたが、�
       
       <guid>https://www.ty07.net/search/data.js</guid>
       <description></description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://www.ty07.net/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.ty07.net/about/</guid>
-      <description>リンク   GitHub
-  Twitter
-  Facebook
-  Instagram
-  Lapras
-  PGP
-  </description>
     </item>
     
   </channel>
