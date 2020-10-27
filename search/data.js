@@ -18,12 +18,6 @@ date: "2015-04-28T14:24:13+09:00",
 body: "ArchAssault Packer すこしまとめてみる 前提 base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済み じつのところ Packer の細かい設定はわからん。Vagrant の box を作るパッケージであることは知っているが。 ということで、ベースの box を作ったら vagrat up でバシバシ環境をデプロイするほうがよいと思い始めている。 作成 $ git clone https://github.com/ac1965/archassault-packer.git $ cd archassult-packer $ packer build -only=virtualbox-iso template.json $ vagrant box add archassault packer_archassault_virtualbox.box $ vagrant init archassult $ vagrant up 手をつけているところ Cuckoo環境の半自動生成 Cuckooで簡易マルウェア自動解析をしよう ゲストOSの準備 あらかじめに ModernIE から Linux 版の Virtualboxイメージをダウンロードして、Python と PIL(Python Image Lirary)をインスコしておく。 cuckoo の agent.py を自動起動できるように agent.pwy にリネームして、自動起動できるようにしておく。 reg.exe ADD \u0026#34;HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\u0026#34; -v \u0026#34;Agent\u0026#34; -t REG_SZ -d \u0026#34;C:\\Python27\\agent.pyw\u0026#34; 参考 Archlinux ArchAssault Archlinux用のPackerテンプレ オレオレ Packer"
 },
 {
-url: "https://www.ty07.net/about/",
-title: "About",
-date: "2015-04-28T11:49:41+09:00",
-body: "About リンク GitHub Twitter Facebook Instagram Lapras PGP"
-},
-{
 url: "https://www.ty07.net/blog/hello-world/",
 title: "Hexo でハロー",
 date: "2015-04-28T08:49:41+09:00",
