@@ -3,7 +3,7 @@ var data = [
 url: "https://www.ty07.net/blog/hugo/",
 title: "Hugo",
 date: "2020-10-27T22:46:10+09:00",
-body: "Hugo ##　Hexo から Hugo サイトジェネレータを Hugo に変えてみた。 ##　インストール Homebrew がインストール済みとして、 $ brew update $ brew install hugo $ hugo new site hoge これで hoge ディレクトリーが作成され、その配下に雛形が作成される。 自分のサイトなので、ここは簡単に戻せることを前提に、GitPagesを使うことにする。 $ git clone https://github.com/ac1965/hugo-git.git $ cd hugo-git $ git submodule init $ git submodule update hugo コマンドで、publicディレクトリ下にコンテンツが生成される。"
+body: "Hugo Hexo から Hugo サイトジェネレータを Hugo に変えてみた。 インストール Homebrew がインストール済みとして、 $ brew update $ brew install hugo $ hugo new site hoge これで hoge ディレクトリーが作成され、その配下に雛形が作成される。 自分のサイトなので、ここは簡単に戻せることを前提に、GitPagesを使うことにする。 $ git clone https://github.com/ac1965/hugo-git.git $ cd hugo-git $ git submodule init $ git submodule update hugo コマンドで、publicディレクトリ下にコンテンツが生成される。"
 },
 {
 url: "https://www.ty07.net/blog/what-blog/",
