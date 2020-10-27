@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hugo on Not Good Father</title>
+    <link>https://www.ty07.net/tags/hugo/</link>
+    <description>Recent content in hugo on Not Good Father</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <copyright>Copyright © 2009–2020, YAMASHITA Takao; all rights reserved.</copyright>
+    <lastBuildDate>Tue, 27 Oct 2020 22:46:10 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo</title>
+      <link>https://www.ty07.net/blog/hugo/</link>
+      <pubDate>Tue, 27 Oct 2020 22:46:10 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/hugo/</guid>
+      <description>Hexo から Hugo サイトジェネレータを Hugo に変えてみた。
+インストール Homebrew がインストール済みとして、
+$ brew update $ brew install hugo $ hugo new site hoge これで hoge ディレクトリーが作成され、その配下に雛形が作成される。
+自分のサイトなので、ここは簡単に戻せることを前提に、GitPagesを使うことにする。
+$ git clone https://github.com/ac1965/hugo-git.git $ cd hugo-git $ git submodule init $ git submodule update hugo コマンドで、publicディレクトリ下にコンテンツが生成される。</description>
+    </item>
+    
+  </channel>
+</rss>
