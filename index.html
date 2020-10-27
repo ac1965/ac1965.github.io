@@ -48,6 +48,19 @@
 <h2 class="listing-title">Recent blogs</h2>
 <ul class="article-listing">
     <ul class="article-listing-item">
+    <span class="article-listing-title-big"><a href="https://www.ty07.net/blog/hugo/" title="Hugo">Hugo</a></span>
+    <span class="article-listing-date">Oct 27</span>
+    <br>
+    <div class="article-listing-summary">
+        ##　Hexo から Hugo
+サイトジェネレータを Hugo に変えてみた。
+##　インストール
+Homebrew がインストール済みとして、
+$ brew update $ brew install hugo $ hugo new site hoge これで hoge ディレクトリーが作成され、その配下に雛形が作成される。
+自分のサイトなので、ここは簡単に戻せることを前提に、GitPagesを使うことにする。
+$ git clone https://github.com/ac1965/hugo-git.git $ cd hugo-git $ git submodule init $ git submodule update hugo コマンドで、publicディレクトリ下にコンテンツが生成される。</div>
+</ul>
+<ul class="article-listing-item">
     <span class="article-listing-title-big"><a href="https://www.ty07.net/blog/what-blog/" title="What Blog">What Blog</a></span>
     <span class="article-listing-date">Jun 18</span>
     <br>
@@ -148,18 +161,6 @@ boot { path /boot generate grub default &#34;Funtoo Linux&#34; timeout 3 } &#34;
   http://www.fcc.gov/oet/ea/fccid/ FCCID は Grantee Code が &ldquo;YCJ&rdquo;、Product Code が &ldquo;003GP&rdquo;
   http://www.fcc.gov/oet/ea/fccid/ FCCID は Grantee Code が &ldquo;YCJ&rdquo;、Product Code が &ldquo;003GP&rdquo;
   </div>
-</ul>
-<ul class="article-listing-item">
-    <span class="article-listing-title-big"><a href="https://www.ty07.net/blog/guruplug/" title="Guruplug">Guruplug</a></span>
-    <span class="article-listing-date">Apr 14</span>
-    <br>
-    <div class="article-listing-summary">
-        1日目 guruplug が届く前に環境を作っておこう クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug Wiki に加筆したものも含めて、めもです。
-参考にしたポイント  cross-development Building Kernel GuruPlug  クロスコンパイルは GNU Hurd で遊んで以来、やっていなかったけど、Gentoo は楽ちんですね。
-クロスコンパイル環境のセットアップ # emerge -av portage-utils crossdev # crossdev armv5tel-softfloat-linux-gnueabi U-Boot とカーネルセットアップ これは Wiki に書いてあるとおり。 最後にmkimageをPATHの通っているところにコピーしておく。カーネル(uImage)でこけるので。
-# git clone git://git.denx.de/u-boot-marvell.git u-boot-marvell.git # cd u-boot-marvell.git # git checkout -b testing origin/testing # make mrproper # make guruplug_config # make u-boot.kwb CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- # cp tools/mkimage /usr/bin # wget http://www.plugcomputer.org/plugwiki/images/8/81/Guruplug-patchset.tar.bz2 # tar xfj Guruplug-patchset.tar.bz2 # git clone git://git.…
-        <span class="article-listing-readmore"><a href="https://www.ty07.net/blog/guruplug/">Read More…</a></span>
-        </div>
 </ul>
 </ul>
 
