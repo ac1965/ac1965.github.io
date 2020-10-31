@@ -72,19 +72,21 @@
     <h2 id="hexo-から-hugo">Hexo から Hugo</h2>
 <p>サイトジェネレータを <a href="https://https://gohugo.io">Hugo</a> に変えてみた。</p>
 <h2 id="インストール">インストール</h2>
-<p>Homebrew がインストール済みとして、</p>
+<p><a href="https://brew.sh/index_ja">Homebrew</a> がインストール済みとして、</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ brew update
 $ brew install hugo
 </code></pre></div><p>テーマは、conao3さんの <a href="https://github.com/conao3/anatole-ext">anatole-ext</a> にした。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ hugo new site hoge
 $ cd hoge
 $ git clone https://github.com/conao3/anatole-ext themes/anatole-ext
+$ hugo new posts/first-article.md
 </code></pre></div><p>これで hoge ディレクトリーが作成され、その配下に雛形が作成される。</p>
 <p>自分のサイトなので、ここは簡単に戻せることを前提に、GitPagesを使うことにする。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://github.com/ac1965/hugo-git.git
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone git@github.com:ac1965/hugo-blog.git ./hugo-blog
 $ cd hugo-git
 $ git submodule init
 $ git submodule update
+$ hugo
 </code></pre></div><p>hugo コマンドで、publicディレクトリ下にコンテンツが生成される。</p>
 </article>
 
