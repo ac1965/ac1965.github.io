@@ -57,7 +57,11 @@
 $ brew update $ brew install hugo テーマは、conao3さんの anatole-ext にした。
 $ hugo new site hoge $ cd hoge $ git clone https://github.com/conao3/anatole-ext themes/anatole-ext $ hugo new posts/first-article.md これで hoge ディレクトリーが作成され、その配下に雛形が作成される。
 自分のサイトなので、ここは簡単に戻せることを前提に、GitPagesを使うことにする。
-$ git clone git@github.com:ac1965/hugo-blog.git ./hugo-blog $ cd hugo-git $ git submodule init $ git submodule update $ hugo hugo コマンドで、publicディレクトリ下にコンテンツが生成される。</div>
+$ git clone git@github.com:ac1965/hugo-blog.git ./hugo-blog $ cd hugo-git $ git submodule init $ git submodule update $ hugo hugo コマンドで、publicディレクトリ下にコンテンツが生成される。
+ `deploy.sh'  hexo と大きく違うのは deploy は利用者まかせかな。
+私の環境では本体と公開用の gitリポジトリで管理していて、 本体は hugo-blog、公開用は ac1965.…
+        <span class="article-listing-readmore"><a href="https://www.ty07.net/blog/hugo/">Read More…</a></span>
+        </div>
 </ul>
 <ul class="article-listing-item">
     <span class="article-listing-title-big"><a href="https://www.ty07.net/blog/what-blog/" title="What Blog">What Blog</a></span>
