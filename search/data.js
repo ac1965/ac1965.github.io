@@ -1,11 +1,5 @@
 var data = [
 {
-url: "https://www.ty07.net/posts/sample/",
-title: "1 つの org ファイルから Hugo と Qiita の Markdown を生成する",
-date: "2020-10-31T00:00:00+09:00",
-body: "1 つの org ファイルから Hugo と Qiita の Markdown を生成する #+HUGO_SECTION blog テスト ox-hugo　のテスト;"
-},
-{
 url: "https://www.ty07.net/blog/hugo/",
 title: "Hugo",
 date: "2020-10-27T22:46:10+09:00",
