@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Not Good Father</title>
+    <link>https://www.ty07.net/posts/</link>
+    <description>Recent content in Posts on Not Good Father</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <copyright>&amp;copy; 2009-2020. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 31 Oct 2020 00:00:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1 つの org ファイルから Hugo と Qiita の Markdown を生成する</title>
+      <link>https://www.ty07.net/posts/sample/</link>
+      <pubDate>Sat, 31 Oct 2020 00:00:00 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/posts/sample/</guid>
+      <description>#+HUGO_SECTION blog
+テスト ox-hugo　のテスト;</description>
+    </item>
+    
+  </channel>
+</rss>

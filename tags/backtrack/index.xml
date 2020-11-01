@@ -10,10 +10,10 @@
     <lastBuildDate>Sun, 04 Apr 2010 17:50:17 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/backtrack/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Backtrack USB Encrypt</title>
-      <link>https://www.ty07.net/post/backtrack-usb-encrypt/</link>
+      <link>https://www.ty07.net/blog/backtrack-usb-encrypt/</link>
       <pubDate>Sun, 04 Apr 2010 17:50:17 +0900</pubDate>
       
-      <guid>https://www.ty07.net/post/backtrack-usb-encrypt/</guid>
+      <guid>https://www.ty07.net/blog/backtrack-usb-encrypt/</guid>
       <description>backtrack4のフォーラムを読んでいたら教えて君がいたのでフォローした。 内容は distro iso を更新する方法だったが、 bt4-customise.shで出来るよって。
 さらに変更したものをポストしておく。squashfs を LUKS でカプセルするもの。元ネタは下のURL
   http://forums.remote-exploit.org/backtrack-4-howto/25768-howto-bt4-pre-final-usb-encryption.html
@@ -23,10 +23,10 @@
     
     <item>
       <title>Backtrack Xmonad</title>
-      <link>https://www.ty07.net/post/backtrack-xmonad/</link>
+      <link>https://www.ty07.net/blog/backtrack-xmonad/</link>
       <pubDate>Mon, 08 Mar 2010 08:23:09 +0900</pubDate>
       
-      <guid>https://www.ty07.net/post/backtrack-xmonad/</guid>
+      <guid>https://www.ty07.net/blog/backtrack-xmonad/</guid>
       <description>backtrack4 に xmonad を入れてみた。
 
  $HOME/.xmonad/xmonad.hs  import XMonad import XMonad.Config.Kde import qualified XMonad.StackSet as W -- to shift and float windows main = xmonad $ kdeConfig { modMask = mod4Mask -- use the Windows button as mod , manageHook = manageHook kdeConfig &amp;lt;+&amp;gt; myManageHook } where myManageHook = composeAll . concat $ [ [ className =? c --&amp;gt; doFloat | c &amp;lt;- myFloats] , [ title =? t --&amp;gt; doFloat | t &amp;lt;- myOtherFloats] , [ className =?</description>

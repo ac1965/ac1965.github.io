@@ -10,10 +10,10 @@
     <lastBuildDate>Thu, 11 Feb 2010 15:14:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/picasaweb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Yet Another Picassaweb</title>
-      <link>https://www.ty07.net/post/yetanotherpicassaweb/</link>
+      <link>https://www.ty07.net/blog/yetanotherpicassaweb/</link>
       <pubDate>Thu, 11 Feb 2010 15:14:00 +0900</pubDate>
       
-      <guid>https://www.ty07.net/post/yetanotherpicassaweb/</guid>
+      <guid>https://www.ty07.net/blog/yetanotherpicassaweb/</guid>
       <description>たいそうなタイトルをつけてしまったが、そんな大したことではない。
 ケータイは Nokia N82 を使っているが、写真は Googleさんに置いている。 Picassaを使ってアップは面倒だったのでスクリプトを作っておいたのだが `git add&#39; していなかったのでディスク初期化で捨ててしまった。仕方がないので作り直し。
 なにかのために、めも。
