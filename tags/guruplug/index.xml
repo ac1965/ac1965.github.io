@@ -6,14 +6,14 @@
     <description>Recent content in guruplug on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <copyright>Copyright © 2009–2020, YAMASHITA Takao; all rights reserved.</copyright>
+    <copyright>&amp;copy; 2009-2020. All rights reserved.</copyright>
     <lastBuildDate>Fri, 16 Jul 2010 23:32:33 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/guruplug/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Guruplug Subquent</title>
-      <link>https://www.ty07.net/blog/guruplug-subquent/</link>
+      <link>https://www.ty07.net/post/guruplug-subquent/</link>
       <pubDate>Fri, 16 Jul 2010 23:32:33 +0900</pubDate>
       
-      <guid>https://www.ty07.net/blog/guruplug-subquent/</guid>
+      <guid>https://www.ty07.net/post/guruplug-subquent/</guid>
       <description>guruplug が届いてから遊んだこと  U-Bootのアップデート Kernelのアップデート Debian RFS から Gentoo RFS に変更  以上は、確認ずみ。まぁ、いつもすることじゃないので放っておこう。
 wiki にあることで十分。Gentoo RFS については、感単なのは stage3 を持ってくることかな。 インストについては x86 とかと同じ。
 参考にしたポイント
@@ -26,10 +26,10 @@ Nginx + paster + Pyblosxom での動作は確認できたが、 唯一 wbgpager 
     
     <item>
       <title>Guruplug Arrived</title>
-      <link>https://www.ty07.net/blog/guruplug-arrived/</link>
+      <link>https://www.ty07.net/post/guruplug-arrived/</link>
       <pubDate>Mon, 12 Jul 2010 23:31:13 +0900</pubDate>
       
-      <guid>https://www.ty07.net/blog/guruplug-arrived/</guid>
+      <guid>https://www.ty07.net/post/guruplug-arrived/</guid>
       <description>出遅れの感は否めないが（まぁ人柱が多数いるので力強いけど） やっと Guruplug Std. が届いた。
 もしかしたら、Plus 注文と間違えられてかも。 一昨日GlobalScale社に「まだ発送しない? 」のメールを送った際に、 「俺が頼んだのは Plus じゃないよ」と付け加えたら翌日に 「明日送るから」っていうメールが入っていたんだ。
 熱くなるのは Plus 同様かも。どこまで熱くなるかは、次回。 (週末かな。でも、なんかイベントあったような気がする&amp;hellip;)
@@ -40,10 +40,10 @@ JTAG ボード 1 を繋ぎ、FTDI USB シリアルデバイス(例では ttyUSB0
     
     <item>
       <title>Guruplug Fcc</title>
-      <link>https://www.ty07.net/blog/guruplug-fcc/</link>
+      <link>https://www.ty07.net/post/guruplug-fcc/</link>
       <pubDate>Mon, 26 Apr 2010 22:25:00 +0900</pubDate>
       
-      <guid>https://www.ty07.net/blog/guruplug-fcc/</guid>
+      <guid>https://www.ty07.net/post/guruplug-fcc/</guid>
       <description>plugcomputer.org の フォーラム を読んでいたらFCC の情報があった。もうそろそろ配送かな。
   http://www.fcc.gov/oet/ea/fccid/ FCCID は Grantee Code が &amp;ldquo;YCJ&amp;rdquo;、Product Code が &amp;ldquo;003GP&amp;rdquo;
   http://www.fcc.gov/oet/ea/fccid/ FCCID は Grantee Code が &amp;ldquo;YCJ&amp;rdquo;、Product Code が &amp;ldquo;003GP&amp;rdquo;
@@ -52,10 +52,10 @@ JTAG ボード 1 を繋ぎ、FTDI USB シリアルデバイス(例では ttyUSB0
     
     <item>
       <title>Guruplug</title>
-      <link>https://www.ty07.net/blog/guruplug/</link>
+      <link>https://www.ty07.net/post/guruplug/</link>
       <pubDate>Wed, 14 Apr 2010 23:31:13 +0900</pubDate>
       
-      <guid>https://www.ty07.net/blog/guruplug/</guid>
+      <guid>https://www.ty07.net/post/guruplug/</guid>
       <description>1日目 guruplug が届く前に環境を作っておこう クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug Wiki に加筆したものも含めて、めもです。
 参考にしたポイント  cross-development Building Kernel GuruPlug  クロスコンパイルは GNU Hurd で遊んで以来、やっていなかったけど、Gentoo は楽ちんですね。
 クロスコンパイル環境のセットアップ # emerge -av portage-utils crossdev # crossdev armv5tel-softfloat-linux-gnueabi U-Boot とカーネルセットアップ これは Wiki に書いてあるとおり。 最後にmkimageをPATHの通っているところにコピーしておく。カーネル(uImage)でこけるので。
@@ -64,10 +64,10 @@ JTAG ボード 1 を繋ぎ、FTDI USB シリアルデバイス(例では ttyUSB0
     
     <item>
       <title>Guruplug Std</title>
-      <link>https://www.ty07.net/blog/guruplug-std/</link>
+      <link>https://www.ty07.net/post/guruplug-std/</link>
       <pubDate>Thu, 18 Feb 2010 20:00:43 +0900</pubDate>
       
-      <guid>https://www.ty07.net/blog/guruplug-std/</guid>
+      <guid>https://www.ty07.net/post/guruplug-std/</guid>
       <description>今なら(2/28/2010まで)、JTAGモジュールが無料の組み込み 今なら(2/28/2010まで)、JTAGモジュールが無料の組み込みLinuxキットの guruplug std. の注文をした。４月から配送が始まるので５月までには届くだろうか。
  http://www.plugcomputer.org/ http://plugcomputer.org/plugwiki/index.php?title=Main_Page http://www.openplug.org/data/  </description>
     </item>

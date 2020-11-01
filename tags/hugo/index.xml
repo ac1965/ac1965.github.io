@@ -6,14 +6,14 @@
     <description>Recent content in hugo on Not Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
-    <copyright>Copyright © 2009–2020, YAMASHITA Takao; all rights reserved.</copyright>
+    <copyright>&amp;copy; 2009-2020. All rights reserved.</copyright>
     <lastBuildDate>Tue, 27 Oct 2020 22:46:10 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hugo</title>
-      <link>https://www.ty07.net/blog/hugo/</link>
+      <link>https://www.ty07.net/post/hugo/</link>
       <pubDate>Tue, 27 Oct 2020 22:46:10 +0900</pubDate>
       
-      <guid>https://www.ty07.net/blog/hugo/</guid>
+      <guid>https://www.ty07.net/post/hugo/</guid>
       <description>Hexo から Hugo サイトジェネレータを Hugo に変えてみた。
 インストール Homebrew がインストール済みとして、
 $ brew update $ brew install hugo テーマは、conao3さんの anatole-ext にした。
