@@ -113,6 +113,15 @@ blockquote {
     text-decoration: none;
 }
 
+#sidebar-title-desc {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 0.7em;
+    display: block;
+    margin-top: 1rem;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
 #sidebar-social-links {
     margin-top: 0.5rem;
     padding: 0;
