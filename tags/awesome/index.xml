@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>awesome on Not Good Father</title>
+    <link>https://www.ty07.net/tags/awesome/</link>
+    <description>Recent content in awesome on Not Good Father</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <copyright>&amp;copy; 2009-2020. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 13 Feb 2010 22:42:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/awesome/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>awesome window manager</title>
+      <link>https://www.ty07.net/blog/2010-ad26-26d8/</link>
+      <pubDate>Sat, 13 Feb 2010 22:42:00 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/2010-ad26-26d8/</guid>
+      <description>awesome　の設定をしなおしをした。そんなに変更はしていないように見えるけど、tag(他のWMでいうこところのワークスペース）を動的に生成する shifty というのを使ってみた。
+ git://github.com/bioe007/awesome-configs.git  </description>
+    </item>
+    
+    <item>
+      <title>awesome window manager</title>
+      <link>https://www.ty07.net/blog/2009-7fbf-eb13/</link>
+      <pubDate>Sun, 29 Nov 2009 16:08:00 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/2009-7fbf-eb13/</guid>
+      <description>awesome をいじくりまくっています。 他の人の設定を真似して、 githubのリポジトリに追加しました。
+[[http://www.lares.dti.ne.jp/~jargon/uploads/20091129-root_ss.png]]
+ git clone git://shikamaru.fr/config.git http://senyorcaos.homelinux.org/git/?p=awesome34.git;a=blob;f=rc.lua;h=60acb353e4e4c065e9d3fa4bfdbdb4fd4fed93fd;hb=HEAD  </description>
+    </item>
+    
+    <item>
+      <title>awesome window manager</title>
+      <link>https://www.ty07.net/blog/2009-7fbf-eb11/</link>
+      <pubDate>Sun, 29 Nov 2009 10:31:00 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/blog/2009-7fbf-eb11/</guid>
+      <description>最近ウィンドマネジャーを awesome に変更した。 軽量で高機能って感じです。
+スクリーンショットのVLCで再生しているのは、動画ページにあった「悪魔のキッス」です。 最近結婚された常盤貴子さんを祝して入れてみました :-) [[[古いサイトのため画像なし]http://www.lares.dti.ne.jp/~jargon/uploads/awesome-ss.png]]</description>
+    </item>
+    
+  </channel>
+</rss>

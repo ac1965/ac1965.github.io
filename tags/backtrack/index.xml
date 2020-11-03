@@ -7,29 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
     <copyright>&amp;copy; 2009-2020. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 04 Apr 2010 17:50:17 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/backtrack/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Apr 2010 17:50:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/backtrack/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Backtrack USB Encrypt</title>
-      <link>https://www.ty07.net/blog/backtrack-usb-encrypt/</link>
-      <pubDate>Sun, 04 Apr 2010 17:50:17 +0900</pubDate>
+      <title>USB Encrypt for backtrack</title>
+      <link>https://www.ty07.net/blog/2010-3bdc-01ca/</link>
+      <pubDate>Sun, 04 Apr 2010 17:50:00 +0900</pubDate>
       
-      <guid>https://www.ty07.net/blog/backtrack-usb-encrypt/</guid>
+      <guid>https://www.ty07.net/blog/2010-3bdc-01ca/</guid>
       <description>backtrack4のフォーラムを読んでいたら教えて君がいたのでフォローした。 内容は distro iso を更新する方法だったが、 bt4-customise.shで出来るよって。
 さらに変更したものをポストしておく。squashfs を LUKS でカプセルするもの。元ネタは下のURL
   http://forums.remote-exploit.org/backtrack-4-howto/25768-howto-bt4-pre-final-usb-encryption.html
   bt4-customise.sh [original]
   #!/bin/bash  btisoname=bt4.iso btmodisoname=`basename $btisoname .iso`-mod.iso luks_image=0 count=2560000 clear echo &amp;#34;##############################################################&amp;#34; echo &amp;#34;[*] BackTrack 4 customisation script&amp;#34; echo &amp;#34;[*] Setting up the build environment...&amp;#34; services=&amp;#34;inetutils-inetd tinyproxy iodined knockd openvpn atftpd ntop nstxd nstxcd apache2 sendmail atd dhcp3-server winbind miredo miredo-server pcscd wicd wacom cups bluetooth binfmt-support mysql vmware vboxdrv kvm nessusd&amp;#34; test -d mnt || mkdir -p mnt test -d extract-cd || mkdir -p extract-cd test -d squashfs || mkdir -p squashfs test -d container || mkdir -p container mount -o loop,ro $btisoname mnt/ rsync --exclude=/casper/filesystem.</description>
-    </item>
-    
-    <item>
-      <title>Backtrack Xmonad</title>
-      <link>https://www.ty07.net/blog/backtrack-xmonad/</link>
-      <pubDate>Mon, 08 Mar 2010 08:23:09 +0900</pubDate>
-      
-      <guid>https://www.ty07.net/blog/backtrack-xmonad/</guid>
-      <description>backtrack4 に xmonad を入れてみた。
-
- $HOME/.xmonad/xmonad.hs  import XMonad import XMonad.Config.Kde import qualified XMonad.StackSet as W -- to shift and float windows main = xmonad $ kdeConfig { modMask = mod4Mask -- use the Windows button as mod , manageHook = manageHook kdeConfig &amp;lt;+&amp;gt; myManageHook } where myManageHook = composeAll . concat $ [ [ className =? c --&amp;gt; doFloat | c &amp;lt;- myFloats] , [ title =? t --&amp;gt; doFloat | t &amp;lt;- myOtherFloats] , [ className =?</description>
     </item>
     
   </channel>
