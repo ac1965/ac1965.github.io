@@ -52,11 +52,7 @@
     <span class="article-listing-date">Oct 27</span>
     <br>
     <div class="article-listing-summary">
-        Hexo から Hugo サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが :-)
-インストール Homebrew はインストール済みとして、
-$ brew update $ brew install hugo テーマは、conao3さん の anatole-ext にした。
-$ hugo new site hoge $ cd hoge $ git clone https://github.com/conao3/anatole-ext themes/anatole-ext $ hugo new posts/first-article.md これで hoge ディレクトリーが作成され、その配下に雛形が作成される。
-自分用のメモ 展開 $ git clone git@github.com:ac1965/hugo-blog.git ./hugo-blog $ cd hugo-git $ git submodule init $ git submodule update $ git submodule foreach git pull origin master $ hugo hugo コマンドで、publicディレクトリ下にコンテンツが生成される。…
+        Hexo から Hugo サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが 😁 EMOJI-CHEAT-SHEET インストール Homebrew はインストール済み…
         <span class="article-listing-readmore"><a href="https://www.ty07.net/blog/2020-64ac-ab0e/">Read More…</a></span>
         </div>
 </ul>
@@ -65,27 +61,25 @@ $ hugo new site hoge $ cd hoge $ git clone https://github.com/conao3/anatole-ext
     <span class="article-listing-date">Jun 18</span>
     <br>
     <div class="article-listing-summary">
-        ブログってw 毎日記録するものだから、筆不精の自分に向いていないのは知っている。 紙の日記も三日坊主だしね。
-そもそも、ブログは作っては壊して、結局ログとして残っていないのが大半なのだ。
-日記はのび太の日記になりそう。
-「眠い」 「お腹が空いた」 とか、でもそう考えると、のび太はツィッターだったらヘビー級だろうな(笑)</div>
+        ブログってw 毎日記録するものだから、筆不精の自分に向いていないのは知っている。 紙の日記も三日坊主だしね。 そもそも、ブログは作っては壊して、結…
+        <span class="article-listing-readmore"><a href="https://www.ty07.net/blog/2016-d5bf-eafd/">Read More…</a></span>
+        </div>
 </ul>
 <ul class="article-listing-item">
     <span class="article-listing-title-big"><a href="https://www.ty07.net/blog/2016-fbf9-cc8d/" title="健康診断">健康診断</a></span>
     <span class="article-listing-date">May 7</span>
     <br>
     <div class="article-listing-summary">
-        定期検診 今日は60日ぶりの定期検診。
-血圧は正常。主治医には「血圧だけは、正常ですね」なんて言われる有様。 お薬もいただかなくては、ゾロばかりだけど。 </div>
+        定期検診 今日は60日ぶりの定期検診。 血圧は正常。主治医には「血圧だけは、正常ですね」なんて言われる有様。 お薬もいただかなくては、ゾロばかりだ…
+        <span class="article-listing-readmore"><a href="https://www.ty07.net/blog/2016-fbf9-cc8d/">Read More…</a></span>
+        </div>
 </ul>
 <ul class="article-listing-item">
     <span class="article-listing-title-big"><a href="https://www.ty07.net/blog/2015-92a5-278e/" title="Using Packer for Archassult">Using Packer for Archassult</a></span>
     <span class="article-listing-date">Apr 28</span>
     <br>
     <div class="article-listing-summary">
-        すこしまとめてみる 前提  base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済み  じつのところ Packer の細かい設定はわからん。Vagrant の box を作るパッケージであることは知っているが。 ということで、ベースの box を作ったら vagrat up でバシバシ環境をデプロイするほうがよいと思い始めている。
-作成 $ git clone https://github.com/ac1965/archassault-packer.git $ cd archassult-packer $ packer build -only=virtualbox-iso template.json $ vagrant box add archassault packer_archassault_virtualbox.box $ vagrant init archassult $ vagrant up 手をつけているところ Cuckoo環境の半自動生成 * Cuckooで簡易マルウェア自動解析をしよう
-* ゲストOSの準備 あらかじめに ModernIE から Linux 版の Virtualboxイメージをダウンロードして、Python と PIL(Python Image Lirary)をインスコしておく。 cuckoo の agent.…
+        すこしまとめてみる 前提 base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済…
         <span class="article-listing-readmore"><a href="https://www.ty07.net/blog/2015-92a5-278e/">Read More…</a></span>
         </div>
 </ul>
@@ -94,12 +88,7 @@ $ hugo new site hoge $ cd hoge $ git clone https://github.com/conao3/anatole-ext
     <span class="article-listing-date">Apr 28</span>
     <br>
     <div class="article-listing-summary">
-        Welcome to Hexo!
-環境  OS X Yosemite 10.10.3 Node.js  $ git clone git://github.com/creationix/nvm.git ~/.nvm $ test -f ~/.nvm/nvm.sh &amp;&amp; source ~/.nvm/nvm.sh $ nvm ls-remote $ nvm install 0.12.2 $ node -v v0.12.2 前準備 github でリポジトリほっておく。これは空っぽでよい。
-例： Macのbrewでhubをインスコしてた場合
-cd ~/Documents/github mkdir ac1965.github.io cd ac1965.github.io hub init hub create ac1965/ac1965.github.io Hexo インストール $ npm install -g hexo 準備（ブログ用のディレクトリを作る） hexo init フォルダ
-フォルダ指定がないと、カレントに作るのでフォルダ指定しておこう。
-cd ~/Documents $ hexo init site $ cd site $ npm install 動作確認 $ hexo server この状態でウェブ・ブラウザからhttp://localhost:4000で確認してみる。…
+        Welcome to Hexo! 環境 OS X Yosemite 10.10.3 Node.js $ git clone git://github.com/creationix/nvm.git ~/.nvm $ test -f ~/.nvm/nvm.sh &amp;&amp; source ~/.nvm/nvm.sh $ nvm ls-remote $ nvm install 0.12.2 $ node -v v0.12.2 前準備 github でリポジトリほっておく。これは空っぽでよい。 例： Macのbrewで…
         <span class="article-listing-readmore"><a href="https://www.ty07.net/blog/2015-984a-97f1/">Read More…</a></span>
         </div>
 </ul>
@@ -108,23 +97,16 @@ cd ~/Documents $ hexo init site $ cd site $ npm install 動作確認 $ hexo serv
     <span class="article-listing-date">Jul 31</span>
     <br>
     <div class="article-listing-summary">
-        「四季・ユートピアノ」または「中尾幸世」という女優(朗読家)を知っているだろうか?
-NHKで約20年前に放映した番組の作品である。 演出は世界の佐々木昭一郎 で中尾さんとは2回目の作品となっている。 中尾さんについての情報は微音空間 中尾幸世に詳しく書かれている。
-先週の金曜日(2010-07-30)、45年目の誕生日として自分を祝うために、渋谷のユーロスペースで開催された上映会「佐々木昭一郎というジャンル」の最終日を観賞した。 当日は中尾幸世さんがトークするという情報があったので前売を早めに取った。 お蔭様で満員のユーロスペースでよい席で「四季・ユートピアノ」を懐かしく観れた。
-  </div>
+        「四季・ユートピアノ」または「中尾幸世」という女優(朗読家)を知っているだろうか? NHKで約20年前に放映した番組の作品である。 演出は世界の…
+        <span class="article-listing-readmore"><a href="https://www.ty07.net/blog/2010-ae11-dbbf/">Read More…</a></span>
+        </div>
 </ul>
 <ul class="article-listing-item">
     <span class="article-listing-title-big"><a href="https://www.ty07.net/blog/2010-4ca5-ca76/" title="Guruplug Subquent">Guruplug Subquent</a></span>
     <span class="article-listing-date">Jul 16</span>
     <br>
     <div class="article-listing-summary">
-        guruplug が届いてから遊んだこと  U-Bootのアップデート Kernelのアップデート Debian RFS から Gentoo RFS に変更  以上は、確認ずみ。まぁ、いつもすることじゃないので放っておこう。
-wiki にあることで十分。Gentoo RFS については、感単なのは stage3 を持ってくることかな。 インストについては x86 とかと同じ。
-参考にしたポイント
- http://mark.ossdl.de/2009/09/gentoo-on-the-sheevaplug/  進行形  Pyblosxom + Paste + Nginx  python アプリ関係ソフトの、KEYWORD が &ldquo;arm&rdquo; または &ldquo;~arm&rdquo; がついていないでやんの。
-KEYWORD を無効にしてから、Nginx をインストールして、動作するまでは確認した。 Nginx の評判通り(軽くて/早い)ではない動作なので調整中。
-Nginx + paster + Pyblosxom での動作は確認できたが、 唯一 wbgpager がダメだった。
-トライするのが面倒だったので、 Apache + mod_wsgi + Pyblosxom で現在は動作している。[2010-07-19 Mon]将来  HoneyPod の実装  GuruPlug でのアイデアソリューションとして、 やりたいことは HoneyPod の実装なんだな。体感的に、そんなに遅いマシンではないので期待しちゃっているのだが、 Nginx が上手く動作していないので期待は遠い。…
+        guruplug が届いてから遊んだこと U-Bootのアップデート Kernelのアップデート Debian RFS から Gentoo RFS に変更 以上は、確認ずみ。まぁ、いつもすることじゃない…
         <span class="article-listing-readmore"><a href="https://www.ty07.net/blog/2010-4ca5-ca76/">Read More…</a></span>
         </div>
 </ul>
@@ -133,14 +115,7 @@ Nginx + paster + Pyblosxom での動作は確認できたが、 唯一 wbgpager 
     <span class="article-listing-date">Jul 12</span>
     <br>
     <div class="article-listing-summary">
-        出遅れの感は否めないが（まぁ人柱が多数いるので力強いけど） やっと Guruplug Std. が届いた。
-もしかしたら、Plus 注文と間違えられてかも。 一昨日GlobalScale社に「まだ発送しない? 」のメールを送った際に、 「俺が頼んだのは Plus じゃないよ」と付け加えたら翌日に 「明日送るから」っていうメールが入っていたんだ。
-熱くなるのは Plus 同様かも。どこまで熱くなるかは、次回。 (週末かな。でも、なんかイベントあったような気がする&hellip;)
-おきまりの first impression ということで、お写真を 前のブログサイトにアップロードした画像なのでないw
-JTAG ボード 1 を繋ぎ、FTDI USB シリアルデバイス(例では ttyUSB0)を確認したら
-:CUSTOM_ID: jtag-ボード-1-を繋ぎftdi-usb-シリアルデバイス例では-ttyusb0を確認したら
-usb 2-2: FTDI USB Serial Device converter now attached to &lt;font color=&#34;red&#34;&gt;ttyUSB0 screen /dev/ttyUSB0 115200 でターミナルをあげておく。
- U-Bootの確認  U-Boot 2009.11-rc1-00602-g8e6db3d (Dec 24 2009 - 03:11:17) Marvell-Plug2 SoC: Kirkwood 88F6281_A0 DRAM: 512 MB NAND: 512 MiB In: serial Out: serial Err: serial Net: egiga0 88E1121 Initialized on egiga0 Hit any key to stop autoboot: 3  0 Marvell&gt;&gt; help ?…
+        出遅れの感は否めないが（まぁ人柱が多数いるので力強いけど） やっと Guruplug Std. が届いた。 もしかしたら、Plus 注文と間違えられてかも。 一昨日Globa…
         <span class="article-listing-readmore"><a href="https://www.ty07.net/blog/2010-e6dc-e8c7/">Read More…</a></span>
         </div>
 </ul>
@@ -149,9 +124,7 @@ usb 2-2: FTDI USB Serial Device converter now attached to &lt;font color=&#34;re
     <span class="article-listing-date">Jun 1</span>
     <br>
     <div class="article-listing-summary">
-        GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。
-boot-update grubの設定支援かな？ boot-update で記述されている代物です。 grub-1.97+にしてみたが multiboot にはまだ調整されていないみたい。 次のように記述して(/etc/boot.conf)、 `boot-update' とタイプインするればよい。楽チンだけど、 &ldquo;Backtrack 4&rdquo; は利用側の root-fs を無理やり埋め込まれているので、手直しが必要なのだ。 まぁ、/boot/grub/grub.cfg を手修正すればよい。
-boot { path /boot generate grub default &#34;Funtoo Linux&#34; timeout 3 } &#34;Funtoo Linux&#34; { kernel /kernel-genkernel-x86[-v] initrd initramfs-genkernel-x86[-v] params += crypt_root=/dev/sdc2 root_keydev=/dev/sde1 root_key=/keyfile params += dolvm real_root=/dev/mapper/LVG-root params += i915.modeset=1 fbcon=map:1 params += ramdisk=8192 quiet init=/linuxrc } &#34;Backtrack 4&#34; { kernel /bt4/vmlinuz initrd /bt4/initrd.gz params += BOOT=casper boot=casper persistent rw quiet params += real_root=auto } xorg-1.…
+        GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。 boot-update grubの設定支援かな？ boot-update で記述されている代物です。 grub-1.9…
         <span class="article-listing-readmore"><a href="https://www.ty07.net/blog/2010-bba0-bea3/">Read More…</a></span>
         </div>
 </ul>

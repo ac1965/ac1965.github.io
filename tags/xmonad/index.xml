@@ -14,9 +14,7 @@
       <pubDate>Mon, 08 Mar 2010 08:23:00 +0900</pubDate>
       
       <guid>https://www.ty07.net/blog/2010-3be9-c756/</guid>
-      <description>backtrack4 に xmonad を入れてみた。
-[[http://www.lares.dti.ne.jp/~jargon/uploads/backtrack4-xmonad.png]]
- $HOME/.xmonad/xmonad.hs  import XMonad import XMonad.Config.Kde import qualified XMonad.StackSet as W -- to shift and float windows main = xmonad $ kdeConfig { modMask = mod4Mask -- use the Windows button as mod , manageHook = manageHook kdeConfig &amp;lt;+&amp;gt; myManageHook } where myManageHook = composeAll . concat $ [ [ className =? c --&amp;gt; doFloat | c &amp;lt;- myFloats] , [ title =? t --&amp;gt; doFloat | t &amp;lt;- myOtherFloats] , [ className =?</description>
+      <description>backtrack4 に xmonad を入れてみた。 [[http://www.lares.dti.ne.jp/~jargon/uploads/backtrack4-xmonad.png]] $HOME/.xmonad/xmonad.hs import XMonad import XMonad.Config.Kde import qualified XMonad.StackSet as W -- to shift and float windows main = xmonad $ kdeConfig { modMask = mod4Mask -- use the Windows button as mod , manageHook = manageHook kdeConfig &amp;lt;+&amp;gt; myManageHook } where myManageHook = composeAll . concat $ [ [ className =? c --&amp;gt; doFloat | c &amp;lt;- myFloats] ,</description>
     </item>
     
     <item>
@@ -25,8 +23,7 @@
       <pubDate>Sat, 06 Mar 2010 19:50:00 +0900</pubDate>
       
       <guid>https://www.ty07.net/blog/2010-1620-4255/</guid>
-      <description>awsome 最高と思っていたけど、Xmonad はさらにいいです。 キーボードで操作できて、awesome とは違い設定ファイルがヘタっても前の設定で動作するので使っている側としては安全だよね。 awesome でいいなと思ってたものは大体ある。 bioe007 が書いた awesome の revelation は好きだったのでの、こういうのは xmonad にないか探しているところ。
- git clone git://github.com/jelly/dotfiles.git  </description>
+      <description>awsome 最高と思っていたけど、Xmonad はさらにいいです。 キーボードで操作できて、awesome とは違い設定ファイルがヘタっても前の設定で動作す</description>
     </item>
     
   </channel>
