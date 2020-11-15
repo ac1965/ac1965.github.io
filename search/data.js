@@ -1,9 +1,15 @@
 var data = [
 {
+url: "https://www.ty07.net/blog/2020-4b4f-83fe/",
+title: "iPhone 12 Pro",
+date: "2020-11-15T08:53:00+09:00",
+body: "iPhone 12 Pro 変え替え時ということで、iPhone を 8plus から 12pro に機種変更をした。 8plus からの変更で大きいのは顔認証に変わったことだが、それよりも少しだけ小さいのだが、いい感じ。 一通りアプリの復元、Walletの復元をした。 一番面倒だったのが、なんとかPay系のアプリ。これは再認証を必要とするものがあったから。 箱から開けた PCだけの光"
+},
+{
 url: "https://www.ty07.net/blog/2020-64ac-ab0e/",
 title: "Hugo",
 date: "2020-10-27T22:46:00+09:00",
-body: "Hugo Hexo から Hugo サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが 😁 EMOJI-CHEAT-SHEET インストール Homebrew はインストール済みとして、 $ brew update $ brew install hugo テーマは、conao3さん の anatole-ext にした。 $ hugo new site hoge $ cd hoge $ git clone https://github.com/conao3/anatole-ext themes/anatole-ext $ hugo new posts/first-article.md これで hoge ディレクトリーが作成され、その配下に雛形が作成される。 自分用のメモ 展開 $ git clone git@github.com:ac1965/hugo-blog.git ./hugo-blog $ cd hugo-blog $ git submodule init $ git submodule update $ git submodule foreach git pull origin master $ hugo hugo コマンドで、publicディレクトリ下にコンテンツが生成される。 `deploy.sh' hexo と大きく違うのは deploy は利用者まかせかな。 私の環境では本体と公開用の gitリポジトリで管理していて、 本体は hugo-blog、公開用は ac1965.github.com で分けている。 #! /bin/bash hugo=~/devel/src/github.com/ac1965/hugo-blog public=~/devel/src/github.com/ac1965/ac1965.github.io abort () { echo -e \u0026#34;\\033[1;30m\u0026gt;\\033[0;31m\u0026gt;\\033[1;31m\u0026gt; ERROR:\\033[0m${@}\\n\u0026#34; \u0026amp;\u0026amp; exit } info () { echo -e \u0026#34;\\033[1;30m\u0026gt;\\033[0;36m\u0026gt;\\033[1;36m\u0026gt; \\033[0m${@}\\n\u0026#34; } warn () { echo -e \u0026#34;\\033[1;30m\u0026gt;\\033[0;33m\u0026gt;\\033[1;33m\u0026gt; \\033[0m${@}\\n\u0026#34; } test -d ${hugo} \u0026amp;\u0026amp; cd ${hugo} || abort \u0026#34;${hogo}directory not found.\u0026#34; # clean public rm -fr public info \u0026#34;Deploying updates to GitHub...\u0026#34; # Build the project. hugo # if using a theme, replace with `hugo -t \u0026lt;YOURTHEME\u0026gt;` # Go To Public folder test -d ${public} \u0026amp;\u0026amp; cd ${public} || exit info \u0026#34;rsync..\u0026#34; rsync -at --delete --exclude=\u0026#34;.git\u0026#34; ${hugo}/public/. . # Add changes to git. git add . git commit -avm \u0026#34;update:$(env LANG=C date)\u0026#34; \u0026amp;\u0026amp; git push"
+body: "Hugo Hexo から Hugo サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが 😁 EMOJI-CHEAT-SHEET インストール Homebrew はインストール済みとして、 $ brew update $ brew install hugo テーマは、conao3さん の anatole-ext にした。 $ hugo new site hoge $ cd hoge $ git clone https://github.com/conao3/anatole-ext themes/anatole-ext $ hugo new posts/first-article.md これで hoge ディレクトリーが作成され、その配下に雛形が作成される。 自分用のメモ 展開 $ git clone git@github.com:ac1965/hugo-blog.git ./hugo-blog $ cd hugo-blog $ git submodule init $ git submodule update $ git submodule foreach git pull origin master $ hugo hugo コマンドで、publicディレクトリ下にコンテンツが生成される。 `deploy.sh' hexo と大きく違うのは deploy は利用者まかせかな。 私の環境では本体と公開用の gitリポジトリで管理していて、 本体は hugo-blog、公開用は ac1965.github.com で分けている。 #+BEGIN_SRC sh #! /bin/bash hugo=~/devel/src/github.com/ac1965/hugo-blog public=~/devel/src/github.com/ac1965/ac1965.github.io"
 },
 {
 url: "https://www.ty07.net/blog/2016-d5bf-eafd/",
