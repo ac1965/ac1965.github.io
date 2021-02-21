@@ -53,6 +53,10 @@ figure > img {
     display: block;
 }
 
+img {
+    width: 100%;
+}
+
 blockquote {
     background: rgba(0, 0, 0, 0.2);
     margin: 3rem 0;
