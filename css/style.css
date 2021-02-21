@@ -47,14 +47,14 @@ p > a {
     margin: 0 0.2rem;
 }
 
+img {
+    max-width: 100%;
+}
+
 figure > img {
     margin: 3rem auto;
     max-width: 100%;
     display: block;
-}
-
-img {
-    width: 100%;
 }
 
 blockquote {
