@@ -1,5 +1,17 @@
 var data = [
 {
+url: "https://www.ty07.net/blog/2021-ae45-5638/",
+title: "2021 GW 大瀧詠一",
+date: "2021-04-29T09:02:00+09:00",
+body: "2021 GW 大瀧詠一 2021年のGWに入った。今年は 4/30を休みにしたから8日連休になった :-) 大瀧詠一さんを久しぶりに聴きたくなってググってたら、ナイアガラ・サウンドのルーツとは？というのにぶつかった。 音楽が分からないのもあったので、メモメモ。 元ネタというか体に染み付いているんだろうね。ここはパクリと言ってはいけない(笑) https://www.tbsradio.jp/140516 https://www.amazon.co.jp/Niagara-Moon-30th-Anniversary-%E5%A4%A7%E6%BB%9D%E8%A9%A0%E4%B8%80/dp/B0007NFTP6/ref=sr%5F1%5F22?%5F%5Fmk%5Fja%5FJP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A\u0026amp;dchild=1\u0026amp;keywords=%E3%83%8A%E3%82%A4%E3%82%A2%E3%82%AC%E3%83%A9・"
+},
+{
+url: "https://www.ty07.net/blog/2021-b683-9118/",
+title: "貝殻喫茶室",
+date: "2021-02-28T19:50:00+09:00",
+body: "貝殻喫茶室 貝殻弁当をテイクアウトした時に、パンもテイクアウトしたいね、って店主さんの奥様に話したんだ。 早くも、週末に実現させていただいた。パンセットを受け取りした時に奥様から、物足りないかも、と言われたけど、そんなことないです。"
+},
+{
 url: "https://www.ty07.net/blog/2021-3072-328a/",
 title: "不要不急",
 date: "2021-02-20T16:43:00+09:00",
@@ -15,7 +27,7 @@ body: "iPhone 12 Pro 変え替え時ということで、iPhone を 8plus から
 url: "https://www.ty07.net/blog/2020-64ac-ab0e/",
 title: "Hugo",
 date: "2020-10-27T22:46:00+09:00",
-body: "Hugo Hexo から Hugo サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが 😁 EMOJI-CHEAT-SHEET インストール Homebrew はインストール済みとして、 $ brew update $ brew install hugo テーマは、conao3さん の anatole-ext にした。 $ hugo new site hoge $ cd hoge $ git clone https://github.com/conao3/anatole-ext themes/anatole-ext $ hugo new posts/first-article.md これで hoge ディレクトリーが作成され、その配下に雛形が作成される。 自分用のメモ 展開 $ git clone git@github.com:ac1965/hugo-blog.git ./hugo-blog $ cd hugo-blog $ git submodule init $ git submodule update $ git submodule foreach git pull origin master $ hugo hugo コマンドで、publicディレクトリ下にコンテンツが生成される。 `deploy.sh' hexo と大きく違うのは deploy は利用者まかせかな。 私の環境では本体と公開用の gitリポジトリで管理していて、 本体は hugo-blog、公開用は ac1965.github.com で分けている。 #! /bin/bash #! /bin/bash hugo=~/devel/repos/hugo-blog public=~/devel/repos/ac1965.github.io abort () { echo -e \u0026#34;\\033[1;30m\u0026gt;\\033[0;31m\u0026gt;\\033[1;31m\u0026gt; ERROR:\\033[0m${@}\\n\u0026#34; \u0026amp;\u0026amp; exit } info () { echo -e \u0026#34;\\033[1;30m\u0026gt;\\033[0;36m\u0026gt;\\033[1;36m\u0026gt; \\033[0m${@}\\n\u0026#34; } warn () { echo -e \u0026#34;\\033[1;30m\u0026gt;\\033[0;33m\u0026gt;\\033[1;33m\u0026gt; \\033[0m${@}\\n\u0026#34; } test -d ${hugo} \u0026amp;\u0026amp; cd ${hugo} || abort \u0026#34;${hogo}directory not found.\u0026#34; # clean public rm -fr public info \u0026#34;Deploying updates to GitHub...\u0026#34; # Build the project. hugo # if using a theme, replace with `hugo -t \u0026lt;YOURTHEME\u0026gt;` # Go To Public folder test -d ${public} \u0026amp;\u0026amp; cd ${public} || exit info \u0026#34;rsync..\u0026#34; rsync -at --delete --exclude=\u0026#34;.git\u0026#34; ${hugo}/public/. . # Add changes to git. git add . git commit -avm \u0026#34;update:$(env LANG=C date)\u0026#34; \u0026amp;\u0026amp; git push"
+body: "Hugo Hexo から Hugo サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが 😁 EMOJI-CHEAT-SHEET インストール Homebrew はインストール済みとして、 $ brew update $ brew install hugo テーマは、conao3さん の anatole-ext にした。 $ hugo new site hoge $ cd hoge $ git clone https://github.com/conao3/anatole-ext themes/anatole-ext $ hugo new posts/first-article.md これで hoge ディレクトリーが作成され、その配下に雛形が作成される。 自分用のメモ 展開 $ git clone git@github.com:ac1965/hugo-blog.git ./hugo-blog $ cd hugo-blog $ git submodule init $ git submodule update $ git submodule foreach git pull origin master $ hugo hugo コマンドで、publicディレクトリ下にコンテンツが生成される。 `deploy.sh' hexo と大きく違うのは deploy は利用者まかせかな。 私の環境では本体と公開用の gitリポジトリで管理していて、 本体は hugo-blog、公開用は ac1965.github.com で分けている。 #! /bin/bash hugo=~/devel/repos/hugo-blog public=~/devel/repos/ac1965.github.io abort () { echo -e \u0026#34;\\033[1;30m\u0026gt;\\033[0;31m\u0026gt;\\033[1;31m\u0026gt; ERROR:\\033[0m${@}\\n\u0026#34; \u0026amp;\u0026amp; exit } info () { echo -e \u0026#34;\\033[1;30m\u0026gt;\\033[0;36m\u0026gt;\\033[1;36m\u0026gt; \\033[0m${@}\\n\u0026#34; } warn () { echo -e \u0026#34;\\033[1;30m\u0026gt;\\033[0;33m\u0026gt;\\033[1;33m\u0026gt; \\033[0m${@}\\n\u0026#34; } test -d ${hugo} \u0026amp;\u0026amp; cd ${hugo} || abort \u0026#34;${hogo}directory not found.\u0026#34; # clean public rm -fr public info \u0026#34;Deploying updates to GitHub...\u0026#34; # Build the project. hugo # if using a theme, replace with `hugo -t \u0026lt;YOURTHEME\u0026gt;` # Go To Public folder test -d ${public} \u0026amp;\u0026amp; cd ${public} || exit info \u0026#34;rsync..\u0026#34; rsync -at --delete --exclude=\u0026#34;.git\u0026#34; ${hugo}/public/. . # Add changes to git. git add . git commit -avm \u0026#34;update:$(env LANG=C date)\u0026#34; \u0026amp;\u0026amp; git push"
 },
 {
 url: "https://www.ty07.net/blog/2016-d5bf-eafd/",
