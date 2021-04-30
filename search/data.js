@@ -42,6 +42,12 @@ date: "2016-05-07T11:59:00+09:00",
 body: "健康診断 定期検診 今日は60日ぶりの定期検診。 血圧は正常。主治医には「血圧だけは、正常ですね」なんて言われる有様。 お薬もいただかなくては、ゾロばかりだけど。"
 },
 {
+url: "https://www.ty07.net/page/about/",
+title: "about",
+date: "2015-04-28T11:40:29Z",
+body: "about リンク GitHub Twitter Facebook Instagram Lapras PGP"
+},
+{
 url: "https://www.ty07.net/blog/2015-92a5-278e/",
 title: "Using Packer for Archassult",
 date: "2015-04-28T14:24:00+09:00",
