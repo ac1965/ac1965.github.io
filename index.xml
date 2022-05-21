@@ -260,14 +260,5 @@
       <description>PyBlosxom 関係ではないが、SyntaxHighlighter を入れてみて。 #! /usr/bin/env python import sys import re import poplib, email from email import Header host = &amp;#39;localhost&amp;#39; port = &amp;#39;PORT&amp;#39; account = &amp;#39;MAIL-ADDRESS&amp;#39; password = &amp;#39;PASSWORD&amp;#39; s = poplib.POP3 (host, port) s.apop (account, password) n = len</description>
     </item>
     
-    <item>
-      <title></title>
-      <link>https://www.ty07.net/search/data.js</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.ty07.net/search/data.js</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
