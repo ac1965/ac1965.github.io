@@ -10,7 +10,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" href="/images//images/logo.jpg">
-    <title>Pages | Not Good Father</title>
+    <title>Search | Not Good Father</title>
 </head>
 <body id="main-container" class="container-fluid">
         <header></header>
@@ -43,16 +43,84 @@
                     <a class="nav-link" href="/page/about/">About</a>
                     </nav>
                 <main id="content-main">
-                    <h1>Pages</h1>
-<h2 class="listing-title">2015</h2>
-<ul class="article-listing">
-    <ul class="article-listing-item">
-    <span class="article-listing-title"><a href="https://www.ty07.net/page/about/" title="about">about</a></span>
-    <small class="float-right">
-        2021-05-01
-    </small>
-</ul>
-</ul>
+                    <h1>Search</h1>
+
+<form>
+    <div id="search-form" class="form-group">
+        <input class="form-control" onkeyup="search(this.value)" autocomplete="off" autofocus placeholder="Search" />
+        <span id="inputWord"></span><span id="resultCount"></span>
+    </div>
+    <ul id="result" class="article-listing"><p>Please input query...</p></ul>
+</form>
+
+<script src="data.js"></script>
+
+<script>
+ function search(query) {
+     var result = searchData(query);
+     var html = createHtml(result);
+     showResult(html);
+     showResultCount(result.length, data.length);
+ }
+
+ function searchData(query) {
+     
+     var result = [];
+
+     query = query.trim();
+     if (query.length < 1) {
+         return result;
+     }
+     var re = new RegExp(query, 'i');
+     for (var i = 0; i < data.length; ++i) {
+         var pos = data[i].body.search(re);
+         if (pos != -1) {
+             result.push([i, pos, pos + query.length]);
+         }
+     }
+     return result;
+ }
+
+ function createHtml(result) {
+     var htmls = [];
+     for (var i = 0; i < result.length; ++i) {
+         var dataIndex = result[i][0];
+         var startPos = result[i][1];
+         var endPos = result[i][2];
+         var url = data[dataIndex].url;
+         var title = data[dataIndex].title;
+         var body = data[dataIndex].body;
+         htmls.push(createEntry(url, title, body, startPos, endPos));
+     }
+     return htmls.join('');
+ }
+
+ function createEntry(url, title, body, startPos, endPos) {
+     return '<ul class="article-listing-item">' +
+            '<a class="article-listing-title" href="' + url + '">' + title + '</a>' +
+            '<div class="article-listing-summary">' + excerpt(body, startPos, endPos) + '</div>' +
+            '</ul>';
+ }
+
+ function excerpt(body, startPos, endPos) {
+     return [
+         body.substring(startPos - 30, startPos),
+         '<span class="article-listing-strong">', body.substring(startPos, endPos), '</span>',
+         body.substring(endPos, endPos + 200)
+     ].join('');
+ }
+
+ function showResult(html) {
+     var el = document.getElementById('result');
+     el.innerHTML = html;
+ }
+
+ function showResultCount(count, total) {
+     var el = document.getElementById('resultCount');
+     el.innerHTML = 'Found <b>' + count + '</b> pages（in ' + total + ' pages）';
+ }
+</script>
+
 </main>
                 <footer>
     
