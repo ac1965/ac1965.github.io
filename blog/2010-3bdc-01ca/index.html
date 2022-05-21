@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.99.1" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -33,8 +33,8 @@
             <nav id="TableOfContents"></nav></div>
         </div>
     <div id="sidebar-footer">
-        <div>Article:  -  2021</div>
-        <div>Source code: CC0 -  2021</div>
+        <div>Article:  -  2022</div>
+        <div>Source code: CC0 -  2022</div>
         <div>Cited source codes are under the original licence</div>
     </div>
 </aside>
@@ -81,151 +81,151 @@
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>
-btisoname<span style="color:#f92672">=</span>bt4.iso
-btmodisoname<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>basename $btisoname .iso<span style="color:#e6db74">`</span>-mod.iso
-
-luks_image<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
-count<span style="color:#f92672">=</span><span style="color:#ae81ff">2560000</span>
-
-clear
-echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
-echo <span style="color:#e6db74">&#34;[*] BackTrack 4 customisation script&#34;</span>
-echo <span style="color:#e6db74">&#34;[*] Setting up the build environment...&#34;</span>
-
-services<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;inetutils-inetd tinyproxy iodined knockd openvpn atftpd ntop nstxd nstxcd apache2 sendmail atd dhcp3-server winbind miredo miredo-server pcscd wicd wacom cups bluetooth binfmt-support mysql vmware vboxdrv kvm nessusd&#34;</span>
-
-test -d mnt <span style="color:#f92672">||</span> mkdir -p mnt
-test -d extract-cd <span style="color:#f92672">||</span> mkdir -p extract-cd
-test -d squashfs <span style="color:#f92672">||</span> mkdir -p squashfs
-test -d container <span style="color:#f92672">||</span> mkdir -p container
-mount -o loop,ro $btisoname mnt/
-rsync --exclude<span style="color:#f92672">=</span>/casper/filesystem.squashfs -a mnt/ extract-cd
-<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">$(</span>file mnt/casper/filesystem.squashfs | grep -qi luks<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">then</span>
-    luks_image<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
-    loopdev<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>losetup -f<span style="color:#e6db74">`</span>
-    losetup $loopdev mnt/casper/filesystem.squashfs
-    cryptsetup luksOpen $loopdev bt4
-    mount -o ro /dev/mapper/bt4 container/
-    mount -t squashfs -o loop,ro container/filesystem.squashfs squashfs
-<span style="color:#66d9ef">else</span>
-    mount -t squashfs -o loop mnt/casper/filesystem.squashfs squashfs
-<span style="color:#66d9ef">fi</span>
-test -d edit <span style="color:#f92672">||</span> <span style="color:#f92672">(</span>
-    mkdir -p edit
-    echo <span style="color:#e6db74">&#34;[*] Copying over files, please wait ... &#34;</span>
-
-    cp -a squashfs/* edit/
-<span style="color:#f92672">)</span>
-
-cp /etc/resolv.conf edit/etc/
-cp /etc/hosts edit/etc/
-cp /etc/fstab edit/etc/
-cp /etc/mtab edit/etc/
-test -f ~/.proxyuse <span style="color:#f92672">&amp;&amp;</span> cp ~/.proxyuse edit/root
-
-mount --bind /dev/ edit/dev
-mount -t proc /proc edit/proc
-
-echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
-echo <span style="color:#e6db74">&#34;[*] Entering livecd. &#34;</span>
-echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
-echo <span style="color:#e6db74">&#34;[*] Now you can modify the LiveCD. At minimum, we recommend :&#34;</span>
-echo <span style="color:#e6db74">&#34;[*] apt-get update &amp;&amp; apt-get upgrade &amp; apt-get clean&#34;</span>
-echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
-echo <span style="color:#e6db74">&#34;[*] If you are running a large update, you might need to stop&#34;</span>
-echo <span style="color:#e6db74">&#34;[*] services like crond, udev, cups, etc in the chroot&#34;</span>
-echo <span style="color:#e6db74">&#34;[*] services like crond, udev, cups, etc in the chroot&#34;</span>
-echo <span style="color:#e6db74">&#34;[*] before exiting your chroot environment.&#34;</span>
-echo <span style="color:#e6db74">&#34;[*] If you use proxy,  type \&#34;source ~/.proxyuse\&#34;&#34;</span>
-echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
-echo <span style="color:#e6db74">&#34;[*] Once you have finished your modifications, type \&#34;exit\&#34;&#34;</span>
-echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
-
-chroot edit
-
-echo <span style="color:#e6db74">&#34;[*] Exited the build environemnt, unmounting images.&#34;</span>
-
-rm -rf edit/etc/mtab
-rm -rf edit/etc/fstab
-rm -rf edit/root/.bash_history
-rm -rf edit/root/.proxyuse
-
-umount edit/dev
-umount edit/proc
-umount squashfs
-<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;x</span><span style="color:#e6db74">${</span>luks_image<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;x1&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-    umount container
-    cryptsetup luksClose bt4
-    losetup -d $loopdev
-<span style="color:#66d9ef">fi</span>
-umount mnt
-
-chmod +w extract-cd/casper/filesystem.manifest
-
-echo <span style="color:#e6db74">&#34;[*] Building manifest&#34;</span>
-chroot edit dpkg-query <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -W --showformat<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;${Package} ${Version}\n&#39;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    &gt; extract-cd/casper/filesystem.manifest
-
-<span style="color:#66d9ef">for</span> service in $services;<span style="color:#66d9ef">do</span>
-    chroot edit update-rc.d -f $service remove
-<span style="color:#66d9ef">done</span>
-
-REMOVE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ubiquity casper live-initramfs user-setup discover xresprobe os-prober libdebian-installer4&#39;</span>
-<span style="color:#66d9ef">for</span> i in $REMOVE
-<span style="color:#66d9ef">do</span>
-    sed -i <span style="color:#e6db74">&#34;/</span><span style="color:#e6db74">${</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">/d&#34;</span> extract-cd/casper/filesystem.manifest-desktop
-<span style="color:#66d9ef">done</span>
-
-cp extract-cd/casper/filesystem.manifest extract-cd/casper/filesystem.manifest-desktop
-
-sed -i <span style="color:#e6db74">&#39;/ubiquity/d&#39;</span> extract-cd/casper/filesystem.manifest-desktop
-
-echo <span style="color:#e6db74">&#34;[*] Building squashfs image...&#34;</span>
-<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;x</span><span style="color:#e6db74">${</span>luks_image<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;x1&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-    echo <span style="color:#e6db74">&#34;[-] encrypt squashfs using&#34;</span>
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -f extract-cd/casper/filesystem.squashfs <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-    echo <span style="color:#e6db74">&#34;[&gt;] encrypt squashfs making (</span>$count<span style="color:#e6db74"> MB)&#34;</span>
-    dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>/dev/urandom of<span style="color:#f92672">=</span>extract-cd/casper/filesystem.squashfs bs<span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span> count<span style="color:#f92672">=</span>$count
-    losetup $loopdev extract-cd/casper/filesystem.squashfs
-    cryptsetup -y --cipher aes-xts-plain --key-size <span style="color:#ae81ff">512</span> luksFormat $loopdev
-    <span style="color:#66d9ef">else</span>
-    losetup $loopdev extract-cd/casper/filesystem.squashfs
-    <span style="color:#66d9ef">fi</span>
-    cryptsetup luksOpen $loopdev bt4
-    mkfs.ext3 /dev/mapper/bt4
-    mount /dev/mapper/bt4 container/
-    mksquashfs edit container/filesystem.squashfs
-    umount container
-    cryptsetup luksClose bt4
-    losetup -d $loopdev
-<span style="color:#66d9ef">else</span>
-    rm -rf extract-cd/casper/filesystem.squashfs
-    mksquashfs edit extract-cd/casper/filesystem.squashfs
-<span style="color:#66d9ef">fi</span>
-
-rm extract-cd/md5sum.txt
-
-<span style="color:#f92672">(</span>cd extract-cd <span style="color:#f92672">&amp;&amp;</span> find . -type f -print0 | xargs -0 md5sum &gt; md5sum.txt<span style="color:#f92672">)</span>
-
-cd extract-cd
-
-echo <span style="color:#e6db74">&#34;[*] Creating iso ...&#34;</span>
-
-test -f ../<span style="color:#e6db74">${</span>btmodisoname<span style="color:#e6db74">}</span> <span style="color:#f92672">&amp;&amp;</span> mv ../<span style="color:#e6db74">${</span>btmodisoname<span style="color:#e6db74">}</span> ../bt4-mod_prev.iso
-mkisofs -b boot/grub/stage2_eltorito <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -no-emul-boot -boot-load-size <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -boot-info-table <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -V <span style="color:#e6db74">&#34;BT4&#34;</span> -cache-inodes -r -J -l <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    -o ../<span style="color:#e6db74">${</span>btmodisoname<span style="color:#e6db74">}</span> .
-
-cd ..
-
-echo <span style="color:#e6db74">&#34;[*] Your modified BT4 is in </span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">/</span><span style="color:#e6db74">${</span>btmodisoname<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
-</code></pre></div></article>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>btisoname<span style="color:#f92672">=</span>bt4.iso
+</span></span><span style="display:flex;"><span>btmodisoname<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>basename $btisoname .iso<span style="color:#e6db74">`</span>-mod.iso
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>luks_image<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>count<span style="color:#f92672">=</span><span style="color:#ae81ff">2560000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>clear
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] BackTrack 4 customisation script&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] Setting up the build environment...&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>services<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;inetutils-inetd tinyproxy iodined knockd openvpn atftpd ntop nstxd nstxcd apache2 sendmail atd dhcp3-server winbind miredo miredo-server pcscd wicd wacom cups bluetooth binfmt-support mysql vmware vboxdrv kvm nessusd&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test -d mnt <span style="color:#f92672">||</span> mkdir -p mnt
+</span></span><span style="display:flex;"><span>test -d extract-cd <span style="color:#f92672">||</span> mkdir -p extract-cd
+</span></span><span style="display:flex;"><span>test -d squashfs <span style="color:#f92672">||</span> mkdir -p squashfs
+</span></span><span style="display:flex;"><span>test -d container <span style="color:#f92672">||</span> mkdir -p container
+</span></span><span style="display:flex;"><span>mount -o loop,ro $btisoname mnt/
+</span></span><span style="display:flex;"><span>rsync --exclude<span style="color:#f92672">=</span>/casper/filesystem.squashfs -a mnt/ extract-cd
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#66d9ef">$(</span>file mnt/casper/filesystem.squashfs | grep -qi luks<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    luks_image<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    loopdev<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>losetup -f<span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>    losetup $loopdev mnt/casper/filesystem.squashfs
+</span></span><span style="display:flex;"><span>    cryptsetup luksOpen $loopdev bt4
+</span></span><span style="display:flex;"><span>    mount -o ro /dev/mapper/bt4 container/
+</span></span><span style="display:flex;"><span>    mount -t squashfs -o loop,ro container/filesystem.squashfs squashfs
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    mount -t squashfs -o loop mnt/casper/filesystem.squashfs squashfs
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>test -d edit <span style="color:#f92672">||</span> <span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>    mkdir -p edit
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;[*] Copying over files, please wait ... &#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    cp -a squashfs/* edit/
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp /etc/resolv.conf edit/etc/
+</span></span><span style="display:flex;"><span>cp /etc/hosts edit/etc/
+</span></span><span style="display:flex;"><span>cp /etc/fstab edit/etc/
+</span></span><span style="display:flex;"><span>cp /etc/mtab edit/etc/
+</span></span><span style="display:flex;"><span>test -f ~/.proxyuse <span style="color:#f92672">&amp;&amp;</span> cp ~/.proxyuse edit/root
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mount --bind /dev/ edit/dev
+</span></span><span style="display:flex;"><span>mount -t proc /proc edit/proc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] Entering livecd. &#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] Now you can modify the LiveCD. At minimum, we recommend :&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] apt-get update &amp;&amp; apt-get upgrade &amp; apt-get clean&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] If you are running a large update, you might need to stop&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] services like crond, udev, cups, etc in the chroot&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] services like crond, udev, cups, etc in the chroot&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] before exiting your chroot environment.&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] If you use proxy,  type \&#34;source ~/.proxyuse\&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] Once you have finished your modifications, type \&#34;exit\&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>chroot edit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] Exited the build environemnt, unmounting images.&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rm -rf edit/etc/mtab
+</span></span><span style="display:flex;"><span>rm -rf edit/etc/fstab
+</span></span><span style="display:flex;"><span>rm -rf edit/root/.bash_history
+</span></span><span style="display:flex;"><span>rm -rf edit/root/.proxyuse
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>umount edit/dev
+</span></span><span style="display:flex;"><span>umount edit/proc
+</span></span><span style="display:flex;"><span>umount squashfs
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;x</span><span style="color:#e6db74">${</span>luks_image<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;x1&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    umount container
+</span></span><span style="display:flex;"><span>    cryptsetup luksClose bt4
+</span></span><span style="display:flex;"><span>    losetup -d $loopdev
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>umount mnt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>chmod +w extract-cd/casper/filesystem.manifest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] Building manifest&#34;</span>
+</span></span><span style="display:flex;"><span>chroot edit dpkg-query <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -W --showformat<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;${Package} ${Version}\n&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    &gt; extract-cd/casper/filesystem.manifest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> service in $services;<span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    chroot edit update-rc.d -f $service remove
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>REMOVE<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ubiquity casper live-initramfs user-setup discover xresprobe os-prober libdebian-installer4&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i in $REMOVE
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    sed -i <span style="color:#e6db74">&#34;/</span><span style="color:#e6db74">${</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">/d&#34;</span> extract-cd/casper/filesystem.manifest-desktop
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp extract-cd/casper/filesystem.manifest extract-cd/casper/filesystem.manifest-desktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sed -i <span style="color:#e6db74">&#39;/ubiquity/d&#39;</span> extract-cd/casper/filesystem.manifest-desktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] Building squashfs image...&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;x</span><span style="color:#e6db74">${</span>luks_image<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;x1&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;[-] encrypt squashfs using&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -f extract-cd/casper/filesystem.squashfs <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;[&gt;] encrypt squashfs making (</span>$count<span style="color:#e6db74"> MB)&#34;</span>
+</span></span><span style="display:flex;"><span>    dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>/dev/urandom of<span style="color:#f92672">=</span>extract-cd/casper/filesystem.squashfs bs<span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span> count<span style="color:#f92672">=</span>$count
+</span></span><span style="display:flex;"><span>    losetup $loopdev extract-cd/casper/filesystem.squashfs
+</span></span><span style="display:flex;"><span>    cryptsetup -y --cipher aes-xts-plain --key-size <span style="color:#ae81ff">512</span> luksFormat $loopdev
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    losetup $loopdev extract-cd/casper/filesystem.squashfs
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>    cryptsetup luksOpen $loopdev bt4
+</span></span><span style="display:flex;"><span>    mkfs.ext3 /dev/mapper/bt4
+</span></span><span style="display:flex;"><span>    mount /dev/mapper/bt4 container/
+</span></span><span style="display:flex;"><span>    mksquashfs edit container/filesystem.squashfs
+</span></span><span style="display:flex;"><span>    umount container
+</span></span><span style="display:flex;"><span>    cryptsetup luksClose bt4
+</span></span><span style="display:flex;"><span>    losetup -d $loopdev
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    rm -rf extract-cd/casper/filesystem.squashfs
+</span></span><span style="display:flex;"><span>    mksquashfs edit extract-cd/casper/filesystem.squashfs
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rm extract-cd/md5sum.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>cd extract-cd <span style="color:#f92672">&amp;&amp;</span> find . -type f -print0 | xargs -0 md5sum &gt; md5sum.txt<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd extract-cd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] Creating iso ...&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test -f ../<span style="color:#e6db74">${</span>btmodisoname<span style="color:#e6db74">}</span> <span style="color:#f92672">&amp;&amp;</span> mv ../<span style="color:#e6db74">${</span>btmodisoname<span style="color:#e6db74">}</span> ../bt4-mod_prev.iso
+</span></span><span style="display:flex;"><span>mkisofs -b boot/grub/stage2_eltorito <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -no-emul-boot -boot-load-size <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -boot-info-table <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -V <span style="color:#e6db74">&#34;BT4&#34;</span> -cache-inodes -r -J -l <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -o ../<span style="color:#e6db74">${</span>btmodisoname<span style="color:#e6db74">}</span> .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd ..
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;[*] Your modified BT4 is in </span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">/</span><span style="color:#e6db74">${</span>btmodisoname<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;##############################################################&#34;</span>
+</span></span></code></pre></div></article>
 
 </main>
                 <footer>
@@ -257,8 +257,8 @@ echo <span style="color:#e6db74">&#34;##########################################
         <span class="article-footer-nav">Prev: </span><a href="https://www.ty07.net/blog/2010-3be9-c756/">Xmonad for Backtrack4</a>
     </div>
     <div id="footer-for-smartphone">
-        <div>Article:  -  2021</div>
-        <div>Source code: CC0 -  2021</div>
+        <div>Article:  -  2022</div>
+        <div>Source code: CC0 -  2022</div>
         <div>Cited source codes are under the original licence</div>
     </div>
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.99.1" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -44,8 +44,8 @@
 </nav></div>
         </div>
     <div id="sidebar-footer">
-        <div>Article:  -  2021</div>
-        <div>Source code: CC0 -  2021</div>
+        <div>Article:  -  2022</div>
+        <div>Source code: CC0 -  2022</div>
         <div>Cited source codes are under the original licence</div>
     </div>
 </aside>
@@ -81,66 +81,66 @@
 <p><a href="https://www.webfx.com/tools/emoji-cheat-sheet/">EMOJI-CHEAT-SHEET</a></p>
 <h2 id="インストール">インストール</h2>
 <p><a href="https://brew.sh/index%5Fja">Homebrew</a> はインストール済みとして、</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ brew update
-$ brew install hugo
-</code></pre></div><p>テーマは、<a href="https://conao3.com">conao3さん</a> の
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ brew update
+</span></span><span style="display:flex;"><span>$ brew install hugo
+</span></span></code></pre></div><p>テーマは、<a href="https://conao3.com">conao3さん</a> の
 <a href="https://github.com/conao3/anatole-ext">anatole-ext</a> にした。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ hugo new site hoge
-$ cd hoge
-$ git clone https://github.com/conao3/anatole-ext themes/anatole-ext
-$ hugo new posts/first-article.md
-</code></pre></div><p>これで hoge ディレクトリーが作成され、その配下に雛形が作成される。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ hugo new site hoge
+</span></span><span style="display:flex;"><span>$ cd hoge
+</span></span><span style="display:flex;"><span>$ git clone https://github.com/conao3/anatole-ext themes/anatole-ext
+</span></span><span style="display:flex;"><span>$ hugo new posts/first-article.md
+</span></span></code></pre></div><p>これで hoge ディレクトリーが作成され、その配下に雛形が作成される。</p>
 <h2 id="自分用のメモ">自分用のメモ</h2>
 <h3 id="展開">展開</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git clone git@github.com:ac1965/hugo-blog.git ./hugo-blog
-$ cd hugo-blog
-$ git submodule init
-$ git submodule update
-$ git submodule foreach git pull origin master
-$ hugo
-</code></pre></div><p>hugo コマンドで、publicディレクトリ下にコンテンツが生成される。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ git clone git@github.com:ac1965/hugo-blog.git ./hugo-blog
+</span></span><span style="display:flex;"><span>$ cd hugo-blog
+</span></span><span style="display:flex;"><span>$ git submodule init
+</span></span><span style="display:flex;"><span>$ git submodule update
+</span></span><span style="display:flex;"><span>$ git submodule foreach git pull origin master
+</span></span><span style="display:flex;"><span>$ hugo
+</span></span></code></pre></div><p>hugo コマンドで、publicディレクトリ下にコンテンツが生成される。</p>
 <h3 id="deploy-dot-sh">`deploy.sh'</h3>
 <p>hexo と大きく違うのは deploy は利用者まかせかな。</p>
 <p>私の環境では本体と公開用の gitリポジトリで管理していて、 本体は
 hugo-blog、公開用は ac1965.github.com で分けている。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#! /bin/bash
-</span><span style="color:#75715e"></span>
-hugo<span style="color:#f92672">=</span>~/devel/repos/hugo-blog
-public<span style="color:#f92672">=</span>~/devel/repos/ac1965.github.io
-
-abort <span style="color:#f92672">()</span>
-<span style="color:#f92672">{</span>
-    echo -e <span style="color:#e6db74">&#34;\033[1;30m&gt;\033[0;31m&gt;\033[1;31m&gt; ERROR:\033[0m</span><span style="color:#e6db74">${</span>@<span style="color:#e6db74">}</span><span style="color:#e6db74">\n&#34;</span> <span style="color:#f92672">&amp;&amp;</span> exit
-<span style="color:#f92672">}</span>
-
-info <span style="color:#f92672">()</span>
-<span style="color:#f92672">{</span>
-    echo -e <span style="color:#e6db74">&#34;\033[1;30m&gt;\033[0;36m&gt;\033[1;36m&gt; \033[0m</span><span style="color:#e6db74">${</span>@<span style="color:#e6db74">}</span><span style="color:#e6db74">\n&#34;</span>
-<span style="color:#f92672">}</span>
-
-warn <span style="color:#f92672">()</span>
-<span style="color:#f92672">{</span>
-    echo -e <span style="color:#e6db74">&#34;\033[1;30m&gt;\033[0;33m&gt;\033[1;33m&gt; \033[0m</span><span style="color:#e6db74">${</span>@<span style="color:#e6db74">}</span><span style="color:#e6db74">\n&#34;</span>
-<span style="color:#f92672">}</span>
-
-test -d <span style="color:#e6db74">${</span>hugo<span style="color:#e6db74">}</span> <span style="color:#f92672">&amp;&amp;</span> cd <span style="color:#e6db74">${</span>hugo<span style="color:#e6db74">}</span> <span style="color:#f92672">||</span> abort <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>hogo<span style="color:#e6db74">}</span><span style="color:#e6db74"> directory not found.&#34;</span>
-<span style="color:#75715e"># clean public</span>
-rm -fr public
-
-info <span style="color:#e6db74">&#34;Deploying updates to GitHub...&#34;</span>
-
-<span style="color:#75715e"># Build the project.</span>
-hugo <span style="color:#75715e"># if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`</span>
-
-<span style="color:#75715e"># Go To Public folder</span>
-test -d <span style="color:#e6db74">${</span>public<span style="color:#e6db74">}</span> <span style="color:#f92672">&amp;&amp;</span> cd <span style="color:#e6db74">${</span>public<span style="color:#e6db74">}</span> <span style="color:#f92672">||</span> exit
-info <span style="color:#e6db74">&#34;rsync..&#34;</span>
-rsync -at --delete --exclude<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;.git&#34;</span> <span style="color:#e6db74">${</span>hugo<span style="color:#e6db74">}</span>/public/. .
-
-<span style="color:#75715e"># Add changes to git.</span>
-git add .
-git commit -avm <span style="color:#e6db74">&#34;update:</span><span style="color:#66d9ef">$(</span>env LANG<span style="color:#f92672">=</span>C date<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> git push
-</code></pre></div></article>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#! /bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>hugo<span style="color:#f92672">=</span>~/devel/repos/hugo-blog
+</span></span><span style="display:flex;"><span>public<span style="color:#f92672">=</span>~/devel/repos/ac1965.github.io
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>abort <span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    echo -e <span style="color:#e6db74">&#34;\033[1;30m&gt;\033[0;31m&gt;\033[1;31m&gt; ERROR:\033[0m</span><span style="color:#e6db74">${</span>@<span style="color:#e6db74">}</span><span style="color:#e6db74">\n&#34;</span> <span style="color:#f92672">&amp;&amp;</span> exit
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>info <span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    echo -e <span style="color:#e6db74">&#34;\033[1;30m&gt;\033[0;36m&gt;\033[1;36m&gt; \033[0m</span><span style="color:#e6db74">${</span>@<span style="color:#e6db74">}</span><span style="color:#e6db74">\n&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>warn <span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    echo -e <span style="color:#e6db74">&#34;\033[1;30m&gt;\033[0;33m&gt;\033[1;33m&gt; \033[0m</span><span style="color:#e6db74">${</span>@<span style="color:#e6db74">}</span><span style="color:#e6db74">\n&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test -d <span style="color:#e6db74">${</span>hugo<span style="color:#e6db74">}</span> <span style="color:#f92672">&amp;&amp;</span> cd <span style="color:#e6db74">${</span>hugo<span style="color:#e6db74">}</span> <span style="color:#f92672">||</span> abort <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>hogo<span style="color:#e6db74">}</span><span style="color:#e6db74"> directory not found.&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># clean public</span>
+</span></span><span style="display:flex;"><span>rm -fr public
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>info <span style="color:#e6db74">&#34;Deploying updates to GitHub...&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Build the project.</span>
+</span></span><span style="display:flex;"><span>hugo <span style="color:#75715e"># if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Go To Public folder</span>
+</span></span><span style="display:flex;"><span>test -d <span style="color:#e6db74">${</span>public<span style="color:#e6db74">}</span> <span style="color:#f92672">&amp;&amp;</span> cd <span style="color:#e6db74">${</span>public<span style="color:#e6db74">}</span> <span style="color:#f92672">||</span> exit
+</span></span><span style="display:flex;"><span>info <span style="color:#e6db74">&#34;rsync..&#34;</span>
+</span></span><span style="display:flex;"><span>rsync -at --delete --exclude<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;.git&#34;</span> <span style="color:#e6db74">${</span>hugo<span style="color:#e6db74">}</span>/public/. .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add changes to git.</span>
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -avm <span style="color:#e6db74">&#34;update:</span><span style="color:#66d9ef">$(</span>env LANG<span style="color:#f92672">=</span>C date<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> git push
+</span></span></code></pre></div></article>
 
 </main>
                 <footer>
@@ -172,8 +172,8 @@ git commit -avm <span style="color:#e6db74">&#34;update:</span><span style="colo
         <span class="article-footer-nav">Prev: </span><a href="https://www.ty07.net/blog/2016-d5bf-eafd/">What Blog?</a>
     </div>
     <div id="footer-for-smartphone">
-        <div>Article:  -  2021</div>
-        <div>Source code: CC0 -  2021</div>
+        <div>Article:  -  2022</div>
+        <div>Source code: CC0 -  2022</div>
         <div>Cited source codes are under the original licence</div>
     </div>
 
