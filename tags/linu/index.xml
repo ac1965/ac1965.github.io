@@ -7,15 +7,14 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
     <copyright>&amp;copy; 2009-2020. All rights reserved.</copyright>
-    <lastBuildDate>Tue, 01 Jun 2010 07:39:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/linu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Jun 2010 07:39:00 +0900</lastBuildDate>
+    <atom:link href="https://www.ty07.net/tags/linu/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Xorg</title>
       <link>https://www.ty07.net/blog/2010-bba0-bea3/</link>
       <pubDate>Tue, 01 Jun 2010 07:39:00 +0900</pubDate>
-      
       <guid>https://www.ty07.net/blog/2010-bba0-bea3/</guid>
       <description>GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。 boot-update grubの設定支援かな？ boot-update で記述されている代物です。 grub-1.9</description>
     </item>
-    
   </channel>
 </rss>
