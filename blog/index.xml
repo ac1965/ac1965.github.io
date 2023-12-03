@@ -7,8 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
     <copyright>&amp;copy; 2009-2020. All rights reserved.</copyright>
-    <lastBuildDate>Sat, 01 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 Dec 2023 14:13:00 +0900</lastBuildDate>
     <atom:link href="https://www.ty07.net/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ひさしぶりに</title>
+      <link>https://www.ty07.net/blog/2023-76f0-5099/</link>
+      <pubDate>Sun, 03 Dec 2023 14:13:00 +0900</pubDate>
+      <guid>https://www.ty07.net/blog/2023-76f0-5099/</guid>
+      <description>歳をとってエンジニアとしての仕事ができなくなって、狡猾にもコンサルタントを生業としはじめ5年目に入ろうとしている。 この仕事も面白いのだが、胸</description>
+    </item>
     <item>
       <title>2021 GW なろう系小説</title>
       <link>https://www.ty07.net/blog/2021-4317-c611/</link>
@@ -63,7 +70,7 @@
       <link>https://www.ty07.net/blog/2016-fbf9-cc8d/</link>
       <pubDate>Sat, 07 May 2016 11:59:00 +0900</pubDate>
       <guid>https://www.ty07.net/blog/2016-fbf9-cc8d/</guid>
-      <description>定期検診 今日は60日ぶりの定期検診。 血圧は正常。主治医には「血圧だけは、正常ですね」なんて言われる有様。 お薬もいただかなくては、ゾロばかりだ</description>
+      <description>定期検診 今日は60日ぶりの定期検診。 血圧は正常。主治医には「血圧だけは、正常ですね」なんて言われる有様。{{&amp;lt; figure src=&amp;quot;/images/blood-pressure-result.jpg&amp;quot; &amp;gt;}} お薬もいただかなく</description>
     </item>
     <item>
       <title>Using Packer for Archassult</title>
@@ -148,41 +155,6 @@
       <pubDate>Sat, 13 Feb 2010 22:42:00 +0900</pubDate>
       <guid>https://www.ty07.net/blog/2010-ad26-26d8/</guid>
       <description>awesome の設定をしなおしをした。そんなに変更はしていないように見えるけど、tag(他のWMでいうこところのワークスペース）を動的に生成する shifty という</description>
-    </item>
-    <item>
-      <title>Yet Another Picassaweb</title>
-      <link>https://www.ty07.net/blog/2010-3efe-769d/</link>
-      <pubDate>Thu, 11 Feb 2010 15:14:00 +0900</pubDate>
-      <guid>https://www.ty07.net/blog/2010-3efe-769d/</guid>
-      <description>たいそうなタイトルをつけてしまったが、そんな大したことではない。 ケータイは Nokia N82 を使っているが、写真は Googleさんに置いている。 Picas</description>
-    </item>
-    <item>
-      <title>New PC</title>
-      <link>https://www.ty07.net/blog/2010-ef22-a394/</link>
-      <pubDate>Mon, 08 Feb 2010 23:27:00 +0900</pubDate>
-      <guid>https://www.ty07.net/blog/2010-ef22-a394/</guid>
-      <description>前のポストの環境から気分転換にディスクフォーマットをしました。 元々の用途が Live CD作成マシンなのでベースのイメージは squashfs でできているので、移行は</description>
-    </item>
-    <item>
-      <title>2009年も明日で大晦日かぁ</title>
-      <link>https://www.ty07.net/blog/2009-7fbf-eb14/</link>
-      <pubDate>Tue, 29 Dec 2009 10:00:00 +0900</pubDate>
-      <guid>https://www.ty07.net/blog/2009-7fbf-eb14/</guid>
-      <description>今年も大晦日を残すところになった。 明日は今年最後（大晦日だから当たり前か）のお仕事だぁ。 さっき(8:01)、同僚から男子出産の朗報を頂いた。</description>
-    </item>
-    <item>
-      <title>awesome window manager</title>
-      <link>https://www.ty07.net/blog/2009-7fbf-eb13/</link>
-      <pubDate>Sun, 29 Nov 2009 16:08:00 +0900</pubDate>
-      <guid>https://www.ty07.net/blog/2009-7fbf-eb13/</guid>
-      <description>awesome をいじくりまくっています。 他の人の設定を真似して、 githubのリポジトリに追加しました。 [[http://www.lares.dti.ne.jp/~jargon/uploads/20091129-root_ss.png]] git clone git://shikamaru.fr/config.git http://senyorcaos.homelinux.org/git/?p=awesome34.git;a=blob;f=rc.lua;h=60acb353e4e4c065e9d3fa4bfdbdb4fd4fed93fd;hb=HEAD</description>
-    </item>
-    <item>
-      <title>awesome window manager</title>
-      <link>https://www.ty07.net/blog/2009-7fbf-eb11/</link>
-      <pubDate>Sun, 29 Nov 2009 10:31:00 +0900</pubDate>
-      <guid>https://www.ty07.net/blog/2009-7fbf-eb11/</guid>
-      <description>最近ウィンドマネジャーを awesome に変更した。 軽量で高機能って感じです。 スクリーンショットのVLCで再生しているのは、動画ページにあった「悪魔のキッ</description>
     </item>
     <item>
       <title>New PC</title>

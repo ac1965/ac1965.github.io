@@ -66,7 +66,7 @@
             Published: <time datetime="2020-10-27">Oct 27, 2020</time>
         </span>
         <span id="article-info-date">
-            Updated: <time datetime="2021-05-01">Oct 27, 2020</time>
+            Updated: <time datetime="2023-12-03">Oct 27, 2020</time>
         </span>
         <div id="article-info-tags">
             <a class="article-info-section" href=https://www.ty07.net/blog>blog</a>
@@ -80,7 +80,7 @@
 インストールといっても、homebrew を使うので簡単ですが &#x1f601;</p>
 <p><a href="https://www.webfx.com/tools/emoji-cheat-sheet/">EMOJI-CHEAT-SHEET</a></p>
 <h2 id="インストール">インストール</h2>
-<p><a href="https://brew.sh/index%5Fja">Homebrew</a> はインストール済みとして、</p>
+<p><a href="https://brew.sh/index_ja">Homebrew</a> はインストール済みとして、</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ brew update
 </span></span><span style="display:flex;"><span>$ brew install hugo
 </span></span></code></pre></div><p>テーマは、<a href="https://conao3.com">conao3さん</a> の
@@ -92,11 +92,9 @@
 </span></span></code></pre></div><p>これで hoge ディレクトリーが作成され、その配下に雛形が作成される。</p>
 <h2 id="自分用のメモ">自分用のメモ</h2>
 <h3 id="展開">展開</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ git clone git@github.com:ac1965/hugo-blog.git ./hugo-blog
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ git clone git@github.com:ac1965/hugo.git ./hugo-blog
 </span></span><span style="display:flex;"><span>$ cd hugo-blog
-</span></span><span style="display:flex;"><span>$ git submodule init
-</span></span><span style="display:flex;"><span>$ git submodule update
-</span></span><span style="display:flex;"><span>$ git submodule foreach git pull origin master
+</span></span><span style="display:flex;"><span>$ git clone git@github.com:ac1965/anatole-ext themes/anatole-ext
 </span></span><span style="display:flex;"><span>$ hugo
 </span></span></code></pre></div><p>hugo コマンドで、publicディレクトリ下にコンテンツが生成される。</p>
 <h3 id="deploy-dot-sh">`deploy.sh'</h3>
