@@ -1,5 +1,11 @@
 var data = [
 {
+url: "https://www.ty07.net/blog/2024-32af-0903/",
+title: "Yinyoo インイヤーモニター カナル型 CCZ Coffee Bean",
+date: "2024-03-16T13:14:00+09:00",
+body: "Yinyoo インイヤーモニター カナル型 CCZ Coffee Bean イアフォンは、それまで常用のSHUREのSE215(無印)のコネクター部分が壊れた上に、 Apple AirPods Proは落としてシャリシャリしているしSHURE AONIC 215のMMXコネクタの接点不良で片耳が聴こえない。 そんな状況で中華イアフォンとしてははじめて昨年(2023年10月)に買ったLINKSOULのKiwi Ears Dolceで有線イアフォンの深淵に浸かってしまった。 でも、リケーブルしてDolceを使っていたけど、左耳がコネクタから外れてなくしてしまった🥲 その次に買ったのは同じKiwiのLinsoul Kiwi Ears Quartetだけどデカいのとステムが太くて、常用できなかった。 そんな中で、Yinyoo CCZ Coffee Beanのネーミングとコスト面でAmazonでポチった👇 寝ながらフォンとしても、音質・音圧も好みで一軍利用。"
+},
+{
 url: "https://www.ty07.net/blog/2023-76f0-5099/",
 title: "ひさしぶりに",
 date: "2023-12-03T14:13:00+09:00",
