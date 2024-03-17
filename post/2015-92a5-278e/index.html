@@ -12,13 +12,15 @@
     <link rel="stylesheet" href='https://www.ty07.net/css/syntax.css' />
     <title>Using Packer for Archassult - Not Good Father</title>
     
-    <link rel="icon" type="image/x-icon" href='https://www.ty07.net/images/favicon.ico'>
+    <link rel="icon" type="image/x-icon" href='/images/github.com'>
     
     <meta name="theme-color" content="#1e2327">
 
     
     <meta name="description"
-  content="すこしまとめてみる 前提 base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済" />
+  content="すこしまとめてみる 前提 base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済み じつのところ Packer の細かい設定はわからん。Vagrant の box を作るパッケージであることは知っているが。 ということで、ベースの box を作ったら vagrat up でバシバシ環境をデプロイするほうがよいと思い始めている。
+作成 $ git clone https://github.com/ac1965/archassault-packer.git $ cd archassult-packer $ packer build -only=virtualbox-iso template.json $ vagrant box add archassault packer_archassault_virtualbox.box $ vagrant init archassult $ vagrant up 手をつけているところ Cuckoo環境の半自動生成 * Cuckooで簡易マルウェア自動解析をしよう
+* ゲストOSの準備 あらかじめに ModernIE から Linux 版の Virtualboxイメージをダウンロードして、Python と PIL(Python Image Lirary)をインスコしておく。 cuckoo の agent." />
 <meta name="keywords"
   content='' />
 <meta name="robots" content="noodp" />
@@ -28,7 +30,9 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Using Packer for Archassult - Not Good Father" />
 <meta name="twitter:description"
-  content="すこしまとめてみる 前提 base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済" />
+  content="すこしまとめてみる 前提 base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済み じつのところ Packer の細かい設定はわからん。Vagrant の box を作るパッケージであることは知っているが。 ということで、ベースの box を作ったら vagrat up でバシバシ環境をデプロイするほうがよいと思い始めている。
+作成 $ git clone https://github.com/ac1965/archassault-packer.git $ cd archassult-packer $ packer build -only=virtualbox-iso template.json $ vagrant box add archassault packer_archassault_virtualbox.box $ vagrant init archassult $ vagrant up 手をつけているところ Cuckoo環境の半自動生成 * Cuckooで簡易マルウェア自動解析をしよう
+* ゲストOSの準備 あらかじめに ModernIE から Linux 版の Virtualboxイメージをダウンロードして、Python と PIL(Python Image Lirary)をインスコしておく。 cuckoo の agent." />
 <meta name="twitter:site" content="https://www.ty07.net/" />
 <meta name="twitter:creator" content="[YAMASHITA Takao]" />
 <meta name="twitter:image"
@@ -38,7 +42,9 @@
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Using Packer for Archassult - Not Good Father">
 <meta property="og:description"
-  content="すこしまとめてみる 前提 base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済" />
+  content="すこしまとめてみる 前提 base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、vagrant、packer の環境は作成済み じつのところ Packer の細かい設定はわからん。Vagrant の box を作るパッケージであることは知っているが。 ということで、ベースの box を作ったら vagrat up でバシバシ環境をデプロイするほうがよいと思い始めている。
+作成 $ git clone https://github.com/ac1965/archassault-packer.git $ cd archassult-packer $ packer build -only=virtualbox-iso template.json $ vagrant box add archassault packer_archassault_virtualbox.box $ vagrant init archassult $ vagrant up 手をつけているところ Cuckoo環境の半自動生成 * Cuckooで簡易マルウェア自動解析をしよう
+* ゲストOSの準備 あらかじめに ModernIE から Linux 版の Virtualboxイメージをダウンロードして、Python と PIL(Python Image Lirary)をインスコしておく。 cuckoo の agent." />
 <meta property="og:url" content="https://www.ty07.net/post/2015-92a5-278e/" />
 <meta property="og:site_name" content="Using Packer for Archassult" />
 <meta property="og:image"
@@ -64,13 +70,13 @@
   <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
     <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
       <a class="Header-link" href="https://www.ty07.net/">
-        <img class="octicon" height="32" width="32" src="">
+        <img class="octicon" height="32" width="32" src="/images/GitHub-Mark-Light-32px.png">
       </a>
     </div>
     <div class="Header-item d-md-none">
       <button class="Header-link btn-link js-details-target" type="button"
         onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
-        <img height="24" class="octicon octicon-three-bars" width="24" src="">
+        <img height="24" class="octicon octicon-three-bars" width="24" src="/images/GitHub-Mark-Light-32px.png">
       </button>
     </div>
     <div style="display: none;" id="header-search"
@@ -94,7 +100,7 @@
 
     <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
       <a class="Header-link " href="https://www.ty07.net/">
-        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="">
+        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="/images/GitHub-Mark-Light-32px.png">
       </a>
     </div>
     <div class="Header-item" style="margin-right: 0;">
@@ -127,7 +133,7 @@
               <div class="d-flex flex-column">
                 <h1 class="break-word f3 text-normal mb-md-0 mb-1">
                   <span class="author">
-                    <a href="https://www.ty07.net/"></a></span><span
+                    <a href="https://www.ty07.net/">YAMASHITA, Takao</a></span><span
                     class="path-divider">/</span><strong class="css-truncate-target mr-1" style="max-width: 410px"><a
                       href="https://www.ty07.net/post/2015-92a5-278e/">Using Packer for Archassult</a></strong>
                 </h1>
@@ -136,6 +142,11 @@
                     class="no-wrap">
                     Tue, 28 Apr 2015 14:24:00 &#43;0900</relative-time>
 
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Sun, 17 Mar 2024 17:52:11 &#43;0900"
+                    class="no-wrap">
+                    Sun, 17 Mar 2024 17:52:11 &#43;0900</relative-time>
                   
                 </div>
               </div>
@@ -212,12 +223,12 @@
 を作ったら <code>vagrat up</code>
 でバシバシ環境をデプロイするほうがよいと思い始めている。</p>
 <h2 id="作成">作成</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>$ git clone https://github.com/ac1965/archassault-packer.git
-</span></span><span style="display:flex;"><span>$ cd archassult-packer
-</span></span><span style="display:flex;"><span>$ packer build -only<span style="color:#f92672">=</span>virtualbox-iso template.json
-</span></span><span style="display:flex;"><span>$ vagrant box add archassault packer_archassault_virtualbox.box
-</span></span><span style="display:flex;"><span>$ vagrant init archassult
-</span></span><span style="display:flex;"><span>$ vagrant up
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ git clone https://github.com/ac1965/archassault-packer.git
+</span></span><span class="line"><span class="cl">$ <span class="nb">cd</span> archassult-packer
+</span></span><span class="line"><span class="cl">$ packer build -only<span class="o">=</span>virtualbox-iso template.json
+</span></span><span class="line"><span class="cl">$ vagrant box add archassault packer_archassault_virtualbox.box
+</span></span><span class="line"><span class="cl">$ vagrant init archassult
+</span></span><span class="line"><span class="cl">$ vagrant up
 </span></span></code></pre></div><h3 id="手をつけているところ">手をつけているところ</h3>
 <p>Cuckoo環境の半自動生成 *
 <a href="http://www.cuckoosandbox.org">Cuckoo</a>で簡易マルウェア自動解析をしよう</p>
@@ -228,7 +239,7 @@ Virtualboxイメージをダウンロードして、<a href="https://www.python.
 と <a href="http://www.pythonware.com/products/pil/">PIL(Python Image
 Lirary)</a>をインスコしておく。 cuckoo の agent.py を自動起動できるように
 agent.pwy にリネームして、自動起動できるようにしておく。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>reg.exe ADD <span style="color:#e6db74">&#34;HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run&#34;</span> -v <span style="color:#e6db74">&#34;Agent&#34;</span> -t REG_SZ -d <span style="color:#e6db74">&#34;C:\Python27\agent.pyw&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">reg.exe ADD <span class="s2">&#34;HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run&#34;</span> -v <span class="s2">&#34;Agent&#34;</span> -t REG_SZ -d <span class="s2">&#34;C:\Python27\agent.pyw&#34;</span>
 </span></span></code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://www.archlinux.org">Archlinux</a></li>
@@ -247,6 +258,24 @@ agent.pwy にリネームして、自動起動できるようにしておく。<
 </div>
 <script type="application/javascript" src='https://www.ty07.net/js/toc.js'></script>
 <link rel="stylesheet" href='https://www.ty07.net/css/toc.css' />
+
+<div id="gitalk-container" class="gitalk-container"></div>
+<link rel="stylesheet" href='https://www.ty07.net/css/gitalk.css'>
+<script src='https://www.ty07.net/js/gitalk.min.js'></script>
+<script>
+  const gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: eval( null ), 
+    distractionFreeMode: false 
+  });
+  (function() {
+    gitalk.render('gitalk-container');
+  })();
+</script>
 
 
   <div class="footer container-xl width-full p-responsive">

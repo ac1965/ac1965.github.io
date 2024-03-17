@@ -12,13 +12,16 @@
     <link rel="stylesheet" href='https://www.ty07.net/css/syntax.css' />
     <title>New PC - Not Good Father</title>
     
-    <link rel="icon" type="image/x-icon" href='https://www.ty07.net/images/favicon.ico'>
+    <link rel="icon" type="image/x-icon" href='/images/github.com'>
     
     <meta name="theme-color" content="#1e2327">
 
     
     <meta name="description"
-  content="息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用の" />
+  content="息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用のディスクに割り当てた。 用途は Live CD作成 マシンかな。
+Live CD のイメージ作成に、 以前は metro を使ってましたが、自分しか使わないのでもっと手軽に。
+パーティションレイアウトはこんな感じで。
+fdisk -l ディスク /dev/sdc: 160.0 GB, 160041885696 バイト ヘッド 255, セクタ 63, シリンダ 19457 Units = シリンダ数 of 16065 * 512 = 8225280 バイト ディスク識別子: 0x1b155f8d デバイス ブート 始点 終点 ブロック Id システム /dev/sdc1 1 9436 75794638&#43; 83 Linux /dev/sdc2 9437 9497 489982&#43; 83 Linux /dev/sdc3 9498 19457 80003700 83 Linux /etc/fstab /dev/sde1 /boot ext3 noauto,noatime 1 2 /dev/mapper/root / ext4 noatime 0 1 /dev/mapper/swap none swap sw 0 0 /dev/cdrom /mnt/cdrom auto noauto,ro 0 0 /dev/fd0 /mnt/floppy auto noauto 0 0 none /proc/sys/fs/binfmt_misc binfmt_misc defaults 0 0 /var/tmp/jail/portage /usr/portage none bind,rw 0 0 /var/tmp/jail/local-portage /usr/local/portage none bind,rw 0 0 /var/tmp/jail/distfiles /usr/portage/distfiles none bind,rw 0 0 Live CDの起動は、Grubで。 # This is a sample grub." />
 <meta name="keywords"
   content='' />
 <meta name="robots" content="noodp" />
@@ -28,7 +31,10 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="New PC - Not Good Father" />
 <meta name="twitter:description"
-  content="息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用の" />
+  content="息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用のディスクに割り当てた。 用途は Live CD作成 マシンかな。
+Live CD のイメージ作成に、 以前は metro を使ってましたが、自分しか使わないのでもっと手軽に。
+パーティションレイアウトはこんな感じで。
+fdisk -l ディスク /dev/sdc: 160.0 GB, 160041885696 バイト ヘッド 255, セクタ 63, シリンダ 19457 Units = シリンダ数 of 16065 * 512 = 8225280 バイト ディスク識別子: 0x1b155f8d デバイス ブート 始点 終点 ブロック Id システム /dev/sdc1 1 9436 75794638&#43; 83 Linux /dev/sdc2 9437 9497 489982&#43; 83 Linux /dev/sdc3 9498 19457 80003700 83 Linux /etc/fstab /dev/sde1 /boot ext3 noauto,noatime 1 2 /dev/mapper/root / ext4 noatime 0 1 /dev/mapper/swap none swap sw 0 0 /dev/cdrom /mnt/cdrom auto noauto,ro 0 0 /dev/fd0 /mnt/floppy auto noauto 0 0 none /proc/sys/fs/binfmt_misc binfmt_misc defaults 0 0 /var/tmp/jail/portage /usr/portage none bind,rw 0 0 /var/tmp/jail/local-portage /usr/local/portage none bind,rw 0 0 /var/tmp/jail/distfiles /usr/portage/distfiles none bind,rw 0 0 Live CDの起動は、Grubで。 # This is a sample grub." />
 <meta name="twitter:site" content="https://www.ty07.net/" />
 <meta name="twitter:creator" content="[YAMASHITA Takao]" />
 <meta name="twitter:image"
@@ -38,7 +44,10 @@
 <meta property="og:type" content="article" />
 <meta property="og:title" content="New PC - Not Good Father">
 <meta property="og:description"
-  content="息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用の" />
+  content="息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用のディスクに割り当てた。 用途は Live CD作成 マシンかな。
+Live CD のイメージ作成に、 以前は metro を使ってましたが、自分しか使わないのでもっと手軽に。
+パーティションレイアウトはこんな感じで。
+fdisk -l ディスク /dev/sdc: 160.0 GB, 160041885696 バイト ヘッド 255, セクタ 63, シリンダ 19457 Units = シリンダ数 of 16065 * 512 = 8225280 バイト ディスク識別子: 0x1b155f8d デバイス ブート 始点 終点 ブロック Id システム /dev/sdc1 1 9436 75794638&#43; 83 Linux /dev/sdc2 9437 9497 489982&#43; 83 Linux /dev/sdc3 9498 19457 80003700 83 Linux /etc/fstab /dev/sde1 /boot ext3 noauto,noatime 1 2 /dev/mapper/root / ext4 noatime 0 1 /dev/mapper/swap none swap sw 0 0 /dev/cdrom /mnt/cdrom auto noauto,ro 0 0 /dev/fd0 /mnt/floppy auto noauto 0 0 none /proc/sys/fs/binfmt_misc binfmt_misc defaults 0 0 /var/tmp/jail/portage /usr/portage none bind,rw 0 0 /var/tmp/jail/local-portage /usr/local/portage none bind,rw 0 0 /var/tmp/jail/distfiles /usr/portage/distfiles none bind,rw 0 0 Live CDの起動は、Grubで。 # This is a sample grub." />
 <meta property="og:url" content="https://www.ty07.net/post/2009-7fbf-eb12/" />
 <meta property="og:site_name" content="New PC" />
 <meta property="og:image"
@@ -64,13 +73,13 @@
   <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
     <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
       <a class="Header-link" href="https://www.ty07.net/">
-        <img class="octicon" height="32" width="32" src="">
+        <img class="octicon" height="32" width="32" src="/images/GitHub-Mark-Light-32px.png">
       </a>
     </div>
     <div class="Header-item d-md-none">
       <button class="Header-link btn-link js-details-target" type="button"
         onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
-        <img height="24" class="octicon octicon-three-bars" width="24" src="">
+        <img height="24" class="octicon octicon-three-bars" width="24" src="/images/GitHub-Mark-Light-32px.png">
       </button>
     </div>
     <div style="display: none;" id="header-search"
@@ -94,7 +103,7 @@
 
     <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
       <a class="Header-link " href="https://www.ty07.net/">
-        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="">
+        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="/images/GitHub-Mark-Light-32px.png">
       </a>
     </div>
     <div class="Header-item" style="margin-right: 0;">
@@ -127,7 +136,7 @@
               <div class="d-flex flex-column">
                 <h1 class="break-word f3 text-normal mb-md-0 mb-1">
                   <span class="author">
-                    <a href="https://www.ty07.net/"></a></span><span
+                    <a href="https://www.ty07.net/">YAMASHITA, Takao</a></span><span
                     class="path-divider">/</span><strong class="css-truncate-target mr-1" style="max-width: 410px"><a
                       href="https://www.ty07.net/post/2009-7fbf-eb12/">New PC</a></strong>
                 </h1>
@@ -136,6 +145,11 @@
                     class="no-wrap">
                     Sat, 14 Nov 2009 14:22:00 &#43;0900</relative-time>
 
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Sun, 17 Mar 2024 17:52:10 &#43;0900"
+                    class="no-wrap">
+                    Sun, 17 Mar 2024 17:52:10 &#43;0900</relative-time>
                   
                 </div>
               </div>
@@ -196,93 +210,93 @@ Linux用のディスクに割り当てた。 用途は Live CD作成 マシン�
 を使ってましたが、自分しか使わないのでもっと手軽に。</p>
 <p>パーティションレイアウトはこんな感じで。</p>
 <h2 id="fdisk-l">fdisk -l</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ディスク /dev/sdc: 160.0 GB, <span style="color:#ae81ff">160041885696</span> バイト
-</span></span><span style="display:flex;"><span>ヘッド 255, セクタ 63, シリンダ <span style="color:#ae81ff">19457</span>
-</span></span><span style="display:flex;"><span>Units <span style="color:#f92672">=</span> シリンダ数 of <span style="color:#ae81ff">16065</span> * 512 <span style="color:#f92672">=</span> <span style="color:#ae81ff">8225280</span> バイト
-</span></span><span style="display:flex;"><span>ディスク識別子: 0x1b155f8d
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>デバイス ブート     始点        終点    ブロック   Id  システム
-</span></span><span style="display:flex;"><span>/dev/sdc1               <span style="color:#ae81ff">1</span>        <span style="color:#ae81ff">9436</span>    75794638+  <span style="color:#ae81ff">83</span>  Linux
-</span></span><span style="display:flex;"><span>/dev/sdc2            <span style="color:#ae81ff">9437</span>        <span style="color:#ae81ff">9497</span>      489982+  <span style="color:#ae81ff">83</span>  Linux
-</span></span><span style="display:flex;"><span>/dev/sdc3            <span style="color:#ae81ff">9498</span>       <span style="color:#ae81ff">19457</span>    <span style="color:#ae81ff">80003700</span>   <span style="color:#ae81ff">83</span>  Linux
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ディスク /dev/sdc: 160.0 GB, <span class="m">160041885696</span> バイト
+</span></span><span class="line"><span class="cl">ヘッド 255, セクタ 63, シリンダ <span class="m">19457</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Units</span> <span class="o">=</span> シリンダ数 of <span class="m">16065</span> * <span class="nv">512</span> <span class="o">=</span> <span class="m">8225280</span> バイト
+</span></span><span class="line"><span class="cl">ディスク識別子: 0x1b155f8d
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">デバイス ブート     始点        終点    ブロック   Id  システム
+</span></span><span class="line"><span class="cl">/dev/sdc1               <span class="m">1</span>        <span class="m">9436</span>    75794638+  <span class="m">83</span>  Linux
+</span></span><span class="line"><span class="cl">/dev/sdc2            <span class="m">9437</span>        <span class="m">9497</span>      489982+  <span class="m">83</span>  Linux
+</span></span><span class="line"><span class="cl">/dev/sdc3            <span class="m">9498</span>       <span class="m">19457</span>    <span class="m">80003700</span>   <span class="m">83</span>  Linux
 </span></span></code></pre></div><h2 id="etc-fstab">/etc/fstab</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>/dev/sde1       /boot       ext3        noauto,noatime  <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>/dev/mapper/root        /       ext4        noatime     <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>/dev/mapper/swap    none        swap        sw      <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>/dev/cdrom      /mnt/cdrom  auto        noauto,ro   <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>/dev/fd0        /mnt/floppy auto        noauto      <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>none    /proc/sys/fs/binfmt_misc    binfmt_misc defaults    <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>/var/tmp/jail/portage   /usr/portage    none        bind,rw     <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>/var/tmp/jail/local-portage /usr/local/portage  none        bind,rw     <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>/var/tmp/jail/distfiles /usr/portage/distfiles  none        bind,rw     <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">/dev/sde1       /boot       ext3        noauto,noatime  <span class="m">1</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl">/dev/mapper/root        /       ext4        noatime     <span class="m">0</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">/dev/mapper/swap    none        swap        sw      <span class="m">0</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">/dev/cdrom      /mnt/cdrom  auto        noauto,ro   <span class="m">0</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">/dev/fd0        /mnt/floppy auto        noauto      <span class="m">0</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">none    /proc/sys/fs/binfmt_misc    binfmt_misc defaults    <span class="m">0</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">/var/tmp/jail/portage   /usr/portage    none        bind,rw     <span class="m">0</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">/var/tmp/jail/local-portage /usr/local/portage  none        bind,rw     <span class="m">0</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">/var/tmp/jail/distfiles /usr/portage/distfiles  none        bind,rw     <span class="m">0</span> <span class="m">0</span>
 </span></span></code></pre></div><h2 id="live-cdの起動は-grubで">Live CDの起動は、Grubで。</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># This is a sample grub.conf for use with Genkernel, per the Gentoo handbook</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># http://www.gentoo.org/doc/en/handbook/handbook-x86.xml?part=1&amp;chap=10#doc_chap2</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># If you are not using Genkernel and you need help creating this file, you</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># should consult the handbook. Alternatively, consult the grub.conf.sample that</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># is included with the Grub documentation.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#color white/red black/red</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#splashimage=/boot/splash.xpm.gz</span>
-</span></span><span style="display:flex;"><span>splashimage<span style="color:#f92672">=</span>/boot/grub/bt4.xpm.gz
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>default <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>timeout <span style="color:#ae81ff">30</span>
-</span></span><span style="display:flex;"><span>password --md5 $1$jBaL5/$pIpowSTX5ip2pDXllzSd90
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>title<span style="color:#f92672">=</span>Gentoo Linux <span style="color:#f92672">(</span>2.6.31-pentoo-r2<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>root <span style="color:#f92672">(</span>hd0,0<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>kernel /boot/kernel-genkernel-x86-2.6.31-pentoo-r2 root<span style="color:#f92672">=</span>/dev/ram0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>       crypt_root<span style="color:#f92672">=</span>/dev/sdc3 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>       ramdisk<span style="color:#f92672">=</span><span style="color:#ae81ff">8192</span> quiet CONSOLE<span style="color:#f92672">=</span>/dev/tty1 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>       resume<span style="color:#f92672">=</span>swap:/dev/mapper/swap init<span style="color:#f92672">=</span>/linuxrc
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>initrd /boot/initramfs-genkernel-x86-2.6.31-pentoo-r2
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -- Backtrack4</span>
-</span></span><span style="display:flex;"><span>title BT-4
-</span></span><span style="display:flex;"><span>root <span style="color:#f92672">(</span>hd0,0<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>kernel /boot/bt4/vmlinuz  BOOT<span style="color:#f92672">=</span>casper boot<span style="color:#f92672">=</span>casper persistent rw quiet
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>initrd /boot/bt4/initrd.gz
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>title<span style="color:#f92672">=</span>USB stick Pentoo
-</span></span><span style="display:flex;"><span>root <span style="color:#f92672">(</span>hd0,0<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>kernel /boot/kernel-genkernel-x86-2.6.31-pentoo-r2 root<span style="color:#f92672">=</span>/dev/ram0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    root<span style="color:#f92672">=</span>/dev/ram0 cdroot aufs <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    init<span style="color:#f92672">=</span>/linuxrc max_loop<span style="color:#f92672">=</span><span style="color:#ae81ff">256</span> nokeymap <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    looptype<span style="color:#f92672">=</span>squashfs loop<span style="color:#f92672">=</span>/image/root-20091113.squashfs
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>initrd /boot/initramfs-genkernel-x86-2.6.31-pentoo-r2
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#title USB stick Pentoo</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#root (hd0,0)</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#kernel /boot/pentoo/pentoo \</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#    root=/dev/ram0 cdroot aufs changes=/dev/sde2 \</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#    init=/linuxrc max_loop=256 nokeymap \</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#    looptype=squashfs loop=/pentoo/image-2009.squashfs</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#initrd /boot/pentoo/pentoo.igz</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#title USB stick Pentoo</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#root (hd0,0)</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#kernel /boot/kernel-genkernel-x86-2.6.29-pentoo-r2 \</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#    root=/dev/ram0 cdroot aufs changes=/dev/sdc2 \</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#    init=/linuxrc max_loop=256 nokeymap \</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#    looptype=squashfs loop=/pentoo/image.squashfs</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#initrd /boot/initramfs-genkernel-x86-2.6.29-pentoo-r2</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>title grub-install
-</span></span><span style="display:flex;"><span>lock
-</span></span><span style="display:flex;"><span>install <span style="color:#f92672">(</span>hd0,0<span style="color:#f92672">)</span>/boot/grub/stage1 d <span style="color:#f92672">(</span>hd0<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>hd0,0<span style="color:#f92672">)</span>/boot/grub/stage2 p <span style="color:#f92672">(</span>hd0,0<span style="color:#f92672">)</span>/boot/grub/grub.conf
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>title Other Operating System - Microsoft Windows XP
-</span></span><span style="display:flex;"><span>lock
-</span></span><span style="display:flex;"><span>    rootnoverify <span style="color:#f92672">(</span>hd0,0<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>    makeactive
-</span></span><span style="display:flex;"><span>    chainloader +1
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># vim:ft=conf:</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># This is a sample grub.conf for use with Genkernel, per the Gentoo handbook</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># http://www.gentoo.org/doc/en/handbook/handbook-x86.xml?part=1&amp;chap=10#doc_chap2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># If you are not using Genkernel and you need help creating this file, you</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># should consult the handbook. Alternatively, consult the grub.conf.sample that</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># is included with the Grub documentation.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#color white/red black/red</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#splashimage=/boot/splash.xpm.gz</span>
+</span></span><span class="line"><span class="cl"><span class="nv">splashimage</span><span class="o">=</span>/boot/grub/bt4.xpm.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">default <span class="m">0</span>
+</span></span><span class="line"><span class="cl">timeout <span class="m">30</span>
+</span></span><span class="line"><span class="cl">password --md5 <span class="nv">$1$jBaL5</span>/<span class="nv">$pIpowSTX5ip2pDXllzSd90</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">title</span><span class="o">=</span>Gentoo Linux <span class="o">(</span>2.6.31-pentoo-r2<span class="o">)</span>
+</span></span><span class="line"><span class="cl">root <span class="o">(</span>hd0,0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">kernel /boot/kernel-genkernel-x86-2.6.31-pentoo-r2 <span class="nv">root</span><span class="o">=</span>/dev/ram0 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>       <span class="nv">crypt_root</span><span class="o">=</span>/dev/sdc3 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>       <span class="nv">ramdisk</span><span class="o">=</span><span class="m">8192</span> quiet <span class="nv">CONSOLE</span><span class="o">=</span>/dev/tty1 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>       <span class="nv">resume</span><span class="o">=</span>swap:/dev/mapper/swap <span class="nv">init</span><span class="o">=</span>/linuxrc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">initrd /boot/initramfs-genkernel-x86-2.6.31-pentoo-r2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -- Backtrack4</span>
+</span></span><span class="line"><span class="cl">title BT-4
+</span></span><span class="line"><span class="cl">root <span class="o">(</span>hd0,0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">kernel /boot/bt4/vmlinuz  <span class="nv">BOOT</span><span class="o">=</span>casper <span class="nv">boot</span><span class="o">=</span>casper persistent rw quiet
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">initrd /boot/bt4/initrd.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">title</span><span class="o">=</span>USB stick Pentoo
+</span></span><span class="line"><span class="cl">root <span class="o">(</span>hd0,0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">kernel /boot/kernel-genkernel-x86-2.6.31-pentoo-r2 <span class="nv">root</span><span class="o">=</span>/dev/ram0 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="nv">root</span><span class="o">=</span>/dev/ram0 cdroot aufs <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="nv">init</span><span class="o">=</span>/linuxrc <span class="nv">max_loop</span><span class="o">=</span><span class="m">256</span> nokeymap <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="nv">looptype</span><span class="o">=</span>squashfs <span class="nv">loop</span><span class="o">=</span>/image/root-20091113.squashfs
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">initrd /boot/initramfs-genkernel-x86-2.6.31-pentoo-r2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#title USB stick Pentoo</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#root (hd0,0)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#kernel /boot/pentoo/pentoo \</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    root=/dev/ram0 cdroot aufs changes=/dev/sde2 \</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    init=/linuxrc max_loop=256 nokeymap \</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    looptype=squashfs loop=/pentoo/image-2009.squashfs</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#initrd /boot/pentoo/pentoo.igz</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#title USB stick Pentoo</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#root (hd0,0)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#kernel /boot/kernel-genkernel-x86-2.6.29-pentoo-r2 \</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    root=/dev/ram0 cdroot aufs changes=/dev/sdc2 \</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    init=/linuxrc max_loop=256 nokeymap \</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    looptype=squashfs loop=/pentoo/image.squashfs</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#initrd /boot/initramfs-genkernel-x86-2.6.29-pentoo-r2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">title grub-install
+</span></span><span class="line"><span class="cl">lock
+</span></span><span class="line"><span class="cl">install <span class="o">(</span>hd0,0<span class="o">)</span>/boot/grub/stage1 d <span class="o">(</span>hd0<span class="o">)</span> <span class="o">(</span>hd0,0<span class="o">)</span>/boot/grub/stage2 p <span class="o">(</span>hd0,0<span class="o">)</span>/boot/grub/grub.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">title Other Operating System - Microsoft Windows XP
+</span></span><span class="line"><span class="cl">lock
+</span></span><span class="line"><span class="cl">    rootnoverify <span class="o">(</span>hd0,0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    makeactive
+</span></span><span class="line"><span class="cl">    chainloader +1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># vim:ft=conf:</span>
 </span></span></code></pre></div><h2 id="live-cdの作成は-chroot環境で">Live CDの作成は chroot環境で。</h2>
 <ul>
 <li><a href="http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/in.sh">CHROOT環境設定</a>[[<a href="http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/in.sh">http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/in.sh</a>][]]</li>
@@ -292,11 +306,11 @@ Linux用のディスクに割り当てた。 用途は Live CD作成 マシン�
 ROOT-IMAGE</a></li>
 </ul>
 <p>こんな感じで使います。CHROOTは私の環境では、&quot;/var/tmp/jail/squashfs-root&quot;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># ./in.sh</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># cp chroot.sh ${CHROOT}/tmp</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># chroot ${CHROOT} /tmp/chroot.sh</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># ./out.sh</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># ./mkrootimg.sh</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># ./in.sh</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># cp chroot.sh ${CHROOT}/tmp</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># chroot ${CHROOT} /tmp/chroot.sh</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ./out.sh</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ./mkrootimg.sh</span>
 </span></span></code></pre></div></article>
               </div>
             </div>
@@ -308,6 +322,24 @@ ROOT-IMAGE</a></li>
 </div>
 <script type="application/javascript" src='https://www.ty07.net/js/toc.js'></script>
 <link rel="stylesheet" href='https://www.ty07.net/css/toc.css' />
+
+<div id="gitalk-container" class="gitalk-container"></div>
+<link rel="stylesheet" href='https://www.ty07.net/css/gitalk.css'>
+<script src='https://www.ty07.net/js/gitalk.min.js'></script>
+<script>
+  const gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: eval( null ), 
+    distractionFreeMode: false 
+  });
+  (function() {
+    gitalk.render('gitalk-container');
+  })();
+</script>
 
 
   <div class="footer container-xl width-full p-responsive">
