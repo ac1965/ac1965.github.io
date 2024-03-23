@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Covid-19 on Not Good Father</title>
     <link>https://www.ty07.net/tags/covid-19/</link>
     <description>Recent content in Covid-19 on Not Good Father</description>
+    <image>
+      <title>Not Good Father</title>
+      <url>https://www.ty07.net/images/avatar.png</url>
+      <link>https://www.ty07.net/images/avatar.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
+    <language>ja</language>
     <lastBuildDate>Sat, 23 Mar 2024 12:18:32 +0900</lastBuildDate>
     <atom:link href="https://www.ty07.net/tags/covid-19/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -13,7 +18,8 @@
       <link>https://www.ty07.net/post/2021-3072-328a/</link>
       <pubDate>Sat, 20 Feb 2021 16:43:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2021-3072-328a/</guid>
-      <description>人にとって必要なエクスペリエンスは、不要不急の中で生まれるものが多いと思う。&#xA;不要不急を抑止されているコロナ禍の中で、人は豊かな生活を求めることができるのだろうか。</description>
+      <description>人にとって必要なエクスペリエンスは、不要不急の中で生まれるものが多いと思う。
+不要不急を抑止されているコロナ禍の中で、人は豊かな生活を求めることができるのだろうか。</description>
     </item>
   </channel>
 </rss>
