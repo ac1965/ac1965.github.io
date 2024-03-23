@@ -266,6 +266,24 @@
 <script type="application/javascript" src='https://www.ty07.net/js/toc.js'></script>
 <link rel="stylesheet" href='https://www.ty07.net/css/toc.css' />
 
+<div id="gitalk-container" class="gitalk-container"></div>
+<link rel="stylesheet" href='https://www.ty07.net/css/gitalk.css'>
+<script src='https://www.ty07.net/js/gitalk.min.js'></script>
+<script>
+  const gitalk = new Gitalk({
+    clientID: '646f2681a48c8a183175',
+    clientSecret: '',
+    repo: 'hugo-blog',
+    owner: 'ac1965',
+    admin: ['ac1965'],
+    id: eval("jp.pathname"), 
+    distractionFreeMode: false 
+  });
+  (function() {
+    gitalk.render('gitalk-container');
+  })();
+</script>
+
 
   <div class="footer container-xl width-full p-responsive">
   <div
