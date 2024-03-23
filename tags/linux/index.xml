@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on Not Good Father</title>
     <link>https://www.ty07.net/tags/linux/</link>
     <description>Recent content in Linux on Not Good Father</description>
-    <image>
-      <title>Not Good Father</title>
-      <url>https://www.ty07.net/images/avatar.png</url>
-      <link>https://www.ty07.net/images/avatar.png</link>
-    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 23 Mar 2024 12:18:31 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 23 Mar 2024 12:18:52 +0900</lastBuildDate>
     <atom:link href="https://www.ty07.net/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Guruplug　届くまでにやったこと</title>
       <link>https://www.ty07.net/post/2010-ceb7-ee44/</link>
       <pubDate>Wed, 14 Apr 2010 23:31:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2010-ceb7-ee44/</guid>
-      <description>guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう
-クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug Wiki に加筆したものも含めて、めもです。
-参考にしたポイント cross-development Building Kernel GuruPlug クロスコンパイルは GNU Hurd で遊んで以来、やっていなかったけど、Gentoo は楽ちんですね。</description>
+      <description>guruplug が届く前に環境を作</description>
     </item>
     <item>
       <title>New PC</title>
       <link>https://www.ty07.net/post/2009-7fbf-eb12/</link>
       <pubDate>Sat, 14 Nov 2009 14:22:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2009-7fbf-eb12/</guid>
-      <description>息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用のディスクに割り当てた。 用途は Live CD作成 マシンかな。</description>
+      <description>息子が iPod nano を買って今</description>
     </item>
   </channel>
 </rss>

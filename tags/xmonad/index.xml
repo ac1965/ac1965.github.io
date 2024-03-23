@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Xmonad on Not Good Father</title>
     <link>https://www.ty07.net/tags/xmonad/</link>
     <description>Recent content in Xmonad on Not Good Father</description>
-    <image>
-      <title>Not Good Father</title>
-      <url>https://www.ty07.net/images/avatar.png</url>
-      <link>https://www.ty07.net/images/avatar.png</link>
-    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 23 Mar 2024 12:18:31 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 23 Mar 2024 12:18:52 +0900</lastBuildDate>
     <atom:link href="https://www.ty07.net/tags/xmonad/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Xmonad for Backtrack4</title>
       <link>https://www.ty07.net/post/2010-3be9-c756/</link>
       <pubDate>Mon, 08 Mar 2010 08:23:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2010-3be9-c756/</guid>
-      <description>backtrack4 に xmonad を入れてみた。
-[[http://www.lares.dti.ne.jp/~jargon/uploads/backtrack4-xmonad.png]]
-$HOME/.xmonad/xmonad.hs import XMonad import XMonad.Config.Kde import qualified XMonad.</description>
+      <description>backtrack4 に xmonad を入れてみた。</description>
     </item>
     <item>
       <title>xmonad window manager</title>
       <link>https://www.ty07.net/post/2010-1620-4255/</link>
       <pubDate>Sat, 06 Mar 2010 19:50:00 +0900</pubDate>
       <guid>https://www.ty07.net/post/2010-1620-4255/</guid>
-      <description>awsome 最高と思っていたけど、Xmonad はさらにいいです。 キーボードで操作できて、awesome とは違い設定ファイルがヘタっても前の設定で動作するので使っている側としては安全だよね。 awesome でいいなと思ってたものは大体ある。 bioe007 が書いた awesome の revelation は好きだったのでの、こういうのは xmonad にないか探しているところ。</description>
+      <description>awsome 最高と思っていたけ</description>
     </item>
   </channel>
 </rss>
