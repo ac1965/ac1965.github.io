@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.ty07.net/ja%202/categories/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://www.ty07.net/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja 2"
+                href="https://www.ty07.net/ja%202/categories/"
+                />
+  </url><url>
+    <loc>https://www.ty07.net/ja%202/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://www.ty07.net/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja 2"
+                href="https://www.ty07.net/ja%202/"
+                />
+  </url><url>
+    <loc>https://www.ty07.net/ja%202/series/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://www.ty07.net/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja 2"
+                href="https://www.ty07.net/ja%202/series/"
+                />
+  </url><url>
+    <loc>https://www.ty07.net/ja%202/tags/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja"
+                href="https://www.ty07.net/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ja 2"
+                href="https://www.ty07.net/ja%202/tags/"
+                />
+  </url>
+</urlset>
