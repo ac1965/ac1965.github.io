@@ -10,8 +10,8 @@ body {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  padding-left: 32px!important;
-  padding-right: 32px!important;
+  padding-left: 32px !important;
+  padding-right: 32px !important;
   z-index: 32;
   padding: 16px;
   font-size: 14px;
@@ -32,6 +32,12 @@ body {
   margin-right: 16px;
 }
 
+@media (min-width: 1280px) {
+  .Theme-switcher {
+    display: none;
+  }
+}
+
 .octicon {
   fill: currentColor;
 }
@@ -39,7 +45,7 @@ body {
 .Header-search {
   max-width: 272px;
   width: 100%;
-  transition: .2s ease-in-out;
+  transition: 0.2s ease-in-out;
   transition-property: max-width, padding-bottom, padding-top;
 }
 
@@ -63,7 +69,7 @@ body {
 }
 
 .Header-search-label:focus-within {
-  background-color: hsla(0, 0%, 100%, .175);
+  background-color: hsla(0, 0%, 100%, 0.175);
   border-color: var(--color-state-focus-border);
   outline: none;
 }
@@ -115,7 +121,7 @@ body {
   user-select: none;
 }
 
-.details-reset>summary {
+.details-reset > summary {
   outline: none;
 }
 
@@ -159,7 +165,8 @@ body {
 
 #table-of-contents > nav ul > li {
   margin-left: 1em;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji;
 }
 
 #table-of-contents > nav > ul > li {
@@ -168,18 +175,18 @@ body {
 
 @media (max-width: 768px) {
   .Header {
-    padding-left: 24px!important;
-    padding-right: 24px!important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
   }
 }
 
 @media (max-width: 480px) {
   .Header {
-    padding-left: 16px!important;
-    padding-right: 16px!important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
   .mobile-none {
-    display: none!important;
+    display: none !important;
   }
   .Header-search {
     max-width: 100%;
@@ -190,50 +197,31 @@ body {
   max-width: 100%;
 }
 
-.paginav {
-    border-radius: var(--radius);
-    background: var(--code-bg);
-    border: 1px solid var(--border);
+.octicon-heart {
+  color: var(--color-sponsors-fg) !important;
 }
 
-.paginav a:hover {
-    background: var(--border);
+.pagination-nav {
+  display: flex;
+  justify-content: space-between;
 }
 
-
-
-.paginav {
-    display: flex;
-    line-height: 30px;
+.pagination-nav .pagination-button {
+  display: flex;
 }
 
-.paginav a {
-    padding-inline-start: 14px;
-    padding-inline-end: 14px;
-    border-radius: var(--radius);
+.pagination-nav .pagination-button .pagination-link {
+  max-width: 150px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.paginav .title {
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: small;
-    color: var(--secondary);
+.pagination-nav .pagination-button .pagination-link {
+  color: var(--color-text-primary);
+  text-decoration: underline;
 }
 
-.paginav .prev,
-.paginav .next {
-    width: 50%;
-}
-
-.paginav span:hover:not(.title) {
-    box-shadow: 0 1px 0;
-}
-
-.paginav .next {
-    margin-inline-start: auto;
-    text-align: right;
-}
-
-[dir="rtl"] .paginav .next {
-    text-align: left;
+.pagination-nav .pagination-button .pagination-link:hover {
+  color: var(--color-text-link);
 }
