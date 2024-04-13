@@ -2124,7 +2124,7 @@ NHKで約20年前に放映した番組の作品である。
 [[file:/images/20100730266.jpg]]
 
 #+begin_export hugo
-{{<youtube "ivEGmvSjyz0?si=EUNeQ4oRuLPhXHYk">}}
+{{<youtube id="ivEGmvSjyz0" title="四季・ユートピアノ">}}
 #+end_export
 
 ** DONE Hexo でハロー
