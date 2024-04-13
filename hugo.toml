@@ -1,0 +1,128 @@
+baseURL = 'https://www.ty07.net'
+DefaultContentLanguage = 'ja'
+languageCode = 'ja-jp'
+title = 'Not Good Father'
+theme = 'github-style'
+paginate = 10
+
+#summarylength = 30
+enableEmoji = true
+enableInlineShortcodes = true
+enableRobotsTXT = true
+hasCJKLanguage = true
+enableGitInfo = true
+
+# Enable Disqus
+#disqusShortname = ""
+
+# Google Analytics
+#googleAnalytics = "UA-123-45"
+
+# Syntax highlighting
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+pygmentsStyle = "pastie"
+
+# Localized dates requires Hugo version 0.87.0
+localizedDates = true
+
+[params]
+author = 'YAMASHITA, Takao'
+#copyright = '2020-2021'
+description = 'The sound, old pond and frog jump into water.'
+keywords = ''
+mainSections = ['post']
+doNotLoadAnimations = false
+pin = true
+
+# Form Spree Contact Form
+#contactFormAction = 'https://formspree.io/f/your-form-hash-here'
+#contactFormReCaptcha = 'your-site-key-here'
+# Google Fonts
+#googleFonts = ['Indie+Flower', 'Roboto:ital,wght@0,100;0,400;0,700;1,400']
+# Google Site Verify
+#googleSiteVerify = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+# Commento Comments
+# CommentoURL = 'https://commento.example.com/js/commento.js'
+# Read More links for truncated summaries
+# readMore = true
+# postSectionName = 'blog'
+# relatedPosts = true
+# numberOfRelatedPosts = 3
+
+ShowShareButtons = true
+ShowReadingTime = true
+# disableSpecial1stPost: true
+displayFullLangName = true
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+ShowCodeCopyButtons = true
+ShowRssButtonInSectionTermList = true
+
+ShowAllPagesInArchive = true
+ShowPageNums = true
+ShowToc = true
+
+reversepagetitle = true # When set to 'true', the Window Title will be reversed to 'Title | Author' instead of the default 'Author | Title'
+
+# hidesidebar = true
+
+github = 'ac1965'
+twitter = 'ac1965'
+facebook = 'ac1965'
+instagram = 'tjy1965'
+email = 'tjy1965@gmail.com'
+url = 'https://www.ty07.net'
+rss = true
+lastmod = false
+favicon = '/images/github.com'
+avatar = '/images/avatar.png'
+headerIcon = '/images/GitHub-Mark-Light-32px.png'
+location = 'Japan, /dev/urandom'
+
+## Gitalk
+enableGitalk = true
+##
+[params.gitalk]
+clientID = '646f2681a48c8a183175'
+clientSecret = 'c2fcde42cfcbc419a33e04b72ed9c61617b7f467'
+repo = 'ac1965.github.io'
+owner = 'ac1965'
+admin = 'ac1965'
+id = 'location.pathname'
+labels = 'gitalk'
+perPage = 30
+pagerDirection = 'last'
+createIssueManually = true
+distractionFreeMode = false
+
+## Math settings
+##
+[math]
+enable = false  # options: true, false. Enable math support globally, default: false. You can always enable math on per page.
+use = 'katex'  # options: 'katex', 'mathjax'. default is 'katex'.
+
+[markup]
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+        unsafe=true
+
+[taxonomies]
+    category = "categories"
+    series = "series"
+    tag = "tags"
+
+[related]
+  includeNewer = true
+  threshold = 80
+  toLower = true
+[[related.indices]]
+  name = 'keywords'
+  weight = 100
+[[related.indices]]
+  name = 'tags'
+  weight = 80
+
+#[frontmatter]
+#  lastmod = ["lastmod", ":fileModTime", ":default"]
