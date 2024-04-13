@@ -463,18 +463,17 @@ backtrack4 に xmonad を入れてみた。
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** guruplug が届く前に環境を作っておこう
+   :PROPERTIES:
+   :CUSTOM_ID: guruplug-が届く前に環境を作っておこう
+   :END:
+
 *** 1日目
   :PROPERTIES:
   :CUSTOM_ID: 日目
   :END:
 
-   :PROPERTIES:
-   :CUSTOM_ID: guruplug-が届く前に環境を作っておこう
-   :END:
-
 クロスコンパイル環境とか、ルートファイルシステムなど。
-[[http://www.plugcomputer.org/plugwiki/index.php/GuruPlug%22][GuruPlug
-Wiki]] に加筆したものも含めて、めもです。
+[[http://www.plugcomputer.org/plugwiki/index.php/GuruPlug%22][GuruPlug Wiki]] に加筆したものも含めて、めもです。
 
 **** 参考にしたポイント
    :PROPERTIES:
@@ -489,8 +488,7 @@ Wiki]] に加筆したものも含めて、めもです。
 クロスコンパイルは [[http://www.gnu.org/software/hurd/][GNU Hurd]]
 で遊んで以来、やっていなかったけど、Gentoo は楽ちんですね。
 
-**** クロスコンパイ
-ル環境のセットアップ
+**** クロスコンパイル環境のセットアップ
    :PROPERTIES:
    :CUSTOM_ID: クロスコンパイル環境のセットアップ
    :END:
@@ -567,11 +565,13 @@ crossdev で作ったクロスコンパイラで基本システム(stage1)を構
 なので指定しておかないとoverwrite されるので注意
 あと、クロスコンパイルの場合 CBUILD は必要。
 
-#+BEGIN_EXAMPLE
+#+begin_export hugo
+{{<details "/usr/armv5tel-softfloat-linux-gnueabi/etc/make.conf" >}}
+```
   # NEVER change this
   CHOST="armv5tel-softfloat-linux-gnueabi"
   CBUILD=i686-pc-linux-gnu
-  CHOST=${CHOST}
+  CHOST=${CAHOST}
   ARCH="arm"
   ROOT=/usr/${CHOST}/
   ACCEPT_KEYWORDS="arm ~arm"
@@ -609,7 +609,9 @@ crossdev で作ったクロスコンパイラで基本システム(stage1)を構
   GENTOO_MIRRORS="http://gentoo.gg3.net/"
 
   ACCEPT_LICENSE="*"
-#+END_EXAMPLE
+```
+{{</details >}}
+  #+end_export
 
 *** 2日目
   :PROPERTIES:
@@ -643,7 +645,9 @@ crossdev で作ったクロスコンパイラで基本システム(stage1)を構
    :CUSTOM_ID: 野良ebuild-cpio-2.11-r1.ebuild
    :END:
 
-#+BEGIN_EXAMPLE
+   #+begin_export hugo
+  {{<details "cpio-2.11-r1.ebuild">}}
+  ```
   # Copyright 1999-2010 Gentoo Foundation
   # Distributed under the terms of the GNU General Public License v2
   # $Header: /var/cvsroot/gentoo-x86/app-arch/cpio/cpio-2.11.ebuild,v 1.1 2010/03/15 07:52:11 vapier Exp $
@@ -681,7 +685,9 @@ crossdev で作ったクロスコンパイラで基本システム(stage1)を構
       cd "${S}"
       epatch "${FILESDIR}"/${P}-filetypes.patch
   }
-#+END_EXAMPLE
+  ```
+  {{</details>}}
+  #+end_export
 
 *** 3日目
   :PROPERTIES:
