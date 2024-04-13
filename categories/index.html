@@ -3,35 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-
-    
-    <meta property="og:site_name" content="Not Good Father">
-    <meta property="og:type" content="article">
-
-    
-    <meta property="og:image" content="https://www.ty07.net//images/avatar.png">
-    <meta property="twitter:image" content="https://www.ty07.net//images/avatar.png" />
-    
-
-    
-    <meta name="title" content="" />
-    <meta property="og:title" content="" />
-    <meta property="twitter:title" content="" />
-    
-
-    
-
-    
-    <meta property="twitter:card" content="summary" />
-    
-    
-
     <script type="application/javascript" src='https://www.ty07.net/js/theme-mode.js'></script>
-    
     <script type="application/javascript" async src="https://www.ty07.net/js/copy-code-button.js"></script>
-    
     <script type="application/javascript" src='https://www.ty07.net/js/jquery.min.js'></script>
-
     <link rel="stylesheet" href='https://www.ty07.net/css/frameworks.min.css' />
     <link rel="stylesheet" href='https://www.ty07.net/css/github.min.css' />
     <link rel="stylesheet" href='https://www.ty07.net/css/github-style.css' />
@@ -405,7 +379,9 @@
 
           
           <a style="margin: 0 10px 10px 0;" href="https://twitter.com/ac1965">
-            <img alt="@twitter" width="32" height="32" src="https://www.ty07.net/images/twitter.png" class="avatar">
+            <svg  width="32" height="32" viewBox="0 0 1200 1227" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path id="twitter-icon" d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="white"/>
+            </svg>
           </a>
           
 
@@ -781,13 +757,16 @@ window.onscroll = function (e) {
 
 var style = localStorage.getItem('data-color-mode');
 iconElement = document.getElementById('github-icon');
+twitterIconElement = document.getElementById('twitter-icon');
 if (style == 'light') {
   iconElement.setAttribute('fill', '#24292e');
+  twitterIconElement.setAttribute("fill","black")
 }
 else {
   iconElement.removeAttribute('fill');
   iconElement.setAttribute('class', 'octicon');
   iconElement.setAttribute('color', '#f0f6fc');
+  twitterIconElement.setAttribute("fill","white")
 }
 </script>
 
