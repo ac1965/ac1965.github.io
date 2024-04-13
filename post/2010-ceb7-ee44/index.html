@@ -47,7 +47,7 @@
 
     
     <meta name="description"
-  content="guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug" />
+  content="guruplug が届く前に環境を作っておこう 1日目 クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug Wiki に加筆したものも含めて、めもです。 参考にしたポ" />
 <meta name="keywords"
   content='' />
 <meta name="robots" content="noodp" />
@@ -57,7 +57,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Guruplug 届くまでにやったこと - Not Good Father" />
 <meta name="twitter:description"
-  content="guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug" />
+  content="guruplug が届く前に環境を作っておこう 1日目 クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug Wiki に加筆したものも含めて、めもです。 参考にしたポ" />
 <meta name="twitter:site" content="https://www.ty07.net/" />
 <meta name="twitter:creator" content="[YAMASHITA Takao]" />
 <meta name="twitter:image"
@@ -67,7 +67,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Guruplug 届くまでにやったこと - Not Good Father">
 <meta property="og:description"
-  content="guruplug が届く前に環境を作っておこう 1日目 :CUSTOM_ID: guruplug-が届く前に環境を作っておこう クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug" />
+  content="guruplug が届く前に環境を作っておこう 1日目 クロスコンパイル環境とか、ルートファイルシステムなど。 GuruPlug Wiki に加筆したものも含めて、めもです。 参考にしたポ" />
 <meta property="og:url" content="https://www.ty07.net/post/2010-ceb7-ee44/" />
 <meta property="og:site_name" content="Guruplug 届くまでにやったこと" />
 <meta property="og:image"
@@ -209,7 +209,7 @@
                         </div>
                       </div>
                     </details-menu>
-                      1636 Words
+                      1596 Words
                     <span class="file-info-divider"></span>
                                         7 min
 
@@ -253,10 +253,8 @@
               <div class="Box-body px-5 pb-5" style="z-index: 1">
                 <article class="markdown-body entry-content container-lg"><h2 id="guruplug-が届く前に環境を作っておこう">guruplug が届く前に環境を作っておこう</h2>
 <h2 id="日目">1日目</h2>
-<p>:CUSTOM_ID: guruplug-が届く前に環境を作っておこう</p>
 <p>クロスコンパイル環境とか、ルートファイルシステムなど。
-<a href="http://www.plugcomputer.org/plugwiki/index.php/GuruPlug%22">GuruPlug
-Wiki</a> に加筆したものも含めて、めもです。</p>
+<a href="http://www.plugcomputer.org/plugwiki/index.php/GuruPlug%22">GuruPlug Wiki</a> に加筆したものも含めて、めもです。</p>
 <h3 id="参考にしたポイント">参考にしたポイント</h3>
 <ul>
 <li><a href="http://www.gentoo.org/proj/en/base/embedded/cross-development.xml">cross-development</a></li>
@@ -266,9 +264,7 @@ Kernel</a></li>
 </ul>
 <p>クロスコンパイルは <a href="http://www.gnu.org/software/hurd/">GNU Hurd</a>
 で遊んで以来、やっていなかったけど、Gentoo は楽ちんですね。</p>
-<h3 id="クロスコンパイ">クロスコンパイ</h3>
-<p>ル環境のセットアップ</p>
-<p>:CUSTOM_ID: クロスコンパイル環境のセットアップ</p>
+<h3 id="クロスコンパイル環境のセットアップ">クロスコンパイル環境のセットアップ</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo emerge -av portage-utils crossdev
 </span></span><span class="line"><span class="cl">sudo crossdev armv5tel-softfloat-linux-gnueabi
 </span></span></code></pre></div><h3 id="u-boot-とカーネルセットアップ">U-Boot とカーネルセットアップ</h3>
@@ -313,48 +309,55 @@ ubifs でルートファイルシステムを構築する準備です。</p>
 <p>僕の環境なので同じである必要はない。 ROOT=&quot;&hellip;&quot; の default は &ldquo;/&rdquo;
 なので指定しておかないとoverwrite されるので注意
 あと、クロスコンパイルの場合 CBUILD は必要。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl"># NEVER change this
-</span></span><span class="line"><span class="cl">CHOST=&#34;armv5tel-softfloat-linux-gnueabi&#34;
-</span></span><span class="line"><span class="cl">CBUILD=i686-pc-linux-gnu
-</span></span><span class="line"><span class="cl">CHOST=${CHOST}
-</span></span><span class="line"><span class="cl">ARCH=&#34;arm&#34;
-</span></span><span class="line"><span class="cl">ROOT=/usr/${CHOST}/
-</span></span><span class="line"><span class="cl">ACCEPT_KEYWORDS=&#34;arm ~arm&#34;
+<details>
+  <summary>/usr/armv5tel-softfloat-linux-gnueabi/etc/make.conf</summary>
+  <p></p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">  <span class="c1"># NEVER change this</span>
+</span></span><span class="line"><span class="cl">  <span class="n">CHOST</span><span class="o">=</span><span class="s2">&#34;armv5tel-softfloat-linux-gnueabi&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">CBUILD</span><span class="o">=</span><span class="n">i686</span><span class="o">-</span><span class="n">pc</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</span></span><span class="line"><span class="cl">  <span class="n">CHOST</span><span class="o">=$</span><span class="p">{</span><span class="n">CAHOST</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ARCH</span><span class="o">=</span><span class="s2">&#34;arm&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ROOT</span><span class="o">=/</span><span class="n">usr</span><span class="o">/$</span><span class="p">{</span><span class="n">CHOST</span><span class="p">}</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ACCEPT_KEYWORDS</span><span class="o">=</span><span class="s2">&#34;arm ~arm&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># You can edit these.
-</span></span><span class="line"><span class="cl">USE=&#34;-X -cdr -kde -gnome -qt -gtk -fortran -opengl -quicktime -cups \
-</span></span><span class="line"><span class="cl">        -tcpd -apache -gpm -slang nls cjk \
-</span></span><span class="line"><span class="cl">        -alsa -xscreensaver \
-</span></span><span class="line"><span class="cl">        ssl userlocales apache2 sasl nptl nptlonly threads unicode utf8 \
-</span></span><span class="line"><span class="cl">        bzip2 crypt loop-aes mysql mysqli sqlite xmlrpc bash-completion \
-</span></span><span class="line"><span class="cl">        idn glibc-omitfp \
-</span></span><span class="line"><span class="cl">        dvd dvdr cdda cddb \
-</span></span><span class="line"><span class="cl">        mp3 vorbis wavepack wma mpeg ogg rtsp x264 win32codecs libv412 v4l2 v4l \
-</span></span><span class="line"><span class="cl">        wifi bluetooth curl git -dso subversion lzma&#34;
+</span></span><span class="line"><span class="cl">  <span class="c1"># You can edit these.</span>
+</span></span><span class="line"><span class="cl">  <span class="n">USE</span><span class="o">=</span><span class="s2">&#34;-X -cdr -kde -gnome -qt -gtk -fortran -opengl -quicktime -cups </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          -tcpd -apache -gpm -slang nls cjk </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          -alsa -xscreensaver </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          ssl userlocales apache2 sasl nptl nptlonly threads unicode utf8 </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          bzip2 crypt loop-aes mysql mysqli sqlite xmlrpc bash-completion </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          idn glibc-omitfp </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          dvd dvdr cdda cddb </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          mp3 vorbis wavepack wma mpeg ogg rtsp x264 win32codecs libv412 v4l2 v4l </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          wifi bluetooth curl git -dso subversion lzma&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">APACHE2_MODULES=&#34; \
-</span></span><span class="line"><span class="cl">        auth auth_basic authz_user authz_host authn_dbd authz_dbd dbd \
-</span></span><span class="line"><span class="cl">        alias filter deflate mime mime_magic expires headers unique_id \
-</span></span><span class="line"><span class="cl">        vhost_alias rewrite log_config logio env setenvif autoindex dir \
-</span></span><span class="line"><span class="cl">        proxy proxy_http dav dav_fs \
-</span></span><span class="line"><span class="cl">        &#34;
-</span></span><span class="line"><span class="cl">APACHE2_MPMS=&#34;worker&#34;
+</span></span><span class="line"><span class="cl">  <span class="n">APACHE2_MODULES</span><span class="o">=</span><span class="s2">&#34; </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          auth auth_basic authz_user authz_host authn_dbd authz_dbd dbd </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          alias filter deflate mime mime_magic expires headers unique_id </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          vhost_alias rewrite log_config logio env setenvif autoindex dir </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          proxy proxy_http dav dav_fs </span><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="s2">          &#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">APACHE2_MPMS</span><span class="o">=</span><span class="s2">&#34;worker&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># Think twice about editing these.
-</span></span><span class="line"><span class="cl">MAKEOPTS=&#34;-j5&#34;
-</span></span><span class="line"><span class="cl">CFLAGS=&#34;-Os -march=armv5te -pipe -fomit-frame-pointer&#34;
-</span></span><span class="line"><span class="cl">CXXFLAGS=&#34;${CFLAGS}&#34;
+</span></span><span class="line"><span class="cl">  <span class="c1"># Think twice about editing these.</span>
+</span></span><span class="line"><span class="cl">  <span class="n">MAKEOPTS</span><span class="o">=</span><span class="s2">&#34;-j5&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">CFLAGS</span><span class="o">=</span><span class="s2">&#34;-Os -march=armv5te -pipe -fomit-frame-pointer&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">CXXFLAGS</span><span class="o">=</span><span class="s2">&#34;${CFLAGS}&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">#FEATURES=&#34;distcc parallel-fetch userfetch userpriv&#34;
-</span></span><span class="line"><span class="cl">FEATURES=&#34;parallel-fetch userfetch userpriv buildpkg&#34;
+</span></span><span class="line"><span class="cl">  <span class="c1">#FEATURES=&#34;distcc parallel-fetch userfetch userpriv&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FEATURES</span><span class="o">=</span><span class="s2">&#34;parallel-fetch userfetch userpriv buildpkg&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">PORTAGE_TMPDIR=&#34;/var/tmp/cross&#34;
-</span></span><span class="line"><span class="cl">BUILD_PREFIX=&#34;${PORTAGE_TMPDIR}&#34;
+</span></span><span class="line"><span class="cl">  <span class="n">PORTAGE_TMPDIR</span><span class="o">=</span><span class="s2">&#34;/var/tmp/cross&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">BUILD_PREFIX</span><span class="o">=</span><span class="s2">&#34;${PORTAGE_TMPDIR}&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">GENTOO_MIRRORS=&#34;http://gentoo.gg3.net/&#34;
+</span></span><span class="line"><span class="cl">  <span class="n">GENTOO_MIRRORS</span><span class="o">=</span><span class="s2">&#34;http://gentoo.gg3.net/&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">ACCEPT_LICENSE=&#34;*&#34;
-</span></span></code></pre></div><h2 id="日目-1">2日目</h2>
+</span></span><span class="line"><span class="cl">  <span class="n">ACCEPT_LICENSE</span><span class="o">=</span><span class="s2">&#34;*&#34;</span>
+</span></span></code></pre></div>
+  <p></p>
+</details>
+
+<h2 id="日目-1">2日目</h2>
 <h3 id="cpioのコンパイルエラーは-stat--2">cpioのコンパイルエラーは、stat(2)</h3>
 <p>の引数が指定されていなかっただけだった。</p>
 <p>:CUSTOM_ID: cpioのコンパイルエラーはstat2-の引数が指定されていなかっただけだった</p>
@@ -373,44 +376,51 @@ ubifs でルートファイルシステムを構築する準備です。</p>
 </span></span><span class="line"><span class="cl">-int stat ();
 </span></span><span class="line"><span class="cl">+int stat (const char *path, struct stat *buf);
 </span></span></code></pre></div><h3 id="野良ebuild-cpio-2.11-r1.ebuild">野良ebuild cpio-2.11-r1.ebuild</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl"># Copyright 1999-2010 Gentoo Foundation
-</span></span><span class="line"><span class="cl"># Distributed under the terms of the GNU General Public License v2
-</span></span><span class="line"><span class="cl"># $Header: /var/cvsroot/gentoo-x86/app-arch/cpio/cpio-2.11.ebuild,v 1.1 2010/03/15 07:52:11 vapier Exp $
+<details>
+  <summary>cpio-2.11-r1.ebuild</summary>
+  <p></p>
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># Copyright 1999-2010 Gentoo Foundation</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Distributed under the terms of the GNU General Public License v2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># $Header: /var/cvsroot/gentoo-x86/app-arch/cpio/cpio-2.11.ebuild,v 1.1 2010/03/15 07:52:11 vapier Exp $</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">inherit eutils
+</span></span><span class="line"><span class="cl"><span class="n">inherit</span> <span class="n">eutils</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">EAPI=&#34;2&#34;
+</span></span><span class="line"><span class="cl"><span class="n">EAPI</span><span class="o">=</span><span class="s2">&#34;2&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">DESCRIPTION=&#34;A file archival tool which can also read and write tar files&#34;
-</span></span><span class="line"><span class="cl">HOMEPAGE=&#34;http://www.gnu.org/software/cpio/cpio.html&#34;
-</span></span><span class="line"><span class="cl">SRC_URI=&#34;mirror://gnu/cpio/${P}.tar.bz2&#34;
+</span></span><span class="line"><span class="cl"><span class="n">DESCRIPTION</span><span class="o">=</span><span class="s2">&#34;A file archival tool which can also read and write tar files&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">HOMEPAGE</span><span class="o">=</span><span class="s2">&#34;http://www.gnu.org/software/cpio/cpio.html&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">SRC_URI</span><span class="o">=</span><span class="s2">&#34;mirror://gnu/cpio/${P}.tar.bz2&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">LICENSE=&#34;GPL-3&#34;
-</span></span><span class="line"><span class="cl">SLOT=&#34;0&#34;
-</span></span><span class="line"><span class="cl">KEYWORDS=&#34;~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd&#34;
-</span></span><span class="line"><span class="cl">IUSE=&#34;nls&#34;
+</span></span><span class="line"><span class="cl"><span class="n">LICENSE</span><span class="o">=</span><span class="s2">&#34;GPL-3&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">SLOT</span><span class="o">=</span><span class="s2">&#34;0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">KEYWORDS</span><span class="o">=</span><span class="s2">&#34;~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">IUSE</span><span class="o">=</span><span class="s2">&#34;nls&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">src_configure() {
-</span></span><span class="line"><span class="cl">    econf \
-</span></span><span class="line"><span class="cl">        $(use_enable nls) \
-</span></span><span class="line"><span class="cl">        --bindir=/bin \
-</span></span><span class="line"><span class="cl">        --with-rmt=/usr/sbin/rmt \
-</span></span><span class="line"><span class="cl">        || die
-</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl"><span class="n">src_configure</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">econf</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">$</span><span class="p">(</span><span class="n">use_enable</span> <span class="n">nls</span><span class="p">)</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">--</span><span class="n">bindir</span><span class="o">=/</span><span class="n">bin</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">--</span><span class="n">with</span><span class="o">-</span><span class="n">rmt</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">rmt</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">||</span> <span class="n">die</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">src_install() {
-</span></span><span class="line"><span class="cl">    emake install DESTDIR=&#34;${D}&#34; || die
-</span></span><span class="line"><span class="cl">    dodoc ChangeLog NEWS README
-</span></span><span class="line"><span class="cl">    rm &#34;${D}&#34;/usr/share/man/man1/mt.1 || die
-</span></span><span class="line"><span class="cl">    rmdir &#34;${D}&#34;/usr/libexec || die
-</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl"><span class="n">src_install</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">emake</span> <span class="n">install</span> <span class="n">DESTDIR</span><span class="o">=</span><span class="s2">&#34;${D}&#34;</span> <span class="o">||</span> <span class="n">die</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dodoc</span> <span class="n">ChangeLog</span> <span class="n">NEWS</span> <span class="n">README</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rm</span> <span class="s2">&#34;${D}&#34;</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man1</span><span class="o">/</span><span class="n">mt</span><span class="o">.</span><span class="mi">1</span> <span class="o">||</span> <span class="n">die</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rmdir</span> <span class="s2">&#34;${D}&#34;</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">libexec</span> <span class="o">||</span> <span class="n">die</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">src_unpack() {
-</span></span><span class="line"><span class="cl">    unpack ${A}
-</span></span><span class="line"><span class="cl">    cd &#34;${S}&#34;
-</span></span><span class="line"><span class="cl">    epatch &#34;${FILESDIR}&#34;/${P}-filetypes.patch
-</span></span><span class="line"><span class="cl">}
-</span></span></code></pre></div><h2 id="日目-2">3日目</h2>
+</span></span><span class="line"><span class="cl"><span class="n">src_unpack</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">unpack</span> <span class="o">$</span><span class="p">{</span><span class="n">A</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cd</span> <span class="s2">&#34;${S}&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">epatch</span> <span class="s2">&#34;${FILESDIR}&#34;</span><span class="o">/$</span><span class="p">{</span><span class="n">P</span><span class="p">}</span><span class="o">-</span><span class="n">filetypes</span><span class="o">.</span><span class="n">patch</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+  <p></p>
+</details>
+
+<h2 id="日目-2">3日目</h2>
 <h3 id="クロス環境での-stage1-がエラーで出来ていない状態">クロス環境での stage1 がエラーで出来ていない状態</h3>
 <p>ものが届いていないのでまぁゆったりとな。 あとで、distcc
 でホストマシンでコンパイルできるように
