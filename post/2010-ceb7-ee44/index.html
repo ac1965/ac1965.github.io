@@ -13,6 +13,7 @@
     <link rel="stylesheet" href='https://www.ty07.net/css/dark.css' />
     <link rel="stylesheet" href='https://www.ty07.net/css/syntax.css' />
     <link rel="stylesheet" href='https://www.ty07.net/css/copy-code-button.css' />
+    <link rel="stylesheet" href='https://www.ty07.net/css/mysite.css' />
     <title>Guruplug 届くまでにやったこと - Not Good Father</title>
     
     <link rel="icon" type="image/x-icon" href='/images/github.com'>
@@ -285,7 +286,7 @@ ubifs でルートファイルシステムを構築する準備です。</p>
 あと、クロスコンパイルの場合 CBUILD は必要。</p>
 <details>
   <summary>/usr/armv5tel-softfloat-linux-gnueabi/etc/make.conf</summary>
-  <p></p>
+  <div class="alert-box alert-info">
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">  <span class="c1"># NEVER change this</span>
 </span></span><span class="line"><span class="cl">  <span class="n">CHOST</span><span class="o">=</span><span class="s2">&#34;armv5tel-softfloat-linux-gnueabi&#34;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">CBUILD</span><span class="o">=</span><span class="n">i686</span><span class="o">-</span><span class="n">pc</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
@@ -328,7 +329,7 @@ ubifs でルートファイルシステムを構築する準備です。</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="n">ACCEPT_LICENSE</span><span class="o">=</span><span class="s2">&#34;*&#34;</span>
 </span></span></code></pre></div>
-  <p></p>
+  </div>
 </details>
 
 <h2 id="日目-1">2日目</h2>
@@ -352,7 +353,7 @@ ubifs でルートファイルシステムを構築する準備です。</p>
 </span></span></code></pre></div><h3 id="野良ebuild-cpio-2.11-r1.ebuild">野良ebuild cpio-2.11-r1.ebuild</h3>
 <details>
   <summary>cpio-2.11-r1.ebuild</summary>
-  <p></p>
+  <div class="alert-box alert-info">
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># Copyright 1999-2010 Gentoo Foundation</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Distributed under the terms of the GNU General Public License v2</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># $Header: /var/cvsroot/gentoo-x86/app-arch/cpio/cpio-2.11.ebuild,v 1.1 2010/03/15 07:52:11 vapier Exp $</span>
@@ -391,7 +392,7 @@ ubifs でルートファイルシステムを構築する準備です。</p>
 </span></span><span class="line"><span class="cl">    <span class="n">epatch</span> <span class="s2">&#34;${FILESDIR}&#34;</span><span class="o">/$</span><span class="p">{</span><span class="n">P</span><span class="p">}</span><span class="o">-</span><span class="n">filetypes</span><span class="o">.</span><span class="n">patch</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
-  <p></p>
+  </div>
 </details>
 
 <h2 id="日目-2">3日目</h2>
