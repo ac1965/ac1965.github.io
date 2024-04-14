@@ -2550,10 +2550,12 @@ hugo-blog、公開用は ac1965.github.com で分けている。
 
 大瀧詠一さんを久しぶりに聴きたくなってググってたら、ナイアガラ・サウンドのルーツとは？というのにぶつかった。
 
+#+begin_export hugo
+{{<webcard "https://www.tbsradio.jp/140516">}}
 
-https://www.tbsradio.jp/140516
+{{<webcard "https://www.amazon.co.jp/Niagara-Moon-30th-Anniversary-大滝詠一/dp/B0007NFTP6/ref=sr_1_22?__mk_ja_JP=カタカナ&dchild=1&keywords=ナイアガラ">}}
 
-https://www.amazon.co.jp/Niagara-Moon-30th-Anniversary-大滝詠一/dp/B0007NFTP6/ref=sr_1_22?__mk_ja_JP=カタカナ&dchild=1&keywords=ナイアガラ・
+#+end_export
 
 サイトは文字だけだったので、Youtubeから音を探してみた。
 
