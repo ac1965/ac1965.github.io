@@ -13,6 +13,7 @@
     <link rel="stylesheet" href='https://www.ty07.net/css/dark.css' />
     <link rel="stylesheet" href='https://www.ty07.net/css/syntax.css' />
     <link rel="stylesheet" href='https://www.ty07.net/css/copy-code-button.css' />
+    <link rel="stylesheet" href='https://www.ty07.net/css/mysite.css' />
     <title>このサイトのデプロイについて - Not Good Father</title>
     
     <link rel="icon" type="image/x-icon" href='/images/github.com'>
@@ -253,7 +254,7 @@ GitHub Page にデプロイすれば良いことがわかった。</p>
 <p>ところが CNAMEが正しく処理されないので、前とほぼ同じデプロイで落ち着いた。</p>
 <details>
   <summary>deploy.sh</summary>
-  <p></p>
+  <div class="alert-box alert-info">
   <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">  <span class="c1">#!/bin/bash</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="nv">hugo</span><span class="o">=</span>~/Documents/devel/repos/ac1965.github.io
@@ -292,7 +293,7 @@ GitHub Page にデプロイすれば良いことがわかった。</p>
 </span></span><span class="line"><span class="cl">  git add .
 </span></span><span class="line"><span class="cl">  git commit -avm <span class="s2">&#34;update:</span><span class="k">$(</span>env <span class="nv">LANG</span><span class="o">=</span>C date<span class="k">)</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> git push
 </span></span></code></pre></div>
-  <p></p>
+  </div>
 </details>
 
 </article>
