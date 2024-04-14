@@ -2698,7 +2698,7 @@ CLOSED: [2024-03-23 Sat 10:27]
 最初は訳がわからなかったけど、いやぁ面白い作品だ。
 
 #+begin_export hugo
-{{<figure src="/images/frieren.jpg" width="20%" height="20%">}}
+{{<figure src="/images/frieren.jpg" width="50%" height="50%">}}
 #+end_export
 *** [[https://ja.wikipedia.org/wiki/葬送のフリーレン][Wikipediaにある簡単なあらすじ]]
 
