@@ -2697,6 +2697,9 @@ CLOSED: [2024-03-23 Sat 10:27]
 
 最初は訳がわからなかったけど、いやぁ面白い作品だ。
 
+#+begin_export hugo
+{{<figure src="/images/frieren.jpg" width="20%" height="20%">}}
+#+end_export
 *** [[https://ja.wikipedia.org/wiki/葬送のフリーレン][Wikipediaにある簡単なあらすじ]]
 
 魔王討伐の偉業を成し遂げ王都に凱旋した勇者ヒンメル、僧侶ハイター、戦士アイゼン、魔法使いフリーレンら勇者パーティー4人は、10年間もの旅路を振り返り感慨にふけっていたが、1000年は軽く生きる長命種のエルフであるフリーレンにとって、その旅はきわめて短いものであった。そして、50年に一度降るという「半世紀（エーラ）流星」を見た4人は、次回もそれを見る約束を交わしてパーティーを解散する。
@@ -2760,7 +2763,8 @@ gitアカウント作成/Hugoのサイトの構築や、git絡みの設定は完
 期待どおりに [[https://www.ty07.net]] のURLで公開するためには[[https://github.com/ac1965/ac1965.github.io][GitHub Pages]]のリポジトリに =rsync= と =git push=
 でデプロイメントしかないのだろうか😓
 
-すこしたった後に思ったこと。
+*** すこしたった後に思ったこと。
+
 [[https://github.com/peaceiris/actions-hugo][action-hugo]] を先に読めば、まだ理解できたかもしれない。要は、 =https://<username>.github.io/= にHUGO環境を入れて
 GitHub Page にデプロイすれば良いことがわかった。
 
@@ -2770,7 +2774,9 @@ GitHub Page にデプロイすれば良いことがわかった。
 
 ところが CNAMEが正しく処理されないので、前とほぼ同じデプロイで落ち着いた。
 
-#+begin_src sh
+#+begin_export hugo
+{{<details "deploy.sh">}}
+```sh
   #!/bin/bash
 
   hugo=~/Documents/devel/repos/ac1965.github.io
@@ -2808,7 +2814,9 @@ GitHub Page にデプロイすれば良いことがわかった。
   # Add changes to git.
   git add .
   git commit -avm "update:$(env LANG=C date)" && git push
- #+end_src
+```
+{{</details>}}
+#+end_export
 ** TODO test mermaidの描画
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2024-29a8-5259
