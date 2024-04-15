@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Xorg on Not Good Father</title>
+    <title>Xorg on No Good Father</title>
     <link>https://www.ty07.net/tags/xorg/</link>
-    <description>Recent content in Xorg on Not Good Father</description>
+    <description>Recent content in Xorg on No Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sun, 14 Apr 2024 23:59:49 +0900</lastBuildDate>
-    <atom:link href="https://www.ty07.net/tags/xorg/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <copyright>© 2024 YAMASHITA, Takao</copyright>
+    <lastBuildDate>Tue, 01 Jun 2010 07:39:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/xorg/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Xorg</title>
       <link>https://www.ty07.net/post/2010-bba0-bea3/</link>
       <pubDate>Tue, 01 Jun 2010 07:39:00 +0900</pubDate>
+      
       <guid>https://www.ty07.net/post/2010-bba0-bea3/</guid>
-      <description>GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。 boot-update grubの設定支援かな？ boot-update で記述されている代物です。 grub-1.9</description>
+      <description>GuruPlugがなかなか屆かないので、Funtoo と xorg-1.</description>
+      
     </item>
+    
   </channel>
 </rss>
