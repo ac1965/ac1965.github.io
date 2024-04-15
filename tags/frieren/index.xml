@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Frieren on Not Good Father</title>
+    <title>Frieren on No Good Father</title>
     <link>https://www.ty07.net/tags/frieren/</link>
-    <description>Recent content in Frieren on Not Good Father</description>
+    <description>Recent content in Frieren on No Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ja-jp</language>
-    <lastBuildDate>Sun, 14 Apr 2024 23:59:49 +0900</lastBuildDate>
-    <atom:link href="https://www.ty07.net/tags/frieren/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <copyright>© 2024 YAMASHITA, Takao</copyright>
+    <lastBuildDate>Sat, 23 Mar 2024 10:27:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/frieren/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>葬送のフリーレン</title>
       <link>https://www.ty07.net/post/2024-3ec3-22af/</link>
       <pubDate>Sat, 23 Mar 2024 10:27:00 +0900</pubDate>
+      
       <guid>https://www.ty07.net/post/2024-3ec3-22af/</guid>
-      <description>葬送のフリーレンは、日本の漫画、テレビアニメ化されたものが2023.11-2024.03に放映された。 漫画の方は連載中。 最初は訳がわからなか</description>
+      <description>葬送のフリーレンは、日本の漫画、テレビアニメ化されたものが2023.11-2024.03に放映された。 漫画の方は連載中。</description>
+      
     </item>
+    
   </channel>
 </rss>
