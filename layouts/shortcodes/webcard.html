@@ -1,68 +1,114 @@
+<!--
+ 引数で与えられたURLをパースする。パース後の構造はドキュメントを参照。
+ ドキュメント: https://gohugo.io/functions/urls.parse/
+ -->
 {{- $url := (.Get 0) -}}
-{{- $target_url := urls.Parse $url -}}
+{{- $u := urls.Parse $url -}}
 
-{{- $title := "" -}}
-{{- $favicon_url := "" -}}
-
+<!-- 引数のURL先をごっそりとGetする -->
 {{- with $result := resources.GetRemote $url -}}
-    {{- with $result.Err -}}
-      {{- $title = (print $url "にアクセスできませんでした") -}}
-    {{- else -}}
-        <!-- headを取得 -->
-        {{- $head := index (findRE "<head[^>]*?>(.|\n)*?</head>" $result.Content) 0 -}}
+  <!-- Status Code が 4XX/5XX などGetに失敗する場合 -->
+  {{- with $result.Err -}}
+    <div class="web-card hover:cursor-not-allowed h-[120px] bg-white border shadow rounded-lg my-4 sm:my-6 px-0 overflow-hidden">
+      <div class="flex">
+        <div class="flex h-[120px] w-[120px] max-w-[230px] bg-gray-300 justify-center items-center text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+          </svg>        
+        </div>
 
-        <!-- headからタイトルを取得 -->
-        {{- $title = index (findRE "<title.*?>(.|\n)*?</title>" $head) 0 -}}
-        {{- if $title -}}
-          {{- $title = replaceRE "</?title>" "" $title -}}
-        {{- end -}}
-
-        <!-- headからfaviconを取得 -->
-        {{- $linktag := index (findRE "<link[^<>]*rel=[\"']?icon[\"']?.*?>" $head) 0 -}}
-        {{- if not $linktag -}}
-          {{- $linktag = index (findRE "<link[^<>]*?rel=[\"']?shortcut icon[\"']?.*?>" $head) 0 -}}
-        {{- end -}}
-        {{- if $linktag -}}
-          {{- $href := index (findRE "href=[\"']?[^ >]*[\"']?" $linktag) 0 -}}
-          {{- $href = replace $href "href=" "" | replaceRE "[\"']" "" -}}
-          {{- if eq (strings.Substr $href 0 1) "/"  -}}
-            {{- $favicon_url = print $target_url.Scheme "://" $target_url.Hostname $href -}}
-          {{- else if gt (len (findRE "^http[s]?://" $href)) 0 -}}
-            {{- $favicon_url = $href -}}
-          {{- end -}}
-        {{- end -}}
-
-        <!-- /favicon.icoを取得 -->
-        {{- if not $favicon_url -}}
-          {{- range $favicon_ext := (slice ".ico" ".png" ".gif") -}}
-            {{- $root_favicon_path := print $target_url.Scheme "://" $target_url.Hostname "/favicon" $favicon_ext -}}
-            {{- $favicon := resources.GetRemote $root_favicon_path -}}
-           {{- if not $favicon -}}
-             {{- continue -}}
-           {{- else -}}
-             {{- $favicon_url = $root_favicon_path -}}
-             {{- break -}}
-            {{- end -}}
-          {{- end -}}
-        {{- end -}}
-    {{- end -}}
-{{- end -}}
-
-<!-- HTMLを生成 -->
-<a href="{{- htmlUnescape $target_url -}}">
-  <div class="link-card">
-    <div class="link-card-title">
-      {{- $title | htmlUnescape | truncate 100 -}}
-    </div>
-    <div class="link-card-hostname">
-      {{ if $favicon_url }}
-      <div class="link-card-hostname-img">
-        <img alt="icon" src="{{- $favicon_url -}}">
+        <div class="flex flex-1 flex-col justify-between bg-gray-50 py-2 px-4 sm:py-3 sm:px-5 ">
+          <div class="flex flex-1 flex-col gap-y-1">
+            <div class="text-sm sm:text-base font-bold text-gray-800 leading-normal break-words line-clamp-2">
+              {{ $u.Host | truncate 30 }} にアクセスできません
+            </div>
+          </div>
+          
+          <div class="flex flex-1 flex-col justify-end">
+            <div class="flex flex-row items-center">
+              <img src="https://www.google.com/s2/favicons?sz=14&amp;domain_url={{ $u.Scheme }}://{{ $u.Host }}" class="fav-icon mr-1" alt="{{ $u.Host }} favicon image">
+              <span class="text-xs sm:text-sm text-gray-600">{{ $u.Host | truncate 30 }}</span>
+            </div>
+          </div>
+        </div>
       </div>
-      {{ end }}
-      <span>
-        {{- $target_url.Hostname -}}
-      </span>
     </div>
-  </div>
-</a>
+  <!-- Status Code が 2XX などGetに成功した場合 -->
+  {{- else -}}
+    {{- $title := "" -}}
+    {{- $description := "" -}}
+    {{- $image := "" -}}
+    {{- $find := "" -}}
+
+    <!-- Youtubeはbody内にmetaタグがあるので場合分け（m.youtube.comはhead内にあるのに...） -->
+    {{- if eq $u.Hostname "www.youtube.com" -}}
+      {{- $find = index (findRE "<body.*?>(.|\n)*?</body>" $result.Content) 0 -}}
+    <!-- head内のタグを正規表現で取得 -->
+    {{- else -}}
+      {{- $find = index (findRE "<head.*?>(.|\n)*?</head>" $result.Content) 0 -}}
+    {{- end -}}
+
+    <!-- metaタグ内のパラメータを変数にマッピング -->
+    {{- range $meta := findRE "<meta.*?>" $find -}}
+      {{- $name := replaceRE "<.*name=\"(.*?)\".*>" "$1" $meta -}}
+      {{- $property := replaceRE "<.*property=\"(.*?)\".*>" "$1" $meta -}}
+      {{- $content := replaceRE "<.*content=\"(.*?)\".*>" "$1" $meta -}}
+
+      {{- if eq $property "og:title" -}}
+        {{- $title = $content -}}
+      {{- else if eq $property "og:description" -}}
+        {{- $description = $content -}}
+      {{- else if eq $property "og:image" -}}
+        {{- $image = $content -}}
+      {{- end -}}
+      {{- if and (eq $description "") (eq $name "description") -}}
+        {{- $description = $content -}}
+      {{- end -}}
+    {{- end -}}
+
+    <!-- 変数をshortcodeのHTMLに埋め込み -->
+    <div class="web-card group h-[120px] bg-white border shadow rounded-lg my-4 sm:my-6 px-0 overflow-hidden">
+      <a href="{{ $url }}" class="flex group-hover:no-underline">
+    
+        <div class="h-[120px] w-[120px] sm:w-auto max-w-[230px]">
+          <!-- og:image が取得できた場合 -->
+          {{ with $image }} 
+            <img src="{{ htmlUnescape $image }}" alt="{{ $description }}" class="m-0 h-full w-full object-cover shrink-0">
+          <!-- og:image が取得できなかった場合 -->
+          {{ else }}
+            <div class="flex h-[120px] w-[120px] max-w-[230px] bg-gray-300 justify-center items-center text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+              </svg>
+            </div>
+          {{ end }}
+        </div>
+    
+        <div class="flex flex-1 flex-col justify-between py-2 px-4 sm:py-3 sm:px-5 transition ease-in-out duration-100 group-hover:bg-primary-color-50">
+          <div class="flex flex-1 flex-col gap-y-1">
+            <div class="text-sm sm:text-base font-bold text-gray-800 leading-normal break-words line-clamp-2">
+              <!-- og:title が取得できた場合 -->
+              {{ with $title }} 
+                {{ $title }}
+              <!-- og:title が取得できなかった場合 -->
+              {{ else }} 
+                {{ $u.Host | truncate 30 }}
+              {{ end }}
+            </div>
+            <div class="text-xs sm:text-sm text-gray-600 line-clamp-2">
+              {{ $description | truncate 100 }}
+            </div>
+          </div>
+          
+          <div class="flex flex-1 flex-col justify-end">
+            <div class="flex flex-row items-center">
+              <img src="https://www.google.com/s2/favicons?sz=14&amp;domain_url={{ $u.Scheme }}://{{ $u.Host }}" class="fav-icon mr-1" alt="{{ $u.Host }} favicon image">
+              <span class="text-xs sm:text-sm text-gray-600">{{ $u.Host | truncate 30 }}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+  {{- end -}}
+{{- end -}}
