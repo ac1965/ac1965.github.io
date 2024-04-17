@@ -2840,3 +2840,24 @@ graph LR;
   C --> D
 {{</mermaid>}}
 #+end_export
+** DONE ThemaをBrowfishにした
+CLOSED: [2024-04-17 Wed 22:49]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2024-abf9-45ae
+:EXPORT_DATE:
+:EXPORT_HUGO_TAGS:
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
+:END:
+表現したいこと全部できた(たぶん) 🤫
+
+#+begin_export hugo
+{{< github repo="nunocoracao/blowfish" >}}
+
+{{< github repo="ac1965/ac1965.github.io" >}}
+
+{{< youtubeLite id="SgXhGb-7QbU" label="Blowfish-tools demo" >}}
+
+{{< webcard "https://ncode.syosetu.com/n7944cf/" >}}
+#+end_export
