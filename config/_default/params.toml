@@ -11,6 +11,7 @@ autoSwitchAppearance = true
 
 enableSearch = true
 enableCodeCopy = true
+enableGitalk = true
 
 # mainSections = ["section1", "section2"]
 # robots = ""
@@ -146,3 +147,16 @@ smartTOCHideUnfocusedChildren = true
   # bing = ""
   # pinterest = ""
   # yandex = ""
+
+[gitalk]
+  clientID = "646f2681a48c8a183175"
+  clientSecret = "c2fcde42cfcbc419a33e04b72ed9c61617b7f467"
+  repo = "ac1965.github.io"
+  owner = "ac1965"
+  admin = "ac1965"
+  id = "location.pathname"
+  labels = "gitalk"
+  perPage = 30
+  pagerDirection = "last"
+  createIssueManually = true
+  distractionFreeMode = false
