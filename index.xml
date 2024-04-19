@@ -49,6 +49,36 @@
     </item>
     
     <item>
+      <title>Multiple Authors</title>
+      <link>https://www.ty07.net/samples/multiple-authors/</link>
+      <pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/multiple-authors/</guid>
+      <description>A quick example of how multiple authors could be used.</description>
+      
+    </item>
+    
+    <item>
+      <title>Thumbnails</title>
+      <link>https://www.ty07.net/samples/thumbnail_sample/</link>
+      <pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/thumbnail_sample/</guid>
+      <description>A quick example of how to start using Thumbnails in your artciles.</description>
+      
+    </item>
+    
+    <item>
+      <title>Welcome to Blowfish</title>
+      <link>https://www.ty07.net/docs/welcome/</link>
+      <pubDate>Wed, 19 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/welcome/</guid>
+      <description>Blowfish is packed with tons of features.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/welcome/featured.svg" />
+    </item>
+    
+    <item>
       <title>2021 GW なろう系小説</title>
       <link>https://www.ty07.net/post/2021-4317-c611/</link>
       <pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate>
@@ -105,6 +135,226 @@
       
       <guid>https://www.ty07.net/post/2020-64ac-ab0e/</guid>
       <description>Hexo から Hugo # サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが :grin:</description>
+      
+    </item>
+    
+    <item>
+      <title>Installation</title>
+      <link>https://www.ty07.net/docs/installation/</link>
+      <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/installation/</guid>
+      <description>Simply follow the standard Hugo Quick Start procedure to get up and running quickly.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/installation/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Getting Started</title>
+      <link>https://www.ty07.net/docs/getting-started/</link>
+      <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/getting-started/</guid>
+      <description>This section assumes you have already installed the Blowfish theme.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/getting-started/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Configuration</title>
+      <link>https://www.ty07.net/docs/configuration/</link>
+      <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/configuration/</guid>
+      <description>Blowfish is a highly customisable theme and uses some of the latest Hugo features to simplify how it is configured.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/configuration/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Icons</title>
+      <link>https://www.ty07.net/samples/icons/</link>
+      <pubDate>Fri, 14 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/icons/</guid>
+      <description>Blowfish has built-in support for a number of FontAwesome 6 icons.</description>
+      
+    </item>
+    
+    <item>
+      <title>Homepage Layout</title>
+      <link>https://www.ty07.net/docs/homepage-layout/</link>
+      <pubDate>Thu, 13 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/homepage-layout/</guid>
+      <description>Blowfish provides a fully flexible homepage layout.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/homepage-layout/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Shortcodes</title>
+      <link>https://www.ty07.net/docs/shortcodes/</link>
+      <pubDate>Tue, 11 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/shortcodes/</guid>
+      <description>In addition to all the default Hugo shortcodes, Blowfish adds a few extras for additional functionality.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/shortcodes/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Front Matter</title>
+      <link>https://www.ty07.net/docs/front-matter/</link>
+      <pubDate>Mon, 10 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/front-matter/</guid>
+      <description>In addition to the default Hugo front matter parameters, Blowfish adds a number of additional options to customise the presentation of individual articles.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/front-matter/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Multiple Authors</title>
+      <link>https://www.ty07.net/docs/multi-author/</link>
+      <pubDate>Mon, 10 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/multi-author/</guid>
+      <description>Some websites have more than one author contributing with content and therefore require more than a single default author across the entire website.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/multi-author/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Partials</title>
+      <link>https://www.ty07.net/docs/partials/</link>
+      <pubDate>Mon, 10 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/partials/</guid>
+      <description>Analytics # Blowfish provides built-in support for Fathom Analytics, Google Analytics annd Umami Analytics.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/partials/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Thumbnails</title>
+      <link>https://www.ty07.net/docs/thumbnails/</link>
+      <pubDate>Mon, 10 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/thumbnails/</guid>
+      <description>Thumbnails # Blowfish was enhanced in order to make it easy to add visual support to your posts.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/thumbnails/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Content Examples</title>
+      <link>https://www.ty07.net/docs/content-examples/</link>
+      <pubDate>Sun, 09 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/content-examples/</guid>
+      <description>If you&amp;rsquo;ve been reading the documentation in order, you should now know about all the features and configurations available in Blowfish.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/content-examples/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Series</title>
+      <link>https://www.ty07.net/docs/series/</link>
+      <pubDate>Sun, 09 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/series/</guid>
+      <description>Blowfish provides a feature to group a set of articles together under a &amp;ldquo;series&amp;rdquo;.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/series/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Advanced Customisation</title>
+      <link>https://www.ty07.net/docs/advanced-customisation/</link>
+      <pubDate>Sat, 08 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/advanced-customisation/</guid>
+      <description>There are many ways you can make advanced changes to Blowfish.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/advanced-customisation/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Hosting &amp; Deployment</title>
+      <link>https://www.ty07.net/docs/hosting-deployment/</link>
+      <pubDate>Fri, 07 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/hosting-deployment/</guid>
+      <description>There are many ways to deploy your Hugo website built with Blowfish.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/hosting-deployment/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Firebase: Views &amp; Likes</title>
+      <link>https://www.ty07.net/docs/firebase-views/</link>
+      <pubDate>Mon, 03 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/firebase-views/</guid>
+      <description>In order to be able to support dynamic data across your website we&amp;rsquo;ve added the support to integrate Firebase.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/firebase-views/featured.svg" />
+    </item>
+    
+    <item>
+      <title>Markdown</title>
+      <link>https://www.ty07.net/samples/markdown/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/markdown/</guid>
+      <description>&lt;p&gt;This article offers a sample of basic Markdown formatting that can be used in Blowfish, also it shows how some basic HTML elements are decorated.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Rich Content</title>
+      <link>https://www.ty07.net/samples/rich-content/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/rich-content/</guid>
+      <description>This is an &lt;em&gt;example&lt;/em&gt; of a &lt;strong&gt;rich&lt;/strong&gt; content summary.</description>
+      
+    </item>
+    
+    <item>
+      <title>Placeholder Text</title>
+      <link>https://www.ty07.net/samples/placeholder-text/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/placeholder-text/</guid>
+      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Mathematical notation</title>
+      <link>https://www.ty07.net/samples/mathematical-notation/</link>
+      <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/mathematical-notation/</guid>
+      <description>&lt;p&gt;KaTeX can be used to render mathematical notation within articles.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Charts</title>
+      <link>https://www.ty07.net/samples/charts/</link>
+      <pubDate>Wed, 06 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/charts/</guid>
+      <description>Blowfish includes Chart.js for powerful charts and data visualisations.</description>
+      
+    </item>
+    
+    <item>
+      <title>Diagrams and Flowcharts</title>
+      <link>https://www.ty07.net/samples/diagrams-flowcharts/</link>
+      <pubDate>Wed, 06 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/diagrams-flowcharts/</guid>
+      <description>It&amp;rsquo;s easy to add diagrams and flowcharts to articles using Mermaid.</description>
+      
+    </item>
+    
+    <item>
+      <title>Emoji :parachute:</title>
+      <link>https://www.ty07.net/samples/emoji/</link>
+      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/emoji/</guid>
+      <description>📖🏞️🧗🏽🐉🧙🏽‍♂️🧚🏽👸</description>
       
     </item>
     
@@ -265,6 +515,66 @@
       
       <guid>https://www.ty07.net/post/2009-7fbf-eb12/</guid>
       <description>息子が iPod nano を買って今までのPCでは容量不足なので私のと交換することにした。 EeePC 901-X という少し古めのUMPCなので、外付けディスクを Linux用のディスクに割り当てた。 用途は Live CD作成 マシンかな。</description>
+      
+    </item>
+    
+    <item>
+      <title>Campioni</title>
+      <link>https://www.ty07.net/samples/_index.it/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/_index.it/</guid>
+      <description>Blowfish dà vita ai tuoi contenuti.</description>
+      
+    </item>
+    
+    <item>
+      <title>Documenti</title>
+      <link>https://www.ty07.net/docs/_index.it/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/_index.it/</guid>
+      <description>Semplice ma potente.</description>
+      
+    </item>
+    
+    <item>
+      <title>サンプル</title>
+      <link>https://www.ty07.net/samples/_index.ja/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/_index.ja/</guid>
+      <description>Blowfish はあなたのコンテンツに命を宿します。:heart_eyes: このセクションは、 Blowfish で様々な種類のコンテンツをどのように表示するのかを紹介するデモページを含みます。例としては 分類一覧ページも参考になります。</description>
+      
+    </item>
+    
+    <item>
+      <title>文档</title>
+      <link>https://www.ty07.net/docs/_index.zh-cn/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/_index.zh-cn/</guid>
+      <description>了解如何使用简单而强大的 Blowfish。 本章节包含了你需要了解的有关 Blowfish 的所有信息。如果你是新用户，请查阅 安装 指南，或者访问 示例 来了解 Blowfish 能做什么。</description>
+      
+    </item>
+    
+    <item>
+      <title>示例</title>
+      <link>https://www.ty07.net/samples/_index.zh-cn/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/samples/_index.zh-cn/</guid>
+      <description>Blowfish 让你的内容栩栩如生。 :heart_eyes: 本节包含一些示例页面，展示了Blowfish如何呈现不同类型的内容。你还可以参考 标签页面的示例。</description>
+      
+    </item>
+    
+    <item>
+      <title>資料</title>
+      <link>https://www.ty07.net/docs/_index.ja/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/_index.ja/</guid>
+      <description>シンプル、それでいて強力。 Blowfish の利用方法と特徴について学ぶ。 このセクションは Blowfish について知る必要のある全てのことが含まれています。新しく作成する場合は、開始するために インストールガイド、または Blowfish が何が出来るか サンプルセクションに訪れてください。</description>
       
     </item>
     

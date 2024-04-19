@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Front Matter on No Good Father</title>
+    <link>https://www.ty07.net/tags/front-matter/</link>
+    <description>Recent content in Front Matter on No Good Father</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2024 YAMASHITA, Takao</copyright>
+    <lastBuildDate>Mon, 10 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.ty07.net/tags/front-matter/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Front Matter</title>
+      <link>https://www.ty07.net/docs/front-matter/</link>
+      <pubDate>Mon, 10 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.ty07.net/docs/front-matter/</guid>
+      <description>In addition to the default Hugo front matter parameters, Blowfish adds a number of additional options to customise the presentation of individual articles.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/docs/front-matter/featured.svg" />
+    </item>
+    
+  </channel>
+</rss>
