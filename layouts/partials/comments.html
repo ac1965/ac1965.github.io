@@ -1,4 +1,4 @@
-{{ if .Site.Params.enableGitalk }}
+{{ if .Site.Params.enableGitalk | default false }}
 <div class="flex"></div>
 <!-- <link rel="stylesheet" href='{{ "css/gitalk.css" | absURL }}'> -->
 <script src='{{ "js/gitalk.min.js" | absURL }}'></script>
