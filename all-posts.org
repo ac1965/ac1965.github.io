@@ -2612,8 +2612,8 @@ The Rivingtons - Papa Oom Mow Mow
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-4317-c611
 :EXPORT_DATE: 2021-05-01
-:EXPORT_HUGO_TAGS:
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: novel
+:EXPORT_HUGO_CATEGORIES: novel
 :EXPORT_HUGO_LASTMOD:
 :END:
 
@@ -2623,18 +2623,28 @@ The Rivingtons - Papa Oom Mow Mow
 インタープリタって、いうのは理解できたのだが、インタープリタの方を知らない方が多いのではと思ったから少し違和感がある。
 
 *** 聖女の魔力は万能です
-「[聖女の魔力は万能です](https://ncode.syosetu.com/n8139dg/)」読了。
-とはいっても、この小説は継続中なので、5月1日時点で読める分を読了が正しい。
+#+begin_export hugo
+{{< webcard "https://ncode.syosetu.com/n8139dg/" >}}
+#+end_export
+
+読了。とはいっても、この小説は継続中なので、5月1日時点で読める分を読了が正しい。
 
 コミック本もアニメもある。というか、なろう系小説は、ほとんどがそのよう。
 
 *** 転生したらスライムだった件
-「[転生したらスライムだった件](https://ncode.syosetu.com/n6316bn/)」読了。
+#+begin_export hugo
+{{< webcard "https://ncode.syosetu.com/n6316bn/" >}}
+#+end_export
+
+読了。
 
 これは4月時点で読了。アニメの方は第二シーズンに向けおやすみ中。
 
 *** 無職転生 - 異世界行ったら本気だす -
-「[無職転生 - 異世界行ったら本気だす -](https://ncode.syosetu.com/n9669bk/)」読了。
+#+begin_export hugo
+{{< webcard "https://ncode.syosetu.com/n9669bk/" >}}
+#+end_export
+
 
 なろう系小説という言葉自体を覚えたのが、この小説から。もっとも、これより前から、なろう系出身のアニメは見てたみたい。転スラがそうだな。
 
@@ -2644,6 +2654,10 @@ GW はこれからが本番 :laughing:
 何を次に読もうか決めていない。
 この前に届いた「[ダンジョンに出会いを求めるのは間違っているだろうか](https://www.amazon.co.jp/gp/product/B08XM5PBMJ/ref=ppx_yo_dt_b_d_asin_title_o05?ie=UTF8&psc=1)」
 でも読もうかな。Kindle本は読んでないものも積んでいるし:laughing:
+#+begin_export hugo
+{{< webcard "https://www.amazon.co.jp/gp/product/B08XM5PBMJ/" >}}
+#+end_export
+
 
 ここから下は本文と関係なし。備忘録。
 
