@@ -2875,3 +2875,33 @@ CLOSED: [2024-04-17 Wed 22:49]
 
 {{< webcard "https://ncode.syosetu.com/n7944cf/" >}}
 #+end_export
+** TODO ひさしぶりに Miles をききたくなった
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2024-b55f-0ad0
+:EXPORT_DATE:
+:EXPORT_HUGO_TAGS: MilesDavis
+:EXPORT_HUGO_CATEGORIES: Music
+:EXPORT_HUGO_LASTMOD:
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
+:END:
+*** いつまでも憧れ
+今、58歳で4ヶ月過ぎれば59歳になろうとしている。はじめて聴いたジャズの演奏者がMilesだった。
+いつだったのかな。長兄が高校に入った頃だから小学生、5年生ぐらい。
+
+当時はオートリターン機能もついていないレコードプレーヤーで聴いていて、長兄は聴きながら寝落ちるから演奏終了時にレコード針をあげるのが役割だった😭
+
+そんなこと思い出しながら`So What`聴いている。
+
+#+begin_export hugo
+{{< youtubeLite id="vDqULFUg6CY" label="Kind Of Blue" >}}
+#+end_export
+
+日本のCMに出演していたのは何時ごろだ？
+TDKの方は亡くなる前ぐらいかな。
+
+他のジャズプレイヤーや違うジャンルの音楽を聴いていて、晩年のファンクやロックを融合したアルバムは買ってなかった。
+けど、最近はYouTubeやサブスクのサイトで聞き直している。
+
+#+begin_export hugo
+{{< youtubeLite id="XIOZHH8rtZ0" label="Hannibal" >}}
+#+end_export
