@@ -9,12 +9,12 @@
 {{- with $result := resources.GetRemote $url -}}
   <!-- Status Code が 4XX/5XX などGetに失敗する場合 -->
   {{- with $result.Err -}}
-    <div class="web-card hover:cursor-not-allowed h-[120px] bg-white border shadow rounded-lg my-4 sm:my-6 px-0 overflow-hidden">
+    <div class="widget hover:cursor-not-allowed h-[120px] bg-white border shadow rounded-lg my-4 sm:my-6 px-0 overflow-hidden">
       <div class="flex">
         <div class="flex h-[120px] w-[120px] max-w-[230px] bg-gray-300 justify-center items-center text-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
             <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-          </svg>        
+          </svg>
         </div>
 
         <div class="flex flex-1 flex-col justify-between bg-gray-50 py-2 px-4 sm:py-3 sm:px-5 ">
@@ -23,7 +23,7 @@
               {{ $u.Host | truncate 30 }} にアクセスできません
             </div>
           </div>
-          
+
           <div class="flex flex-1 flex-col justify-end">
             <div class="flex flex-row items-center">
               <img src="https://www.google.com/s2/favicons?sz=14&amp;domain_url={{ $u.Scheme }}://{{ $u.Host }}" class="fav-icon mr-1" alt="{{ $u.Host }} favicon image">
@@ -69,10 +69,10 @@
     <!-- 変数をshortcodeのHTMLに埋め込み -->
     <div class="web-card group h-[120px] bg-white border shadow rounded-lg my-4 sm:my-6 px-0 overflow-hidden">
       <a href="{{ $url }}" class="flex group-hover:no-underline">
-    
+
         <div class="h-[120px] w-[120px] sm:w-auto max-w-[230px]">
           <!-- og:image が取得できた場合 -->
-          {{ with $image }} 
+          {{ with $image }}
             <img src="{{ htmlUnescape $image }}" alt="{{ $description }}" class="m-0 h-full w-full object-cover shrink-0">
           <!-- og:image が取得できなかった場合 -->
           {{ else }}
@@ -83,15 +83,15 @@
             </div>
           {{ end }}
         </div>
-    
+
         <div class="flex flex-1 flex-col justify-between py-2 px-4 sm:py-3 sm:px-5 transition ease-in-out duration-100 group-hover:bg-primary-color-50">
           <div class="flex flex-1 flex-col gap-y-1">
             <div class="text-sm sm:text-base font-bold text-gray-800 leading-normal break-words line-clamp-2">
               <!-- og:title が取得できた場合 -->
-              {{ with $title }} 
+              {{ with $title }}
                 {{ $title }}
               <!-- og:title が取得できなかった場合 -->
-              {{ else }} 
+              {{ else }}
                 {{ $u.Host | truncate 30 }}
               {{ end }}
             </div>
@@ -99,7 +99,7 @@
               {{ $description | truncate 100 }}
             </div>
           </div>
-          
+
           <div class="flex flex-1 flex-col justify-end">
             <div class="flex flex-row items-center">
               <img src="https://www.google.com/s2/favicons?sz=14&amp;domain_url={{ $u.Scheme }}://{{ $u.Host }}" class="fav-icon mr-1" alt="{{ $u.Host }} favicon image">

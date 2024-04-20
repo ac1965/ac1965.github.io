@@ -13,7 +13,7 @@
 :EXPORT_FILE_NAME: 2009-7fbf-eb10
 :EXPORT_DATE: 2009-07-06 19:00:00
 :EXPORT_HUGO_TAGS: pybloxsom Syntaxhighliter python
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: cms
 :EXPORT_HUGO_LASTMOD:
 :END:
 PyBlosxom
@@ -59,8 +59,8 @@ PyBlosxom
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2009-7fbf-eb12
 :EXPORT_DATE: 2009-11-14 14:22:36
-:EXPORT_HUGO_TAGS: linux
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: iso-image
+:EXPORT_HUGO_CATEGORIES: linux
 :EXPORT_HUGO_LASTMOD:
 :END:
 息子が iPod nano
@@ -190,7 +190,7 @@ Live CD のイメージ作成に、 以前は metro
 :EXPORT_FILE_NAME: 2010-ad26-26d8
 :EXPORT_DATE: 2010-02-13 22:42:10
 :EXPORT_HUGO_TAGS: awesome
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: WindowManager
 :EXPORT_HUGO_LASTMOD:
 :END:
 [[http://awesome.naquadah.org/][awesome]] の設定をしなおしをした。そんなに変更はしていないように見えるけど、tag(他のWMでいうこところのワークスペース）を動的に生成する
@@ -203,7 +203,7 @@ shifty
 :EXPORT_FILE_NAME: 2010-f5af-e341
 :EXPORT_DATE: 2010-02-18 20:00:43
 :EXPORT_HUGO_TAGS: guruplug
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: Guruplug
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** 今なら(2/28/2010まで)、JTAGモジュールが無料の組み込み
@@ -223,7 +223,7 @@ std.]] の注文をした。４月から配送が始まるので５月までに�
 :EXPORT_FILE_NAME: 2010-1620-4255
 :EXPORT_DATE: 2010-03-06 19:50:41
 :EXPORT_HUGO_TAGS: xmonad
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: WindowManager
 :EXPORT_HUGO_LASTMOD:
 :END:
 awsome 最高と思っていたけど、[[http://xmonad.org/][Xmonad]]
@@ -239,7 +239,7 @@ revelation は好きだったのでの、こういうのは xmonad
 :EXPORT_FILE_NAME: 2010-3be9-c756
 :EXPORT_DATE: 2010-03-08 08:23:09
 :EXPORT_HUGO_TAGS: xmonad backtrack4
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: WindowManager Distribution
 :EXPORT_HUGO_LASTMOD:
 :END:
 backtrack4 に xmonad を入れてみた。
@@ -289,7 +289,7 @@ backtrack4 に xmonad を入れてみた。
 :EXPORT_FILE_NAME: 2010-3bdc-01ca
 :EXPORT_DATE: 2010-04-04 17:50:17
 :EXPORT_HUGO_TAGS: backtrack
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: Distribution
 :EXPORT_HUGO_LASTMOD:
 :END:
 [[http://www.backtrack-linux.org/forums/][backtrack4のフォーラム]]を読んでいたら教えて君がいたのでフォローした。
@@ -458,8 +458,8 @@ backtrack4 に xmonad を入れてみた。
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2010-ceb7-ee44
 :EXPORT_DATE: 2010-04-14 23:31:13
-:EXPORT_HUGO_TAGS: guruplug crossdev linux
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: guruplug crossdev
+:EXPORT_HUGO_CATEGORIES: Guruplug
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** guruplug が届く前に環境を作っておこう
@@ -801,8 +801,8 @@ QEMU の user-mode + binfmt + chroot で動作確認をした。
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2010-bba0-bea3
 :EXPORT_DATE: 2010-06-01 07:39:03
-:EXPORT_HUGO_TAGS: xorg linu
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: xorg
+:EXPORT_HUGO_CATEGORIES: WindowManager
 :EXPORT_HUGO_LASTMOD:
 :END:
 GuruPlugがなかなか屆かないので、Funtoo と xorg-1.8 の整理をした。
@@ -927,7 +927,7 @@ j /usr/share/X11/xorg.conf.d が system config
 :EXPORT_FILE_NAME: 2010-e6dc-e8c7
 :EXPORT_DATE: 2010-07-12 23:31:13
 :EXPORT_HUGO_TAGS: guruplug
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: Guruplug
 :EXPORT_HUGO_LASTMOD:
 :END:
 出遅れの感は否めないが（まぁ人柱が多数いるので力強いけど） やっと
@@ -1347,8 +1347,8 @@ ttyUSB0)を確認したら
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2010-4ca5-ca76
 :EXPORT_DATE: 2010-07-16 23:32:33
-:EXPORT_HUGO_TAGS:
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: guruplug
+:EXPORT_HUGO_CATEGORIES: Guruplug
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** guruplug が届いてから遊んだこと
@@ -2101,8 +2101,8 @@ iptables は問題なく動作した。honeyd も動作した。 あとは、ル
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2010-ae11-dbbf
 :EXPORT_DATE: 2010-07-31 15:14:28
-:EXPORT_HUGO_TAGS:
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: 中尾幸世 四季・ユートピアノ
+:EXPORT_HUGO_CATEGORIES: Entertainment
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin true
 :END:
@@ -2134,8 +2134,8 @@ YouTubeのみで再生なので、「YouTubeで見る」をクリックして懐
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2015-984a-97f1
 :EXPORT_DATE: 2015-04-28 08:49:41
-:EXPORT_HUGO_TAGS:
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: Hexo
+:EXPORT_HUGO_CATEGORIES: SSG
 :EXPORT_HUGO_LASTMOD:
 :END:
 Welcome to [[http://hexo.io][Hexo]]!
@@ -2292,7 +2292,7 @@ Flavored Markdown）ですね。
 :EXPORT_FILE_NAME: 2015-92a5-278e
 :EXPORT_DATE: 2015-04-28 14:24:13
 :EXPORT_HUGO_TAGS: archassult packer
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: Distribution
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** すこしまとめてみる
@@ -2367,8 +2367,8 @@ agent.pwy にリネームして、自動起動できるようにしておく。
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2016-fbf9-cc8d
 :EXPORT_DATE: 2016-05-07 11:59:21
-:EXPORT_HUGO_TAGS: medicalcheck
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: 健康診断-2016
+:EXPORT_HUGO_CATEGORIES: MedicalCheck
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** 定期検診
@@ -2408,7 +2408,7 @@ agent.pwy にリネームして、自動起動できるようにしておく。
 :EXPORT_FILE_NAME: 2020-64ac-ab0e
 :EXPORT_DATE: 2020-10-27 22:46:10
 :EXPORT_HUGO_TAGS: hugo
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: SSG
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** Hexo から Hugo
@@ -2495,7 +2495,7 @@ hugo-blog、公開用は ac1965.github.com で分けている。
 :EXPORT_FILE_NAME: 2020-4b4f-83fe
 :EXPORT_DATE: 2020-11-15 08:53:00
 :EXPORT_HUGO_TAGS: iphone
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: MobilePhone
 :EXPORT_HUGO_LASTMOD:
 :END:
 変え替え時ということで、iPhone を 8plus から 12pro に機種変更をした。
@@ -2513,7 +2513,7 @@ hugo-blog、公開用は ac1965.github.com で分けている。
 :EXPORT_FILE_NAME: 2021-3072-328a
 :EXPORT_DATE: 2021-02-20 16:43:00
 :EXPORT_HUGO_TAGS: covid-19
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: COVID
 :EXPORT_HUGO_LASTMOD:
 :END:
 
@@ -2525,8 +2525,8 @@ hugo-blog、公開用は ac1965.github.com で分けている。
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-b683-9118
 :EXPORT_DATE: 2021-02-28 19:50:00
-:EXPORT_HUGO_TAGS: eat
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: 貝殻喫茶室
+:EXPORT_HUGO_CATEGORIES: Eat
 :EXPORT_HUGO_LASTMOD:
 :END:
 
@@ -2541,8 +2541,8 @@ hugo-blog、公開用は ac1965.github.com で分けている。
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-ae45-5638
 :EXPORT_DATE: 2021-04-29 09:02:23
-:EXPORT_HUGO_TAGS: music
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: 大瀧詠一
+:EXPORT_HUGO_CATEGORIES: music
 :EXPORT_HUGO_LASTMOD:
 :END:
 
@@ -2551,9 +2551,9 @@ hugo-blog、公開用は ac1965.github.com で分けている。
 大瀧詠一さんを久しぶりに聴きたくなってググってたら、ナイアガラ・サウンドのルーツとは？というのにぶつかった。
 
 #+begin_export hugo
-{{<webcard "https://www.tbsradio.jp/140516">}}
+{{< webcard "https://www.tbsradio.jp/140516">}}
 
-{{<webcard "https://www.amazon.co.jp/Niagara-Moon-30th-Anniversary-大滝詠一/dp/B0007NFTP6/ref=sr_1_22?__mk_ja_JP=カタカナ&dchild=1&keywords=ナイアガラ">}}
+{{< amazon asin="B0007NFTP6" title="大滝詠一 Niagara Moon 30th Anniversary Edition" >}}
 
 #+end_export
 
@@ -2612,7 +2612,7 @@ The Rivingtons - Papa Oom Mow Mow
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-4317-c611
 :EXPORT_DATE: 2021-05-01
-:EXPORT_HUGO_TAGS: novel
+:EXPORT_HUGO_TAGS: なろう系小説
 :EXPORT_HUGO_CATEGORIES: novel
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2652,10 +2652,10 @@ The Rivingtons - Papa Oom Mow Mow
 GW はこれからが本番 :laughing:
 
 何を次に読もうか決めていない。
-この前に届いた「[ダンジョンに出会いを求めるのは間違っているだろうか](https://www.amazon.co.jp/gp/product/B08XM5PBMJ/ref=ppx_yo_dt_b_d_asin_title_o05?ie=UTF8&psc=1)」
+この前に届いた「[ダンジョンに出会いを求めるのは間違っているだろうか](https://www.amazon.co.jp/gp/product/B08XM5PBMJ/1)」
 でも読もうかな。Kindle本は読んでないものも積んでいるし:laughing:
 #+begin_export hugo
-{{< webcard "https://www.amazon.co.jp/gp/product/B08XM5PBMJ/" >}}
+{{< amazon asin="B08XM5PBMJ" title="ダンジョンに出会いを求めるのは間違っているだろうか 17" >}}
 #+end_export
 
 
@@ -2684,8 +2684,8 @@ CLOSED: [2024-03-16 Sat 13:14]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2024-32af-0903
 :EXPORT_DATE: 2024-03-16
-:EXPORT_HUGO_TAGS: WiredrEearphone CCZc
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: CCZ 中華イヤフォン
+:EXPORT_HUGO_CATEGORIES: WiredrEearphone
 :EXPORT_HUGO_LASTMOD:
 :END:
 イアフォンは、それまで常用のSHUREのSE215(無印)のコネクター部分が壊れた上に、
@@ -2706,8 +2706,8 @@ CLOSED: [2024-03-23 Sat 10:27]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2024-3ec3-22af
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: anime Frieren
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: Frieren 葬送のフリーレン
+:EXPORT_HUGO_CATEGORIES: Anime
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
 :END:
@@ -2747,8 +2747,8 @@ CLOSED: [2024-03-30 Sat 14:52]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2024-036f-d136
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: hugo githubpages
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: hugo
+:EXPORT_HUGO_CATEGORIES: SSG GithubPages
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin true
 :END:
@@ -2860,7 +2860,7 @@ CLOSED: [2024-04-17 Wed 22:49]
 :EXPORT_FILE_NAME: 2024-abf9-45ae
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: hugo
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_CATEGORIES: SSG
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
 :END:
