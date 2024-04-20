@@ -2875,7 +2875,8 @@ CLOSED: [2024-04-17 Wed 22:49]
 
 {{< webcard "https://ncode.syosetu.com/n7944cf/" >}}
 #+end_export
-** TODO ひさしぶりに Miles をききたくなった
+** DONE ひさしぶりに Miles をききたくなった
+CLOSED: [2024-04-21 Sun 01:12]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2024-b55f-0ad0
 :EXPORT_DATE:
