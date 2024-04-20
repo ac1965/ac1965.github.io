@@ -4,7 +4,7 @@ draft = false
 title = 'about'
 +++
 {{< figure
-    src="/images/about.jpg"
+    src="/gallery/about.jpg"
     alt="Abstract purple artwork"
     caption="After the school festival in 3rd year of high school, I felt heartbroken. Probably Sep 1982"
     >}}
