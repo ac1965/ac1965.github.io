@@ -68,11 +68,6 @@
   pageRef = "tags"
   weight = 10
 
-[[footer]]
-  name = "Docs"
-  pageRef = "docs"
-  weight = 20
-
 # [[footer]]
 #   name = "Categories"
 #   pageRef = "categories"
