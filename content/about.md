@@ -24,4 +24,4 @@ I was born in 1965. Oh, Master! Please give me Laphroaig.
 - [twitter](https://twitter.com/ac1965)
 - [instagram](https://www.instagram.com/tjy1965)
 
-{{< carousel images="gallery/*" aspectRatio="21-9" interval="1000" >}}
+{{< carousel images="gallery/*" aspectRatio="16-9" interval="2500" >}}
