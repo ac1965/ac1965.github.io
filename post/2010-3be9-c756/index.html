@@ -584,10 +584,67 @@
     
 
     
-      
-      
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+    
+
+      <div class="min-w-0 min-h-0 max-w-fit">
         
         
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p>backtrack4 に xmonad を入れてみた。</p>
+<p>[[<a href="http://www.lares.dti.ne.jp/~jargon/uploads/backtrack4-xmonad.png"   target="_blank">
+    http://www.lares.dti.ne.jp/~jargon/uploads/backtrack4-xmonad.png</a>]]</p>
+<ul>
+<li>$HOME/.xmonad/xmonad.hs</li>
+</ul>
+<!--listend-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">import XMonad
+</span></span><span class="line"><span class="cl">import XMonad.Config.Kde
+</span></span><span class="line"><span class="cl">import qualified XMonad.StackSet as W -- to <span class="nb">shift</span> and float windows
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">main</span> <span class="o">=</span> xmonad $ kdeConfig
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="o">{</span> <span class="nv">modMask</span> <span class="o">=</span> mod4Mask -- use the Windows button as mod
+</span></span><span class="line"><span class="cl"> , <span class="nv">manageHook</span> <span class="o">=</span> manageHook kdeConfig &lt;+&gt; myManageHook
+</span></span><span class="line"><span class="cl"> <span class="o">}</span>
+</span></span><span class="line"><span class="cl"> where
+</span></span><span class="line"><span class="cl">   <span class="nv">myManageHook</span> <span class="o">=</span> composeAll . concat $
+</span></span><span class="line"><span class="cl">     <span class="o">[</span> <span class="o">[</span> <span class="nv">className</span>   <span class="o">=</span>? c --&gt; doFloat           <span class="p">|</span> c &lt;- myFloats<span class="o">]</span>
+</span></span><span class="line"><span class="cl">     , <span class="o">[</span> <span class="nv">title</span>       <span class="o">=</span>? t --&gt; doFloat           <span class="p">|</span> t &lt;- myOtherFloats<span class="o">]</span>
+</span></span><span class="line"><span class="cl">     , <span class="o">[</span> <span class="nv">className</span>   <span class="o">=</span>? c --&gt; doF <span class="o">(</span>W.shift <span class="s2">&#34;2&#34;</span><span class="o">)</span> <span class="p">|</span> c &lt;- webApps<span class="o">]</span>
+</span></span><span class="line"><span class="cl">     , <span class="o">[</span> <span class="nv">className</span>   <span class="o">=</span>? c --&gt; doF <span class="o">(</span>W.shift <span class="s2">&#34;3&#34;</span><span class="o">)</span> <span class="p">|</span> c &lt;- ircApps<span class="o">]</span>
+</span></span><span class="line"><span class="cl">     <span class="o">]</span>
+</span></span><span class="line"><span class="cl">   <span class="nv">myFloats</span>      <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;MPlayer&#34;</span>, <span class="s2">&#34;Gimp&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">   <span class="nv">myOtherFloats</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;alsamixer&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">   <span class="nv">webApps</span>       <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;Firefox-bin&#34;</span>, <span class="s2">&#34;Opera&#34;</span><span class="o">]</span> -- open on desktop <span class="m">2</span>
+</span></span><span class="line"><span class="cl">   <span class="nv">ircApps</span>       <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;Ksirc&#34;</span><span class="o">]</span>                -- open on desktop <span class="m">3</span>
+</span></span></code></pre></div><ul>
+<li>設定</li>
+</ul>
+<!--listend-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt-get install language-pack-ja
+</span></span><span class="line"><span class="cl">sudo apt-get install scim scim-anthy kasumi
+</span></span><span class="line"><span class="cl">sudo apt-get install ttf-vlgothic
+</span></span><span class="line"><span class="cl">sudo apt-get install kde-i18n-ja
+</span></span><span class="line"><span class="cl">sudo apt-get install xmonad
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat <span class="nv">$HOME</span>/.kde3/env/set_window_manager.sh
+</span></span><span class="line"><span class="cl"><span class="nv">KDEWM</span><span class="o">=</span>/usr/bin/xmonad
+</span></span><span class="line"><span class="cl">chmod +x <span class="nv">$HOME</span>/.kde3/env/set_window_manager.sh
+</span></span></code></pre></div>
+        </div>
+        
+        
+
+          
+            
+            
 <div class="flex author">
   
     
@@ -694,71 +751,14 @@
   </div>
 </div>
 
-      
+          
 
-      
+          
 
-      
-      <div class="mb-5"></div>
-      
+          
+          <div class="mb-10"></div>
+          
 
-    
-
-  </header>
-  
-  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-    
-    
-
-      <div class="min-w-0 min-h-0 max-w-fit">
-        
-        
-
-
-        <div class="article-content max-w-prose mb-20">
-          <p>backtrack4 に xmonad を入れてみた。</p>
-<p>[[<a href="http://www.lares.dti.ne.jp/~jargon/uploads/backtrack4-xmonad.png"   target="_blank">
-    http://www.lares.dti.ne.jp/~jargon/uploads/backtrack4-xmonad.png</a>]]</p>
-<ul>
-<li>$HOME/.xmonad/xmonad.hs</li>
-</ul>
-<!--listend-->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">import XMonad
-</span></span><span class="line"><span class="cl">import XMonad.Config.Kde
-</span></span><span class="line"><span class="cl">import qualified XMonad.StackSet as W -- to <span class="nb">shift</span> and float windows
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">main</span> <span class="o">=</span> xmonad $ kdeConfig
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="o">{</span> <span class="nv">modMask</span> <span class="o">=</span> mod4Mask -- use the Windows button as mod
-</span></span><span class="line"><span class="cl"> , <span class="nv">manageHook</span> <span class="o">=</span> manageHook kdeConfig &lt;+&gt; myManageHook
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"> where
-</span></span><span class="line"><span class="cl">   <span class="nv">myManageHook</span> <span class="o">=</span> composeAll . concat $
-</span></span><span class="line"><span class="cl">     <span class="o">[</span> <span class="o">[</span> <span class="nv">className</span>   <span class="o">=</span>? c --&gt; doFloat           <span class="p">|</span> c &lt;- myFloats<span class="o">]</span>
-</span></span><span class="line"><span class="cl">     , <span class="o">[</span> <span class="nv">title</span>       <span class="o">=</span>? t --&gt; doFloat           <span class="p">|</span> t &lt;- myOtherFloats<span class="o">]</span>
-</span></span><span class="line"><span class="cl">     , <span class="o">[</span> <span class="nv">className</span>   <span class="o">=</span>? c --&gt; doF <span class="o">(</span>W.shift <span class="s2">&#34;2&#34;</span><span class="o">)</span> <span class="p">|</span> c &lt;- webApps<span class="o">]</span>
-</span></span><span class="line"><span class="cl">     , <span class="o">[</span> <span class="nv">className</span>   <span class="o">=</span>? c --&gt; doF <span class="o">(</span>W.shift <span class="s2">&#34;3&#34;</span><span class="o">)</span> <span class="p">|</span> c &lt;- ircApps<span class="o">]</span>
-</span></span><span class="line"><span class="cl">     <span class="o">]</span>
-</span></span><span class="line"><span class="cl">   <span class="nv">myFloats</span>      <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;MPlayer&#34;</span>, <span class="s2">&#34;Gimp&#34;</span><span class="o">]</span>
-</span></span><span class="line"><span class="cl">   <span class="nv">myOtherFloats</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;alsamixer&#34;</span><span class="o">]</span>
-</span></span><span class="line"><span class="cl">   <span class="nv">webApps</span>       <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;Firefox-bin&#34;</span>, <span class="s2">&#34;Opera&#34;</span><span class="o">]</span> -- open on desktop <span class="m">2</span>
-</span></span><span class="line"><span class="cl">   <span class="nv">ircApps</span>       <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;Ksirc&#34;</span><span class="o">]</span>                -- open on desktop <span class="m">3</span>
-</span></span></code></pre></div><ul>
-<li>設定</li>
-</ul>
-<!--listend-->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo apt-get install language-pack-ja
-</span></span><span class="line"><span class="cl">sudo apt-get install scim scim-anthy kasumi
-</span></span><span class="line"><span class="cl">sudo apt-get install ttf-vlgothic
-</span></span><span class="line"><span class="cl">sudo apt-get install kde-i18n-ja
-</span></span><span class="line"><span class="cl">sudo apt-get install xmonad
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">cat <span class="nv">$HOME</span>/.kde3/env/set_window_manager.sh
-</span></span><span class="line"><span class="cl"><span class="nv">KDEWM</span><span class="o">=</span>/usr/bin/xmonad
-</span></span><span class="line"><span class="cl">chmod +x <span class="nv">$HOME</span>/.kde3/env/set_window_manager.sh
-</span></span></code></pre></div>
-        </div>
-        
         
 
         
@@ -849,6 +849,29 @@
   
 
 
+    
+    
+    <div class="pt-3">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="pt-3">
+        <div id="disqus_thread"></div>
+<script>
+    
+
+    
+
+    (function() { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-www-ty07-net.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </div>
+    
     
   </footer>
 </article>
