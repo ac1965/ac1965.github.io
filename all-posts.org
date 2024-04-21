@@ -949,8 +949,7 @@ Guruplug Std. が届いた。
 
 前のブログサイトにアップロードした画像なのでないw
 
-*** JTAG ボード [fn:1] を繋ぎ、FTDI USB シリアルデバイス(例では
-ttyUSB0)を確認したら
+*** JTAG ボード [fn:1] を繋ぎ、FTDI USB シリアルデバイス(例ではttyUSB0)を確認したら
    :PROPERTIES:
    :CUSTOM_ID: jtag-ボード-1-を繋ぎftdi-usb-シリアルデバイス例では-ttyusb0を確認したら
    :END:
@@ -961,8 +960,8 @@ ttyUSB0)を確認したら
 
 =screen /dev/ttyUSB0 115200= でターミナルをあげておく。
 
-- U-Bootの確認
-
+#+begin_export hugo
+{{< details "U-Bootの確認">}}
 #+BEGIN_SRC sh
   U-Boot 2009.11-rc1-00602-g8e6db3d (Dec 24 2009 - 03:11:17)
   Marvell-Plug2
@@ -1049,8 +1048,11 @@ ttyUSB0)を確認したら
   Environment size: 455/131068 bytes
 #+END_SRC
 
-- bootしてみましょ
+{{</details>}}
+#+end_export
 
+#+begin_export hugo
+{{<details "bootしてみましょ">}}
 いい感じの速度感。悪くないな。
 
 #+BEGIN_SRC sh
@@ -1340,10 +1342,11 @@ ttyUSB0)を確認したら
   Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
   permitted by applicable law.
 #+END_SRC
+{{</details>}}
+#+end_export
 
 [fn:1] 先行予約は JTAGボードが無料でついてくるんだけど、PC-BOX
        JTAGボードが必需なんだな。後発で買った人は工作するか、諦めるか。もっとも必要のない人だっているから、どうだとは言い切れないが。
-       と繋げるためには
 ** DONE Guruplug Subquent
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2010-4ca5-ca76
