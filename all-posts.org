@@ -2784,7 +2784,7 @@ gitアカウント作成/Hugoのサイトの構築や、git絡みの設定は完
 
 *** すこしたった後に思ったこと。
 
-[[https://github.com/peaceiris/actions-hugo][action-hugo]] を先に読めば、まだ理解できたかもしれない。要は、 =https://<username>.github.io/= にHUGO環境を入れて
+[[https://github.com/peaceiris/actions-hugo][actions-hugo]] を先に読めば、まだ理解できたかもしれない。要は、 =https://<username>.github.io/= にHUGO環境を入れて
 GitHub Page にデプロイすれば良いことがわかった。
 
 [[file:/images/githubpages-setting.png]]
