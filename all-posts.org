@@ -2907,3 +2907,9 @@ TDKの方はうろ覚えだから、亡くなる前ぐらいかな。
 #+begin_export hugo
 {{< youtubeLite id="XIOZHH8rtZ0" label="Hannibal" >}}
 #+end_export
+
+Biches Brew のジャケットアートワークとかも好きだったな。
+
+#+begin_export hugo
+{{< webcard "http://www.matiklarweinart.com" >}}
+#+end_export
