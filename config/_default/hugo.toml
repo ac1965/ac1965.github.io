@@ -63,3 +63,7 @@ buildFuture = false
       name = 'fragmentrefs'
       type = 'fragments'
       weight = 10
+
+[services]
+  [services.disqus]
+    shortname = "https-www-ty07-net"
