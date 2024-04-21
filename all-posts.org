@@ -584,6 +584,7 @@ crossdev で作ったクロスコンパイラで基本システム(stage1)を構
           bzip2 crypt loop-aes mysql mysqli sqlite xmlrpc bash-completion \
           idn glibc-omitfp \
           dvd dvdr cdda cddb \
+
           mp3 vorbis wavepack wma mpeg ogg rtsp x264 win32codecs libv412 v4l2 v4l \
           wifi bluetooth curl git -dso subversion lzma"
 
@@ -1418,11 +1419,9 @@ iptables は問題なく動作した。honeyd も動作した。 あとは、ル
 マシンの熱さは、某掲示板で騒がれるほど酷く熱くはない。
 問題になっているのは GuruPlug PLUS (odd: ethx2 + eSTA) だけどね。
 
-*** [現在の GuruPlug Std.]
-   :PROPERTIES:
-   :CUSTOM_ID: 現在の-guruplug-std.
-   :END:
 
+#+begin_export hugo
+{{< details "[現在の GuruPlug Std.]">}}
 - U-Boot
 
 #+BEGIN_SRC sh
@@ -2097,6 +2096,8 @@ iptables は問題なく動作した。honeyd も動作した。 あとは、ル
   x11-proto/xf86bigfontproto-1.2.0
   x11-proto/xproto-7.0.16
 #+END_EXAMPLE
+{{</details>}}
+#+end_export
 ** DONE 四季・ユートピアノ 中尾幸世さん
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2010-ae11-dbbf
