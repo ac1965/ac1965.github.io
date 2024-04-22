@@ -2,7 +2,7 @@
 title = "What Blog?"
 author = ["YAMASHITA Takao"]
 date = 2016-06-18T11:14:00+09:00
-lastmod = 2024-04-22T08:31:13+09:00
+lastmod = 2024-04-22T12:55:46+09:00
 tags = ["tweet"]
 draft = false
 +++
