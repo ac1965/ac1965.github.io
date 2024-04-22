@@ -746,7 +746,7 @@ SYSROOT を検索する必要があるため binutils-2.19.51.0.12 より上に�
    :END:
 
     #+begin_export hugo
-    {{<detailes "QEMU の user-mode + binfmt + chroot で動作確認をした">}}
+    {{<details "QEMU の user-mode + binfmt + chroot で動作確認をした">}}
     ```
     # export PS1="(`uname -m`:\W) "
    (i684:/ ) USE="static" emerge --buildpkg --oneshot qemu-user
