@@ -745,59 +745,61 @@ SYSROOT を検索する必要があるため binutils-2.19.51.0.12 より上に�
    :CUSTOM_ID: httpwww.gentoo.orgprojenbaseembeddedhandbookpart1chap5
    :END:
 
-QEMU の user-mode + binfmt + chroot で動作確認をした。
+    #+begin_export hugo
+    {{<detailes "QEMU の user-mode + binfmt + chroot で動作確認をした">}}
+    ```
+    # export PS1="(`uname -m`:\W) "
+   (i684:/ ) USE="static" emerge --buildpkg --oneshot qemu-user
+   (i684:/ ) ROOT=/usr/armv5tel-softfloat-linux-gnueabi emerge --usepkgonly qemu-user
+   (i684:/ ) cat qemu-wrapper.c
+   #include <stdio.h>
+   #include <unistd.h>
 
-#+BEGIN_SRC sh
-  # export PS1="(`uname -m`:\W) "
-  (i684:/ ) USE="static" emerge --buildpkg --oneshot qemu-user
-  (i684:/ ) ROOT=/usr/armv5tel-softfloat-linux-gnueabi emerge --usepkgonly qemu-user
-  (i684:/ ) cat qemu-wrapper.c
-  #include <stdio.h>
-  #include <unistd.h>
+   int main(int argc, char **argv, char **envp) {
+       char *newargv[argc + 3];
 
-  int main(int argc, char **argv, char **envp) {
-      char *newargv[argc + 3];
+       newargv[0] = argv[0];
+       newargv[1] = "-cpu";
+       newargv[2] = "cortex-a8";
 
-      newargv[0] = argv[0];
-      newargv[1] = "-cpu";
-      newargv[2] = "cortex-a8";
-
-     memcpy(&newargv[3], &argv[1], sizeof(*argv) * (argc - 1));
-     newargv[argc + 2] = NULL;
-     return execve("/usr/bin/qemu-arm", newargv, envp);
-  }
-  (i684:/ ) gcc -static qemu-wrapper.c -o qemu-wrapper
-  (i684:/ ) cp qemu-wrapper /usr/armv5tel-softfloat-linux-gnueabi
-  (i684:/ ) [ -d /proc/sys/fs/binfmt_misc ] || modprobe binfmt_misc
-  (i684:/ ) [ -f /proc/sys/fs/binfmt_misc/register ] || \
-  mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc
-  (i684:/ ) echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/qemu-wrapper:' > /proc/sys/fs/binfmt_misc/register
-  (i684:/ ) cat /proc/sys/fs/binfmt_misc/arm
-  enabled
-  interpreter /qemu-wrapper
-  flags:
-  offset 0
-  magic 7f454c4601010100000000000000000002002800
-  mask ffffffffffffff00fffffffffffffffffeffffff
-  (i684:/ ) [ -d /usr/armv5tel-softfloat-linux-gnueabi/usr/portage ] || \
-  install -d /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
-  (i684:/ ) [ -d /usr/armv5tel-softfloat-linux-gnueabi/proc ] || \
-  install -d /usr/armv5tel-softfloat-linux-gnueabi/proc
-  (i684:/ ) [ -d /usr/armv5tel-softfloat-linux-gnueabi/sys ] || \
-  install -d /usr/armv5tel-softfloat-linux-gnueabi/sys
-  (i684:/ ) mount --bind /usr/portage /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
-  (i684:/ ) mount --bind /proc /usr/armv5tel-softfloat-linux-gnueabi/proc
-  (i684:/ ) mount --bind /sys /usr/armv5tel-softfloat-linux-gnueabi/sys
-  (i684:/ ) chroot /usr/armv5tel-softfloat-linux-gnueab /bin/busybox mdev -s
-  (i684:/ ) chroot /usr/armv5tel-softfloat-linux-gnueab /bin/bash --login
-  # export PS1="(`uname -m`:chroot:\W) "
-  (arm:chroot: /) env-update
-  (arm:chroot: /) exit
-  (i684:/ ) umount /usr/armv5tel-softfloat-linux-gnueabi/sys
-  (i684:/ ) umount /usr/armv5tel-softfloat-linux-gnueabi/proc
-  (i684:/ ) umount /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
-  (i684:/ ) umount /proc/sys/fs/binfmt_misc
-#+END_SRC
+      memcpy(&newargv[3], &argv[1], sizeof(*argv) * (argc - 1));
+      newargv[argc + 2] = NULL;
+      return execve("/usr/bin/qemu-arm", newargv, envp);
+   }
+   (i684:/ ) gcc -static qemu-wrapper.c -o qemu-wrapper
+   (i684:/ ) cp qemu-wrapper /usr/armv5tel-softfloat-linux-gnueabi
+   (i684:/ ) [ -d /proc/sys/fs/binfmt_misc ] || modprobe binfmt_misc
+   (i684:/ ) [ -f /proc/sys/fs/binfmt_misc/register ] || \
+   mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc
+   (i684:/ ) echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/qemu-wrapper:' > /proc/sys/fs/binfmt_misc/register
+   (i684:/ ) cat /proc/sys/fs/binfmt_misc/arm
+   enabled
+   interpreter /qemu-wrapper
+   flags:
+   offset 0
+   magic 7f454c4601010100000000000000000002002800
+   mask ffffffffffffff00fffffffffffffffffeffffff
+   (i684:/ ) [ -d /usr/armv5tel-softfloat-linux-gnueabi/usr/portage ] || \
+   install -d /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
+   (i684:/ ) [ -d /usr/armv5tel-softfloat-linux-gnueabi/proc ] || \
+   install -d /usr/armv5tel-softfloat-linux-gnueabi/proc
+   (i684:/ ) [ -d /usr/armv5tel-softfloat-linux-gnueabi/sys ] || \
+   install -d /usr/armv5tel-softfloat-linux-gnueabi/sys
+   (i684:/ ) mount --bind /usr/portage /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
+   (i684:/ ) mount --bind /proc /usr/armv5tel-softfloat-linux-gnueabi/proc
+   (i684:/ ) mount --bind /sys /usr/armv5tel-softfloat-linux-gnueabi/sys
+   (i684:/ ) chroot /usr/armv5tel-softfloat-linux-gnueab /bin/busybox mdev -s
+   (i684:/ ) chroot /usr/armv5tel-softfloat-linux-gnueab /bin/bash --login
+   # export PS1="(`uname -m`:chroot:\W) "
+   (arm:chroot: /) env-update
+   (arm:chroot: /) exit
+   (i684:/ ) umount /usr/armv5tel-softfloat-linux-gnueabi/sys
+   (i684:/ ) umount /usr/armv5tel-softfloat-linux-gnueabi/proc
+   (i684:/ ) umount /usr/armv5tel-softfloat-linux-gnueabi/usr/portage
+   (i684:/ ) umount /proc/sys/fs/binfmt_misc
+   ```
+   {{</details>}}
+   #+end_export
 ** DONE Xorg
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2010-bba0-bea3
