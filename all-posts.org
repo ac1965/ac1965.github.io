@@ -2759,15 +2759,13 @@ CLOSED: [2024-03-30 Sat 14:52]
 :END:
 世の中あまたのブログサービスのお手軽さはそれはそれで良いとしても、静的サイトジェネレータの良さもある。
 動的サイトに比べレンダリング処理の必要がいらない分、表示が早いとか。
-
-ドメインは自分が取得したものだが、サイトはいまはGitHub Pagesを使っているけど、
-いままで作成されたコンテンツをローカルの[[https://github.com/ac1965/ac1965.github.io][GitHub Pages]]のリポジトリに =rsync= と =git push= をしていた。
-それすら面倒になっているオッさんなのでPostを作成して =git push= したらデプロイする方向転換をした。
-
-そういうのには興味はなくて、
 メモ帳程度の文章をツラツラ書くのに凝る必要がないから選択肢に静的サイトジェネレータを選んだ理由があった。
 
-gitアカウント作成/Hugoのサイトの構築や、git絡みの設定は完了済みは前提。
+ドメインは自分が取得したものだが、サイトはあっちこっちホッピングした。いまはGitHub Pagesを使っている。
+いままで作成したコンテンツをローカルの[[https://github.com/ac1965/ac1965.github.io][GitHub Pages]]のリポジトリに =rsync= と =git push= をしていたけど、
+それすら面倒になっているオッさんなのでPostを作成して =git push= したらデプロイする方向転換を模索し始めた。
+
+gitアカウント作成/Hugoのサイトの構築や、git絡みの設定は完了済みは前提として。
 
 *** GitHub Pagesでデプロイ
 - [[https://docs.github.com/ja/pages/getting-started-with-github-pages/about-github-pages][GitHub Pages について]]
