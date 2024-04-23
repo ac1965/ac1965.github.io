@@ -2891,7 +2891,6 @@ CLOSED: [2024-04-21 Sun 01:12]
 *** いつまでも憧れ
 今、58歳で4ヶ月過ぎれば59歳になろうとしている。はじめて聴いたジャズの演奏者がMilesだった。
 いつだったのかな。長兄が高校に入った頃だから小学生、5年生ぐらい。
-
 当時はオートリターン機能もついていないレコードプレーヤーで聴いていて、長兄は聴きながら寝落ちるから演奏終了時にレコード針をあげるのが役割だった😭
 
 そんなこと思い出しながら `So What` 聴いている。
@@ -2902,17 +2901,21 @@ CLOSED: [2024-04-21 Sun 01:12]
 
 日本のCMに出演していたのは何時ごろだ？
 VANとTDKのCMがあったな。VANのCMは格好よくて真似したな🤣
-
 TDKの方はうろ覚えだから、亡くなる前ぐらいかな。
-
-高校生になる頃から他のジャズプレイヤーや違うジャンルの音楽を聴いていて、Miles の晩年のファンクやロックを融合したアルバムは買ってなかった。
-その代わり最近はYouTubeやサブスクのサイトで聞き直している。
-#+begin_export hugo
-{{< youtubeLite id="XIOZHH8rtZ0" label="Hannibal" >}}
-#+end_export
 
 Biches Brew のジャケットアートワークとかも好きだったな。
 
 #+begin_export hugo
 {{< webcard "http://www.matiklarweinart.com" >}}
 #+end_export
+
+高校生になる頃から他のジャズプレイヤーや違うジャンルの音楽を聴いていて、Miles の晩年のファンクやロックを融合したアルバムは買ってなかった。
+その代わり最近はYouTubeやサブスク[fn:1]のサイトで聞き直している。
+
+#+begin_export hugo
+{{< youtubeLite id="XIOZHH8rtZ0" label="Hannibal" >}}
+<p>
+<iframe id="embedPlayer" src="https://embed.music.apple.com/jp/album/kind-of-blue/268443092?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=auto" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s 6 loading-indicator; background-color: rgb(228, 228, 228);"></iframe>
+#+end_export
+
+[fn:1] [[https://tools.applemediaservices.com/apple-music]]
