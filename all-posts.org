@@ -2897,6 +2897,8 @@ CLOSED: [2024-04-21 Sun 01:12]
 
 #+begin_export hugo
 {{< youtubeLite id="vDqULFUg6CY" label="Kind Of Blue" >}}
+<p>
+<iframe id="embedPlayer" src="https://embed.music.apple.com/jp/album/kind-of-blue/268443092?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=auto" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s 6 loading-indicator; background-color: rgb(228, 228, 228);"></iframe>
 #+end_export
 
 日本のCMに出演していたのは何時ごろだ？
@@ -2906,6 +2908,8 @@ TDKの方はうろ覚えだから、亡くなる前ぐらいかな。
 Biches Brew のジャケットアートワークとかも好きだったな。
 
 #+begin_export hugo
+<iframe id="embedPlayer" src="https://embed.music.apple.com/jp/album/bitches-brew/168376392?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=auto" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s 6 loading-indicator; background-color: rgb(228, 228, 228);"></iframe>
+<p>
 {{< webcard "http://www.matiklarweinart.com" >}}
 #+end_export
 
@@ -2914,8 +2918,6 @@ Biches Brew のジャケットアートワークとかも好きだったな。
 
 #+begin_export hugo
 {{< youtubeLite id="XIOZHH8rtZ0" label="Hannibal" >}}
-<p>
-<iframe id="embedPlayer" src="https://embed.music.apple.com/jp/album/kind-of-blue/268443092?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=auto" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s 6 loading-indicator; background-color: rgb(228, 228, 228);"></iframe>
 #+end_export
 
 [fn:1] [[https://tools.applemediaservices.com/apple-music]]
