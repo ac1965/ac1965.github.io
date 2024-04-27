@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ICLOUD_USE=${ICLOUD_USE:-"~/Documents/devel/repos"}
+ICLOUD_USE=${ICLOUD_USE:-~/Documents/devel/repos}
 hugo=${ICLOUD_USE}/mysite
 public=${ICLOUD_USE}/deploy
 
