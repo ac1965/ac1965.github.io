@@ -1,7 +1,8 @@
 #!/bin/bash
 
-hugo=~/Documents/devel/repos/mysite
-public=~/Documents/devel/repos/deploy
+ICLOUD_USE=${ICLOUD_USE:-"~/Documents/devel/repos"}
+hugo=${ICLOUD_USE}/mysite
+public=${ICLOUD_USE}/deploy
 
 abort ()
 {
