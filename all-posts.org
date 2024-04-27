@@ -297,20 +297,11 @@ backtrack4 に xmonad を入れてみた。
 [[http://www.offensive-security.com/blog/backtrack/customising-backtrack-live-cd-the-easy-way/][bt4-customise.sh]]で出来るよって。
 
 さらに変更したものをポストしておく。squashfs を LUKS
-でカプセルするもの。元ネタは下のURL
+でカプセルるもの。
 
-- http://forums.remote-exploit.org/backtrack-4-howto/25768-howto-bt4-pre-final-usb-encryption.html
-
-- bt4-customise.sh
-  [[[http://www.offensive-security.com/bt4-customise.sh][original]]]
-
-#+BEGIN_HTML
-  <embed type="application/x-shockwave-flash" src="http://ttyshare.com/t/afd4220f49ebdda620594a54f1c1181216a06a2a" width="480" height="288">
-#+END_HTML
-
-#+BEGIN_SRC sh
-  #!/bin/bash
-
+#+begin_export hugo
+{{<details "bt4-customise.sh">}}
+```sh
   btisoname=bt4.iso
   btmodisoname=`basename $btisoname .iso`-mod.iso
 
@@ -453,7 +444,9 @@ backtrack4 に xmonad を入れてみた。
 
   echo "[*] Your modified BT4 is in $(pwd)/${btmodisoname}"
   echo "##############################################################"
-#+END_SRC
+```
+{{</details>}}
+#+end_export
 ** DONE Guruplug 届くまでにやったこと
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2010-ceb7-ee44
@@ -2126,7 +2119,7 @@ NHKで約20年前に放映した番組の作品である。
 当日は中尾幸世さんがトークするという情報があったので前売を早めに取った。
 お蔭様で満員のユーロスペースでよい席で「四季・ユートピアノ」を懐かしく観れた。
 
-[[file:/images/20100730266.jpg]]
+[[file:20100730266.jpg]]
 
 #+begin_export hugo
 {{<details "YouTube 四季・ユートピアノ">}}
@@ -2383,9 +2376,9 @@ agent.pwy にリネームして、自動起動できるようにしておく。
 
 今日は60日ぶりの定期検診。
 
-血圧は正常。主治医には「血圧だけは、正常ですね」なんて言われる有様。[[file:/images/blood-pressure-result.jpg]]
+お薬もいただかなくては、ゾロばかりだけど。[[file:medicine.jpg]]
 
-お薬もいただかなくては、ゾロばかりだけど。[[file:/images/medicine.jpg]]
+血圧は正常。主治医には「血圧だけは、正常ですね」なんて言われる有様。[[file:blood-pressure-result.jpg]]
 
 ** DONE What Blog?
 :PROPERTIES:
@@ -2513,9 +2506,9 @@ hugo-blog、公開用は ac1965.github.com で分けている。
 一番面倒だったのが、なんとかPay系のアプリ。これは再認証を必要とするものがあったから。
 
 *** 箱から開けた
-[[file:/images/1st-shot.png]]
+[[file:1st-shot.png]]
 *** PCだけの光
-[[file:/images/2nd-shot.png]]
+[[file:2nd-shot.png]]
 
 ** DONE 不要不急
 :PROPERTIES:
@@ -2543,8 +2536,8 @@ hugo-blog、公開用は ac1965.github.com で分けている。
 
 早くも、週末に実現させていただいた。パンセットを受け取りした時に奥様から、物足りないかも、と言われたけど、そんなことないです。
 
-[[file:/images/kaigara-01.jpeg]]
-[[file:/images/kaigara-02.jpeg]]
+[[file:kaigara-01.jpeg]]
+[[file:kaigara-02.jpeg]]
 
 ** DONE 2021 GW 大瀧詠一
 :PROPERTIES:
@@ -2709,7 +2702,7 @@ Apple AirPods Proは落としてシャリシャリしているし[[https://www.a
 
 寝ながらフォンとしても、音質・音圧も好みで一軍利用。
 
-[[file:/images/coffee-bean.png]]
+[[file:coffee-bean.png]]
 ** DONE 葬送のフリーレン
 CLOSED: [2024-03-23 Sat 10:27]
 :PROPERTIES:
@@ -2726,7 +2719,7 @@ CLOSED: [2024-03-23 Sat 10:27]
 最初は訳がわからなかったけど、いやぁ面白い作品だ。
 
 #+begin_export hugo
-{{<figure src="/images/frieren.jpg" width="50%" height="50%">}}
+{{<figure src="frieren.jpg" width="50%" height="50%">}}
 
 {{<details "あらすじ">}}
 魔王討伐の偉業を成し遂げ王都に凱旋した勇者ヒンメル、僧侶ハイター、戦士アイゼン、魔法使いフリーレンら勇者パーティー4人は、10年間もの旅路を振り返り感慨にふけっていたが、1000年は軽く生きる長命種のエルフであるフリーレンにとって、その旅はきわめて短いものであった。そして、50年に一度降るという「半世紀（エーラ）流星」を見た4人は、次回もそれを見る約束を交わしてパーティーを解散する。
@@ -2797,9 +2790,9 @@ gitアカウント作成/Hugoのサイトの構築や、git絡みの設定は完
 [[https://github.com/peaceiris/actions-hugo][actions-hugo]] を先に読めば、まだ理解できたかもしれない。要は、 =https://<username>.github.io/= にHUGO環境を入れて
 GitHub Page にデプロイすれば良いことがわかった。
 
-[[file:/images/githubpages-setting.png]]
+[[file:githubpages-setting.png]]
 
-[[file:/images/gitubpages-deplogy.png]]
+[[file:gitubpages-deplogy.png]]
 
 ところが CNAMEが正しく処理されないので、前とほぼ同じデプロイで落ち着いた。
 
