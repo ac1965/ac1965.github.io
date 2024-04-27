@@ -2456,7 +2456,9 @@ hexo と大きく違うのは deploy は利用者まかせかな。
 
 私の環境では本体と公開用の gitリポジトリで管理していて、 本体は
 hugo-blog、公開用は ac1965.github.com で分けている。
-#+BEGIN_SRC sh
+#+begin_export hugo
+{{<details "deploy.sh">}}
+```sh
   #! /bin/bash
 
   hugo=~/devel/repos/hugo-blog
@@ -2494,7 +2496,9 @@ hugo-blog、公開用は ac1965.github.com で分けている。
   # Add changes to git.
   git add .
   git commit -avm "update:$(env LANG=C date)" && git push
-#+END_SRC
+```
+{{</details>}}
+#+end_export
 ** DONE iPhone 12 Pro
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2020-4b4f-83fe
