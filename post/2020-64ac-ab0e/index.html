@@ -46,8 +46,8 @@
   
   
   
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.17ffe617e664d257760ee5f71869a6d9328d3613601c03a2eb7a194bbfb06ddc629a70f7b348e6e9446e81d0789555aebce09d27debd0329fc297601a1ee6a77.js"
-    integrity="sha512-F//mF&#43;Zk0ld2DuX3GGmm2TKNNhNgHAOi63oZS7&#43;wbdximnD3s0jm6URugdB4lVWuvOCdJ969Ayn8KXYBoe5qdw==" data-copy="" data-copied=""></script>
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.d6c35110b5d7df8014403fbb81cd21a9d89daf9eb586c936e585e9d04adc204dce554aa737f81e8c902b9dea9e67bd63a977b77dedefb8a39430581ebc519207.js"
+    integrity="sha512-1sNRELXX34AUQD&#43;7gc0hqdidr561hsk25YXp0ErcIE3OVUqnN/gejJArneqeZ71jqXe3fe3vuKOUMFgevFGSBw==" data-copy="" data-copied=""></script>
   
   
   <script src="/js/zoom.min.js"></script>
@@ -65,15 +65,19 @@
   
   
   
-  <meta property="og:title" content="Hugo" />
-<meta property="og:description" content="Hexo から Hugo # サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが :grin:" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.ty07.net/post/2020-64ac-ab0e/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2020-10-27T22:46:00+09:00" />
-<meta property="article:modified_time" content="2024-04-24T00:15:45+09:00" />
+  <meta property="og:url" content="https://www.ty07.net/post/2020-64ac-ab0e/">
+  <meta property="og:site_name" content="No Good Father">
+  <meta property="og:title" content="Hugo">
+  <meta property="og:description" content="Hexo から Hugo # サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが :grin:">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2020-10-27T22:46:00+09:00">
+    <meta property="article:modified_time" content="2024-04-27T10:33:47+09:00">
+    <meta property="article:tag" content="Hugo">
 
-  <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Hugo"/>
-<meta name="twitter:description" content="Hexo から Hugo # サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが :grin:"/>
+  <meta name="twitter:card" content="summary"><meta name="twitter:title" content="Hugo">
+<meta name="twitter:description" content="Hexo から Hugo # サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが :grin:">
 
   
   <script type="application/ld+json">
@@ -95,12 +99,12 @@
     "dateCreated": "2020-10-27T22:46:00\u002b09:00",
     "datePublished": "2020-10-27T22:46:00\u002b09:00",
     
-    "dateModified": "2024-04-24T00:15:45\u002b09:00",
+    "dateModified": "2024-04-27T10:33:47\u002b09:00",
     
     "keywords": ["hugo"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "186"
+    "wordCount": "187"
   }]
   </script>
 
@@ -504,7 +508,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2020-10-27 22:46:00 &#43;0900 JST">27 October 2020</time><span class="px-2 text-primary-500">&middot;</span><span>186 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  <time datetime="2020-10-27 22:46:00 &#43;0900 JST">27 October 2020</time><span class="px-2 text-primary-500">&middot;</span><span>187 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
   
 
   
@@ -753,44 +757,51 @@
 <p>hexo と大きく違うのは deploy は利用者まかせかな。</p>
 <p>私の環境では本体と公開用の gitリポジトリで管理していて、 本体は
 hugo-blog、公開用は ac1965.github.com で分けている。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#! /bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="nv">hugo</span><span class="o">=</span>~/devel/repos/hugo-blog
-</span></span><span class="line"><span class="cl"><span class="nv">public</span><span class="o">=</span>~/devel/repos/ac1965.github.io
+<details>
+  <summary>deploy.sh</summary>
+  <div class="alert-box alert-info">
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">  <span class="c1">#! /bin/bash</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">abort <span class="o">()</span>
-</span></span><span class="line"><span class="cl"><span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> -e <span class="s2">&#34;\033[1;30m&gt;\033[0;31m&gt;\033[1;31m&gt; ERROR:\033[0m</span><span class="si">${</span><span class="p">@</span><span class="si">}</span><span class="s2">\n&#34;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">hugo</span><span class="o">=</span>~/devel/repos/hugo-blog
+</span></span><span class="line"><span class="cl">  <span class="nv">public</span><span class="o">=</span>~/devel/repos/ac1965.github.io
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">info <span class="o">()</span>
-</span></span><span class="line"><span class="cl"><span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> -e <span class="s2">&#34;\033[1;30m&gt;\033[0;36m&gt;\033[1;36m&gt; \033[0m</span><span class="si">${</span><span class="p">@</span><span class="si">}</span><span class="s2">\n&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">  abort <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> -e <span class="s2">&#34;\033[1;30m&gt;\033[0;31m&gt;\033[1;31m&gt; ERROR:\033[0m</span><span class="si">${</span><span class="p">@</span><span class="si">}</span><span class="s2">\n&#34;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">warn <span class="o">()</span>
-</span></span><span class="line"><span class="cl"><span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> -e <span class="s2">&#34;\033[1;30m&gt;\033[0;33m&gt;\033[1;33m&gt; \033[0m</span><span class="si">${</span><span class="p">@</span><span class="si">}</span><span class="s2">\n&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">  info <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> -e <span class="s2">&#34;\033[1;30m&gt;\033[0;36m&gt;\033[1;36m&gt; \033[0m</span><span class="si">${</span><span class="p">@</span><span class="si">}</span><span class="s2">\n&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">test</span> -d <span class="si">${</span><span class="nv">hugo</span><span class="si">}</span> <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="si">${</span><span class="nv">hugo</span><span class="si">}</span> <span class="o">||</span> abort <span class="s2">&#34;</span><span class="si">${</span><span class="nv">hogo</span><span class="si">}</span><span class="s2"> directory not found.&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># clean public</span>
-</span></span><span class="line"><span class="cl">rm -fr public
+</span></span><span class="line"><span class="cl">  warn <span class="o">()</span>
+</span></span><span class="line"><span class="cl">  <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> -e <span class="s2">&#34;\033[1;30m&gt;\033[0;33m&gt;\033[1;33m&gt; \033[0m</span><span class="si">${</span><span class="p">@</span><span class="si">}</span><span class="s2">\n&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">info <span class="s2">&#34;Deploying updates to GitHub...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">test</span> -d <span class="si">${</span><span class="nv">hugo</span><span class="si">}</span> <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="si">${</span><span class="nv">hugo</span><span class="si">}</span> <span class="o">||</span> abort <span class="s2">&#34;</span><span class="si">${</span><span class="nv">hogo</span><span class="si">}</span><span class="s2"> directory not found.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># clean public</span>
+</span></span><span class="line"><span class="cl">  rm -fr public
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Build the project.</span>
-</span></span><span class="line"><span class="cl">hugo <span class="c1"># if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`</span>
+</span></span><span class="line"><span class="cl">  info <span class="s2">&#34;Deploying updates to GitHub...&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Go To Public folder</span>
-</span></span><span class="line"><span class="cl"><span class="nb">test</span> -d <span class="si">${</span><span class="nv">public</span><span class="si">}</span> <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="si">${</span><span class="nv">public</span><span class="si">}</span> <span class="o">||</span> <span class="nb">exit</span>
-</span></span><span class="line"><span class="cl">info <span class="s2">&#34;rsync..&#34;</span>
-</span></span><span class="line"><span class="cl">rsync -at --delete --exclude<span class="o">=</span><span class="s2">&#34;.git&#34;</span> <span class="si">${</span><span class="nv">hugo</span><span class="si">}</span>/public/. .
+</span></span><span class="line"><span class="cl">  <span class="c1"># Build the project.</span>
+</span></span><span class="line"><span class="cl">  hugo <span class="c1"># if using a theme, replace with `hugo -t &lt;YOURTHEME&gt;`</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Add changes to git.</span>
-</span></span><span class="line"><span class="cl">git add .
-</span></span><span class="line"><span class="cl">git commit -avm <span class="s2">&#34;update:</span><span class="k">$(</span>env <span class="nv">LANG</span><span class="o">=</span>C date<span class="k">)</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> git push
+</span></span><span class="line"><span class="cl">  <span class="c1"># Go To Public folder</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">test</span> -d <span class="si">${</span><span class="nv">public</span><span class="si">}</span> <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="si">${</span><span class="nv">public</span><span class="si">}</span> <span class="o">||</span> <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">  info <span class="s2">&#34;rsync..&#34;</span>
+</span></span><span class="line"><span class="cl">  rsync -at --delete --exclude<span class="o">=</span><span class="s2">&#34;.git&#34;</span> <span class="si">${</span><span class="nv">hugo</span><span class="si">}</span>/public/. .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Add changes to git.</span>
+</span></span><span class="line"><span class="cl">  git add .
+</span></span><span class="line"><span class="cl">  git commit -avm <span class="s2">&#34;update:</span><span class="k">$(</span>env <span class="nv">LANG</span><span class="o">=</span>C date<span class="k">)</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> git push
 </span></span></code></pre></div>
+  </div>
+</details>
+
+
         </div>
         
         
@@ -916,7 +927,7 @@ hugo-blog、公開用は ac1965.github.com で分けている。</p>
       
       
       
-      <script type="text/javascript" src="/js/page.min.b06a29d42a4ed16787978e2eee1e8c797b7698db2bc14ccee78f5c80ac566fc996190a73ad80a5e987558474b20b96fa38f7d85b405f165ff72b7b163c5ad11b.js" integrity="sha512-sGop1CpO0WeHl44u7h6MeXt2mNsrwUzO549cgKxWb8mWGQpzrYCl6YdVhHSyC5b6OPfYW0BfFl/3K3sWPFrRGw=="></script>
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
   
     </section>
   <footer class="pt-8 max-w-prose print:hidden">
@@ -1071,7 +1082,7 @@ hugo-blog、公開用は ac1965.github.com で分けている。</p>
   </script>
   
   
-  <script type="text/javascript" src="/js/process.min.62060bb247f4de2b6dde45903668fefb68d792f365587605177b1227c0cf43588701edaca0cb40e2c8e2789bd5ce67c1d2a215b9fb258c3496a7cd25e7cb5fdf.js" integrity="sha512-YgYLskf03itt3kWQNmj&#43;&#43;2jXkvNlWHYFF3sSJ8DPQ1iHAe2soMtA4sjieJvVzmfB0qIVufsljDSWp80l58tf3w=="></script>
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
   
   
 </footer><div
