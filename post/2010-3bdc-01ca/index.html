@@ -73,7 +73,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2010-04-04T17:50:00+09:00">
-    <meta property="article:modified_time" content="2024-04-27T14:46:29+09:00">
+    <meta property="article:modified_time" content="2024-04-27T16:08:59+09:00">
     <meta property="article:tag" content="Backtrack">
 
   <meta name="twitter:card" content="summary"><meta name="twitter:title" content="USB Encrypt for backtrack">
@@ -99,12 +99,12 @@
     "dateCreated": "2010-04-04T17:50:00\u002b09:00",
     "datePublished": "2010-04-04T17:50:00\u002b09:00",
     
-    "dateModified": "2024-04-27T14:46:29\u002b09:00",
+    "dateModified": "2024-04-27T16:08:59\u002b09:00",
     
     "keywords": ["backtrack"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "538"
+    "wordCount": "528"
   }]
   </script>
 
@@ -498,7 +498,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2010-04-04 17:50:00 &#43;0900 JST">4 April 2010</time><span class="px-2 text-primary-500">&middot;</span><span>538 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
+  <time datetime="2010-04-04 17:50:00 &#43;0900 JST">4 April 2010</time><span class="px-2 text-primary-500">&middot;</span><span>528 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
   
 
   
@@ -577,167 +577,157 @@
 <a href="http://www.offensive-security.com/blog/backtrack/customising-backtrack-live-cd-the-easy-way/"   target="_blank">
     bt4-customise.sh</a>で出来るよって。</p>
 <p>さらに変更したものをポストしておく。squashfs を LUKS
-でカプセルするもの。元ネタは下のURL</p>
-<ul>
-<li>
-<p><a href="http://forums.remote-exploit.org/backtrack-4-howto/25768-howto-bt4-pre-final-usb-encryption.html"   target="_blank">
-    http://forums.remote-exploit.org/backtrack-4-howto/25768-howto-bt4-pre-final-usb-encryption.html</a></p>
-</li>
-<li>
-<p>bt4-customise.sh
-[<a href="http://www.offensive-security.com/bt4-customise.sh"   target="_blank">
-    original</a>]</p>
-</li>
-</ul>
-<div class="HTML">
-<p>&lt;embed type=&ldquo;application/x-shockwave-flash&rdquo; src=&quot;<a href="http://ttyshare.com/t/afd4220f49ebdda620594a54f1c1181216a06a2a"   target="_blank">
-    http://ttyshare.com/t/afd4220f49ebdda620594a54f1c1181216a06a2a</a>&quot; width=&ldquo;480&rdquo; height=&ldquo;288&rdquo;&gt;</p>
-</div>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="nv">btisoname</span><span class="o">=</span>bt4.iso
-</span></span><span class="line"><span class="cl"><span class="nv">btmodisoname</span><span class="o">=</span><span class="sb">`</span>basename <span class="nv">$btisoname</span> .iso<span class="sb">`</span>-mod.iso
+でカプセルるもの。</p>
+<details>
+  <summary>bt4-customise.sh</summary>
+  <div class="alert-box alert-info">
+  <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">  <span class="nv">btisoname</span><span class="o">=</span>bt4.iso
+</span></span><span class="line"><span class="cl">  <span class="nv">btmodisoname</span><span class="o">=</span><span class="sb">`</span>basename <span class="nv">$btisoname</span> .iso<span class="sb">`</span>-mod.iso
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">luks_image</span><span class="o">=</span><span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="nv">count</span><span class="o">=</span><span class="m">2560000</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">luks_image</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">count</span><span class="o">=</span><span class="m">2560000</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">clear
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] BackTrack 4 customisation script&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] Setting up the build environment...&#34;</span>
+</span></span><span class="line"><span class="cl">  clear
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] BackTrack 4 customisation script&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] Setting up the build environment...&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">services</span><span class="o">=</span><span class="s2">&#34;inetutils-inetd tinyproxy iodined knockd openvpn atftpd ntop nstxd nstxcd apache2 sendmail atd dhcp3-server winbind miredo miredo-server pcscd wicd wacom cups bluetooth binfmt-support mysql vmware vboxdrv kvm nessusd&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">services</span><span class="o">=</span><span class="s2">&#34;inetutils-inetd tinyproxy iodined knockd openvpn atftpd ntop nstxd nstxcd apache2 sendmail atd dhcp3-server winbind miredo miredo-server pcscd wicd wacom cups bluetooth binfmt-support mysql vmware vboxdrv kvm nessusd&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">test</span> -d mnt <span class="o">||</span> mkdir -p mnt
-</span></span><span class="line"><span class="cl"><span class="nb">test</span> -d extract-cd <span class="o">||</span> mkdir -p extract-cd
-</span></span><span class="line"><span class="cl"><span class="nb">test</span> -d squashfs <span class="o">||</span> mkdir -p squashfs
-</span></span><span class="line"><span class="cl"><span class="nb">test</span> -d container <span class="o">||</span> mkdir -p container
-</span></span><span class="line"><span class="cl">mount -o loop,ro <span class="nv">$btisoname</span> mnt/
-</span></span><span class="line"><span class="cl">rsync --exclude<span class="o">=</span>/casper/filesystem.squashfs -a mnt/ extract-cd
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="k">$(</span>file mnt/casper/filesystem.squashfs <span class="p">|</span> grep -qi luks<span class="k">)</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">luks_image</span><span class="o">=</span><span class="m">1</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">loopdev</span><span class="o">=</span><span class="sb">`</span>losetup -f<span class="sb">`</span>
-</span></span><span class="line"><span class="cl">    losetup <span class="nv">$loopdev</span> mnt/casper/filesystem.squashfs
-</span></span><span class="line"><span class="cl">    cryptsetup luksOpen <span class="nv">$loopdev</span> bt4
-</span></span><span class="line"><span class="cl">    mount -o ro /dev/mapper/bt4 container/
-</span></span><span class="line"><span class="cl">    mount -t squashfs -o loop,ro container/filesystem.squashfs squashfs
-</span></span><span class="line"><span class="cl"><span class="k">else</span>
-</span></span><span class="line"><span class="cl">    mount -t squashfs -o loop mnt/casper/filesystem.squashfs squashfs
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
-</span></span><span class="line"><span class="cl"><span class="nb">test</span> -d edit <span class="o">||</span> <span class="o">(</span>
-</span></span><span class="line"><span class="cl">    mkdir -p edit
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;[*] Copying over files, please wait ... &#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">test</span> -d mnt <span class="o">||</span> mkdir -p mnt
+</span></span><span class="line"><span class="cl">  <span class="nb">test</span> -d extract-cd <span class="o">||</span> mkdir -p extract-cd
+</span></span><span class="line"><span class="cl">  <span class="nb">test</span> -d squashfs <span class="o">||</span> mkdir -p squashfs
+</span></span><span class="line"><span class="cl">  <span class="nb">test</span> -d container <span class="o">||</span> mkdir -p container
+</span></span><span class="line"><span class="cl">  mount -o loop,ro <span class="nv">$btisoname</span> mnt/
+</span></span><span class="line"><span class="cl">  rsync --exclude<span class="o">=</span>/casper/filesystem.squashfs -a mnt/ extract-cd
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="k">$(</span>file mnt/casper/filesystem.squashfs <span class="p">|</span> grep -qi luks<span class="k">)</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">luks_image</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">loopdev</span><span class="o">=</span><span class="sb">`</span>losetup -f<span class="sb">`</span>
+</span></span><span class="line"><span class="cl">      losetup <span class="nv">$loopdev</span> mnt/casper/filesystem.squashfs
+</span></span><span class="line"><span class="cl">      cryptsetup luksOpen <span class="nv">$loopdev</span> bt4
+</span></span><span class="line"><span class="cl">      mount -o ro /dev/mapper/bt4 container/
+</span></span><span class="line"><span class="cl">      mount -t squashfs -o loop,ro container/filesystem.squashfs squashfs
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">      mount -t squashfs -o loop mnt/casper/filesystem.squashfs squashfs
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">test</span> -d edit <span class="o">||</span> <span class="o">(</span>
+</span></span><span class="line"><span class="cl">      mkdir -p edit
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> <span class="s2">&#34;[*] Copying over files, please wait ... &#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    cp -a squashfs/* edit/
-</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span><span class="line"><span class="cl">      cp -a squashfs/* edit/
+</span></span><span class="line"><span class="cl">  <span class="o">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">cp /etc/resolv.conf edit/etc/
-</span></span><span class="line"><span class="cl">cp /etc/hosts edit/etc/
-</span></span><span class="line"><span class="cl">cp /etc/fstab edit/etc/
-</span></span><span class="line"><span class="cl">cp /etc/mtab edit/etc/
-</span></span><span class="line"><span class="cl"><span class="nb">test</span> -f ~/.proxyuse <span class="o">&amp;&amp;</span> cp ~/.proxyuse edit/root
+</span></span><span class="line"><span class="cl">  cp /etc/resolv.conf edit/etc/
+</span></span><span class="line"><span class="cl">  cp /etc/hosts edit/etc/
+</span></span><span class="line"><span class="cl">  cp /etc/fstab edit/etc/
+</span></span><span class="line"><span class="cl">  cp /etc/mtab edit/etc/
+</span></span><span class="line"><span class="cl">  <span class="nb">test</span> -f ~/.proxyuse <span class="o">&amp;&amp;</span> cp ~/.proxyuse edit/root
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">mount --bind /dev/ edit/dev
-</span></span><span class="line"><span class="cl">mount -t proc /proc edit/proc
+</span></span><span class="line"><span class="cl">  mount --bind /dev/ edit/dev
+</span></span><span class="line"><span class="cl">  mount -t proc /proc edit/proc
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] Entering livecd. &#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] Now you can modify the LiveCD. At minimum, we recommend :&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] apt-get update &amp;&amp; apt-get upgrade &amp; apt-get clean&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] If you are running a large update, you might need to stop&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] services like crond, udev, cups, etc in the chroot&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] services like crond, udev, cups, etc in the chroot&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] before exiting your chroot environment.&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] If you use proxy,  type \&#34;source ~/.proxyuse\&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] Once you have finished your modifications, type \&#34;exit\&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] Entering livecd. &#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] Now you can modify the LiveCD. At minimum, we recommend :&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] apt-get update &amp;&amp; apt-get upgrade &amp; apt-get clean&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] If you are running a large update, you might need to stop&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] services like crond, udev, cups, etc in the chroot&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] services like crond, udev, cups, etc in the chroot&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] before exiting your chroot environment.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] If you use proxy,  type \&#34;source ~/.proxyuse\&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] Once you have finished your modifications, type \&#34;exit\&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">chroot edit
+</span></span><span class="line"><span class="cl">  chroot edit
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] Exited the build environemnt, unmounting images.&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] Exited the build environemnt, unmounting images.&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">rm -rf edit/etc/mtab
-</span></span><span class="line"><span class="cl">rm -rf edit/etc/fstab
-</span></span><span class="line"><span class="cl">rm -rf edit/root/.bash_history
-</span></span><span class="line"><span class="cl">rm -rf edit/root/.proxyuse
+</span></span><span class="line"><span class="cl">  rm -rf edit/etc/mtab
+</span></span><span class="line"><span class="cl">  rm -rf edit/etc/fstab
+</span></span><span class="line"><span class="cl">  rm -rf edit/root/.bash_history
+</span></span><span class="line"><span class="cl">  rm -rf edit/root/.proxyuse
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">umount edit/dev
-</span></span><span class="line"><span class="cl">umount edit/proc
-</span></span><span class="line"><span class="cl">umount squashfs
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;x</span><span class="si">${</span><span class="nv">luks_image</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;x1&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    umount container
-</span></span><span class="line"><span class="cl">    cryptsetup luksClose bt4
-</span></span><span class="line"><span class="cl">    losetup -d <span class="nv">$loopdev</span>
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
-</span></span><span class="line"><span class="cl">umount mnt
+</span></span><span class="line"><span class="cl">  umount edit/dev
+</span></span><span class="line"><span class="cl">  umount edit/proc
+</span></span><span class="line"><span class="cl">  umount squashfs
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;x</span><span class="si">${</span><span class="nv">luks_image</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;x1&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      umount container
+</span></span><span class="line"><span class="cl">      cryptsetup luksClose bt4
+</span></span><span class="line"><span class="cl">      losetup -d <span class="nv">$loopdev</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  umount mnt
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">chmod +w extract-cd/casper/filesystem.manifest
+</span></span><span class="line"><span class="cl">  chmod +w extract-cd/casper/filesystem.manifest
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] Building manifest&#34;</span>
-</span></span><span class="line"><span class="cl">chroot edit dpkg-query <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -W --showformat<span class="o">=</span><span class="s1">&#39;${Package} ${Version}\n&#39;</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    &gt; extract-cd/casper/filesystem.manifest
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] Building manifest&#34;</span>
+</span></span><span class="line"><span class="cl">  chroot edit dpkg-query <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      -W --showformat<span class="o">=</span><span class="s1">&#39;${Package} ${Version}\n&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      &gt; extract-cd/casper/filesystem.manifest
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">for</span> service in <span class="nv">$services</span><span class="p">;</span><span class="k">do</span>
-</span></span><span class="line"><span class="cl">    chroot edit update-rc.d -f <span class="nv">$service</span> remove
-</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> service in <span class="nv">$services</span><span class="p">;</span><span class="k">do</span>
+</span></span><span class="line"><span class="cl">      chroot edit update-rc.d -f <span class="nv">$service</span> remove
+</span></span><span class="line"><span class="cl">  <span class="k">done</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">REMOVE</span><span class="o">=</span><span class="s1">&#39;ubiquity casper live-initramfs user-setup discover xresprobe os-prober libdebian-installer4&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> i in <span class="nv">$REMOVE</span>
-</span></span><span class="line"><span class="cl"><span class="k">do</span>
-</span></span><span class="line"><span class="cl">    sed -i <span class="s2">&#34;/</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">/d&#34;</span> extract-cd/casper/filesystem.manifest-desktop
-</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">REMOVE</span><span class="o">=</span><span class="s1">&#39;ubiquity casper live-initramfs user-setup discover xresprobe os-prober libdebian-installer4&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> i in <span class="nv">$REMOVE</span>
+</span></span><span class="line"><span class="cl">  <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      sed -i <span class="s2">&#34;/</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">/d&#34;</span> extract-cd/casper/filesystem.manifest-desktop
+</span></span><span class="line"><span class="cl">  <span class="k">done</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">cp extract-cd/casper/filesystem.manifest extract-cd/casper/filesystem.manifest-desktop
+</span></span><span class="line"><span class="cl">  cp extract-cd/casper/filesystem.manifest extract-cd/casper/filesystem.manifest-desktop
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;/ubiquity/d&#39;</span> extract-cd/casper/filesystem.manifest-desktop
+</span></span><span class="line"><span class="cl">  sed -i <span class="s1">&#39;/ubiquity/d&#39;</span> extract-cd/casper/filesystem.manifest-desktop
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] Building squashfs image...&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;x</span><span class="si">${</span><span class="nv">luks_image</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;x1&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;[-] encrypt squashfs using&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> ! -f extract-cd/casper/filesystem.squashfs <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;[&gt;] encrypt squashfs making (</span><span class="nv">$count</span><span class="s2"> MB)&#34;</span>
-</span></span><span class="line"><span class="cl">    dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">of</span><span class="o">=</span>extract-cd/casper/filesystem.squashfs <span class="nv">bs</span><span class="o">=</span><span class="m">1024</span> <span class="nv">count</span><span class="o">=</span><span class="nv">$count</span>
-</span></span><span class="line"><span class="cl">    losetup <span class="nv">$loopdev</span> extract-cd/casper/filesystem.squashfs
-</span></span><span class="line"><span class="cl">    cryptsetup -y --cipher aes-xts-plain --key-size <span class="m">512</span> luksFormat <span class="nv">$loopdev</span>
-</span></span><span class="line"><span class="cl">    <span class="k">else</span>
-</span></span><span class="line"><span class="cl">    losetup <span class="nv">$loopdev</span> extract-cd/casper/filesystem.squashfs
-</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
-</span></span><span class="line"><span class="cl">    cryptsetup luksOpen <span class="nv">$loopdev</span> bt4
-</span></span><span class="line"><span class="cl">    mkfs.ext3 /dev/mapper/bt4
-</span></span><span class="line"><span class="cl">    mount /dev/mapper/bt4 container/
-</span></span><span class="line"><span class="cl">    mksquashfs edit container/filesystem.squashfs
-</span></span><span class="line"><span class="cl">    umount container
-</span></span><span class="line"><span class="cl">    cryptsetup luksClose bt4
-</span></span><span class="line"><span class="cl">    losetup -d <span class="nv">$loopdev</span>
-</span></span><span class="line"><span class="cl"><span class="k">else</span>
-</span></span><span class="line"><span class="cl">    rm -rf extract-cd/casper/filesystem.squashfs
-</span></span><span class="line"><span class="cl">    mksquashfs edit extract-cd/casper/filesystem.squashfs
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] Building squashfs image...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;x</span><span class="si">${</span><span class="nv">luks_image</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;x1&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> <span class="s2">&#34;[-] encrypt squashfs using&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="o">[</span> ! -f extract-cd/casper/filesystem.squashfs <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> <span class="s2">&#34;[&gt;] encrypt squashfs making (</span><span class="nv">$count</span><span class="s2"> MB)&#34;</span>
+</span></span><span class="line"><span class="cl">      dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">of</span><span class="o">=</span>extract-cd/casper/filesystem.squashfs <span class="nv">bs</span><span class="o">=</span><span class="m">1024</span> <span class="nv">count</span><span class="o">=</span><span class="nv">$count</span>
+</span></span><span class="line"><span class="cl">      losetup <span class="nv">$loopdev</span> extract-cd/casper/filesystem.squashfs
+</span></span><span class="line"><span class="cl">      cryptsetup -y --cipher aes-xts-plain --key-size <span class="m">512</span> luksFormat <span class="nv">$loopdev</span>
+</span></span><span class="line"><span class="cl">      <span class="k">else</span>
+</span></span><span class="line"><span class="cl">      losetup <span class="nv">$loopdev</span> extract-cd/casper/filesystem.squashfs
+</span></span><span class="line"><span class="cl">      <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">      cryptsetup luksOpen <span class="nv">$loopdev</span> bt4
+</span></span><span class="line"><span class="cl">      mkfs.ext3 /dev/mapper/bt4
+</span></span><span class="line"><span class="cl">      mount /dev/mapper/bt4 container/
+</span></span><span class="line"><span class="cl">      mksquashfs edit container/filesystem.squashfs
+</span></span><span class="line"><span class="cl">      umount container
+</span></span><span class="line"><span class="cl">      cryptsetup luksClose bt4
+</span></span><span class="line"><span class="cl">      losetup -d <span class="nv">$loopdev</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">      rm -rf extract-cd/casper/filesystem.squashfs
+</span></span><span class="line"><span class="cl">      mksquashfs edit extract-cd/casper/filesystem.squashfs
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">rm extract-cd/md5sum.txt
+</span></span><span class="line"><span class="cl">  rm extract-cd/md5sum.txt
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">(</span><span class="nb">cd</span> extract-cd <span class="o">&amp;&amp;</span> find . -type f -print0 <span class="p">|</span> xargs -0 md5sum &gt; md5sum.txt<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span><span class="nb">cd</span> extract-cd <span class="o">&amp;&amp;</span> find . -type f -print0 <span class="p">|</span> xargs -0 md5sum &gt; md5sum.txt<span class="o">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> extract-cd
+</span></span><span class="line"><span class="cl">  <span class="nb">cd</span> extract-cd
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] Creating iso ...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] Creating iso ...&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">test</span> -f ../<span class="si">${</span><span class="nv">btmodisoname</span><span class="si">}</span> <span class="o">&amp;&amp;</span> mv ../<span class="si">${</span><span class="nv">btmodisoname</span><span class="si">}</span> ../bt4-mod_prev.iso
-</span></span><span class="line"><span class="cl">mkisofs -b boot/grub/stage2_eltorito <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -no-emul-boot -boot-load-size <span class="m">4</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -boot-info-table <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -V <span class="s2">&#34;BT4&#34;</span> -cache-inodes -r -J -l <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -o ../<span class="si">${</span><span class="nv">btmodisoname</span><span class="si">}</span> .
+</span></span><span class="line"><span class="cl">  <span class="nb">test</span> -f ../<span class="si">${</span><span class="nv">btmodisoname</span><span class="si">}</span> <span class="o">&amp;&amp;</span> mv ../<span class="si">${</span><span class="nv">btmodisoname</span><span class="si">}</span> ../bt4-mod_prev.iso
+</span></span><span class="line"><span class="cl">  mkisofs -b boot/grub/stage2_eltorito <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      -no-emul-boot -boot-load-size <span class="m">4</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      -boot-info-table <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      -V <span class="s2">&#34;BT4&#34;</span> -cache-inodes -r -J -l <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      -o ../<span class="si">${</span><span class="nv">btmodisoname</span><span class="si">}</span> .
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
+</span></span><span class="line"><span class="cl">  <span class="nb">cd</span> ..
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;[*] Your modified BT4 is in </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/</span><span class="si">${</span><span class="nv">btmodisoname</span><span class="si">}</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;[*] Your modified BT4 is in </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/</span><span class="si">${</span><span class="nv">btmodisoname</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;##############################################################&#34;</span>
 </span></span></code></pre></div>
+  </div>
+</details>
+
+
         </div>
         
         
