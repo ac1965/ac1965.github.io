@@ -45,10 +45,10 @@ cd ${hugo}/content/post && \
     do
         d=$(basename $f .md)
         if [ -d ${d} ]; then
-            test -f ${d}/cover.* || cp ${hugo}/assets/img/cover/${m}.jpg ${d}
+            test -f ${d}/cover.* || cp ${hugo}/assets/img/cover/${m}.jpg ${d}/cover.jpg
         else
             mkdir ${d}
-            cp ${hugo}/assets/img/cover/${m}.jpg ${d}
+            cp ${hugo}/assets/img/cover/${m}.jpg ${d}/cover.jpg
         fi
     done
 
