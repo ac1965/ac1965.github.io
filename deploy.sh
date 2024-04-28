@@ -23,8 +23,22 @@ test -d ${hugo} && cd ${hugo} || abort "${hogo} directory not found."
 # clean public
 rm -fr public
 
-info "Deploying updates to GitHub..."
+info "Put cover image post directory"
+cd ${hugo}/content/post && \
+    for f in $(ls --color=none *.md)
+    do
+        d=$(basename $f .md)
+        if [ -d ${d} ]; then
+            test -f ${d}/cover.* || cp ${hugo}/assets/img/cover.jpg ${d}
+        else
+            mkdir ${d}
+            cp ${hugo}/assets/img/cover.jpg ${d}
+        fi
+    done
 
+
+info "Deploying updates to GitHub..."
+cd ${hugo}
 # Build the project.
 hugo # if using a theme, replace with `hugo -t <YOURTHEME>`
 
