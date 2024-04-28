@@ -2954,3 +2954,31 @@ CLOSED: [2024-04-27 Sat 12:03]
 #+end_export
 
 [fn:1] 車山(やま)は他地域の祭における山車や曳山のことで、3層(下層がお囃子所、最上層にはからくりが置かれ、中層は「中山」と呼ばれて最上層のからくりを動かす層)の独特な構造。
+** DONE 烏は主を選ばない
+CLOSED: [2024-04-28 Sun 13:42]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2024-cf97-098e
+:EXPORT_DATE:
+:EXPORT_HUGO_TAGS: 烏は主を選ばない
+:EXPORT_HUGO_CATEGORIES: Anime
+:EXPORT_HUGO_LASTMOD:
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
+:END:
+#+begin_export hugo
+{{<details "あらすじ">}}
+季節は春。皇太子・若宮の后を選ぶ「登殿の儀」が始まった。南家の姫・浜木綿、西家の姫・真赭の薄、北家の姫・白珠、そして病の姉に代わり急きょ登殿した東家の姫・あせび。
+
+山内の統治者・次期“金烏”たる若宮の妻に選ばれるのは、四人のうちただ一人だけ。張り詰めた空気が漂う女の園で、あせびはまだ見ぬ若宮への想いを募らせていく。
+{{</details>}}
+#+end_export
+阿部智里の和風ファンタジー八咫烏シリーズ 第二弾を4月6日からNHKからアニメ化されたもの。
+
+人間の姿に変身することが出来る彼らの一族が異世界・山内を舞台に、魅力的な登場人物たち、周到に仕掛けられた謎、バトルなど壮大な世界観が魅力的な作品。
+
+文字の方は文藝春秋のウェブサイトで ㊗ アニメ化で、第一章全文無料公開中。
+
+#+begin_export hugo
+{{<webcard "https://books.bunshun.jp/sp/karasu">}}
+
+{{<webcard "https://www.amazon.co.jp/gp/video/detail/0NCCWYPWNQFQPNMNJZ2MDO9DSK/">}}
+#+end_export
