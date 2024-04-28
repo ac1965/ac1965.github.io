@@ -15,7 +15,7 @@
       
       <guid>https://www.ty07.net/post/2010-ad26-26d8/</guid>
       <description>awesome の設定をしなおしをした。そんなに変更はしていないように見えるけど、tag(他のWMでいうこところのワークスペース）を動的に生成する shifty というのを使ってみた。</description>
-      
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2010-ad26-26d8/cover.jpg" />
     </item>
     
   </channel>
