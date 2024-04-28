@@ -25,7 +25,7 @@
       
       <guid>https://www.ty07.net/post/2024-036f-d136/</guid>
       <description>世の中あまたのブログサービスのお手軽さはそれはそれで良いとしても、静的サイトジェネレータの良さもある。 動的サイトに比べレンダリング処理の必要がいらない分、表示が早いとか。 メモ帳程度の文章をツラツラ書くのに凝る必要がないから選択肢に静的サイトジェネレータを選んだ理由があった。</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2024-036f-d136/cover.jpg" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2024-036f-d136/cover.png" />
     </item>
     
     <item>
@@ -35,7 +35,7 @@
       
       <guid>https://www.ty07.net/post/2020-64ac-ab0e/</guid>
       <description>Hexo から Hugo # サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが :grin:</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2020-64ac-ab0e/cover.jpg" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2020-64ac-ab0e/cover.png" />
     </item>
     
     <item>
