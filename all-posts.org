@@ -2124,7 +2124,7 @@ NHKで約20年前に放映した番組の作品である。
 #+begin_export hugo
 {{<details "YouTube 四季・ユートピアノ">}}
 YouTubeのみで再生なので、「YouTubeで見る」をクリックして懐かしい映像をお楽しみに。
-{{<youtube id="ivEGmvSjyz0" title="四季・ユートピアノ">}}
+{{<youtubeLite id="ivEGmvSjyz0" title="四季・ユートピアノ">}}
 {{</details>}}
 #+end_export
 
@@ -2942,6 +2942,7 @@ CLOSED: [2024-04-27 Sat 12:03]
 #+end_export
 
 犬山には叔父が在住なんだけど、58歳の今日まで一度も祭も叔父宅さえも行ったことなかったけど、
+思うことがあって
 急に行くことにした。
 
 叔父は、理由は知らないけど会社員の早期退職して[[https://gallerykiya.jimdofree.com/kiya工房/][大工さん]]になった人で、私が父親と同じくらいに生き様や考え方など尊敬する方である。
