@@ -28,5 +28,15 @@
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2024-8776-0378/cover.jpg" />
     </item>
     
+    <item>
+      <title>What Blog?</title>
+      <link>https://www.ty07.net/post/2016-d5bf-eafd/</link>
+      <pubDate>Sat, 18 Jun 2016 11:14:00 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/post/2016-d5bf-eafd/</guid>
+      <description>ブログってw # 毎日記録するものだから、筆不精の自分に向いていないのは知っている。 紙の日記も三日坊主だしね。</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2016-d5bf-eafd/cover%202.jpg" />
+    </item>
+    
   </channel>
 </rss>
