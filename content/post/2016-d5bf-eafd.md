@@ -2,8 +2,9 @@
 title = "What Blog?"
 author = ["YAMASHITA Takao"]
 date = 2016-06-18T11:14:00+09:00
-lastmod = 2024-05-04T15:24:58+09:00
-tags = ["tweet"]
+lastmod = 2024-05-04T22:40:41+09:00
+tags = ["Tweet"]
+categories = ["Life"]
 draft = false
 +++
 
