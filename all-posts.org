@@ -3006,13 +3006,14 @@ CLOSED: [2024-05-12 Sun 16:48]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2024-460b-9889
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS:
-:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_TAGS: Native-Compilation
+:EXPORT_HUGO_CATEGORIES: Emacs
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
 :END:
 emacsのコンパイルエラーだけど、なんで??
 
+native-compilation[fn:1] は libgcccjit を使うんだけど、
 homebrewのglibcは
 /usr/local/Cellar/glib/2.80.0_2/lib/libglib-2.0.0.dylib
 みたいなんだけど。
@@ -3395,3 +3396,5 @@ make distclean && ./autogen.sh  && \
 ```
 {{</details>}}
 #+end_export
+
+[fn:1] Emacsのエディタ機能は大量のLispで作られているので実行する都度読んで解釈していたLispコードを、ネイティブコードつまりバイナリコードにバックグラウンドで自動的にコンパイルする機能で、次回から最速で動作することが期待される。
