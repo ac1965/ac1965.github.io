@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Emacs on No Good Father</title>
+    <link>https://www.ty07.net/categories/emacs/</link>
+    <description>Recent content in Emacs on No Good Father</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2024 YAMASHITA, Takao</copyright>
+    <lastBuildDate>Sun, 12 May 2024 16:48:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/categories/emacs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>emacs:libgccjit:&#39;libgcc_s.1.1.dylib&#39; no such file</title>
+      <link>https://www.ty07.net/post/2024-460b-9889/</link>
+      <pubDate>Sun, 12 May 2024 16:48:00 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/post/2024-460b-9889/</guid>
+      <description>emacsのコンパイルエラーだけど、なんで??</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2024-460b-9889/cover.jpg" />
+    </item>
+    
+  </channel>
+</rss>

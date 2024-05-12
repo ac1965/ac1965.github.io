@@ -12,7 +12,7 @@
   <meta name="title" content="emacs:libgccjit:&#39;libgcc_s.1.1.dylib&#39; no such file &middot; No Good Father" />
   
   
-  
+  <meta name="keywords" content="Native-Compilation, " />
   
   
   <link rel="canonical" href="https://www.ty07.net/post/2024-460b-9889/" />
@@ -73,7 +73,8 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2024-05-12T16:48:00+09:00">
-    <meta property="article:modified_time" content="2024-05-12T16:55:54+09:00">
+    <meta property="article:modified_time" content="2024-05-12T17:32:26+09:00">
+    <meta property="article:tag" content="Native-Compilation">
     <meta property="og:image" content="https://www.ty07.net/post/2024-460b-9889/cover.jpg">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -100,12 +101,12 @@
     "dateCreated": "2024-05-12T16:48:00\u002b09:00",
     "datePublished": "2024-05-12T16:48:00\u002b09:00",
     
-    "dateModified": "2024-05-12T16:55:54\u002b09:00",
+    "dateModified": "2024-05-12T17:32:26\u002b09:00",
     
-    
+    "keywords": ["Native-Compilation"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1327"
+    "wordCount": "1332"
   }]
   </script>
 
@@ -510,7 +511,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-05-12 16:48:00 &#43;0900 JST">12 May 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1327 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span>
+  <time datetime="2024-05-12 16:48:00 &#43;0900 JST">12 May 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1332 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span>
   
 
   
@@ -528,9 +529,29 @@
   
   
   
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/emacs/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Emacs
+  </span>
+</span>
+  </span>
   
   
   
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/native-compilation/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Native-Compilation
+  </span>
+</span>
+  </span>
   
   
   
@@ -564,7 +585,8 @@
 
         <div class="article-content max-w-prose mb-20">
           <p>emacsのコンパイルエラーだけど、なんで??</p>
-<p>homebrewのglibcは
+<p>native-compilation<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> は libgcccjit を使うんだけど、
+homebrewのglibcは
 /usr/local/Cellar/glib/2.80.0_2/lib/libglib-2.0.0.dylib
 みたいなんだけど。</p>
 <p>寝てれば小人さんが直してくれるかな🤔</p>
@@ -944,6 +966,14 @@ source on this site:
   </div>
 </details>
 
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Emacsのエディタ機能は大量のLispで作られているので実行する都度読んで解釈していたLispコードを、ネイティブコードつまりバイナリコードにバックグラウンドで自動的にコンパイルする機能で、次回から最速で動作することが期待される。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
         </div>
         
