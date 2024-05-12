@@ -73,7 +73,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2024-05-12T16:48:00+09:00">
-    <meta property="article:modified_time" content="2024-05-12T22:00:40+09:00">
+    <meta property="article:modified_time" content="2024-05-13T08:40:33+09:00">
     <meta property="article:tag" content="Native-Compilation">
     <meta property="og:image" content="https://www.ty07.net/post/2024-460b-9889/cover.jpg">
 
@@ -101,12 +101,12 @@
     "dateCreated": "2024-05-12T16:48:00\u002b09:00",
     "datePublished": "2024-05-12T16:48:00\u002b09:00",
     
-    "dateModified": "2024-05-12T22:00:40\u002b09:00",
+    "dateModified": "2024-05-13T08:40:33\u002b09:00",
     
     "keywords": ["Native-Compilation"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1332"
+    "wordCount": "1333"
   }]
   </script>
 
@@ -511,7 +511,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-05-12 16:48:00 &#43;0900 JST">12 May 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1332 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span>
+  <time datetime="2024-05-12 16:48:00 &#43;0900 JST">12 May 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1333 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span>
   
 
   
@@ -586,9 +586,7 @@
         <div class="article-content max-w-prose mb-20">
           <p>emacsのコンパイルエラーだけど、なんで??</p>
 <p>native-compilation<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> は libgcccjit を使うんだけど、
-homebrewのglibcは
-/usr/local/Cellar/glib/2.80.0_2/lib/libglib-2.0.0.dylib
-みたいなんだけど。</p>
+libgcc_s.1.1.dylib は gcc の動的ライブラリなんだけど。</p>
 <p>寝てれば小人さんが直してくれるかな🤔</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">otool -L libgccjit.0.dylib
 </span></span><span class="line"><span class="cl">libgccjit.0.dylib:
