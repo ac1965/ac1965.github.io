@@ -3014,7 +3014,8 @@ CLOSED: [2024-05-12 Sun 16:48]
 emacsのコンパイルエラーだけど、なんで??
 
 native-compilation[fn:1] は libgcccjit を使うんだけど、
-libgcc_s.1.1.dylib は gcc の動的ライブラリなんだけど。
+libgcc_s.1.1.dylib は gcc の動的ライブラリ
+なんだけど。
 
 寝てれば小人さんが直してくれるかな🤔
 
@@ -3393,6 +3394,19 @@ make distclean && ./autogen.sh  && \
     )
 ```
 {{</details>}}
+
+{{< alert >}}
+パッケージ管理に手を入れるのは、シンボリックリンクを追加するだけでも嫌なんだけど、使えないのはストレスになる。
+{{< /alert >}}
+
+```sh
+cd "$(brew --prefix)/lib"
+ln -s ../Cellar/libgccjit/12.2.0/lib/gcc/12/libgccjit.dylib ./
+ln -s ../Cellar/libgccjit/12.2.0/lib/gcc/12/libgccjit.0.dylib ./
+ln -s ../Cellar/gcc/14.1.0/lib/gcc/current/libgcc_s.1.dylib ./
+ln -s ../Cellar/gcc/14.1.0/lib/gcc/current/libgcc_s.1.1.dylib ./
+GITHUB_REPOS=/Users/ac1965/devel/src  LIBRARY_PATH="$(brew --prefix)/lib" build-emacs.sh
+```
 #+end_export
 
 [fn:1] Emacsのエディタ機能は大量のLispで作られているため処理速度は遅く重たい。ネイティブコードとは実行する都度読んで解釈していたLispコードをバイナリコードにバックグラウンドで自動的にコンパイルする機能で、次回から最速で動作することが期待される。
