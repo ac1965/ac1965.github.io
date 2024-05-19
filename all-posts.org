@@ -2125,6 +2125,9 @@ NHKで約20年前に放映した番組の作品である。
 {{<details "YouTube 四季・ユートピアノ">}}
 YouTubeのみで再生なので、「YouTubeで見る」をクリックして懐かしい映像をお楽しみに。
 {{<youtubeLite id="ivEGmvSjyz0" title="四季・ユートピアノ">}}
+
+(yt-dlp)[https://github.com/yt-dlp/yt-dlp] でダウンロードするのは違法🤔
+アップロードや売る行為が違法と理解してるけど忘れたな。
 {{</details>}}
 #+end_export
 
@@ -2668,7 +2671,8 @@ GW はこれからが本番 :laughing:
 
 TODO<->DONE (C-c C-t)
 [Orgチート](https://emacsclub.github.io/html/org_tutorial.html)
-** TODO ひさしぶりに
+** DONE ひさしぶりに
+CLOSED: [2024-05-19 Sun 09:31]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2023-76f0-5099
 :EXPORT_DATE: 2023-12-03
@@ -2678,9 +2682,11 @@ TODO<->DONE (C-c C-t)
 :END:
 
 歳をとってエンジニアとしての仕事ができなくなって、狡猾にもコンサルタントを生業としはじめ5年目に入ろうとしている。
-この仕事も面白いのだが、胸躍る刺激はない。コミットメントがないことも理由だが、跳ね返るものに喜びを得てない、感じないところが大きい。
+この仕事も面白いのだが、コミットメントがないことも理由だが胸躍る刺激はない。
 
-とはいえ、他に口を出せるものもないし。
+とはいえ、生活のためというほどじゃないが、他に口を出せるものもないし。
+
+ホスピタリティな対応をすることで、跳ね返るものに期待はしないが育てる喜びを得ている。
 ** DONE Yinyoo インイヤーモニター カナル型 CCZ Coffee Bean
 CLOSED: [2024-03-16 Sat 13:14]
 :PROPERTIES:
