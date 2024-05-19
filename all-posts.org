@@ -2125,11 +2125,12 @@ NHKで約20年前に放映した番組の作品である。
 {{<details "YouTube 四季・ユートピアノ">}}
 YouTubeのみで再生なので、「YouTubeで見る」をクリックして懐かしい映像をお楽しみに。
 {{<youtubeLite id="ivEGmvSjyz0" title="四季・ユートピアノ">}}
-
-(yt-dlp)[https://github.com/yt-dlp/yt-dlp] でダウンロードするのは違法🤔
-アップロードや売る行為が違法と理解してるけど忘れたな。
 {{</details>}}
 #+end_export
+
+[[https://github.com/yt-dlp/yt-dlp][yt-dlp]]
+等のダウンローダでダウンロードするのは違法だったかな🤔
+アップロードや売る行為が違法と理解してるけど忘れたな。
 
 ** DONE Hexo でハロー
 :PROPERTIES:
