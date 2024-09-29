@@ -6,7 +6,7 @@
     <description>Recent content in Packer on No Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2024 YAMASHITA, Takao</copyright>
+    <copyright>© 2024 </copyright>
     <lastBuildDate>Tue, 28 Apr 2015 14:24:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/packer/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using Packer for Archassult</title>
@@ -14,7 +14,7 @@
       <pubDate>Tue, 28 Apr 2015 14:24:00 +0900</pubDate>
       
       <guid>https://www.ty07.net/post/2015-92a5-278e/</guid>
-      <description>すこしまとめてみる # 前提 # base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、 vagrant、 packer の環境は作成済み じつのところ # Packer の細かい設定はわからん。Vagrant の box を作るパッケージであることは知っているが。 ということで、ベースの box を作ったら vagrat up でバシバシ環境をデプロイするほうがよいと思い始めている。</description>
+      <description></description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2015-92a5-278e/cover.jpg" />
     </item>
     

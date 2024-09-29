@@ -6,7 +6,7 @@
     <description>Recent content in Distribution on No Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2024 YAMASHITA, Takao</copyright>
+    <copyright>© 2024 </copyright>
     <lastBuildDate>Tue, 28 Apr 2015 14:24:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/categories/distribution/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using Packer for Archassult</title>
@@ -14,7 +14,7 @@
       <pubDate>Tue, 28 Apr 2015 14:24:00 +0900</pubDate>
       
       <guid>https://www.ty07.net/post/2015-92a5-278e/</guid>
-      <description>すこしまとめてみる # 前提 # base は ArchLinux ISO からつくる ArchAssault の環境は repository 掘るところ位まで もちろん virtualbox、 vagrant、 packer の環境は作成済み じつのところ # Packer の細かい設定はわからん。Vagrant の box を作るパッケージであることは知っているが。 ということで、ベースの box を作ったら vagrat up でバシバシ環境をデプロイするほうがよいと思い始めている。</description>
+      <description></description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2015-92a5-278e/cover.jpg" />
     </item>
     
@@ -24,7 +24,7 @@
       <pubDate>Sun, 04 Apr 2010 17:50:00 +0900</pubDate>
       
       <guid>https://www.ty07.net/post/2010-3bdc-01ca/</guid>
-      <description>backtrack4のフォーラムを読んでいたら教えて君がいたのでフォローした。 内容は distro iso を更新する方法だったが、 bt4-customise.</description>
+      <description></description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2010-3bdc-01ca/cover.jpg" />
     </item>
     
@@ -34,7 +34,7 @@
       <pubDate>Mon, 08 Mar 2010 08:23:00 +0900</pubDate>
       
       <guid>https://www.ty07.net/post/2010-3be9-c756/</guid>
-      <description>backtrack4 に xmonad を入れてみた。</description>
+      <description></description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2010-3be9-c756/cover.jpg" />
     </item>
     

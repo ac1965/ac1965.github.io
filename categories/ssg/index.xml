@@ -6,7 +6,7 @@
     <description>Recent content in SSG on No Good Father</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2024 YAMASHITA, Takao</copyright>
+    <copyright>© 2024 </copyright>
     <lastBuildDate>Wed, 17 Apr 2024 22:49:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/categories/ssg/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ThemaをBlowfishにした</title>
@@ -14,7 +14,7 @@
       <pubDate>Wed, 17 Apr 2024 22:49:00 +0900</pubDate>
       
       <guid>https://www.ty07.net/post/2024-abf9-45ae/</guid>
-      <description>表現したいこと全部できた(たぶん) 🤫</description>
+      <description></description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2024-abf9-45ae/cover.png" />
     </item>
     
@@ -24,7 +24,7 @@
       <pubDate>Sat, 30 Mar 2024 14:52:00 +0900</pubDate>
       
       <guid>https://www.ty07.net/post/2024-036f-d136/</guid>
-      <description>世の中あまたのブログサービスのお手軽さはそれはそれで良いとしても、静的サイトジェネレータの良さもある。 動的サイトに比べレンダリング処理の必要がいらない分、表示が早いとか。 メモ帳程度の文章をツラツラ書くのに凝る必要がないから選択肢に静的サイトジェネレータを選んだ理由があった。</description>
+      <description></description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2024-036f-d136/cover.png" />
     </item>
     
@@ -34,7 +34,7 @@
       <pubDate>Tue, 27 Oct 2020 22:46:00 +0900</pubDate>
       
       <guid>https://www.ty07.net/post/2020-64ac-ab0e/</guid>
-      <description>Hexo から Hugo # サイトジェネレータを Hugo に変えてみた。 インストールといっても、homebrew を使うので簡単ですが :grin:</description>
+      <description></description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2020-64ac-ab0e/cover.png" />
     </item>
     
@@ -44,7 +44,7 @@
       <pubDate>Tue, 28 Apr 2015 08:49:00 +0900</pubDate>
       
       <guid>https://www.ty07.net/post/2015-984a-97f1/</guid>
-      <description>Welcome to Hexo!</description>
+      <description></description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2015-984a-97f1/cover.jpg" />
     </item>
     
