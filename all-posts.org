@@ -7,6 +7,11 @@
 #+hugo_auto_set_lastmod: t
 #+hugo_section: post
 
+C-c c b で投稿
+C-c C-t でTODOからDONE
+C-c C-e H A でOrgからMarkdown変換
+hugo server (-D)
+
 * blog
 ** TODO Test Syntaxhighliter
 :PROPERTIES:
@@ -3646,3 +3651,18 @@ ChatGPTに尋ねてみた。
 
 これらの情報をもとに、君にとって最強のエディタを作るための計画を立てるよ。エディタが具体的にどうなるか楽しみだね！
 #+end_export
+** DONE 麦わら帽子は
+CLOSED: [2024-09-29 Sun 17:05]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2024-0f97-7524
+:EXPORT_DATE:
+:EXPORT_HUGO_TAGS: life
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
+:END:
+今年の夏休みも終わった。
+
+吉田拓郎の「夏休み」の歌詞が反芻している。
+
+一日の半分を横になってなっていた。疲れてる気分だから仕方ない。
