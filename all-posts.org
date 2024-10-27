@@ -3650,7 +3650,7 @@ CLOSED: [2024-09-29 Sun 17:05]
 一日の半分を横になってなっていた。疲れてる気分だから仕方ない。
 ** DONE macOSメモ
 CLOSED: [2024-10-27 Sun 10:11]
-:PROPERTIES:
+:PR`OPERTIES:
 :EXPORT_FILE_NAME: 2024-1095-1010
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: macOS
@@ -3700,14 +3700,15 @@ defaults read ドメイン名
 この方法で、macOS上で利用可能なすべてのドメインとその内容を確認し、必要に応じてエクスポートできます。
 
 /Citations:/
-[1] https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html
-[2] https://memo.yammer.jp/posts/pdef
-[3] https://cybozu.dev/ja/kintone/sdk/backup/cli-kintone/
-[4] https://ikorihn.github.io/digitalgarden/note/Mac%E3%81%AEdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89
-[5] https://www.juniper.net/documentation/jp/ja/software/atp-appliance/atp-appliance-cli-reference/topics/topic-map/atp-appliance-mac-os-x-engine-cli-commands.html
-[6] https://gihyo.jp/dp/ebook/2017/978-4-7741-9457-8
-[7] https://docs.redhat.com/ja/documentation/openshift_container_platform/4.8/html-single/cli_tools/index
-[8] https://docs.aws.amazon.com/ja_jp/cli/v1/userguide/cli-configure-proxy.html
+
+- [1] https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html
+- [2] https://memo.yammer.jp/posts/pdef
+- [3] https://cybozu.dev/ja/kintone/sdk/backup/cli-kintone/
+- [4] https://ikorihn.github.io/digitalgarden/note/Mac%E3%81%AEdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89
+- [5] https://www.juniper.net/documentation/jp/ja/software/atp-appliance/atp-appliance-cli-reference/topics/topic-map/atp-appliance-mac-os-x-engine-cli-commands.html
+- [6] https://gihyo.jp/dp/ebook/2017/978-4-7741-9457-8
+- [7] https://docs.redhat.com/ja/documentation/openshift_container_platform/4.8/html-single/cli_tools/index
+- [8] https://docs.aws.amazon.com/ja_jp/cli/v1/userguide/cli-configure-proxy.html
 
 *** macOSの設定を新しいPCに反映させるためには、=defaults=コマンドを使用して設定をエクスポートし、新しいPCでインポートする手順が必要です。以下にその具体的な手順を示します。
 :PROPERTIES:
@@ -3767,11 +3768,11 @@ defaults read ドメイン名
 これにより、新しいPCに古いPCからの設定が適用されます。必要なドメインについては、=defaults domains=コマンドで確認できます。
 
 /Citations:/
-[1] https://qiita.com/soarflat/items/d5015bec37f8a8254380
-[2] https://support.apple.com/ja-jp/guide/terminal/trml4299c696/mac
-[3] https://memo.yammer.jp/posts/pdef
-[4] https://qiita.com/redrabbit1104/items/38a2011c27048ca61794
-[5] https://en-ambi.com/itcontents/entry/2019/02/19/103000/
-[6] https://api.lib.kyushu-u.ac.jp/opac_download_md/1470194/p011.pdf
-[7] https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html
-[8] https://xtech.nikkei.com/it/atcl/column/15/042000103/080700061/
+- [1] https://qiita.com/soarflat/items/d5015bec37f8a8254380
+- [2] https://support.apple.com/ja-jp/guide/terminal/trml4299c696/mac
+- [3] https://memo.yammer.jp/posts/pdef
+- [4] https://qiita.com/redrabbit1104/items/38a2011c27048ca61794
+- [5] https://en-ambi.com/itcontents/entry/2019/02/19/103000/
+- [6] https://api.lib.kyushu-u.ac.jp/opac_download_md/1470194/p011.pdf
+- [7] https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html
+- [8] https://xtech.nikkei.com/it/atcl/column/15/042000103/080700061/
