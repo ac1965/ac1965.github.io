@@ -1,4 +1,4 @@
-#-*- mode: org -*-
+/#-*- mode: org -*-
 #+title: Hugo blog source
 #+author: YAMASHITA Takao
 #+hugo_base_dir: ./
@@ -3666,3 +3666,150 @@ CLOSED: [2024-09-29 Sun 17:05]
 
 吉田拓郎の「夏休み」の歌詞が反芻している。
 一日の半分を横になってなっていた。疲れてる気分だから仕方ない。
+** DONE macOSメモ
+CLOSED: [2024-10-27 Sun 10:11]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2024-1095-1010
+:EXPORT_DATE:
+:EXPORT_HUGO_TAGS: macOS
+:EXPORT_HUGO_CATEGORIES: macOS
+:EXPORT_HUGO_LASTMOD:
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
+:END:
+
+最近、Google検索をしないで [[https://www.perplexity.ai][Perplexity AI]] を使ってる。
+ポストは、Perplexityに=macOSのシステム設定を移行するコマンドとその手順=を質問した結果となる。
+
+*** macOSのシステム設定のデータ移行
+:PROPERTIES:
+:CUSTOM_ID: macosのシステム設定のデータ移行
+:END:
+=defaults=コマンドでエクスポートできる「ドメイン」は、macOS内の各種アプリやサービスの設定が保存されている領域を指します。各ドメインには独自の設定項目があり、=com.apple.dock=や=com.apple.finder=のように特定のアプリや機能に対応しています。以下に、主要なドメインとその設定内容の概要をまとめた。
+
+**** 主要な=defaults=コマンドでエクスポートできるドメイン一覧
+:PROPERTIES:
+:CUSTOM_ID: 主要なdefaultsコマンドでエクスポートできるドメイン一覧
+:END:
+| ドメイン名                          | 内容                                                             |
+|-------------------------------------+------------------------------------------------------------------|
+| *com.apple.dock*                    | Dockのアイコンサイズ、位置、拡大設定など                         |
+| *com.apple.finder*                  | Finderの表示オプションやデフォルトフォルダ設定                   |
+| *com.apple.screensaver*             | スクリーンセーバーの種類、待機時間、開始条件など                 |
+| *com.apple.safari*                  | Safariのブックマークやプライバシー設定、ダウンロード場所など     |
+| *com.apple.systempreferences*       | システム環境設定に関する一般設定                                 |
+| *com.apple.trackpad*                | トラックパッドのジェスチャー設定（スクロール、ズームなど）       |
+| *com.apple.AppleMultitouchTrackpad* | トラックパッドの複数の指によるジェスチャー設定                   |
+| *com.apple.mail*                    | メールアプリのアカウント、通知、署名など                         |
+| *com.apple.TimeMachine*             | Time Machineのバックアップ先、間隔、オプションなど               |
+| *com.apple.controlcenter*           | コントロールセンターのカスタマイズ設定                           |
+| *com.apple.screencapture*           | スクリーンショットの保存場所、ファイル形式、表示オプション       |
+| *com.apple.desktop*                 | デスクトップの背景、レイアウト設定                               |
+| *com.apple.menuextra.clock*         | メニューバーの時計表示形式、タイムゾーンなど                     |
+| *com.apple.bluetooth*               | Bluetoothの接続設定、接続済みデバイスの情報                      |
+| *com.apple.terminal*                | ターミナルの外観、カラースキーム、ウィンドウの挙動               |
+| *com.apple.universalaccess*         | アクセシビリティ機能（ズーム、ナレーション、カラーフィルタなど） |
+| *com.apple.inputmethod.Kotoeri*     | 日本語入力（Kotoeri）の設定、変換オプション                      |
+| *com.apple.spaces*                  | Mission Controlのデスクトップ仮想空間（Spaces）の設定            |
+| *com.apple.loginwindow*             | ログインウィンドウの設定（自動ログイン、ログイン項目など）       |
+| *com.apple.preference.sound*        | サウンド出力・入力のデバイス、音量設定                           |
+
+**** ドメイン名を取得するコマンド
+:PROPERTIES:
+:CUSTOM_ID: ドメイン名を取得するコマンド
+:END:
+以下のコマンドで、現在のユーザーに関連するドメイン一覧を表示できる。
+
+#+begin_src sh
+defaults domains
+#+end_src
+
+**** ドメイン内の設定項目を表示するコマンド
+:PROPERTIES:
+:CUSTOM_ID: ドメイン内の設定項目を表示するコマンド
+:END:
+特定のドメイン内の設定項目を確認するには、以下のようにコマンドを実行する。
+
+#+begin_src sh
+defaults read <ドメイン名>
+#+end_src
+
+例えば、=com.apple.dock=の設定内容を確認する場合は以下のようにする。
+
+#+begin_src sh
+defaults read com.apple.dock
+#+end_src
+
+**** 注意点
+:PROPERTIES:
+:CUSTOM_ID: 注意点
+:END:
+- macOSのバージョンによって、使用できるドメインや設定内容が異なる場合がある。
+- 特定の設定はシステム領域に影響するため、管理者権限が必要な場合がある。
+
+この一覧をもとに、必要なドメインの設定をエクスポート・インポートしてシステム設定を移行できる！
+
+*** 手順
+:PROPERTIES:
+:CUSTOM_ID: 手順
+:END:
+macOSでシステム設定をエクスポートし、新しいMacに反映させる方法には、以下のような手順とコマンドが有効です。特に=defaults=コマンドを使って、システム設定のバックアップとリストアが可能。
+
+以下は基本的な流れとコマンド例を示す。
+
+- *1. 設定のエクスポート（バックアップ）*
+
+macOSの設定は=defaults=コマンドを使用して特定の設定をファイルに書き出せます。たとえば、Dockの設定をエクスポートする場合は以下のようなコマンドを使う。
+
+#+begin_src sh
+# Dockの設定を書き出す
+defaults export com.apple.dock ~/Desktop/dock-settings.plist
+#+end_src
+
+これで、Dockの設定が=dock-settings.plist=としてデスクトップに保存される。他の設定も同様に=defaults export <ドメイン名>=形式でエクスポート可能。
+
+- *2. エクスポートした設定を新しいMacにインポート*
+
+新しいMacで、エクスポートした設定ファイルをインポートする。ファイルを新しいMacに転送した後、次のように実行する。
+
+#+begin_src sh
+# Dockの設定をインポート
+defaults import com.apple.dock ~/Desktop/dock-settings.plist
+#+end_src
+
+インポートが完了したら、変更を反映するために関連するアプリケーションやサービスを再起動する。Dockの設定なら、以下のようにDockを再起動する。
+
+#+begin_src sh
+killall Dock
+#+end_src
+
+- *3. よく使う設定エクスポートの例*
+
+以下に、一般的な設定をエクスポートするコマンド例を挙げる。
+
+- *Finder設定*：
+
+#+begin_src sh
+defaults export com.apple.finder ~/Desktop/finder-settings.plist
+#+end_src
+
+- *スクリーンセーバー設定*：
+
+#+begin_src sh
+defaults export com.apple.screensaver ~/Desktop/screensaver-settings.plist
+#+end_src
+
+- *マウス設定*：
+
+#+begin_src sh
+defaults export com.apple.driver.AppleBluetoothMultitouch.mouse ~/Desktop/mouse-settings.plist
+#+end_src
+
+**** 注意事項
+:PROPERTIES:
+:CUSTOM_ID: 注意事項
+:END:
+- =defaults=コマンドでは、すべてのシステム設定をまとめてエクスポートすることはできません。そのため、個別にエクスポートする必要がある。
+- 設定によっては、再起動が必要なものや、手動での調整が必要な場合がある。
+- =plist=ファイルを直接編集する際は、設定の影響範囲を理解してから編集するのが良いです。
+
+これで、macOSの主要なシステム設定をバックアップ・リストアして、新しいMacで同じ環境を再現する準備ができる！
