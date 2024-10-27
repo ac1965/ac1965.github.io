@@ -75,7 +75,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2024-10-27T10:11:00+09:00">
-    <meta property="article:modified_time" content="2024-10-27T10:12:45+09:00">
+    <meta property="article:modified_time" content="2024-10-27T11:04:45+09:00">
     <meta property="article:tag" content="MacOS">
     <meta property="og:image" content="https://www.ty07.net/post/2024-1095-1010/cover.jpg">
 
@@ -104,12 +104,12 @@
     "dateCreated": "2024-10-27T10:11:00\u002b09:00",
     "datePublished": "2024-10-27T10:11:00\u002b09:00",
     
-    "dateModified": "2024-10-27T10:12:45\u002b09:00",
+    "dateModified": "2024-10-27T11:04:45\u002b09:00",
     
     "keywords": ["macOS"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "126"
+    "wordCount": "125"
   }]
   </script>
 
@@ -509,7 +509,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2024-10-27T10:11:00&#43;09:00">27 October 2024</time><span class="px-2 text-primary-500">&middot;</span><span>126 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  <time datetime="2024-10-27T10:11:00&#43;09:00">27 October 2024</time><span class="px-2 text-primary-500">&middot;</span><span>125 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
   
 
   
@@ -589,17 +589,15 @@
     class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#macosのシステム設定のデータ移行">macOSのシステム設定のデータ移行</a>
+    <li><a href="#macosのdefaultsコマンドでエクスポートできるドメイン名とその内容を一覧にするにはまずターミナルで以下のコマンドを使用して利用可能なドメインを取得します">macOSの=defaults=コマンドでエクスポートできるドメイン名とその内容を一覧にするには、まずターミナルで以下のコマンドを使用して、利用可能なドメインを取得します。</a>
       <ul>
-        <li><a href="#主要なdefaultsコマンドでエクスポートできるドメイン一覧">主要な=defaults=コマンドでエクスポートできるドメイン一覧</a></li>
-        <li><a href="#ドメイン名を取得するコマンド">ドメイン名を取得するコマンド</a></li>
-        <li><a href="#ドメイン内の設定項目を表示するコマンド">ドメイン内の設定項目を表示するコマンド</a></li>
-        <li><a href="#注意点">注意点</a></li>
+        <li><a href="#一般的なmacosのドメイン一覧">一般的なmacOSのドメイン一覧</a></li>
       </ul>
     </li>
-    <li><a href="#手順">手順</a>
+    <li><a href="#macosの設定を新しいpcに反映させるためにはdefaultsコマンドを使用して設定をエクスポートし新しいpcでインポートする手順が必要です以下にその具体的な手順を示します">macOSの設定を新しいPCに反映させるためには、=defaults=コマンドを使用して設定をエクスポートし、新しいPCでインポートする手順が必要です。以下にその具体的な手順を示します。</a>
       <ul>
-        <li><a href="#注意事項">注意事項</a></li>
+        <li><a href="#設定のエクスポート">設定のエクスポート</a></li>
+        <li><a href="#設定のインポート">設定のインポート</a></li>
       </ul>
     </li>
   </ul>
@@ -615,17 +613,15 @@
     class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#macosのシステム設定のデータ移行">macOSのシステム設定のデータ移行</a>
+    <li><a href="#macosのdefaultsコマンドでエクスポートできるドメイン名とその内容を一覧にするにはまずターミナルで以下のコマンドを使用して利用可能なドメインを取得します">macOSの=defaults=コマンドでエクスポートできるドメイン名とその内容を一覧にするには、まずターミナルで以下のコマンドを使用して、利用可能なドメインを取得します。</a>
       <ul>
-        <li><a href="#主要なdefaultsコマンドでエクスポートできるドメイン一覧">主要な=defaults=コマンドでエクスポートできるドメイン一覧</a></li>
-        <li><a href="#ドメイン名を取得するコマンド">ドメイン名を取得するコマンド</a></li>
-        <li><a href="#ドメイン内の設定項目を表示するコマンド">ドメイン内の設定項目を表示するコマンド</a></li>
-        <li><a href="#注意点">注意点</a></li>
+        <li><a href="#一般的なmacosのドメイン一覧">一般的なmacOSのドメイン一覧</a></li>
       </ul>
     </li>
-    <li><a href="#手順">手順</a>
+    <li><a href="#macosの設定を新しいpcに反映させるためにはdefaultsコマンドを使用して設定をエクスポートし新しいpcでインポートする手順が必要です以下にその具体的な手順を示します">macOSの設定を新しいPCに反映させるためには、=defaults=コマンドを使用して設定をエクスポートし、新しいPCでインポートする手順が必要です。以下にその具体的な手順を示します。</a>
       <ul>
-        <li><a href="#注意事項">注意事項</a></li>
+        <li><a href="#設定のエクスポート">設定のエクスポート</a></li>
+        <li><a href="#設定のインポート">設定のインポート</a></li>
       </ul>
     </li>
   </ul>
@@ -715,26 +711,29 @@
 ポストは、Perplexityに=macOSのシステム設定を移行するコマンドとその手順=を質問した結果となる。</p>
 
 
-<h2 class="relative group">macOSのシステム設定のデータ移行 
-    <div id="macos%E3%81%AE%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E7%A7%BB%E8%A1%8C" class="anchor"></div>
+<h2 class="relative group">macOSの=defaults=コマンドでエクスポートできるドメイン名とその内容を一覧にするには、まずターミナルで以下のコマンドを使用して、利用可能なドメインを取得します。 
+    <div id="macos%E3%81%AEdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%A7%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%90%8D%E3%81%A8%E3%81%9D%E3%81%AE%E5%86%85%E5%AE%B9%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF%E3%81%BE%E3%81%9A%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E3%81%A7%E4%BB%A5%E4%B8%8B%E3%81%AE%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E5%88%A9%E7%94%A8%E5%8F%AF%E8%83%BD%E3%81%AA%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%82%92%E5%8F%96%E5%BE%97%E3%81%97%E3%81%BE%E3%81%99" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#macos%E3%81%AE%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E7%A7%BB%E8%A1%8C" aria-label="Anchor">#</a>
+            style="text-decoration-line: none !important;" href="#macos%E3%81%AEdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%A7%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%90%8D%E3%81%A8%E3%81%9D%E3%81%AE%E5%86%85%E5%AE%B9%E3%82%92%E4%B8%80%E8%A6%A7%E3%81%AB%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF%E3%81%BE%E3%81%9A%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E3%81%A7%E4%BB%A5%E4%B8%8B%E3%81%AE%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E5%88%A9%E7%94%A8%E5%8F%AF%E8%83%BD%E3%81%AA%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%82%92%E5%8F%96%E5%BE%97%E3%81%97%E3%81%BE%E3%81%99" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
-<p>=defaults=コマンドでエクスポートできる「ドメイン」は、macOS内の各種アプリやサービスの設定が保存されている領域を指します。各ドメインには独自の設定項目があり、=com.apple.dock=や=com.apple.finder=のように特定のアプリや機能に対応しています。以下に、主要なドメインとその設定内容の概要をまとめた。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults domains
+</span></span></code></pre></div><p>このコマンドを実行すると、利用可能なドメインのリストが表示されます。各ドメインに対して、次のようにして内容を確認できます。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults <span class="nb">read</span> ドメイン名
+</span></span></code></pre></div><p>以下は一般的なmacOSのドメインとその内容の例です：</p>
 
 
-<h3 class="relative group">主要な=defaults=コマンドでエクスポートできるドメイン一覧 
-    <div id="%E4%B8%BB%E8%A6%81%E3%81%AAdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%A7%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E4%B8%80%E8%A6%A7" class="anchor"></div>
+<h3 class="relative group">一般的なmacOSのドメイン一覧 
+    <div id="%E4%B8%80%E8%88%AC%E7%9A%84%E3%81%AAmacos%E3%81%AE%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E4%B8%80%E8%A6%A7" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E4%B8%BB%E8%A6%81%E3%81%AAdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%A7%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%A7%E3%81%8D%E3%82%8B%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E4%B8%80%E8%A6%A7" aria-label="Anchor">#</a>
+            style="text-decoration-line: none !important;" href="#%E4%B8%80%E8%88%AC%E7%9A%84%E3%81%AAmacos%E3%81%AE%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E4%B8%80%E8%A6%A7" aria-label="Anchor">#</a>
     </span>        
     
 </h3>
@@ -742,205 +741,142 @@
   <thead>
       <tr>
           <th>ドメイン名</th>
-          <th>内容</th>
+          <th>内容の例</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td><strong>com.apple.dock</strong></td>
-          <td>Dockのアイコンサイズ、位置、拡大設定など</td>
+          <td>com.apple.finder</td>
+          <td>Finderの設定（表示オプションなど）</td>
       </tr>
       <tr>
-          <td><strong>com.apple.finder</strong></td>
-          <td>Finderの表示オプションやデフォルトフォルダ設定</td>
+          <td>com.apple.dock</td>
+          <td>Dockの設定（位置、大きさなど）</td>
       </tr>
       <tr>
-          <td><strong>com.apple.screensaver</strong></td>
-          <td>スクリーンセーバーの種類、待機時間、開始条件など</td>
+          <td>com.apple.systempreferences</td>
+          <td>システム環境設定全般</td>
       </tr>
       <tr>
-          <td><strong>com.apple.safari</strong></td>
-          <td>Safariのブックマークやプライバシー設定、ダウンロード場所など</td>
+          <td>NSGlobalDomain</td>
+          <td>グローバル設定（フォントサイズ、言語など）</td>
       </tr>
       <tr>
-          <td><strong>com.apple.systempreferences</strong></td>
-          <td>システム環境設定に関する一般設定</td>
+          <td>com.apple.screensaver</td>
+          <td>スクリーンセーバーの設定</td>
       </tr>
       <tr>
-          <td><strong>com.apple.trackpad</strong></td>
-          <td>トラックパッドのジェスチャー設定（スクロール、ズームなど）</td>
+          <td>com.apple.mail</td>
+          <td>Mailアプリの設定（署名、フォルダ表示など）</td>
       </tr>
       <tr>
-          <td><strong>com.apple.AppleMultitouchTrackpad</strong></td>
-          <td>トラックパッドの複数の指によるジェスチャー設定</td>
+          <td>com.apple.iTunes</td>
+          <td>iTunesの設定（ライブラリオプションなど）</td>
       </tr>
       <tr>
-          <td><strong>com.apple.mail</strong></td>
-          <td>メールアプリのアカウント、通知、署名など</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.TimeMachine</strong></td>
-          <td>Time Machineのバックアップ先、間隔、オプションなど</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.controlcenter</strong></td>
-          <td>コントロールセンターのカスタマイズ設定</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.screencapture</strong></td>
-          <td>スクリーンショットの保存場所、ファイル形式、表示オプション</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.desktop</strong></td>
-          <td>デスクトップの背景、レイアウト設定</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.menuextra.clock</strong></td>
-          <td>メニューバーの時計表示形式、タイムゾーンなど</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.bluetooth</strong></td>
-          <td>Bluetoothの接続設定、接続済みデバイスの情報</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.terminal</strong></td>
-          <td>ターミナルの外観、カラースキーム、ウィンドウの挙動</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.universalaccess</strong></td>
-          <td>アクセシビリティ機能（ズーム、ナレーション、カラーフィルタなど）</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.inputmethod.Kotoeri</strong></td>
-          <td>日本語入力（Kotoeri）の設定、変換オプション</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.spaces</strong></td>
-          <td>Mission Controlのデスクトップ仮想空間（Spaces）の設定</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.loginwindow</strong></td>
-          <td>ログインウィンドウの設定（自動ログイン、ログイン項目など）</td>
-      </tr>
-      <tr>
-          <td><strong>com.apple.preference.sound</strong></td>
-          <td>サウンド出力・入力のデバイス、音量設定</td>
+          <td>com.apple.Safari</td>
+          <td>Safariブラウザの設定（プライバシー、履歴など）</td>
       </tr>
   </tbody>
 </table>
+<p><strong>注意点</strong>: -
+各ドメインには多くのキーと値が含まれており、具体的な内容は=defaults read ドメイン名=コマンドで確認できます。 -
+=defaults export ドメイン名 -=コマンドを使用することで、そのドメインの設定をエクスポートすることも可能です。</p>
+<p>この方法で、macOS上で利用可能なすべてのドメインとその内容を確認し、必要に応じてエクスポートできます。</p>
+<p>Citations: [1]
+<a href="https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html" target="_blank">https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html</a>
+[2] <a href="https://memo.yammer.jp/posts/pdef" target="_blank">https://memo.yammer.jp/posts/pdef</a> [3]
+<a href="https://cybozu.dev/ja/kintone/sdk/backup/cli-kintone/" target="_blank">https://cybozu.dev/ja/kintone/sdk/backup/cli-kintone/</a> [4]
+<a href="https://ikorihn.github.io/digitalgarden/note/Mac%E3%81%AEdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89" target="_blank">https://ikorihn.github.io/digitalgarden/note/Mac%E3%81%AEdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89</a>
+[5]
+<a href="https://www.juniper.net/documentation/jp/ja/software/atp-appliance/atp-appliance-cli-reference/topics/topic-map/atp-appliance-mac-os-x-engine-cli-commands.html" target="_blank">https://www.juniper.net/documentation/jp/ja/software/atp-appliance/atp-appliance-cli-reference/topics/topic-map/atp-appliance-mac-os-x-engine-cli-commands.html</a>
+[6] <a href="https://gihyo.jp/dp/ebook/2017/978-4-7741-9457-8" target="_blank">https://gihyo.jp/dp/ebook/2017/978-4-7741-9457-8</a> [7]
+<a href="https://docs.redhat.com/ja/documentation/openshift_container_platform/4.8/html-single/cli_tools/index" target="_blank">https://docs.redhat.com/ja/documentation/openshift_container_platform/4.8/html-single/cli_tools/index</a>
+[8]
+<a href="https://docs.aws.amazon.com/ja_jp/cli/v1/userguide/cli-configure-proxy.html" target="_blank">https://docs.aws.amazon.com/ja_jp/cli/v1/userguide/cli-configure-proxy.html</a></p>
 
 
-<h3 class="relative group">ドメイン名を取得するコマンド 
-    <div id="%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%90%8D%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89" class="anchor"></div>
+<h2 class="relative group">macOSの設定を新しいPCに反映させるためには、=defaults=コマンドを使用して設定をエクスポートし、新しいPCでインポートする手順が必要です。以下にその具体的な手順を示します。 
+    <div id="macos%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E6%96%B0%E3%81%97%E3%81%84pc%E3%81%AB%E5%8F%8D%E6%98%A0%E3%81%95%E3%81%9B%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AB%E3%81%AFdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E8%A8%AD%E5%AE%9A%E3%82%92%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%97%E6%96%B0%E3%81%97%E3%81%84pc%E3%81%A7%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B%E6%89%8B%E9%A0%86%E3%81%8C%E5%BF%85%E8%A6%81%E3%81%A7%E3%81%99%E4%BB%A5%E4%B8%8B%E3%81%AB%E3%81%9D%E3%81%AE%E5%85%B7%E4%BD%93%E7%9A%84%E3%81%AA%E6%89%8B%E9%A0%86%E3%82%92%E7%A4%BA%E3%81%97%E3%81%BE%E3%81%99" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%90%8D%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89" aria-label="Anchor">#</a>
-    </span>        
-    
-</h3>
-<p>以下のコマンドで、現在のユーザーに関連するドメイン一覧を表示できる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults domains
-</span></span></code></pre></div>
-
-<h3 class="relative group">ドメイン内の設定項目を表示するコマンド 
-    <div id="%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%86%85%E3%81%AE%E8%A8%AD%E5%AE%9A%E9%A0%85%E7%9B%AE%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%86%85%E3%81%AE%E8%A8%AD%E5%AE%9A%E9%A0%85%E7%9B%AE%E3%82%92%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89" aria-label="Anchor">#</a>
-    </span>        
-    
-</h3>
-<p>特定のドメイン内の設定項目を確認するには、以下のようにコマンドを実行する。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults <span class="nb">read</span> &lt;ドメイン名&gt;
-</span></span></code></pre></div><p>例えば、=com.apple.dock=の設定内容を確認する場合は以下のようにする。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults <span class="nb">read</span> com.apple.dock
-</span></span></code></pre></div>
-
-<h3 class="relative group">注意点 
-    <div id="%E6%B3%A8%E6%84%8F%E7%82%B9" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E7%82%B9" aria-label="Anchor">#</a>
-    </span>        
-    
-</h3>
-<ul>
-<li>macOSのバージョンによって、使用できるドメインや設定内容が異なる場合がある。</li>
-<li>特定の設定はシステム領域に影響するため、管理者権限が必要な場合がある。</li>
-</ul>
-<p>この一覧をもとに、必要なドメインの設定をエクスポート・インポートしてシステム設定を移行できる！</p>
-
-
-<h2 class="relative group">手順 
-    <div id="%E6%89%8B%E9%A0%86" class="anchor"></div>
-    
-    <span
-        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
-        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%89%8B%E9%A0%86" aria-label="Anchor">#</a>
+            style="text-decoration-line: none !important;" href="#macos%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E6%96%B0%E3%81%97%E3%81%84pc%E3%81%AB%E5%8F%8D%E6%98%A0%E3%81%95%E3%81%9B%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AB%E3%81%AFdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E8%A8%AD%E5%AE%9A%E3%82%92%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%97%E6%96%B0%E3%81%97%E3%81%84pc%E3%81%A7%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B%E6%89%8B%E9%A0%86%E3%81%8C%E5%BF%85%E8%A6%81%E3%81%A7%E3%81%99%E4%BB%A5%E4%B8%8B%E3%81%AB%E3%81%9D%E3%81%AE%E5%85%B7%E4%BD%93%E7%9A%84%E3%81%AA%E6%89%8B%E9%A0%86%E3%82%92%E7%A4%BA%E3%81%97%E3%81%BE%E3%81%99" aria-label="Anchor">#</a>
     </span>        
     
 </h2>
-<p>macOSでシステム設定をエクスポートし、新しいMacに反映させる方法には、以下のような手順とコマンドが有効です。特に=defaults=コマンドを使って、システム設定のバックアップとリストアが可能。</p>
-<p>以下は基本的な流れとコマンド例を示す。</p>
-<ul>
-<li><strong>1. 設定のエクスポート（バックアップ）</strong></li>
-</ul>
-<p>macOSの設定は=defaults=コマンドを使用して特定の設定をファイルに書き出せます。たとえば、Dockの設定をエクスポートする場合は以下のようなコマンドを使う。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Dockの設定を書き出す</span>
-</span></span><span class="line"><span class="cl">defaults <span class="nb">export</span> com.apple.dock ~/Desktop/dock-settings.plist
-</span></span></code></pre></div><p>これで、Dockの設定が=dock-settings.plist=としてデスクトップに保存される。他の設定も同様に=defaults export &lt;ドメイン名&gt;=形式でエクスポート可能。</p>
-<ul>
-<li><strong>2. エクスポートした設定を新しいMacにインポート</strong></li>
-</ul>
-<p>新しいMacで、エクスポートした設定ファイルをインポートする。ファイルを新しいMacに転送した後、次のように実行する。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># Dockの設定をインポート</span>
-</span></span><span class="line"><span class="cl">defaults import com.apple.dock ~/Desktop/dock-settings.plist
-</span></span></code></pre></div><p>インポートが完了したら、変更を反映するために関連するアプリケーションやサービスを再起動する。Dockの設定なら、以下のようにDockを再起動する。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">killall Dock
-</span></span></code></pre></div><ul>
-<li><strong>3. よく使う設定エクスポートの例</strong></li>
-</ul>
-<p>以下に、一般的な設定をエクスポートするコマンド例を挙げる。</p>
-<ul>
-<li>*Finder設定*：</li>
-</ul>
-<!--listend-->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults <span class="nb">export</span> com.apple.finder ~/Desktop/finder-settings.plist
-</span></span></code></pre></div><ul>
-<li>*スクリーンセーバー設定*：</li>
-</ul>
-<!--listend-->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults <span class="nb">export</span> com.apple.screensaver ~/Desktop/screensaver-settings.plist
-</span></span></code></pre></div><ul>
-<li>*マウス設定*：</li>
-</ul>
-<!--listend-->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults <span class="nb">export</span> com.apple.driver.AppleBluetoothMultitouch.mouse ~/Desktop/mouse-settings.plist
-</span></span></code></pre></div>
 
-<h3 class="relative group">注意事項 
-    <div id="%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85" class="anchor"></div>
+
+<h3 class="relative group">設定のエクスポート 
+    <div id="%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85" aria-label="Anchor">#</a>
+            style="text-decoration-line: none !important;" href="#%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88" aria-label="Anchor">#</a>
     </span>        
     
 </h3>
-<ul>
-<li>=defaults=コマンドでは、すべてのシステム設定をまとめてエクスポートすることはできません。そのため、個別にエクスポートする必要がある。</li>
-<li>設定によっては、再起動が必要なものや、手動での調整が必要な場合がある。</li>
-<li>=plist=ファイルを直接編集する際は、設定の影響範囲を理解してから編集するのが良いです。</li>
-</ul>
-<p>これで、macOSの主要なシステム設定をバックアップ・リストアして、新しいMacで同じ環境を再現する準備ができる！</p>
+<ol>
+<li>
+<p>*ターミナルを開く*。</p>
+</li>
+<li>
+<p>*設定をエクスポートする*ために、以下のコマンドを実行します。ここでは例として=com.apple.finder=ドメインをエクスポートします。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults <span class="nb">export</span> com.apple.finder ~/Desktop/finder.plist
+</span></span></code></pre></div><p>このコマンドは、Finderの設定を=finder.plist=というファイルとしてデスクトップに保存します。</p>
+</li>
+<li>
+<p>*必要な他のドメインも同様にエクスポート*します。例えば、DockやSafariの設定もエクスポートする場合は、次のようにします。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults <span class="nb">export</span> com.apple.dock ~/Desktop/dock.plist
+</span></span><span class="line"><span class="cl">defaults <span class="nb">export</span> com.apple.safari ~/Desktop/safari.plist
+</span></span></code></pre></div></li>
+</ol>
+
+
+<h3 class="relative group">設定のインポート 
+    <div id="%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%A8%AD%E5%AE%9A%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>新しいPCで設定を反映させるためには、エクスポートした=.plist=ファイルをインポートします。</p>
+<ol>
+<li>
+<p>*エクスポートしたファイルを新しいPCに転送*します（USBメモリやクラウドストレージなど）。</p>
+</li>
+<li>
+<p>*ターミナルを開く*。</p>
+</li>
+<li>
+<p>*以下のコマンドを実行して設定をインポート*します。例としてFinderの設定をインポートする場合：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults import com.apple.finder ~/Desktop/finder.plist
+</span></span></code></pre></div></li>
+<li>
+<p>*他のドメインも同様にインポート*します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">defaults import com.apple.dock ~/Desktop/dock.plist
+</span></span><span class="line"><span class="cl">defaults import com.apple.safari ~/Desktop/safari.plist
+</span></span></code></pre></div></li>
+<li>
+<p>*アプリケーションを再起動*する必要がある場合があります。例えば、FinderやDockの場合は次のコマンドで再起動できます。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">killall Finder
+</span></span><span class="line"><span class="cl">killall Dock
+</span></span></code></pre></div></li>
+</ol>
+<p>これにより、新しいPCに古いPCからの設定が適用されます。必要なドメインについては、=defaults domains=コマンドで確認できます。</p>
+<p>Citations: [1] <a href="https://qiita.com/soarflat/items/d5015bec37f8a8254380" target="_blank">https://qiita.com/soarflat/items/d5015bec37f8a8254380</a> [2]
+<a href="https://support.apple.com/ja-jp/guide/terminal/trml4299c696/mac" target="_blank">https://support.apple.com/ja-jp/guide/terminal/trml4299c696/mac</a> [3]
+<a href="https://memo.yammer.jp/posts/pdef" target="_blank">https://memo.yammer.jp/posts/pdef</a> [4]
+<a href="https://qiita.com/redrabbit1104/items/38a2011c27048ca61794" target="_blank">https://qiita.com/redrabbit1104/items/38a2011c27048ca61794</a> [5]
+<a href="https://en-ambi.com/itcontents/entry/2019/02/19/103000/" target="_blank">https://en-ambi.com/itcontents/entry/2019/02/19/103000/</a> [6]
+<a href="https://api.lib.kyushu-u.ac.jp/opac_download_md/1470194/p011.pdf" target="_blank">https://api.lib.kyushu-u.ac.jp/opac_download_md/1470194/p011.pdf</a> [7]
+<a href="https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html" target="_blank">https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html</a>
+[8] <a href="https://xtech.nikkei.com/it/atcl/column/15/042000103/080700061/" target="_blank">https://xtech.nikkei.com/it/atcl/column/15/042000103/080700061/</a></p>
 
           
           
