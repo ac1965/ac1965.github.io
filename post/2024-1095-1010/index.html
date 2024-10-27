@@ -75,7 +75,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2024-10-27T10:11:00+09:00">
-    <meta property="article:modified_time" content="2024-10-27T11:04:45+09:00">
+    <meta property="article:modified_time" content="2024-10-27T20:03:12+09:00">
     <meta property="article:tag" content="MacOS">
     <meta property="og:image" content="https://www.ty07.net/post/2024-1095-1010/cover.jpg">
 
@@ -104,7 +104,7 @@
     "dateCreated": "2024-10-27T10:11:00\u002b09:00",
     "datePublished": "2024-10-27T10:11:00\u002b09:00",
     
-    "dateModified": "2024-10-27T11:04:45\u002b09:00",
+    "dateModified": "2024-10-27T20:03:12\u002b09:00",
     
     "keywords": ["macOS"],
     
@@ -783,17 +783,15 @@
 各ドメインには多くのキーと値が含まれており、具体的な内容は=defaults read ドメイン名=コマンドで確認できます。 -
 =defaults export ドメイン名 -=コマンドを使用することで、そのドメインの設定をエクスポートすることも可能です。</p>
 <p>この方法で、macOS上で利用可能なすべてのドメインとその内容を確認し、必要に応じてエクスポートできます。</p>
-<p>Citations: [1]
-<a href="https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html" target="_blank">https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html</a>
-[2] <a href="https://memo.yammer.jp/posts/pdef" target="_blank">https://memo.yammer.jp/posts/pdef</a> [3]
-<a href="https://cybozu.dev/ja/kintone/sdk/backup/cli-kintone/" target="_blank">https://cybozu.dev/ja/kintone/sdk/backup/cli-kintone/</a> [4]
-<a href="https://ikorihn.github.io/digitalgarden/note/Mac%E3%81%AEdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89" target="_blank">https://ikorihn.github.io/digitalgarden/note/Mac%E3%81%AEdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89</a>
-[5]
-<a href="https://www.juniper.net/documentation/jp/ja/software/atp-appliance/atp-appliance-cli-reference/topics/topic-map/atp-appliance-mac-os-x-engine-cli-commands.html" target="_blank">https://www.juniper.net/documentation/jp/ja/software/atp-appliance/atp-appliance-cli-reference/topics/topic-map/atp-appliance-mac-os-x-engine-cli-commands.html</a>
-[6] <a href="https://gihyo.jp/dp/ebook/2017/978-4-7741-9457-8" target="_blank">https://gihyo.jp/dp/ebook/2017/978-4-7741-9457-8</a> [7]
-<a href="https://docs.redhat.com/ja/documentation/openshift_container_platform/4.8/html-single/cli_tools/index" target="_blank">https://docs.redhat.com/ja/documentation/openshift_container_platform/4.8/html-single/cli_tools/index</a>
-[8]
-<a href="https://docs.aws.amazon.com/ja_jp/cli/v1/userguide/cli-configure-proxy.html" target="_blank">https://docs.aws.amazon.com/ja_jp/cli/v1/userguide/cli-configure-proxy.html</a></p>
+<p><em>Citations:</em>
+[1] <a href="https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html" target="_blank">https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html</a>
+[2] <a href="https://memo.yammer.jp/posts/pdef" target="_blank">https://memo.yammer.jp/posts/pdef</a>
+[3] <a href="https://cybozu.dev/ja/kintone/sdk/backup/cli-kintone/" target="_blank">https://cybozu.dev/ja/kintone/sdk/backup/cli-kintone/</a>
+[4] <a href="https://ikorihn.github.io/digitalgarden/note/Mac%E3%81%AEdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89" target="_blank">https://ikorihn.github.io/digitalgarden/note/Mac%E3%81%AEdefaults%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89</a>
+[5] <a href="https://www.juniper.net/documentation/jp/ja/software/atp-appliance/atp-appliance-cli-reference/topics/topic-map/atp-appliance-mac-os-x-engine-cli-commands.html" target="_blank">https://www.juniper.net/documentation/jp/ja/software/atp-appliance/atp-appliance-cli-reference/topics/topic-map/atp-appliance-mac-os-x-engine-cli-commands.html</a>
+[6] <a href="https://gihyo.jp/dp/ebook/2017/978-4-7741-9457-8" target="_blank">https://gihyo.jp/dp/ebook/2017/978-4-7741-9457-8</a>
+[7] <a href="https://docs.redhat.com/ja/documentation/openshift_container_platform/4.8/html-single/cli_tools/index" target="_blank">https://docs.redhat.com/ja/documentation/openshift_container_platform/4.8/html-single/cli_tools/index</a>
+[8] <a href="https://docs.aws.amazon.com/ja_jp/cli/v1/userguide/cli-configure-proxy.html" target="_blank">https://docs.aws.amazon.com/ja_jp/cli/v1/userguide/cli-configure-proxy.html</a></p>
 
 
 <h2 class="relative group">macOSの設定を新しいPCに反映させるためには、=defaults=コマンドを使用して設定をエクスポートし、新しいPCでインポートする手順が必要です。以下にその具体的な手順を示します。 
@@ -869,13 +867,14 @@
 </span></span></code></pre></div></li>
 </ol>
 <p>これにより、新しいPCに古いPCからの設定が適用されます。必要なドメインについては、=defaults domains=コマンドで確認できます。</p>
-<p>Citations: [1] <a href="https://qiita.com/soarflat/items/d5015bec37f8a8254380" target="_blank">https://qiita.com/soarflat/items/d5015bec37f8a8254380</a> [2]
-<a href="https://support.apple.com/ja-jp/guide/terminal/trml4299c696/mac" target="_blank">https://support.apple.com/ja-jp/guide/terminal/trml4299c696/mac</a> [3]
-<a href="https://memo.yammer.jp/posts/pdef" target="_blank">https://memo.yammer.jp/posts/pdef</a> [4]
-<a href="https://qiita.com/redrabbit1104/items/38a2011c27048ca61794" target="_blank">https://qiita.com/redrabbit1104/items/38a2011c27048ca61794</a> [5]
-<a href="https://en-ambi.com/itcontents/entry/2019/02/19/103000/" target="_blank">https://en-ambi.com/itcontents/entry/2019/02/19/103000/</a> [6]
-<a href="https://api.lib.kyushu-u.ac.jp/opac_download_md/1470194/p011.pdf" target="_blank">https://api.lib.kyushu-u.ac.jp/opac_download_md/1470194/p011.pdf</a> [7]
-<a href="https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html" target="_blank">https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html</a>
+<p><em>Citations:</em>
+[1] <a href="https://qiita.com/soarflat/items/d5015bec37f8a8254380" target="_blank">https://qiita.com/soarflat/items/d5015bec37f8a8254380</a>
+[2] <a href="https://support.apple.com/ja-jp/guide/terminal/trml4299c696/mac" target="_blank">https://support.apple.com/ja-jp/guide/terminal/trml4299c696/mac</a>
+[3] <a href="https://memo.yammer.jp/posts/pdef" target="_blank">https://memo.yammer.jp/posts/pdef</a>
+[4] <a href="https://qiita.com/redrabbit1104/items/38a2011c27048ca61794" target="_blank">https://qiita.com/redrabbit1104/items/38a2011c27048ca61794</a>
+[5] <a href="https://en-ambi.com/itcontents/entry/2019/02/19/103000/" target="_blank">https://en-ambi.com/itcontents/entry/2019/02/19/103000/</a>
+[6] <a href="https://api.lib.kyushu-u.ac.jp/opac_download_md/1470194/p011.pdf" target="_blank">https://api.lib.kyushu-u.ac.jp/opac_download_md/1470194/p011.pdf</a>
+[7] <a href="https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html" target="_blank">https://www.webdesignleaves.com/pr/plugins/mac_terminal_basics_06.html</a>
 [8] <a href="https://xtech.nikkei.com/it/atcl/column/15/042000103/080700061/" target="_blank">https://xtech.nikkei.com/it/atcl/column/15/042000103/080700061/</a></p>
 
           
