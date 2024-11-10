@@ -3969,4 +3969,4 @@ Emacs29から上手く動作する設定ファイルを記述します。
 れを使用すると、開発者や学習者などにとって役立つ設定が提供されます。
 
 
-[fn:Ollama] [[https://ollama.com/download ][Ollamaのバイナリパッケージをダウンロード]]
+[fn:Ollama] [[https://ollama.com/download][Ollamaのバイナリパッケージをダウンロード]]
