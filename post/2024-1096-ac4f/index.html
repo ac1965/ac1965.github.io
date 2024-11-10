@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>EmacsでLLM &middot; No Good Father</title>
+  <meta name="title" content="EmacsでLLM &middot; No Good Father" />
+  
+  
+  <meta name="keywords" content="Emacs, LLM-OLLAMA, ellama, " />
+  
+  
+  <link rel="canonical" href="https://www.ty07.net/post/2024-1096-ac4f/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.ded77e571e733ea65efd531906bf36286ed6d59432f366834a87d215846a1d60173028e2b3813f1c1ea25d7107719c7bf767952738715a0124307217e35cc7e2.css"
+    integrity="sha512-3td&#43;Vx5zPqZe/VMZBr82KG7W1ZQy82aDSofSFYRqHWAXMCjis4E/HB6iXXEHcZx792eVJzhxWgEkMHIX41zH4g==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.efbf3b6b987689fffaf2d7b73173d2690c0279a04d444b0537a77d7f4ff6e6d493445400cb0cf56bc0f0f123e19f15394e63cae34e67f069bd013dd5c73df56e.js"
+    integrity="sha512-7787a5h2if/68te3MXPSaQwCeaBNREsFN6d9f0/25tSTRFQAywz1a8Dw8SPhnxU5TmPK405n8Gm9AT3Vxz31bg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://www.ty07.net/post/2024-1096-ac4f/">
+  <meta property="og:site_name" content="No Good Father">
+  <meta property="og:title" content="EmacsでLLM">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-11-10T22:33:00+09:00">
+    <meta property="article:modified_time" content="2024-11-10T22:42:30+09:00">
+    <meta property="article:tag" content="Emacs">
+    <meta property="article:tag" content="LLM-OLLAMA">
+    <meta property="article:tag" content="Ellama">
+    <meta property="og:image" content="https://www.ty07.net/post/2024-1096-ac4f/cover.jpg">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.ty07.net/post/2024-1096-ac4f/cover.jpg">
+  <meta name="twitter:title" content="EmacsでLLM">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "EmacsでLLM",
+    "headline": "EmacsでLLM",
+    
+    
+    "inLanguage": "en",
+    "url" : "https:\/\/www.ty07.net\/post\/2024-1096-ac4f\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2024",
+    "dateCreated": "2024-11-10T22:33:00\u002b09:00",
+    "datePublished": "2024-11-10T22:33:00\u002b09:00",
+    
+    "dateModified": "2024-11-10T22:42:30\u002b09:00",
+    
+    "keywords": ["Emacs","LLM-OLLAMA","ellama"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "581"
+  }]
+  </script>
+
+
+  
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 min-h-[130px] opacity-65 pl-[24px] pr-[24px] bg-gradient-to-b from-neutral from-60% dark:from-neutral-800 to-transparent mix-blend-normal" style="z-index:80"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
+  <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    
+    
+    <div>
+        <a href="/" class="flex">
+            <span class="sr-only">No Good Father</span>
+
+            
+            <img src="/img/logo.png" width="23" height="17"
+                class="logo max-h-[5rem] max-w-[5rem] object-scale-down object-left nozoom" alt="No Good Father" />
+            
+
+        </a>
+    </div>
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">No Good Father</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href="/post/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        Posts
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="/about/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        About
+    </p>
+</a>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/post/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            Posts
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/about/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            About
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+
+  </div>
+</div>
+<script>
+  window.addEventListener('scroll', function (e) {
+    var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var background_blur = document.getElementById('menu-blur');
+    background_blur.style.opacity = (scroll / 300);
+  });
+</script>
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+        
+            <div class="w-full h-36 md:h-56 lg:h-72 single_hero_basic nozoom" style="background-image:url(/post/2024-1096-ac4f/cover_hu7279801689156549301.jpg);"></div>
+        
+    
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      >No Good Father</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/post/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/post/2024-1096-ac4f/"
+      >EmacsでLLM</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      EmacsでLLM
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-11-10T22:33:00&#43;09:00">10 November 2024</time><span class="px-2 text-primary-500">&middot;</span><span>581 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/emacs/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Emacs
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/llm-ollama/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    LLM-OLLAMA
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/ellama/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Ellama
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/emacs/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Emacs
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/llm-ollama/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    LLM-OLLAMA
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/ellama/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Ellama
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#あたらしい-おもちゃ-ollama">あたらしい、おもちゃ Ollama</a>
+      <ul>
+        <li><a href="#ollamaのインストール">Ollamaのインストール</a></li>
+        <li><a href="#emacsでellamaの設定">EmacsでEllamaの設定</a></li>
+        <li><a href="#設定ファイル-modelfile-の作成">設定ファイル（Modelfile）の作成</a></li>
+      </ul>
+    </li>
+    <li><a href="#ellamaで遊んだ">Ellamaで遊んだ</a>
+      <ul>
+        <li><a href="#user">User:</a></li>
+        <li><a href="#ellama">Ellama:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#あたらしい-おもちゃ-ollama">あたらしい、おもちゃ Ollama</a>
+      <ul>
+        <li><a href="#ollamaのインストール">Ollamaのインストール</a></li>
+        <li><a href="#emacsでellamaの設定">EmacsでEllamaの設定</a></li>
+        <li><a href="#設定ファイル-modelfile-の作成">設定ファイル（Modelfile）の作成</a></li>
+      </ul>
+    </li>
+    <li><a href="#ellamaで遊んだ">Ellamaで遊んだ</a>
+      <ul>
+        <li><a href="#user">User:</a></li>
+        <li><a href="#ellama">Ellama:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+           
+            $(e).removeClass('active').siblings('ul').hide();
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+         
+          $toc.find('a').parent('li').find('ul').hide();
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+
+<h2 class="relative group">あたらしい、おもちゃ Ollama 
+    <div id="%E3%81%82%E3%81%9F%E3%82%89%E3%81%97%E3%81%84-%E3%81%8A%E3%82%82%E3%81%A1%E3%82%83-ollama" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E3%81%82%E3%81%9F%E3%82%89%E3%81%97%E3%81%84-%E3%81%8A%E3%82%82%E3%81%A1%E3%82%83-ollama" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>昨日ひさしぶりに本屋に行って立ち読みしてたら、MacのOllamaでLLMをローカルの記事があった。
+食指そそられる思いで、早速、バイナリをダウンロードして動作確認をしたところ、それなりに遊べそうだから年末年始に勉強しよう。</p>
+<p><a href="https://ollama.com/library" target="_blank">Ollamaで利用可能なモデル</a> も豊富で、せっせとアップしてくれる文化があったので、Emacsで動作するパッケージもあるでしょってことで、最近お気に入りの <a href="https://www.perplexity.ai" target="_blank">Perplexity</a> で調べた。<a href="https://www.google.com" target="_blank">Google</a> でもいいだけど、サックと調べてくれるから。</p>
+<p>OllamaをmacOSにインストールし、EmacsからEllamaを設定して利用する手順を以下に示します。</p>
+
+
+<h3 class="relative group">Ollamaのインストール<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 
+    <div id="ollama%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#ollama%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li>
+<p><strong>Homebrewを使用してインストール</strong>::
+ターミナルを開き、以下のコマンドを実行します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install ollama
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Ollamaの動作確認</strong>::
+インストール後、次のコマンドでバージョンを確認します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ollama --version
+</span></span></code></pre></div></li>
+<li>
+<p><strong>モデルのダウンロードと実行</strong>::
+例えば、`gemma2:9b`モデルを使う場合、以下のコマンドでモデルを実行します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ollama run gemma2:9b
+</span></span></code></pre></div></li>
+<li>
+<p><strong>対話を終了するには</strong>::</p>
+<pre tabindex="0"><code class="language-basn" data-lang="basn">Ctrl + d または /bye
+</code></pre></li>
+</ol>
+
+
+<h3 class="relative group">EmacsでEllamaの設定 
+    <div id="emacs%E3%81%A7ellama%E3%81%AE%E8%A8%AD%E5%AE%9A" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#emacs%E3%81%A7ellama%E3%81%AE%E8%A8%AD%E5%AE%9A" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<ol>
+<li>
+<p><strong>Emacsに必要なパッケージをインストール</strong>:
+<code>use-package</code> を使用してEllamaを設定します。以下の設定をEmacsの設定ファイル（通常は <code>~/.emacs.d/init.el</code> ）に追加します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">use-package</span> <span class="nv">ellama</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">:init</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">setq</span> <span class="nv">ellama-keymap-prefix</span> <span class="s">&#34;C-c e&#34;</span><span class="p">)</span>  <span class="c1">;; キーバインディングの設定</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">setq</span> <span class="nv">ellama-language</span> <span class="s">&#34;Japanese&#34;</span><span class="p">)</span>      <span class="c1">;; 言語設定</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;llm-ollama</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">setq</span> <span class="nv">ellama-provider</span> <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">:host</span> <span class="s">&#34;localhost&#34;</span>                     <span class="c1">;; Ollamaが動作しているホスト名</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">:chat-model</span> <span class="s">&#34;gemma2:9b&#34;</span>               <span class="c1">;; 使用するチャットモデル名</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">:embedding-model</span> <span class="s">&#34;gemma2:9b&#34;</span><span class="p">)))</span>       <span class="c1">;; 使用する埋め込みモデル名</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>EmacsからEllamaを使用する</strong>:
+Emacs内で以下のコマンドを使用して、テキスト処理を行います。</p>
+<ul>
+<li>テーブル作成: `M-x ellama-make-table`</li>
+<li>YAMLフォーマット変換: `M-x ellama-make-format RET yaml RET`</li>
+<li>概要作成: `M-x ellama-summarize`</li>
+<li>翻訳: `M-x ellama-translate`</li>
+</ul>
+</li>
+</ol>
+<p>私は<a href="https://github.com/conao3/leaf.el" target="_blank"> leaf </a>を使っているので、抜粋したものを貼り付けておく。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nv">leaf</span> <span class="nv">ellama</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">:after</span> <span class="nv">llm-ollama</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">:ensure</span> <span class="no">t</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">:init</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">ellama-language</span> <span class="s">&#34;Japanese&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">ellama-sessions-directory</span> <span class="p">(</span><span class="nf">concat</span> <span class="nv">no-littering-var-directory</span> <span class="s">&#34;ellama-sessions&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">ellama-naming-scheme</span> <span class="ss">&#39;ellama-generate-name-by-llm</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">ellama-provider</span>
+</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">           <span class="c1">;; this model should be pulled to use it</span>
+</span></span><span class="line"><span class="cl">           <span class="c1">;; value should be the same as you print in terminal during pull</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:chat-model</span> <span class="s">&#34;llama3:8b-instruct-q8_0&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:embedding-model</span> <span class="s">&#34;nomic-embed-text&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:default-chat-non-standard-params</span> <span class="o">&#39;</span><span class="p">((</span><span class="s">&#34;num_ctx&#34;</span> <span class="o">.</span> <span class="mi">8192</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">ellama-summarization-provider</span>
+</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:chat-model</span> <span class="s">&#34;qwen2.5:3b&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:embedding-model</span> <span class="s">&#34;nomic-embed-text&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:default-chat-non-standard-params</span> <span class="o">&#39;</span><span class="p">((</span><span class="s">&#34;num_ctx&#34;</span> <span class="o">.</span> <span class="mi">32768</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">;; llm providers for interactive switching.</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">ellama-providers</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&#39;</span><span class="p">((</span><span class="s">&#34;zephyr&#34;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">                         <span class="nb">:chat-model</span> <span class="s">&#34;zephyr:7b-beta-q6_K&#34;</span>
+</span></span><span class="line"><span class="cl">                         <span class="nb">:embedding-model</span> <span class="s">&#34;zephyr:7b-beta-q6_K&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="s">&#34;mistral&#34;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">                          <span class="nb">:chat-model</span> <span class="s">&#34;mistral:7b-instruct-v0.2-q6_K&#34;</span>
+</span></span><span class="line"><span class="cl">                          <span class="nb">:embedding-model</span> <span class="s">&#34;mistral:7b-instruct-v0.2-q6_K&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="s">&#34;mixtral&#34;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">                          <span class="nb">:chat-model</span> <span class="s">&#34;mixtral:8x7b-instruct-v0.1-q3_K_M-4k&#34;</span>
+</span></span><span class="line"><span class="cl">                          <span class="nb">:embedding-model</span> <span class="s">&#34;mixtral:8x7b-instruct-v0.1-q3_K_M-4k&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="s">&#34;codestral&#34;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">                            <span class="nb">:chat-model</span> <span class="s">&#34;codestral:22b-v0.1-q4_K_S&#34;</span>
+</span></span><span class="line"><span class="cl">                            <span class="nb">:embedding-model</span> <span class="s">&#34;codestral:22b-v0.1-q4_K_S&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="s">&#34;gemma2&#34;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">                         <span class="nb">:chat-model</span> <span class="s">&#34;gemma2:27b-instruct-q4_K_S&#34;</span>
+</span></span><span class="line"><span class="cl">                         <span class="nb">:embedding-model</span> <span class="s">&#34;gemma2:27b-instruct-q4_K_S&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="s">&#34;command-r&#34;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">                            <span class="nb">:chat-model</span> <span class="s">&#34;command-r:35b&#34;</span>
+</span></span><span class="line"><span class="cl">                            <span class="nb">:embedding-model</span> <span class="s">&#34;command-r:35b&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="s">&#34;llama3.1&#34;</span> <span class="o">.</span> <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">                           <span class="nb">:chat-model</span> <span class="s">&#34;llama3.1:8b&#34;</span>
+</span></span><span class="line"><span class="cl">                           <span class="nb">:embedding-model</span> <span class="s">&#34;llama3.1:8b&#34;</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">;; Naming new sessions with llm</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">ellama-naming-provider</span>
+</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:chat-model</span> <span class="s">&#34;llama3:8b-instruct-q8_0&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:embedding-model</span> <span class="s">&#34;nomic-embed-text&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:default-chat-non-standard-params</span> <span class="o">&#39;</span><span class="p">((</span><span class="s">&#34;stop&#34;</span> <span class="o">.</span> <span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)))))</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">;; Translation llm provider</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nv">setopt</span> <span class="nv">ellama-translation-provider</span>
+</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="nv">make-llm-ollama</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:chat-model</span> <span class="s">&#34;qwen2.5:3b&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:embedding-model</span> <span class="s">&#34;nomic-embed-text&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="nb">:default-chat-non-standard-params</span>
+</span></span><span class="line"><span class="cl">           <span class="o">&#39;</span><span class="p">((</span><span class="s">&#34;num_ctx&#34;</span> <span class="o">.</span> <span class="mi">32768</span><span class="p">)))))</span>
+</span></span></code></pre></div>
+
+<h3 class="relative group">設定ファイル（Modelfile）の作成 
+    <div id="%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB-modelfile-%E3%81%AE%E4%BD%9C%E6%88%90" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB-modelfile-%E3%81%AE%E4%BD%9C%E6%88%90" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Ollamaでは、カスタムモデルの設定ファイルとして <span class="underline">Modelfile</span> が必要です。以下はその例です。</p>
+<ol>
+<li><strong>Modelfileの作成</strong>:
+モデルと同じディレクトリに <code>Modelfile</code> という名前のファイルを作成し、以下の内容を記述します。</li>
+</ol>
+<!--listend-->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">from /ollama/gemma2-9b-chat-gguf
+</span></span></code></pre></div>
+
+<h2 class="relative group">Ellamaで遊んだ 
+    <div id="ellama%E3%81%A7%E9%81%8A%E3%82%93%E3%81%A0" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#ellama%E3%81%A7%E9%81%8A%E3%82%93%E3%81%A0" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p><code>M+x ellama-chat</code> で、お遊びしたけど、ちゃんとしていて驚いた🤣</p>
+
+
+<h3 class="relative group">User: 
+    <div id="user" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#user" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>emacs29以上で動作する設定ファイル</p>
+
+
+<h3 class="relative group">Ellama: 
+    <div id="ellama" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#ellama" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Emacs29から上手く動作する設定ファイルを記述します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-el" data-lang="el"><span class="line"><span class="cl"><span class="c1">;;; config.el - Emacs config file</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">;; Emacsバージョンのチェック</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nf">&gt;=</span> <span class="nv">emacs-major-version</span> <span class="mi">29</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="ne">error</span> <span class="s">&#34;Emacs 29以上をインストールしてください&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">;; 基本設定</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">default-frame-alist</span> <span class="o">&#39;</span><span class="p">((</span><span class="nv">top</span> <span class="o">.</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="nv">left</span> <span class="o">.</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="nv">width</span> <span class="o">.</span> <span class="mi">1400</span><span class="p">)</span> <span class="p">(</span><span class="nv">height</span> <span class="o">.</span> <span class="mi">800</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">mouse-wheel-movement</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">; マウスホイールの回転量</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">tab-width</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">; Tabキーのタブ幅</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">indent-tabs-mode</span> <span class="no">nil</span><span class="p">)</span> <span class="c1">; タブを空白で置換する</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">show-paren-mode</span> <span class="no">t</span><span class="p">)</span> <span class="c1">; 括弧の表示</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">show-trailing-whitespace</span> <span class="no">t</span><span class="p">)</span> <span class="c1">; 不要なスペースの表示</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">enable-pop-up-menu</span> <span class="no">t</span><span class="p">)</span> <span class="c1">; Pop-up menuの有効化</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">scroll-step-1</span> <span class="mi">120</span><span class="p">)</span> <span class="c1">; Scrollバーのスクロール量</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">column-number-mode</span> <span class="no">t</span><span class="p">)</span> <span class="c1">; 行数と列数を表示する</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">;; キーバイング</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-left</span><span class="p">]</span> <span class="ss">&#39;previous-line</span><span class="p">)</span> <span class="c1">; Ctrl + Left Arrow</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-right</span><span class="p">]</span> <span class="ss">&#39;next-line</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + Right Arrow</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-x</span> <span class="nv">C-k</span><span class="p">]</span> <span class="ss">&#39;kill-region</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + X + K</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-x</span> <span class="nv">C-c</span><span class="p">]</span> <span class="ss">&#39;copy-region</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + X + C</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-x</span> <span class="nv">C-y</span><span class="p">]</span> <span class="ss">&#39;yank</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + X + Y</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-x</span> <span class="nv">C-w</span><span class="p">]</span> <span class="ss">&#39;cut-region</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + X + W</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-c</span> <span class="nv">C-f</span><span class="p">]</span> <span class="ss">&#39;find-file</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + C + F</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-c</span> <span class="nv">C-s</span><span class="p">]</span> <span class="ss">&#39;save-some-buffers</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + C + S</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-c</span> <span class="nv">C-q</span><span class="p">]</span> <span class="ss">&#39;write-region</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + C + Q</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-c</span> <span class="nv">C-j</span><span class="p">]</span> <span class="ss">&#39;next-error</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + C + J</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-c</span> <span class="nv">C-i</span><span class="p">]</span> <span class="ss">&#39;previous-error</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + C + I</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-c</span> <span class="nv">C-k</span><span class="p">]</span> <span class="ss">&#39;kill-some-buffers</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + C + K</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">M-.</span><span class="p">]</span> <span class="ss">&#39;undo</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Option + .</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">M-</span><span class="c1">;] &#39;revert&#39;) ; Option + ;</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-x</span> <span class="nv">o</span><span class="p">]</span> <span class="ss">&#39;other-frame</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + X + O</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-x</span> <span class="mi">5</span><span class="p">]</span> <span class="ss">&#39;minibuffer-scroll-down</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + X + 5 (下スクロール)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">[</span><span class="nv">C-x</span> <span class="mi">6</span><span class="p">]</span> <span class="ss">&#39;minibuffer-scroll-up</span><span class="o">&#39;</span><span class="p">)</span> <span class="c1">; Ctrl + X + 6 (上スクロール)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">;; パッケージのインストールと有効化</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span> <span class="c1">; Emacs Package Manager (EPM)の初期化</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;load-path</span> <span class="s">&#34;/path/to/package/directory&#34;</span><span class="p">)</span> <span class="c1">; パッケージの探索先の追加</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;company</span><span class="p">)</span> <span class="c1">; Company-modeパッケージの有効化</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">company-setup</span><span class="p">)</span> <span class="c1">; Company-modeの設定</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">;; テーマの選択</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">set-face-attribute</span> <span class="ss">&#39;default</span><span class="o">&#39;</span> <span class="no">nil</span> <span class="nb">:background</span> <span class="s">&#34;black&#34;</span><span class="p">)</span> <span class="c1">; 背景の色を白にする場合</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">load-theme</span> <span class="ss">&#39;gruvbox-dark</span><span class="o">&#39;</span> <span class="no">t</span><span class="p">)</span> <span class="c1">; テーマの有効化</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">;; ライブラリの有効化</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;org</span><span class="p">)</span> <span class="c1">; Org-modeパッケージの有効化</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">org-mode</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">text</span> <span class="o">.</span> <span class="nv">plain</span><span class="p">)</span> <span class="p">(</span><span class="nv">html</span> <span class="o">.</span> <span class="nv">html</span><span class="p">))</span> <span class="c1">; Org-modeの出力形式</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;auto-mode-alist</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;\\.org&#34;</span> <span class="o">.</span> <span class="nv">org-mode</span><span class="p">))</span> <span class="c1">;  &#34;.org&#34; で Org-mode を有効化</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">;; プロジェクトの管理</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;projectile</span><span class="p">)</span> <span class="c1">; Projectileパッケージの有効化</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">projectile-global-mode</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">; Projectile をグローバルに有効化</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">projectile-find-by-name</span> <span class="no">t</span><span class="p">)</span> <span class="c1">; Projectile で名前でプロジェクト検索を有効化</span>
+</span></span></code></pre></div><p>この設定ファイルでは、Emacs29から上手く動作する設定を記述していまXす。特に、エディタの基本設定、キー
+バイング、パッケージのインストールと有効化、テーマの選択、ライブラリの有効化などが含まれています。こ
+れを使用すると、開発者や学習者などにとって役立つ設定が提供されます。</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://ollama.com/download%20" target="_blank">Ollamaのバイナリパッケージをダウンロード</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+          
+          
+          
+        </div>
+        
+        
+
+          
+            
+            
+<div class="flex author">
+  
+  <div class="place-self-center">
+    
+    
+    <div class="text-2xl sm:text-lg">
+</div>
+  </div>
+</div>
+
+          
+
+          
+
+          
+          <div class="mb-10"></div>
+          
+
+        
+
+        
+        
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">Related</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/post/2024-460b-9889/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/post/2024-460b-9889/cover_hu4608006739946603548.jpg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/post/2024-460b-9889/">emacs:libgccjit:'libgcc_s.1.1.dylib' no such file</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-05-12T16:48:00&#43;09:00">12 May 2024</time><span class="px-2 text-primary-500">&middot;</span><span>1961 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">10 mins</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/emacs/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Emacs
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/native-compilation/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Native-Compilation
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/post/2024-1095-1010/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/post/2024-1095-1010/cover_hu2150912689584929022.jpg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/post/2024-1095-1010/">macOSメモ</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-10-27T10:11:00&#43;09:00">27 October 2024</time><span class="px-2 text-primary-500">&middot;</span><span>125 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/macos/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    MacOS
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/macos/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    MacOS
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/post/2024-0f97-7524/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/post/2024-0f97-7524/cover_hu6712098229705673599.jpg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/post/2024-0f97-7524/">麦わら帽子は</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-09-29T17:05:00&#43;09:00">29 September 2024</time><span class="px-2 text-primary-500">&middot;</span><span>3 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/life/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Life
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_post\/2024-1096-ac4f.md"
+        var oid_likes = "likes_post\/2024-1096-ac4f.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/post/2024-1095-1010/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >macOSメモ</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-10-27T10:11:00&#43;09:00">27 October 2024</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+    
+    <div class="pt-3">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="pt-3">
+        <div id="disqus_thread"></div>
+<script>
+    
+
+    
+
+    (function() { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-www-ty07-net.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </div>
+    </div>
+    
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://www.ty07.net/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>
