@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2024 </copyright>
-    <lastBuildDate>Sun, 27 Oct 2024 11:04:45 +0900</lastBuildDate><atom:link href="https://www.ty07.net/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Nov 2024 22:33:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>EmacsでLLM</title>
+      <link>https://www.ty07.net/post/2024-1096-ac4f/</link>
+      <pubDate>Sun, 10 Nov 2024 22:33:00 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/post/2024-1096-ac4f/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2024-1096-ac4f/cover.jpg" />
+    </item>
+    
     <item>
       <title>macOSメモ</title>
       <link>https://www.ty07.net/post/2024-1095-1010/</link>
