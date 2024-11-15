@@ -7,17 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2024 </copyright>
-    <lastBuildDate>Sun, 10 Nov 2024 22:33:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/categories/emacs/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>EmacsでLLM</title>
-      <link>https://www.ty07.net/post/2024-1096-ac4f/</link>
-      <pubDate>Sun, 10 Nov 2024 22:33:00 +0900</pubDate>
-      
-      <guid>https://www.ty07.net/post/2024-1096-ac4f/</guid>
-      <description></description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2024-1096-ac4f/cover.jpg" />
-    </item>
-    
+    <lastBuildDate>Sun, 12 May 2024 16:48:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/categories/emacs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>emacs:libgccjit:&#39;libgcc_s.1.1.dylib&#39; no such file</title>
       <link>https://www.ty07.net/post/2024-460b-9889/</link>
