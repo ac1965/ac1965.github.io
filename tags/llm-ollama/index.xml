@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2024 </copyright>
-    <lastBuildDate>Sun, 10 Nov 2024 22:33:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/llm-ollama/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Nov 2024 11:59:00 +0900</lastBuildDate><atom:link href="https://www.ty07.net/tags/llm-ollama/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Open WebUI</title>
+      <link>https://www.ty07.net/post/2024-8749-0be5/</link>
+      <pubDate>Sun, 24 Nov 2024 11:59:00 +0900</pubDate>
+      
+      <guid>https://www.ty07.net/post/2024-8749-0be5/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://www.ty07.net/post/2024-8749-0be5/cover.jpg" />
+    </item>
+    
     <item>
       <title>EmacsでLLM</title>
       <link>https://www.ty07.net/post/2024-1096-ac4f/</link>
