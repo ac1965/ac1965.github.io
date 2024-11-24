@@ -4190,15 +4190,6 @@ CLOSED: [2024-11-24 Sun 11:59]
 
 例により、[[https://www.perplexity.ai/][perplexity.ai]] からの引用。
 
-- Open WebUIは、ローカル環境でLLM（大規模言語モデル）を簡単に利用できるオープンソースのアプリケーションです。ChatGPTライクなインターフェースを提供し、Llama 3やMistralなどのオープンソースLLMを使用できる。
-
-要は、Ollama を [[https://chatgpt.com/][ChatGPT]] のようなWebUIで使うということ。
-Dockerをアンインストールしてたので、再インストールから Open WebUI のDockerイメージを動かしてみた。
-
-   #+begin_src sh
-     docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
-   #+end_src
-
 
 #+begin_export hugo
 {{<details "macOS for intel に docker desktop をセットアップ">}}
@@ -4310,6 +4301,17 @@ Citations:
 {{</details>}}
 #+end_export
 
+
+- Open WebUIは、ローカル環境でLLM（大規模言語モデル）を簡単に利用できるオープンソースのアプリケーションです。ChatGPTライクなインターフェースを提供し、Llama 3やMistralなどのオープンソースLLMを使用できる。
+
+要は、Ollama を [[https://chatgpt.com/][ChatGPT]] のようなWebUIで使うということ。
+Dockerをアンインストールしてたので、再インストールから Open WebUI のDockerイメージを動かしてみた。
+
+   #+begin_src sh
+     docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+   #+end_src
+
+
 #+begin_export hugo
-{{< carousel images="open=webui/*" aspectRatio="21-9" interval="2500" >}}
+{{< carousel images="open-webui/*" aspectRatio="16-9" interval="2500" >}}
 #+end_export
