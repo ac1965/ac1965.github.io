@@ -4176,3 +4176,140 @@ CLOCK: [2024-11-16 Sat 02:15]
 | キーバインド  | 機能                                       |
 |---------------|--------------------------------------------|
 | M-x           | 拡張コマンドを実行                         |
+** DONE Open WebUI
+CLOSED: [2024-11-24 Sun 11:59]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2024-8749-0be5
+:EXPORT_DATE:
+:EXPORT_HUGO_TAGS: LLM-OLLAMA open-webui
+:EXPORT_HUGO_CATEGORIES:
+:EXPORT_HUGO_LASTMOD:
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
+:END:
+*** あたらしい、おもちゃ Open WebUI (Ollama再び)
+
+例により、[[https://www.perplexity.ai/][perplexity.ai]] からの引用。
+
+- Open WebUIは、ローカル環境でLLM（大規模言語モデル）を簡単に利用できるオープンソースのアプリケーションです。ChatGPTライクなインターフェースを提供し、Llama 3やMistralなどのオープンソースLLMを使用できる。
+
+要は、Ollama を [[https://chatgpt.com/][ChatGPT]] のようなWebUIで使うということ。
+Dockerをアンインストールしてたので、再インストールから Open WebUI のDockerイメージを動かしてみた。
+
+   #+begin_src sh
+     docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+   #+end_src
+
+
+#+begin_export hugo
+{{<details "macOS for intel に docker desktop をセットアップ">}}
+macOS for Intel に Docker Desktop をセットアップする手順は以下の通りです：
+
+1. Docker公式サイトにアクセスし、「Docker Desktop for Mac with Intel chip」をダウンロードします[1][4]。
+
+2. ダウンロードした「Docker.dmg」ファイルをダブルクリックして開きます[1]。
+
+3. Docker.appをApplicationsフォルダにドラッグ&ドロップします[1][3]。
+
+4. Applicationsフォルダ内のDocker.appをクリックして起動します[1][3]。
+
+5. 初回起動時、必要な権限を求められるので許可します[3]。
+
+6. セットアップ画面が表示されるので、指示に従って進めます[1]。
+
+7. インストールが完了すると、Docker Desktopの画面が表示されます[1]。
+
+8. ステータスバーにクジラのアイコンが表示されていることを確認します[4]。
+
+動作確認として、ターミナルで以下のコマンドを実行します：
+
+```bash
+docker run ubuntu:14.04 /bin/echo 'Hello world'
+```
+
+「Hello world」と表示されれば、セットアップは成功です[3]。
+
+Citations:
+
+[1] https://inomacreate.com/docker-study-02/
+[2] https://oopsoop.com/install-docker/
+[3] https://minegishirei.hatenablog.com/entry/2023/05/04/124946
+[4] https://qiita.com/yukitkns/items/ff8687e2eefaaaf34742
+[5] https://www.kagoya.jp/howto/cloud/container/dockerformac/
+[6] https://matsuand.github.io/docs.docker.jp.onthefly/desktop/mac/install/
+[7] https://docs.docker.jp/desktop/install/mac-install.html
+[8] https://qiita.com/gahoh/items/92217e0a887bb81e3155
+[9] https://kazu-oji.com/docker-desktop-install-mac-2024/
+{{</details>}}
+#+end_export
+
+#+begin_export hugo
+{{<details "Open WebUI のセットアップと活用例">}}
+Open WebUIは、ローカル環境でLLM（大規模言語モデル）を簡単に利用できるオープンソースのアプリケーションです。ChatGPTライクなインターフェースを提供し、Llama 3やMistralなどのオープンソースLLMを使用できます。以下にセットアップ手順と活用例を詳しく説明します。
+
+## セットアップ手順
+
+1. **前提条件**
+   - Ollamaのインストール
+   - Docker Desktopのインストール
+
+2. **Open WebUIのインストール**
+   ターミナルで以下のコマンドを実行します：
+   ```bash
+   docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+   ```
+
+3. **起動**
+   ブラウザで `http://localhost:3000` にアクセスし、アカウントを作成してログインします[3]。
+
+## 主な機能と活用例
+
+### 1. ローカルLLMの利用
+Llama 3やMistralなどのオープンソースLLMをローカルで実行できます。これにより、プライバシーを保護しつつ、高度な自然言語処理タスクを実行できます[3]。
+
+### 2. クラウドLLMのAPI連携
+OpenAIのGPT-4 TurboやGroq CloudのLlama 3 70Bなど、クラウド上のLLMもAPIを通して利用可能です[3]。
+
+### 3. RAG（Retrieval-Augmented Generation）機能
+Open WebUIでは、以下の3種類のRAG機能が利用できます：
+
+- URLを情報源として参照
+- ローカルファイルをアップロードして参照
+- データベースに保存された情報を参照[2]
+
+### 4. モデルプリセット
+特定の用途に最適化されたシステムプロンプトをプリセットとして登録し、用途に応じて切り替えることができます[2]。
+
+### 5. チーム内での活用
+Open WebUIをクラウドプロバイダー上でホスティングし、チーム内でAIアシスタントとして活用できます。ユーザー管理機能やアクセス制御機能により、効率的なチーム利用が可能です[4]。
+
+### 6. Artifacts機能
+HTMLやCSS、JavaScriptを使用して、インタラクティブなコンテンツを生成できます。例えば、スライダーで制御可能な円を描画するWebアプリケーションなどを作成できます[1]。
+
+### 7. Web検索機能
+LLMと連携してWeb検索を行い、最新の情報を元に回答を生成することができます[1]。
+
+## 活用のポイント
+
+1. **プライバシー保護**: ローカルLLMを使用することで、機密情報を含むデータも安全に処理できます[3]。
+
+2. **カスタマイズ性**: モデルプリセットを活用し、特定のタスクに特化したAIアシスタントを作成できます[2]。
+
+3. **柔軟な情報源**: RAG機能を使用して、Webページ、ローカルファイル、データベースなど多様な情報源からLLMに知識を提供できます[2]。
+
+4. **チーム協働**: ユーザー管理機能を活用し、チーム内でのAI活用を効率化できます[4]。
+
+Open WebUIは、ローカルLLMの利用からチーム内でのAI活用まで、幅広いニーズに対応できる柔軟なプラットフォームです。継続的な学習と実験を通じて、組織に最適な活用方法を見出すことが重要です。
+
+Citations:
+
+[1] https://singula2045.hatenablog.com/entry/2024/11/10/131855
+[2] https://note.com/catap_art3d/n/n872965e1f12c
+[3] https://notai.jp/open-webui/
+[4] https://automation.jp/research-report/2024-07-25-a-guide-to-llm-evaluation-selection-and-team-deployment-with-open-webui
+[5] https://note.com/tamo2918/n/n94b8561fb70c
+{{</details>}}
+#+end_export
+
+#+begin_export hugo
+{{< carousel images="open=webui/*" aspectRatio="21-9" interval="2500" >}}
+#+end_export
