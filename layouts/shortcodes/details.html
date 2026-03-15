@@ -1,6 +1,21 @@
-<details>
-  <summary>{{ (.Get 0) | markdownify }}</summary>
-  <div class="alert-box alert-info">
-  {{ .Inner | markdownify }}
+{{- /*
+  details.html — Collapsible <details> shortcode
+  Usage:
+    {{< details "Summary text" >}}
+    Inner **markdown** content
+    {{< /details >}}
+
+    {{< details "Open by default" open >}}
+    ...
+    {{< /details >}}
+*/ -}}
+{{- $summary := .Get 0 | default "Details" -}}
+{{- $open    := .Get 1 -}}
+<details{{ if $open }} open{{ end }}>
+  <summary class="cursor-pointer font-semibold">
+    {{- $summary | markdownify -}}
+  </summary>
+  <div class="mt-2 prose dark:prose-invert max-w-none">
+    {{- .Inner | markdownify -}}
   </div>
 </details>

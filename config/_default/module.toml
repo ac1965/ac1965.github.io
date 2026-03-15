@@ -1,3 +1,7 @@
+# -- Hugo Module Configuration --
+# Blowfish requires Hugo 0.141.0 or later.
+# https://blowfish.page/docs/installation/
+
 [hugoVersion]
   extended = false
-  min = "0.87.0"
+  min      = "0.141.0"
