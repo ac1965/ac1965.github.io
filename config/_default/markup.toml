@@ -1,13 +1,15 @@
-# -- Markup --
-# These settings are required for the theme to function.
+# -- Markup Configuration --
+# Required for Blowfish to function correctly.
+# https://gohugo.io/configuration/markup/
 
 [goldmark]
-[goldmark.renderer]
-  unsafe = true
+  [goldmark.renderer]
+    unsafe = true       # Allows raw HTML in Markdown content
 
 [highlight]
-  noClasses = false
+  noClasses = false     # Required for Blowfish syntax highlighting
 
 [tableOfContents]
   startLevel = 2
-  endLevel = 4
+  endLevel   = 4
+  ordered    = false

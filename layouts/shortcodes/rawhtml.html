@@ -1,2 +1,7 @@
-<!-- raw html -->
-{{- .Inner -}}
+{{- /*
+  rawhtml.html — Render raw HTML inside Org/Markdown content.
+  Usage: {{< rawhtml >}}<div>...</div>{{< /rawhtml >}}
+  NOTE: Requires markup.goldmark.renderer.unsafe = true in config.
+        Use sparingly; prefer Markdown or shortcodes where possible.
+*/ -}}
+{{- .Inner | safeHTML -}}
