@@ -1,7 +1,7 @@
 #-*- mode: org -*-
 #+title: Hugo blog source
 #+author: YAMASHITA Takao
-#+Ahugo_base_dir: ./
+#+hugo_base_dir: ./
 
 #+options: ^:{}
 #+hugo_auto_set_lastmod: t
@@ -4169,7 +4169,7 @@ CLOSED: [2024-11-16 Sat 02:25]
 |---------------|--------------------------------------------|
 | M-x           | 拡張コマンドを実行                         |
 
-** TODO 2026年の生成AI、エンジニア的に気になるトレンド3選
+** 2026年の生成AI、エンジニア的に気になるトレンド3選
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2E498C3D-1D1E-4A15-A009-AC02D9BBF0C0
 :EXPORT_DATE: 2026-03-20 16:46:45
