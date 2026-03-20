@@ -4223,3 +4223,148 @@ Gartnerによると、2026年末までに世界の企業の80%以上がGenAI API
 「使うかどうか」の議論はもう終わってて、「いかに使い倒すか」のフェーズに入ってる。実装レベルで対応できるかどうかが、今年のエンジニアとしての市場価値に直結してくる気がしてる。
 
 引き続きキャッチアップしていきたい。
+
+** .emacs.d を Literate Configuration で管理する
+:PROPERTIES:
+:EXPORT_FILE_NAME: 626C0EF7-AA23-4120-9251-E01A0CF78C4A
+:EXPORT_DATE: 2026-03-20 19:19:06
+:EXPORT_HUGO_TAGS: emacs org-mode literate-programming ox-hugo claude-apis
+:EXPORT_HUGO_CATEGORIES: emacs
+:EXPORT_HUGO_LASTMOD:
+:END:
+=README.org= を久しぶりに大きく更新したので、設計の話とあわせて書き残しておく。
+
+** そもそもなんでこんな構成にしたのか
+
+Emacs の設定って放っておくと本当にカオスになる。
+=init.el= に =setq= がだらだら並んで、どれが何のためにあるのか誰もわからない（自分も含めて）。
+
+そこで数年前に全部作り直した。コンセプトはシンプルで、
+
+- 設定をちゃんとエンジニアリングの成果物として扱う
+- どのモジュールを消しても他が壊れない
+- どの環境で起動しても同じ結果になる
+
+この 3 つを最初から保証する構成にしている。
+
+** Literate Configuration
+
+=README.org= が唯一の真実の源泉になっている。
+Emacs Lisp のコードは全部 =README.org= 内の =src= ブロックに書いて、
+=org-babel-tangle= で =lisp/<layer>/<module>.el= に書き出す仕組みだ。
+
+保存時に自動タングルするようにしてあるので、実際の作業フローはほぼ「=README.org= を編集して保存するだけ」になっている。
+
+ドキュメントとコードが同じファイルにあるので「コードはあるけど意図が謎」という状況が生まれない。これが一番の利点だと思っている。
+
+** 階層アーキテクチャ
+
+設定は 10 層に分かれていて、依存は必ず下から上への一方向だけ。
+
+#+begin_example
+early-init → core → ui → auth → completion → orgx → vcs → dev → utils → personal
+#+end_example
+
+=core= が UI に依存してはいけないし、=vcs= が =dev= に依存してもいけない。
+この制約を守ることで、モジュールを消したり差し替えたりしても他が壊れない。
+
+=modules.el= が起動時のオーケストレーションをやっていて、
+モジュールごとにエラートラップをかけながらロードする。
+=my:modules-verbose= を有効にするとモジュールごとの起動時間も出てくるので、
+何が遅いか一目でわかる。
+
+** 最近の更新（2026-03）
+
+今月は結構大きめの追加が 4 本あった。
+
+*** Claude API クライアントを =utils= 層に追加（Fix AL）
+
+=utils/utils-claude.el= として低レベルの HTTP クライアントを作った。
+公開 API は 3 関数だけ。
+
+| 関数 | 役割 |
+|------|------|
+| =utils-claude-get-api-key= | =auth-source= から API キーを取得 |
+| =utils-claude-request-sync= | 同期 POST |
+| =utils-claude-request= | 非同期バリアント（コールバック） |
+
+=utils= 層に置いた理由は、UI にも Org にも依存しない純粋なトランスポート層だから。
+built-in の =url=・=json=・=auth-source= しか使っていないので、どの上位層からでも =require= できる。
+
+=dev= 層にある =aidermacs= や =gptel= とは別物という整理で、
+あっちは「開発ツール」、こっちは「HTTP 配管」という位置づけ。
+
+エラーは =utils-claude-error= という専用シンボルで定義してあって、
+HTTP 非 200・JSON パース失敗・API キー未設定の 3 パターンを =condition-case= でキャッチできる。
+
+*** Org Babel から Claude を呼ぶ（Fix AM）
+
+=utils-claude= の上に、個人ワークフロー用のモジュールを =personal= 層に追加した。
+
+一番おもしろいのは Org Babel 言語として登録したところで、
+
+#+begin_src org
+,#+begin_src claude :system "You are a code reviewer."
+このコードのリファクタリング案を教えてください。
+...
+,#+end_src
+#+end_src
+
+これを =C-c C-c= で評価するとそのままアシスタントの応答が結果に入る。
+=:system=・=:model=・=:tokens= ヘッダ引数もサポートしている。
+
+インタラクティブコマンドも 3 本追加した。
+
+| コマンド | 動作 |
+|----------|------|
+| =my/claude-refactor-defun= | カーソル位置の =defun= をリファクタリング依頼 |
+| =my/claude-complete-docstring= | =defun= の docstring を生成 |
+| =my/claude-analyze-require-graph= | バッファの =require= グラフを分析して上向き依存を検出 |
+
+=personal= 層に置いたのは、これが完全に個人的なワークフロー選択だから。
+共有モジュールのロード順に影響を与えてはいけないという原則もある。
+
+*** ブログ記事キャプチャテンプレート（Fix AN）
+
+=C-c c b= で新しい記事のスケルトンを作れるようにした。
+
+ox-hugo のサブツリーエクスポートは =* blog= 直下にエントリがないと動かないので、
+テンプレートのターゲットを =(file+olp my:f:capture-blog-file "blog")= にしてある。
+
+プロパティドロワーは自動で埋まる。
+
+| プロパティ | 値 |
+|-----------|-----|
+| =EXPORT_FILE_NAME= | UUID（=org-id-new=） |
+| =EXPORT_DATE= | 現在時刻 |
+| =EXPORT_HUGO_TAGS= | インタラクティブ入力 |
+| =EXPORT_HUGO_CATEGORIES= | インタラクティブ入力 |
+| =EXPORT_HUGO_LASTMOD= | 空（ox-hugo がエクスポート時に補完） |
+
+デフォルトの =blog.org= は実際には存在しないので、
+=personal/ac1965.el= で =my:f:capture-blog-file= を =all-posts.org= にオーバーライドしている。
+これをやらないとキャプチャ時に =org-find-olp: Heading not found= が出る。
+
+*** 保存時に自動で ox-hugo エクスポート（Fix AO）
+
+=orgx/orgx-auto-hugo.el= を追加して、=all-posts.org= を保存したら
+=org-hugo-export-wim-to-md :all-subtrees= が自動で走るようにした。
+
+=orgx-auto-tangle.el= と同じパターンで実装している。
+
+- *適格性述語* =orgx-auto-hugo--eligible-p=: =file-truename= でシンボリックリンクも解決
+- *ガードフラグ* =defvar-local orgx-auto-hugo--in-progress=: ox-hugo が内部でバッファ保存を再トリガーして無限ループになるのを防ぐ
+- *ワーカー* =orgx-auto-hugo--maybe=: =condition-case= 内で実行
+- *フック登録* =orgx-auto-hugo--install-hook=: =org-mode-hook= からバッファローカルに =after-save-hook= を設置
+
+これで「=C-c c b= でスケルトン作成 → 書く → 保存」だけで Hugo へのエクスポートまで完結するようになった。この記事もそのフローで書いている。
+
+** まとめ
+
+今月の更新で、Emacs の中で Claude を使う基盤（=utils-claude=）と、
+それを使った個人ワークフロー（=personal-ai=）、
+そしてブログ執筆のゼロフリクションなフロー（キャプチャ + 自動エクスポート）が揃った。
+
+Literate Configuration + 階層アーキテクチャは最初の構築コストが高いけど、
+長期間使い続けるならやって正解だったと思っている。
+「Emacs 設定が育てにくい」と感じている人の参考になれば。
