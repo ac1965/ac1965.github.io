@@ -7,7 +7,7 @@ IFS=$'\n\t'
 # ─────────────────────────────────────────
 # Configuration
 # ─────────────────────────────────────────
-ICLOUD_USE="${ICLOUD_USE:-${HOME}/Documents/devel/repos}"
+ICLOUD_USE="${ICLOUD_USE:-${HOME}/Projects}"
 HUGO_DIR="${ICLOUD_USE}/mysite"
 PUBLIC_DIR="${ICLOUD_USE}/deploy"
 COVER_SRC_DIR="${HUGO_DIR}/assets/img/cover"
