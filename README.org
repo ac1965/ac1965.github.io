@@ -1,0 +1,266 @@
+#+TITLE: No Good Father
+#+AUTHOR: YAMASHITA, Takao
+#+DESCRIPTION: Hugo + Blowfish テーマで構築された個人ブログ
+#+OPTIONS: toc:t num:nil ^:nil
+
+#+begin_quote
+[[https://gohugo.io/][Hugo]] + [[https://blowfish.page/][Blowfish]] テーマで構築された個人ブログ
+
+Emacs の [[https://orgmode.org/][Org-mode]] と [[https://ox-hugo.scripter.co/][ox-hugo]] により記事を作成
+#+end_quote
+
+* 目次                                                              :TOC_2:
+- [[#requirements][Requirements]]
+- [[#installation][Installation]]
+- [[#submodule-管理][Submodule 管理]]
+- [[#writing-workflow][Writing Workflow]]
+- [[#local-development][Local Development]]
+- [[#configuration][Configuration]]
+- [[#deploy][Deploy]]
+
+* Requirements
+:PROPERTIES:
+:CUSTOM_ID: requirements
+:END:
+
+| ツール  | バージョン        | 備考                    |
+|---------+------------------+-------------------------|
+| [[https://gohugo.io/installation/][Hugo]]    | ≥ 0.141.0 extended | ~brew install hugo~   |
+| [[https://git-scm.com/][Git]]     | 任意             | submodule 管理用        |
+| [[https://www.gnu.org/software/emacs/][Emacs]]   | ≥ 29             | 記事執筆用              |
+| [[https://ox-hugo.scripter.co/][ox-hugo]] | 最新             | Org → Hugo Markdown     |
+| [[https://github.com/mermaid-js/mermaid-cli][mmdc]]    | 任意             | Mermaid 図の生成        |
+
+* Installation
+:PROPERTIES:
+:CUSTOM_ID: installation
+:END:
+
+** 1. Hugo サイトの作成
+
+#+begin_src bash
+hugo new site mysite
+cd mysite
+git init
+#+end_src
+
+** 2. Blowfish テーマを submodule として追加
+
+#+begin_src bash
+git submodule add -b main https://github.com/nunocoracao/blowfish.git themes/blowfish
+#+end_src
+
+** 3. テーマ設定ファイルのコピー
+
+#+begin_src bash
+cp themes/blowfish/config/_default/* config/_default/
+#+end_src
+
+** 4. Emacs パッケージのインストール
+
+~straight.el~ を利用（~orgx/orgx-export.el~ で設定済み）
+
+#+begin_src emacs-lisp
+M-x straight-pull-all
+#+end_src
+
+ox-hugo がロードされていることを確認
+
+#+begin_src emacs-lisp
+M-: (featurep 'ox-hugo)  ; => t
+#+end_src
+
+* Submodule 管理
+:PROPERTIES:
+:CUSTOM_ID: submodule-管理
+:END:
+
+Blowfish テーマは Git submodule として管理されています。
+リポジトリを clone した直後や、テーマ更新時は以下を実行します。
+
+** 初回 clone 時（submodule を含める）
+
+#+begin_src bash
+git clone --recursive https://github.com/<your-repo>.git
+cd <your-repo>
+#+end_src
+
+すでに clone 済みの場合：
+
+#+begin_src bash
+git submodule update --init --recursive
+#+end_src
+
+** Submodule を最新に更新
+
+Blowfish テーマを upstream の最新に更新する場合：
+
+#+begin_src bash
+git submodule update --remote --merge themes/blowfish
+#+end_src
+
+更新後は必ずコミットします：
+
+#+begin_src bash
+git add themes/blowfish
+git commit -m "chore: update blowfish theme"
+#+end_src
+
+** すべての submodule を更新
+
+#+begin_src bash
+git submodule update --remote --recursive
+#+end_src
+
+** Submodule 状態確認
+
+#+begin_src bash
+git submodule status
+#+end_src
+
+** Submodule を強制的に同期
+
+リモートURL変更などがあった場合：
+
+#+begin_src bash
+git submodule sync --recursive
+git submodule update --init --recursive
+#+end_src
+
+** よくあるトラブル対処
+
+submodule が壊れた場合：
+
+#+begin_src bash
+git submodule deinit -f themes/blowfish
+rm -rf .git/modules/themes/blowfish
+git submodule update --init --recursive
+#+end_src
+
+* Writing Workflow
+:PROPERTIES:
+:CUSTOM_ID: writing-workflow
+:END:
+
+すべての記事は *Org-mode* で作成し、ox-hugo により Markdown へ変換されます。
+
+** ディレクトリ構成
+
+#+begin_example
+content-org/
+├── about.org
+└── posts/
+    └── my-post.org
+
+content/ (ox-hugo により生成・手動編集しない)
+├── about/
+│   └── index.md
+└── post/
+    └── my-post/
+        └── index.md
+#+end_example
+
+** Org ファイル Front Matter 例
+
+#+begin_src org
+,#+TITLE: My Post Title
+,#+DATE: <2026-03-15>
+,#+HUGO_BASE_DIR: <HUGO_BASE_DIR>
+,#+HUGO_SECTION: post
+,#+HUGO_TAGS: hugo emacs
+,#+HUGO_CATEGORIES: tech
+#+end_src
+
+** Export コマンド
+
+| 操作               | キーバインド    | 説明                        |
+|--------------------+-----------------+-----------------------------|
+| 新規投稿作成       | ~C-c c b~       | org-capture で投稿作成      |
+| サブツリー export  | ~C-c C-e H H~   | 現在 subtree を export      |
+| 全体 export        | ~C-c C-e H A~   | Org ファイル全体 export     |
+
+* Local Development
+:PROPERTIES:
+:CUSTOM_ID: local-development
+:END:
+
+** 開発サーバ起動（draft 含む）
+
+#+begin_src bash
+hugo server --buildDrafts --disableFastRender
+#+end_src
+
+Open: [[http://localhost:1313]]
+
+** Blowfish テーマ更新
+
+#+begin_src bash
+git submodule update --remote --merge themes/blowfish
+git add themes/blowfish
+git commit -m "chore: update blowfish theme"
+#+end_src
+
+** よく使う Hugo コマンド
+
+#+begin_src bash
+# 本番ビルド
+hugo
+
+# リンクチェック
+hugo --gc --minify
+
+# バージョン確認
+hugo version
+#+end_src
+
+* Configuration
+:PROPERTIES:
+:CUSTOM_ID: configuration
+:END:
+
+設定ファイルは ~config/_default/~ に配置
+
+| ファイル              | 用途                              |
+|-----------------------+-----------------------------------|
+| ~hugo.toml~           | サイト全体設定                    |
+| ~params.toml~         | Blowfish テーマ設定               |
+| ~languages.en.toml~   | 言語・著者情報                    |
+| ~menus.en.toml~       | ナビゲーション                    |
+| ~markup.toml~         | Markdown / syntax highlight       |
+| ~module.toml~         | Hugo module                       |
+
+* Deploy
+:PROPERTIES:
+:CUSTOM_ID: deploy
+:END:
+
+** GitHub Actions
+
+#+begin_src yaml
+# .github/workflows/deploy.yml
+- uses: actions/checkout@v4
+  with:
+    submodules: true
+    fetch-depth: 0
+
+- name: Setup Hugo
+  uses: peaceiris/actions-hugo@v3
+  with:
+    hugo-version: '0.157.0'
+    extended: true
+
+- name: Build
+  run: hugo --minify
+#+end_src
+
+** 手動ビルド
+
+#+begin_src bash
+hugo --minify
+# 出力先: ./public/
+#+end_src
+
+* License
+
+Content © YAMASHITA, Takao. All rights reserved.
+Theme: [[https://github.com/nunocoracao/blowfish][Blowfish]] — MIT License.
