@@ -1,6 +1,7 @@
 # No Good Father
 
 > [Hugo](https://gohugo.io/) + [Blowfish](https://blowfish.page/) テーマで構築された個人ブログ
+
 > Emacs の [Org-mode](https://orgmode.org/) と [ox-hugo](https://ox-hugo.scripter.co/) により記事を作成
 
 
@@ -8,9 +9,9 @@
 
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Submodule 管理](#submodule-管理)
 - [Writing Workflow](#writing-workflow)
 - [Local Development](#local-development)
-- [Submodule 管理](#submodule-管理)
 - [Configuration](#configuration)
 - [Deploy](#deploy)
 
@@ -60,78 +61,6 @@ ox-hugo がロードされていることを確認
 
 ```
 M-: (featurep 'ox-hugo)  ; => t
-```
-
-
-## Writing Workflow
-
-すべての記事は **Org-mode** で作成し、ox-hugo により Markdown へ変換されます。
-
-### ディレクトリ構成
-
-```
-content-org/
-├── about.org
-└── posts/
-    └── my-post.org       ← ここに執筆
-
-content/                  ← ox-hugo により生成（手動編集しない）
-├── about/
-│   └── index.md
-└── post/
-    └── my-post/
-        └── index.md
-```
-
-### Org ファイル Front Matter 例
-
-```org
-#+TITLE: My Post Title
-#+DATE: <2026-03-15>
-#+HUGO_BASE_DIR: <HUGO_BASE_DIR>
-#+HUGO_SECTION: post
-#+HUGO_TAGS: hugo emacs
-#+HUGO_CATEGORIES: tech
-```
-
-### Export コマンド
-
-| 操作           | キーバインド        | 説明                  |
-|  | - | - |
-| 新規投稿作成       | `C-c c b`     | org-capture で投稿作成   |
-| サブツリー export | `C-c C-e H H` | 現在 subtree を export |
-| 全体 export    | `C-c C-e H A` | Org ファイル全体 export   |
-
-
-## Local Development
-
-### 開発サーバ起動（draft 含む）
-
-```bash
-hugo server --buildDrafts --disableFastRender
-```
-
-Open: [http://localhost:1313](http://localhost:1313)
-
-### Blowfish テーマ更新
-
-```bash
-git submodule update --remote --merge themes/blowfish
-git add themes/blowfish
-git commit -m "chore: update blowfish theme"
-```
-
-### よく使う Hugo コマンド
-
-```bash
-# 本番ビルド
-hugo
-
-# リンクチェック
-hugo --gc --minify
-
-# バージョン確認
-hugo version
 ```
 
 
@@ -197,6 +126,78 @@ submodule が壊れた場合：
 git submodule deinit -f themes/blowfish
 rm -rf .git/modules/themes/blowfish
 git submodule update --init --recursive
+```
+
+
+## Writing Workflow
+
+すべての記事は **Org-mode** で作成し、ox-hugo により Markdown へ変換されます。
+
+### ディレクトリ構成
+
+```
+content-org/
+├── about.org
+└── posts/
+    └── my-post.org
+
+content/ (ox-hugo により生成・手動編集しない)
+├── about/
+│   └── index.md
+└── post/
+    └── my-post/
+        └── index.md
+```
+
+### Org ファイル Front Matter 例
+
+```org
+#+TITLE: My Post Title
+#+DATE: <2026-03-15>
+#+HUGO_BASE_DIR: <HUGO_BASE_DIR>
+#+HUGO_SECTION: post
+#+HUGO_TAGS: hugo emacs
+#+HUGO_CATEGORIES: tech
+```
+
+### Export コマンド
+
+| 操作           | キーバインド        | 説明                  |
+|  | - | - |
+| 新規投稿作成       | `C-c c b`     | org-capture で投稿作成   |
+| サブツリー export | `C-c C-e H H` | 現在 subtree を export |
+| 全体 export    | `C-c C-e H A` | Org ファイル全体 export   |
+
+
+## Local Development
+
+### 開発サーバ起動（draft 含む）
+
+```bash
+hugo server --buildDrafts --disableFastRender
+```
+
+Open: [http://localhost:1313](http://localhost:1313)
+
+### Blowfish テーマ更新
+
+```bash
+git submodule update --remote --merge themes/blowfish
+git add themes/blowfish
+git commit -m "chore: update blowfish theme"
+```
+
+### よく使う Hugo コマンド
+
+```bash
+# 本番ビルド
+hugo
+
+# リンクチェック
+hugo --gc --minify
+
+# バージョン確認
+hugo version
 ```
 
 
