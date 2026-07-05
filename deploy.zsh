@@ -60,6 +60,28 @@ cover_month() {
 	esac
 }
 
+# 記事のfront matterから公開月（MM）を取得する。
+# YAML (`date: 2026-01-05T...`) / TOML (`date = 2026-01-05T...`) の
+# どちらの記法にも対応。date/publishDateどちらのキーも許容。
+# front matterに日付が無い・パースできない場合は実行時点の月にフォールバックする。
+post_month() {
+	local md_file="${1}"
+	local date_line month
+
+	date_line="$(grep -m1 -E '^(date|publishDate)[[:space:]]*[:=]' "${md_file}" 2>/dev/null || true)"
+
+	if [[ -n "${date_line}" ]]; then
+		month="$(echo "${date_line}" | grep -oE '[0-9]{4}-[0-9]{2}' | head -1 | cut -d'-' -f2)"
+	fi
+
+	if [[ -z "${month:-}" ]]; then
+		month="$(date +%m)"
+		warn "  ${md_file:t}: front matterにdateが見つからないため実行時月(${month})にフォールバック" >&2
+	fi
+
+	echo "${month}"
+}
+
 require_cmd() {
 	command -v "${1}" &>/dev/null || abort "'${1}' is not installed or not in PATH."
 }
@@ -113,19 +135,15 @@ place_covers() {
 
 	step "Placing cover images"
 
-	local current_month cover_group cover_file
-	current_month="$(date +%m)"
-	cover_group="$(cover_month "${current_month}")"
-	cover_file="${COVER_SRC_DIR}/${cover_group}.${COVER_EXT}"
-
-	[[ -f "${cover_file}" ]] || abort "Cover source not found: ${cover_file}"
-	info "Using cover: ${cover_file}"
+	# グループごとのカバーファイルパスをキャッシュ（同じグループを何度も
+	# ディスクチェックしないための連想配列。zshネイティブ）
+	local -A cover_cache
 
 	# zshネイティブのグロブでmdファイルを配列取得（bashのfind+read -d''をglob修飾子に置換）
 	local -a md_files
 	md_files=("${CONTENT_POST_DIR}"/*.md(N))
 
-	local md_file post_name post_dir
+	local md_file post_name post_dir month cover_group cover_file
 	local -a existing_covers
 	for md_file in "${md_files[@]}"; do
 		post_name="${md_file:t:r}"   # basename、拡張子除去（zsh modifier）
@@ -137,10 +155,23 @@ place_covers() {
 		# Copy cover only if none exists (any extension)
 		# nullglob設定済みなので、マッチなしなら空配列になる
 		existing_covers=("${post_dir}"/cover.*(N))
-		if (( ${#existing_covers[@]} == 0 )); then
-			cp "${cover_file}" "${post_dir}/cover.${COVER_EXT}"
-			info "  Added cover → ${post_dir}/cover.${COVER_EXT}"
+		if (( ${#existing_covers[@]} > 0 )); then
+			continue
 		fi
+
+		# 記事自身の公開月からカバーグループを決定（deploy実行月ではない）
+		month="$(post_month "${md_file}")"
+		cover_group="$(cover_month "${month}")"
+
+		if [[ -z "${cover_cache[${cover_group}]:-}" ]]; then
+			cover_file="${COVER_SRC_DIR}/${cover_group}.${COVER_EXT}"
+			[[ -f "${cover_file}" ]] || abort "Cover source not found: ${cover_file}"
+			cover_cache[${cover_group}]="${cover_file}"
+		fi
+		cover_file="${cover_cache[${cover_group}]}"
+
+		cp "${cover_file}" "${post_dir}/cover.${COVER_EXT}"
+		info "  ${post_name} (${month}月) → cover group ${cover_group} 適用"
 	done
 }
 
