@@ -31,7 +31,7 @@ readonly SCRIPT_NAME="${0:t}"
 # ICLOUD_USE: サイトルート（mysite/, deploy/ の親ディレクトリ）
 #   デフォルト: ${HOME}/Projects
 #   カレントディレクトリを使う場合の例:
-#     ICLOUD_USE="$(pwd)" ./deploy.zsh.sh
+#     ICLOUD_USE="$(pwd)" mysite/deploy.zsh.sh
 #     または実行前に export ICLOUD_USE="${PWD}"
 readonly ICLOUD_USE="${ICLOUD_USE:-${HOME}/Projects}"
 readonly HUGO_DIR="${ICLOUD_USE}/mysite"
