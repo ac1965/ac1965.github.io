@@ -16,6 +16,7 @@ Emacs の [[https://orgmode.org/][Org-mode]] と [[https://ox-hugo.scripter.co/]
 - [[#writing-workflow][Writing Workflow]]
 - [[#local-development][Local Development]]
 - [[#configuration][Configuration]]
+- [[#blowfish-テーマについて][Blowfish テーマについて]]
 - [[#deploy][Deploy]]
 
 * Requirements
@@ -278,6 +279,50 @@ hugo version
 | ~markup.toml~         | Markdown / syntax highlight       |
 | ~module.toml~         | Hugo module（バージョン要件のみ、Hugo Modules 自体は未使用） |
 
+* Blowfish テーマについて
+:PROPERTIES:
+:CUSTOM_ID: blowfish-テーマについて
+:END:
+
+[[https://blowfish.page/][Blowfish]] は [[https://nunocoracao.github.io/][Nuno Coração]] が開発する
+Hugo 向けの高機能テーマ。本サイトでは ~themes/blowfish~ に Git submodule として
+組み込んでいます（導入・更新手順は [[#submodule-管理][Submodule 管理]] を参照）。
+
+** リンク
+
+| 用途           | URL                                                           |
+|----------------+----------------------------------------------------------------|
+| 公式サイト     | [[https://blowfish.page/]]                                    |
+| ドキュメント   | [[https://blowfish.page/docs/]]                                |
+| GitHub リポジトリ | [[https://github.com/nunocoracao/blowfish]]                 |
+| Changelog      | [[https://github.com/nunocoracao/blowfish/releases]]           |
+
+** バージョン運用上の注意
+
+Blowfish は明示的な SemVer タグを切らず、~main~ ブランチへの直接コミットを
+リリースとして扱う運用です。そのため本リポジトリの ~.gitmodules~ でも
+タグではなく ~branch = main~ を追跡しています。
+
+- 「最新版」を取り込む＝~main~ の最新コミットを取り込むことを意味し、
+  タグ固定によるロールバック起点が無い点に注意（切り戻し手順は
+  [[#submodule-管理][Submodule 管理]] の更新手順内に記載）
+- 最低 Hugo バージョンは ~themes/blowfish/config/_default/module.toml~ の
+  ~min~ で管理される。更新の都度、ローカルとCI（[[#deploy][Deploy]] の
+  ~hugo-version~）の両方を追随させる必要がある
+
+** 本サイトで使用している主な機能
+
+| 機能                      | 設定/実体                                        |
+|---------------------------+---------------------------------------------------|
+| カラースキーム・レイアウト | ~config/_default/params.toml~                     |
+| 記事カバー画像            | 各記事ディレクトリの ~cover.*~（~deploy.zsh~ が自動配置） |
+| ~carousel~ 等の shortcode | ~themes/blowfish/layouts/shortcodes/~ 内蔵ショートコード |
+| 多言語設定の土台          | ~config/_default/languages.en.toml~（英語のみ運用） |
+
+新しい Blowfish の機能（追加ショートコード・新規 params 項目など）を使う場合は、
+テーマ更新後に ~themes/blowfish/exampleSite/~ 配下のサンプル設定を参照すると
+該当する ~params.toml~ のキーを確認しやすい。
+
 * Deploy
 :PROPERTIES:
 :CUSTOM_ID: deploy
@@ -312,6 +357,53 @@ hugo version
 hugo --minify
 # 出力先: ./public/
 #+end_src
+
+** deploy.zsh（ローカルからの手動デプロイ）
+
+GitHub Actions とは別に、ローカル環境から直接デプロイするための zsh スクリプト
+~deploy.zsh~ を用意しています。カバー画像の自動配置・ビルド・公開用ディレクトリへの
+同期・コミット & push までを一括で行います。
+
+*** 使い方
+
+#+begin_src bash
+# ICLOUD_USE 未指定時のデフォルト（${HOME}/Projects）で実行
+./deploy.zsh
+
+# サイトルート（mysite/, deploy/ の親ディレクトリ）を明示的に指定する例
+ICLOUD_USE=~/Documents/Projects ./deploy.zsh
+
+# カレントディレクトリをサイトルートとして使う場合
+ICLOUD_USE="$(pwd)" ./deploy.zsh
+#+end_src
+
+*** オプション
+
+| オプション       | 説明                                                        |
+|------------------+---------------------------------------------------------------|
+| ~--dry-run~      | Hugo ビルドまで実行し、~rsync~ 同期と ~git push~ の両方をスキップする |
+| ~--skip-cover~   | カバー画像の自動配置をスキップする                           |
+| ~--help~ / ~-h~  | 使い方を表示                                                 |
+
+*** 処理の流れ
+
+1. *Pre-flight checks* — ~hugo~ / ~git~ / ~rsync~ の存在と、
+   ~HUGO_DIR~・~PUBLIC_DIR~（いずれも ~ICLOUD_USE~ 配下）の存在を確認
+2. *Placing cover images* — カバー未設定の記事に、front matter の
+   ~date~／~publishDate~ から読み取った公開月ベースでカバー画像を配置
+   （冪等: 既存の ~cover.*~ があるものは上書きしない。同一カバーグループの
+   ファイルパスはキャッシュし、記事ごとに再チェックしない）
+3. *Building site with Hugo* — ~public/~ を作り直して ~hugo --minify~
+   （~--dry-run~ 指定時はここで終了し、以降の同期・pushは実行されない）
+4. *Syncing to deploy directory* — ~rsync -a --delete --checksum~ で
+   ビルド成果物を ~PUBLIC_DIR~ に同期
+5. *Committing and pushing* — ~PUBLIC_DIR~ 側で差分があれば
+   ~git add --all~ → commit → push
+
+途中でエラーが出た場合、実行は各ステップの ~abort~ で即座に中断されます
+（~set -euo pipefail~）。~carousel~ shortcode 未検出のようなビルドエラーは
+[[#submodule-管理][Submodule 管理]] の「Blowfish テーマを最新に更新する手順」で
+案内している設定差分確認が漏れているケースが多いので、あわせて確認してください。
 
 * License
 
