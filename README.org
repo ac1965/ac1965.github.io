@@ -56,6 +56,9 @@ git submodule add -b main https://github.com/nunocoracao/blowfish.git themes/blo
 cp themes/blowfish/config/_default/* config/_default/
 #+end_src
 
+このコピーは初回セットアップ時のみです。テーマ更新時の設定反映は
+[[#submodule-管理][Submodule 管理]] を参照してください。
+
 ** 4. Emacs パッケージのインストール
 
 ~straight.el~ を利用（~orgx/orgx-export.el~ で設定済み）
@@ -75,7 +78,8 @@ M-: (featurep 'ox-hugo)  ; => t
 :CUSTOM_ID: submodule-管理
 :END:
 
-Blowfish テーマは Git submodule として管理されています。
+Blowfish テーマは Git submodule として管理されています（~.gitmodules~ で
+~branch = main~ を追跡。Hugo Modules（~go.mod~）は使用していません）。
 リポジトリを clone した直後や、テーマ更新時は以下を実行します。
 
 ** 初回 clone 時（submodule を含める）
@@ -91,19 +95,70 @@ cd <your-repo>
 git submodule update --init --recursive
 #+end_src
 
-** Submodule を最新に更新
+** Blowfish テーマを最新に更新する手順
 
-Blowfish テーマを upstream の最新に更新する場合：
+Blowfish は Semantic Versioning のタグを切らず ~main~ ブランチを直接追跡する
+運用のため、更新時は「取得して終わり」ではなく以下の順番で確認します。
+
+*** 1. 現在のバージョンを記録（切り戻し用）
+
+#+begin_src bash
+git -C themes/blowfish rev-parse HEAD > /tmp/blowfish-before.rev
+#+end_src
+
+*** 2. submodule を最新に更新
 
 #+begin_src bash
 git submodule update --remote --merge themes/blowfish
 #+end_src
 
-更新後は必ずコミットします：
+*** 3. 設定ファイルの差分を確認
+
+テーマ側 ~config/_default/~ に新しいキーが増えていないか必ず diff します。
+差分があれば自サイトの ~config/_default/~ に手動でマージしてください
+（上書きコピーはしないこと。ローカルのカスタマイズが失われます）。
 
 #+begin_src bash
-git add themes/blowfish
+diff -ru config/_default/ themes/blowfish/config/_default/
+#+end_src
+
+*** 4. Hugo バージョン要件を確認
+
+~themes/blowfish/config/_default/module.toml~ の ~min~ が上がっていないか
+確認し、上がっていればローカルの Hugo と CI 側を両方追随させます。
+
+#+begin_src bash
+cat themes/blowfish/config/_default/module.toml
+hugo version
+#+end_src
+
+CI（~.github/workflows/deploy.yml~）の ~hugo-version:~ もこの値に合わせて
+更新すること（[[#deploy][Deploy]] 参照）。ここがズレると、ローカルでは
+ビルドできるのに CI だけ失敗する事態になります。
+
+*** 5. ローカルビルドで検証してからコミット
+
+#+begin_src bash
+hugo server --buildDrafts --disableFastRender
+#+end_src
+
+- ~failed to extract shortcode~ 等のエラーが出ないこと
+- WARN の deprecated 設定キーが増えていないこと（出ていれば
+  [[#configuration][Configuration]] のファイルを合わせて修正）
+
+問題なければコミットします：
+
+#+begin_src bash
+git add themes/blowfish config/_default
 git commit -m "chore: update blowfish theme"
+#+end_src
+
+問題があれば、記録しておいた commit に戻します：
+
+#+begin_src bash
+cd themes/blowfish && git checkout $(cat /tmp/blowfish-before.rev) && cd ../..
+git add themes/blowfish
+git commit -m "revert: rollback blowfish theme update"
 #+end_src
 
 ** すべての submodule を更新
@@ -192,13 +247,7 @@ hugo server --buildDrafts --disableFastRender
 
 Open: [[http://localhost:1313]]
 
-** Blowfish テーマ更新
-
-#+begin_src bash
-git submodule update --remote --merge themes/blowfish
-git add themes/blowfish
-git commit -m "chore: update blowfish theme"
-#+end_src
+テーマ（Blowfish）の更新手順は [[#submodule-管理][Submodule 管理]] に統一しています。
 
 ** よく使う Hugo コマンド
 
@@ -227,7 +276,7 @@ hugo version
 | ~languages.en.toml~   | 言語・著者情報                    |
 | ~menus.en.toml~       | ナビゲーション                    |
 | ~markup.toml~         | Markdown / syntax highlight       |
-| ~module.toml~         | Hugo module                       |
+| ~module.toml~         | Hugo module（バージョン要件のみ、Hugo Modules 自体は未使用） |
 
 * Deploy
 :PROPERTIES:
@@ -252,6 +301,10 @@ hugo version
 - name: Build
   run: hugo --minify
 #+end_src
+
+~hugo-version~ はテーマ更新時に上がった ~module.toml~ の ~min~ 要件に
+必ず追随させること（[[#submodule-管理][Submodule 管理]] 参照）。放置すると
+ローカルビルドは通るのに CI だけ失敗する原因になります。
 
 ** 手動ビルド
 
