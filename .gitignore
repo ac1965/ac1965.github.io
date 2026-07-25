@@ -1,3 +1,6 @@
+# iCloud/Dropbox等の同期競合コピー対策
+* [0-9].*
+
 public
 content/post
 .hugo_build.lock
