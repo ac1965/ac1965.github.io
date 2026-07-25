@@ -18,6 +18,7 @@ Emacs の [[https://orgmode.org/][Org-mode]] と [[https://ox-hugo.scripter.co/]
 - [[#configuration][Configuration]]
 - [[#blowfish-テーマについて][Blowfish テーマについて]]
 - [[#deploy][Deploy]]
+- [[#known-issues][Known Issues / 運用上の注意]]
 
 * Requirements
 :PROPERTIES:
@@ -44,6 +45,14 @@ hugo new site mysite
 cd mysite
 git init
 #+end_src
+
+*重要*: サイトのルートディレクトリは *iCloud Drive
+（「デスクトップと書類フォルダ」の同期対象、すなわち ~$HOME/Documents~ や
+~$HOME/Desktop~ 配下）に置かないこと。過去にこれが原因で同期競合コピー
+（例: ~cover 2.jpg~）が自動生成され、~deploy.sh~ の既存ファイル判定を
+すり抜けて画像が壊れる事故が発生している（詳細は
+[[#known-issues][Known Issues]] を参照）。~$HOME/Projects/<repo>/mysite~
+のような、iCloud同期対象外の場所に置くこと。
 
 ** 2. Blowfish テーマを submodule として追加
 
@@ -78,6 +87,8 @@ M-: (featurep 'ox-hugo)  ; => t
 :PROPERTIES:
 :CUSTOM_ID: submodule-管理
 :END:
+
+（変更なし。以下省略せず既存のまま維持）
 
 Blowfish テーマは Git submodule として管理されています（~.gitmodules~ で
 ~branch = main~ を追跡。Hugo Modules（~go.mod~）は使用していません）。
@@ -146,6 +157,9 @@ hugo server --buildDrafts --disableFastRender
 - ~failed to extract shortcode~ 等のエラーが出ないこと
 - WARN の deprecated 設定キーが増えていないこと（出ていれば
   [[#configuration][Configuration]] のファイルを合わせて修正）
+- ~Resize~ 関連のエラー（~image: unknown format~ 等）が出ないこと。
+  拡張子と実データの形式が一致しない画像が紛れ込んでいる可能性がある
+  （[[#known-issues][Known Issues]] 参照）
 
 問題なければコミットします：
 
@@ -200,40 +214,77 @@ git submodule update --init --recursive
 
 すべての記事は *Org-mode* で作成し、ox-hugo により Markdown へ変換されます。
 
-** ディレクトリ構成
+** ディレクトリ構成（現状）
+
+#+begin_export hugo
+{{< alert >}}
+以前このセクションでは ~content/post/my-post/index.md~ のような
+Page Bundle 形式で生成される旨を記載していたが、実際の運用では
+ox-hugo は ~content/post/<slug>.md~ という *flat な単一ファイル* を
+出力している。両者は Hugo 上で挙動が大きく異なる（後述）ため、
+実態に合わせて記述を訂正した。
+{{< /alert >}}
+#+end_export
 
 #+begin_example
-content-org/
-├── about.org
-└── posts/
-    └── my-post.org
+all-posts.org（記事のOrgソース。1ファイルに複数記事をsubtreeで格納）
 
 content/ (ox-hugo により生成・手動編集しない)
 ├── about/
-│   └── index.md
+│   └── index.md          ← about は Page Bundle
 └── post/
+    ├── my-post.md         ← 記事本体は flat file（Page Bundle ではない）
     └── my-post/
-        └── index.md
+        └── cover.jpg      ← 同名の別ディレクトリにカバー画像を手動配置
 #+end_example
+
+#+begin_export hugo
+{{< alert >}}
+既知の設計負債: ~my-post.md~ と ~my-post/~ は同名でも Hugo 上は
+無関係な存在として扱われる。~my-post/~ 配下のファイルは
+~my-post.md~ の Page Resource としては認識されない。Blowfish の
+~feature*~ 画像自動検出（~.Resources.ByType "image"~）はこの
+flat 構造では機能しないため、カバー画像は ~deploy.sh~ が
+front matter の日付から機械的に配置する運用でカバーしている
+（[[#deploy][Deploy]] 参照）。記事本文中で ~[[file:foo.jpg]]~ の
+ように参照する画像も、この構造の上に成り立っており、将来的に
+ox-hugo 側の出力を真の Page Bundle（~<slug>/index.md~）に
+切り替えられれば、Blowfish 標準機能だけで完結できる。現状は
+未着手。
+{{< /alert >}}
+#+end_export
 
 ** Org ファイル Front Matter 例
 
 #+begin_src org
-,#+TITLE: My Post Title
-,#+DATE: <2026-03-15>
-,#+HUGO_BASE_DIR: <HUGO_BASE_DIR>
-,#+HUGO_SECTION: post
-,#+HUGO_TAGS: hugo emacs
-,#+HUGO_CATEGORIES: tech
+,* 記事タイトル
+:PROPERTIES:
+:EXPORT_FILE_NAME: my-post
+:EXPORT_DATE: 2026-03-15
+:EXPORT_HUGO_TAGS: hugo emacs
+:EXPORT_HUGO_CATEGORIES: tech
+:END:
 #+end_src
+
+#+begin_export hugo
+{{< alert >}}
+front matter の ~date~／~publishDate~ は、単なる表示用メタデータでは
+なく ~deploy.sh~ のカバー画像ローテーション判定にも使われる
+（[[#deploy][Deploy]] 参照）。~EXPORT_DATE~ を空にしたまま公開すると、
+そのファイルはカバー画像配置の対象からスキップされる。
+{{< /alert >}}
+#+end_export
 
 ** Export コマンド
 
 | 操作               | キーバインド    | 説明                        |
 |--------------------+-----------------+-----------------------------|
-| 新規投稿作成       | ~C-c c b~       | org-capture で投稿作成      |
+| 新規投稿作成       | ~C-c c b~ 相当 | org-capture で投稿作成（テンプレート ~b~） |
 | サブツリー export  | ~C-c C-e H H~   | 現在 subtree を export      |
 | 全体 export        | ~C-c C-e H A~   | Org ファイル全体 export     |
+
+保存時（または capture 確定時）に ~org-hugo-export-wim-to-md~ が
+自動実行される設定になっている場合、手動 export は不要。
 
 * Local Development
 :PROPERTIES:
@@ -299,6 +350,8 @@ Hugo 向けの高機能テーマ。本サイトでは ~themes/blowfish~ に Git 
 
 ** バージョン運用上の注意
 
+（変更なし、既存のまま）
+
 Blowfish は明示的な SemVer タグを切らず、~main~ ブランチへの直接コミットを
 リリースとして扱う運用です。そのため本リポジトリの ~.gitmodules~ でも
 タグではなく ~branch = main~ を追跡しています。
@@ -315,7 +368,7 @@ Blowfish は明示的な SemVer タグを切らず、~main~ ブランチへの�
 | 機能                      | 設定/実体                                        |
 |---------------------------+---------------------------------------------------|
 | カラースキーム・レイアウト | ~config/_default/params.toml~                     |
-| 記事カバー画像            | 各記事ディレクトリの ~cover.*~（~deploy.zsh~ が自動配置） |
+| 記事カバー画像            | 各記事ディレクトリの ~cover.*~（~deploy.sh~ が自動配置。真の Page Bundle ではないため Blowfish 標準の自動検出は非対応） |
 | ~carousel~ 等の shortcode | ~themes/blowfish/layouts/shortcodes/~ 内蔵ショートコード |
 | 多言語設定の土台          | ~config/_default/languages.en.toml~（英語のみ運用） |
 
@@ -358,24 +411,47 @@ hugo --minify
 # 出力先: ./public/
 #+end_src
 
-** deploy.zsh（ローカルからの手動デプロイ）
+** deploy.sh（ローカルからの手動デプロイ）
+
+#+begin_export hugo
+{{< alert >}}
+旧 ~deploy.zsh~ から ~deploy.sh~ へリネーム・全面改修済み。
+~ICLOUD_USE~ 変数は廃止し、~PROJECTS_ROOT~ に統合した。
+{{< /alert >}}
+#+end_export
 
 GitHub Actions とは別に、ローカル環境から直接デプロイするための zsh スクリプト
-~deploy.zsh~ を用意しています。カバー画像の自動配置・ビルド・公開用ディレクトリへの
+~deploy.sh~ を用意しています。カバー画像の自動配置・ビルド・公開用ディレクトリへの
 同期・コミット & push までを一括で行います。
 
 *** 使い方
 
+~deploy.sh~ は ~mysite/~ 直下に配置する前提で、*自分自身の設置場所から*
+~PROJECTS_ROOT~（~mysite/~・~deploy/~ の親ディレクトリ）を自動算出する。
+そのため通常は環境変数の指定は不要。
+
 #+begin_src bash
-# ICLOUD_USE 未指定時のデフォルト（${HOME}/Projects）で実行
-./deploy.zsh
-
-# サイトルート（mysite/, deploy/ の親ディレクトリ）を明示的に指定する例
-ICLOUD_USE=~/Documents/Projects ./deploy.zsh
-
-# カレントディレクトリをサイトルートとして使う場合
-ICLOUD_USE="$(pwd)" ./deploy.zsh
+cd ~/Projects/<repo>/mysite
+./deploy.sh
 #+end_src
+
+プロジェクトごとに配置場所が異なることを前提とした設計であり、
+~export PROJECTS_ROOT=...~ のような恒久的な環境変数設定は行わない
+運用にしている。一時的に上書きしたい場合のみ、実行時に指定する。
+
+#+begin_src bash
+PROJECTS_ROOT=/path/to/alt-root ./deploy.sh --dry-run
+#+end_src
+
+#+begin_export hugo
+{{< alert >}}
+~PROJECTS_ROOT~（≒ 旧 ~ICLOUD_USE~）は、iCloud Drive
+（~$HOME/Documents~・~$HOME/Desktop~ 配下）に *絶対に置かないこと*。
+過去に iCloud の同期競合コピー生成が原因で、カバー画像が壊れ、
+記事の画像が広範囲に失われる事故が発生している
+（[[#known-issues][Known Issues]] 参照）。
+{{< /alert >}}
+#+end_export
 
 *** オプション
 
@@ -383,16 +459,23 @@ ICLOUD_USE="$(pwd)" ./deploy.zsh
 |------------------+---------------------------------------------------------------|
 | ~--dry-run~      | Hugo ビルドまで実行し、~rsync~ 同期と ~git push~ の両方をスキップする |
 | ~--skip-cover~   | カバー画像の自動配置をスキップする                           |
+| ~--force~        | 同期競合ファイル（後述）を検出しても処理を続行する            |
 | ~--help~ / ~-h~  | 使い方を表示                                                 |
 
 *** 処理の流れ
 
 1. *Pre-flight checks* — ~hugo~ / ~git~ / ~rsync~ の存在と、
-   ~HUGO_DIR~・~PUBLIC_DIR~（いずれも ~ICLOUD_USE~ 配下）の存在を確認
+   ~HUGO_DIR~・~PUBLIC_DIR~（いずれも ~PROJECTS_ROOT~ 配下）の存在を確認。
+   加えて、~content/post/~ 配下に ~"foo 2.jpg"~ のような同期競合コピー
+   らしき命名のファイルがないか走査し、見つかれば ~--force~ 指定がない限り
+   処理を中断する
 2. *Placing cover images* — カバー未設定の記事に、front matter の
-   ~date~／~publishDate~ から読み取った公開月ベースでカバー画像を配置
-   （冪等: 既存の ~cover.*~ があるものは上書きしない。同一カバーグループの
-   ファイルパスはキャッシュし、記事ごとに再チェックしない）
+   ~date~／~publishDate~ から読み取った公開月ベースでカバー画像を配置。
+   - 冪等: 既存の ~cover.*~ に加え、~cover 2.jpg~ のようなスペース・
+     ハイフン区切りの亜種も「既存扱い」として上書きしない
+   - front matter の日付が解析できない記事は、実行時点の月への
+     フォールバックを *行わず* スキップし、最後に警告として一覧表示する
+     （季節画像が記事ごとの公開日と無関係に同一化するバグの再発防止）
 3. *Building site with Hugo* — ~public/~ を作り直して ~hugo --minify~
    （~--dry-run~ 指定時はここで終了し、以降の同期・pushは実行されない）
 4. *Syncing to deploy directory* — ~rsync -a --delete --checksum~ で
@@ -404,6 +487,60 @@ ICLOUD_USE="$(pwd)" ./deploy.zsh
 （~set -euo pipefail~）。~carousel~ shortcode 未検出のようなビルドエラーは
 [[#submodule-管理][Submodule 管理]] の「Blowfish テーマを最新に更新する手順」で
 案内している設定差分確認が漏れているケースが多いので、あわせて確認してください。
+
+* Known Issues / 運用上の注意
+:PROPERTIES:
+:CUSTOM_ID: known-issues
+:END:
+
+** iCloud 同期競合によるカバー画像破損（2026-03 発生・対策済み）
+
+サイトを ~$HOME/Documents~ 配下に置いていた時期、iCloud の同期デーモンが
+編集中のファイルを競合と誤判定し、~"cover 2.jpg"~ のような名前のファイルを
+自動生成する事象が発生した。これが ~deploy.sh~（当時）のカバー画像存在
+チェック（~cover.*~ のみに一致するグロブ）をすり抜け、正規の ~cover.jpg~
+と重複配置され、結果としてカバー画像が季節画像で無差別に上書きされる
+不具合を引き起こしていた。
+
+さらに調査の過程で、2026-03-21 の単一コミットで *46記事のうち
+ほぼ全部の本文・カバー画像・記事内画像が誤って一括削除されていた*
+ことが判明した。この削除は3ヶ月半以上気づかれないまま放置されていた。
+Git 履歴の直前コミットから該当ファイルを ~git show <commit>:<path>~
+で復元し、事なきを得ている。
+
+*対策として実施済み*:
+- サイトルートを iCloud 同期対象外の ~$HOME/Projects~ 配下へ移動
+- ~deploy.sh~ の既存カバー判定を拡張し、亜種ファイル名も検出
+- ~deploy.sh~ に同期競合ファイルの事前検査（pre-flight check）を追加
+- front matter 日付解析失敗時のフォールバック挙動を「実行時月で代用」
+  から「スキップ＋警告」へ変更
+
+** ~resources/_gen/~・~public/~ を誤って Git 管理下に置かない
+
+いずれも Hugo のビルド成果物・キャッシュであり、~hugo~ 実行のたびに
+自動再生成される。過去に誤ってコミットされていたことがあるため、
+~.gitignore~ に必ず含めること。
+
+#+begin_src gitignore
+resources/_gen/
+public/
+#+end_src
+
+** 画像ファイルの拡張子と実データ形式の不一致に注意
+
+画像を手動で配置・復元する際、拡張子だけを ~.jpg~ に変更して中身が
+PNG のまま、といった不一致があると、Hugo の ~.Resize~ 処理が
+~image: unknown format~ でビルド全体を失敗させる。復元・移動の際は
+必ず ~file <path>~ で実データの形式を確認し、拡張子と一致させること。
+
+** 記事内画像（本文からレファレンスされる画像）について
+
+flat な ~.md~ 構造（[[#writing-workflow][Writing Workflow]] 参照）では、
+記事本文中の ~[[file:foo.jpg]]~ のような画像参照も、カバー画像と同様に
+Page Resource としては認識されない構造的制約を抱えている。~hugo~ の
+ビルドはこの種の参照切れをエラーとして検出しないため、*ビルドが
+成功したからといって画像が正しく表示されているとは限らない*。
+記事を大きく触った後は、実際に公開されたページを目視で確認すること。
 
 * License
 
