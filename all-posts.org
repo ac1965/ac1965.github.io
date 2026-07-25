@@ -5391,7 +5391,8 @@ security delete-generic-password -s 'GnuPG' -a '<アカウント名>'
 
 同じ沼にハマった人の参考になれば。
 
-** TODO 深追いしたら3ヶ月前の全記事画像消失にたどり着いた話
+** DONE 深追いしたら3ヶ月前の全記事画像消失にたどり着いた話
+CLOSED: [2026-07-25 Sat 19:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 24A95472-559B-4CCE-9452-414534CA2418
 :EXPORT_DATE: 2026-07-25 19:18:53
@@ -5407,7 +5408,7 @@ security delete-generic-password -s 'GnuPG' -a '<アカウント名>'
 
 *** ハッシュ値が同じ、という不自然さ
 
-Claudeに調査を手伝ってもらいながら =resources/_gen=（Hugoのビルドキャッシュ）
+Claudeに調査を手伝ってもらいながら =resources/_gen= （Hugoのビルドキャッシュ）
 を覗いていて、妙なことに気づいた。
 
 #+begin_src text
@@ -5489,7 +5490,7 @@ content/post/2010-4ca5-ca76/cover.jpg       | Bin 65943 -> 0 bytes
 ...
 #+end_src
 
-=Bin XXXXX -> 0 bytes=。=delete mode=。全部「削除」だった。
+=Bin XXXXX -> 0 bytes= 。 =delete mode= 。全部「削除」だった。
 
 3月21日、46記事のうち、ほぼ全部の =.md= ファイルと画像ファイル
 （カバー画像だけでなく、記事本文中に貼っていた写真も含めて）が、
@@ -5510,7 +5511,7 @@ content/post/2010-4ca5-ca76/cover.jpg       | Bin 65943 -> 0 bytes
 その裏でもっと大きな損失が3ヶ月半も気づかれずに転がっていた——
 というのが、この日いちばん血の気が引いた瞬間だった。
 
-*** しめに :技術与太話:
+*** しめに
 
 3月から仕事が忙しくて、ブログのメンテナンスがほとんどできていなかった。
 その間に静かに進行していた事故に、こんな回り道をして初めて気づく
