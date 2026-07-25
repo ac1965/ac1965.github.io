@@ -1,8 +1,8 @@
 # -- English Language Configuration --
 # https://blowfish.page/docs/configuration/#language-and-i18n
 
-languageCode = "en"
-languageName = "English"
+locale = "en"
+label = "English"
 weight       = 1
 title        = "No Good Father"
 
