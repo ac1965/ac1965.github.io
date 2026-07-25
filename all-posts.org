@@ -5249,7 +5249,7 @@ CLOSED: [2026-07-25 Sat 10:09]
 :EXPORT_HUGO_LASTMOD:
 :END:
 
-** ある朝、.authinfo.gpg が開けなくなった
+*** ある朝、.authinfo.gpg が開けなくなった
 
 きっかけは単純だった。Emacsでいつも通り =~/.authinfo.gpg= を開こうとしたら、こんなエラーが出た。
 
@@ -5266,7 +5266,7 @@ gpg: decryption failed: No secret key
 
 "I/O error during SQL operation" ってなんだ。GPGでSQLのエラーが出るのを初めて見た。
 
-** keyboxdとSQLite、そしてGnuPG 2.5系という沼
+*** keyboxdとSQLite、そしてGnuPG 2.5系という沼
 
 調べていくと、GnuPGは2.4系くらいから公開鍵の管理を =keyboxd= というデーモン経由でSQLiteバックエンド(=pubring.db=)に持たせる方式に移行しつつある。自分の環境は =brew list --versions gnupg= で確認したところ =2.5.21= 。これはdevel版ではなく、Homebrew-coreが配布している現行の安定版らしい（GnuPGは2025年にバージョニング体系を変えていて、2.5.x系列がメインラインになっている）。
 
@@ -5282,7 +5282,7 @@ gpg: decryption failed: No secret key
 
 こういうとき一番早いのは、原因を完全に特定することより「迂回する」ことだったりする。
 
-** pubring.kbxへの切り戻しで即解決
+*** pubring.kbxへの切り戻しで即解決
 
 keyboxdのSQLiteパスをそもそも通らないようにする。レガシー形式の =pubring.kbx= に戻すだけだ。
 
@@ -5302,7 +5302,7 @@ gpg: keybox '/Users/ac1965/.gnupg/pubring.kbx' が作成されました
 
 まだ枯れきっていないバックエンドを無理に使い続けるより、確実に動く方に倒す。今回はそれが正解だった。
 
-** ついでにTouch ID化した
+*** ついでにTouch ID化した
 
 .authinfo.gpg を開くたびにパスフレーズを打つのも面倒だったので、この機会に =pinentry-touchid= を導入してTouch ID認証に置き換えた。=gpg-agent.conf= はこうなっている。
 
@@ -5315,7 +5315,7 @@ pinentry-program /opt/homebrew/bin/pinentry-touchid
 
 =allow-emacs-pinentry= はあえてコメントアウトしてある。有効にするとEmacsのミニバッファ入力が優先されるケースがあり、Touch ID方式と競合するからだ。
 
-*** 共通鍵暗号のファイルをTouch IDで復号するときの注意
+**** 共通鍵暗号のファイルをTouch IDで復号するときの注意
 
 ここでちょっと引っかかった。=pinentry-touchid= は「公開鍵の秘密鍵」と「共通鍵（パスフレーズだけの =gpg -c=）暗号化ファイル」を区別しない。仕組みを見ると、gpg-agentが渡してくる cache-id をキーにmacOSのKeychain（サービス名 =GnuPG=）を検索しているだけで、キー種別には興味がない。
 
@@ -5329,7 +5329,7 @@ pinentry-program /opt/homebrew/bin/pinentry-touchid
 
 結論として、今回は復号頻度の高い =.authinfo.gpg= 用途だと割り切ってTouch ID化した。重要度の高いファイルは引き続き公開鍵方式のままにしてある。
 
-*** Keychainへの登録、実は pinentry-mac の仕事
+**** Keychainへの登録、実は pinentry-mac の仕事
 
 ここでちょっと訂正しておきたいことがある。「Touch IDでパスフレーズをKeychainに保存する」と書いたが、正確には =pinentry-touchid= 自身はKeychainへの書き込みを一切やっていない。書き込み・登録の実体は =pinentry-mac= が持っていて、=pinentry-touchid= はそこに登録済みのエントリをTouch ID認証つきで読みに行くだけ、という役割分担になっている（公式READMEに明記されている）。
 
