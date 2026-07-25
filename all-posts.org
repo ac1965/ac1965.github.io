@@ -5390,3 +5390,131 @@ security delete-generic-password -s 'GnuPG' -a '<アカウント名>'
 5. それでもダメならバックエンド自体を疑う
 
 同じ沼にハマった人の参考になれば。
+
+** TODO 深追いしたら3ヶ月前の全記事画像消失にたどり着いた話
+:PROPERTIES:
+:EXPORT_FILE_NAME: 24A95472-559B-4CCE-9452-414534CA2418
+:EXPORT_DATE: 2026-07-25 19:18:53
+:EXPORT_HUGO_CATEGORIES: Hugo Git
+:EXPORT_HUGO_LASTMOD:
+:END:
+
+きっかけは本当に些細なことだった。ブログのカバー画像が、なんだかいつも
+同じ写真になっている気がする——最初はそんな、気のせいかもしれない程度の
+違和感だった。Claudeに「ちょっとファクトチェックして」と軽く頼んだ
+つもりが、気づけば3ヶ月半前に全記事の画像が消えていたという事実に
+たどり着くことになった。以下、その顛末を記録として残しておく。
+
+*** ハッシュ値が同じ、という不自然さ
+
+Claudeに調査を手伝ってもらいながら =resources/_gen=（Hugoのビルドキャッシュ）
+を覗いていて、妙なことに気づいた。
+
+#+begin_src text
+resources/_gen/images/post/2010-1620-4255/cover_hu_be95bd4d5cc45593.jpg
+resources/_gen/images/post/2010-3be9-c756/cover_hu_be95bd4d5cc45593.jpg
+resources/_gen/images/post/2016-d5bf-eafd/cover_hu_be95bd4d5cc45593.jpg
+resources/_gen/images/post/2023-76f0-5099/cover_hu_be95bd4d5cc45593.jpg
+#+end_src
+
+Hugoのキャッシュファイル名についているハッシュ値は、元画像のバイト列と
+処理オプションから決まる。つまり *公開日がバラバラな記事間でこのハッシュが
+完全一致している* ということは、それぞれの記事に置かれていた
+=cover.jpg= が、物理的にまったく同じファイルだったということになる。
+
+2010年の記事と2023年の記事で、同じ画像。これはさすがに偶然ではない。
+
+このタイミングで、以前から疑っていた =deploy.sh= の =post_month()= 関数の
+バグが確信に変わった。
+
+#+begin_src zsh
+date_line="$(grep -m1 -E '^(date|publishDate)[[:space:]]*[:=]' "${md_file}" 2>/dev/null || true)"
+...
+if [[ -z "${month:-}" ]]; then
+    month="$(date +%m)"   # ← ここ
+    warn "front matterにdateが見つからないため実行時月(${month})にフォールバック"
+fi
+#+end_src
+
+front matterの日付を取得できなかった場合、 *実行時点の月* にフォールバック
+するようになっていた。1回のデプロイ実行はほぼ同じ時刻に行われるので、
+grepが失敗する記事は全部「その日の月」に丸められる。結果、公開日に関係なく
+同じ季節画像がコピーされ続けていた、というわけだ。
+
+原因は分かった。あとは直すだけ——のはずだった。
+
+*** 「復元しよう」と思ったら、そもそも消えていた
+
+カスタムで設定していたはずのカバー画像がいくつか見当たらないことに
+気づいて、Gitの履歴を辿ってみることにした。
+
+#+begin_src sh
+for f in content/post/*/cover.jpg; do
+  slug=$(dirname "$f" | xargs basename)
+  n=$(git log --follow --format=%H -- "$f" | while read c; do
+        git show "${c}:${f}" 2>/dev/null | git hash-object --stdin
+      done | sort -u | wc -l)
+  echo "${slug}: ${n} unique blob(s)"
+done
+#+end_src
+
+ほとんどの記事で blob 数が2〜4。つまり中身が何度か変わっている。
+ここまでは季節ローテーションのバグと辻褄が合う。ところが、全記事の
+最新履歴だけを見ると、ある1つのコミットハッシュに揃っていることに
+気づいた。
+
+#+begin_src sh
+git log --since="2026-03-20" --until="2026-03-22" \
+  --format='%H %ad %s' --date=short -- 'content/post/*/cover.jpg' \
+  | sort -u -k1,1
+#+end_src
+
+#+begin_src text
+dea1ff4b49445799379f6183ff758593d924cb82 2026-03-21 Update
+#+end_src
+
+このコミット、何をしたのか見てみた。
+
+#+begin_src sh
+git show --stat dea1ff4b49445799379f6183ff758593d924cb82 | head -60
+#+end_src
+
+出てきたのは、こういう行がひたすら続く出力だった。
+
+#+begin_src text
+content/post/2010-1620-4255.md              |  18 -
+content/post/2010-1620-4255/cover.jpg       | Bin 1820880 -> 0 bytes
+content/post/2010-4ca5-ca76.md              | 744 ---------------------
+content/post/2010-4ca5-ca76/cover.jpg       | Bin 65943 -> 0 bytes
+...
+#+end_src
+
+=Bin XXXXX -> 0 bytes=。=delete mode=。全部「削除」だった。
+
+3月21日、46記事のうち、ほぼ全部の =.md= ファイルと画像ファイル
+（カバー画像だけでなく、記事本文中に貼っていた写真も含めて）が、
+たった1回のコミットでまとめて消えていた。
+
+#+begin_export hugo
+{{<details "何が起きていたか、時系列で整理すると">}}
+1. 2026-03-21：何らかの操作で、全記事の =.md= と画像がまとめて削除される
+2. その後：README.org側からox-hugoで記事は再エクスポートされ、テキストは復活
+3. しかし画像は復活しないまま、deploy.shが空のディレクトリに季節画像を
+   機械的に配置し続けていた
+4. 結果、季節画像の誤配置バグとは *別に*、記事内画像そのものが
+   3月21日以降ずっと欠落していた
+{{</details>}}
+#+end_export
+
+「カバー画像のローテーションがおかしい」と思って調べ始めたら、
+その裏でもっと大きな損失が3ヶ月半も気づかれずに転がっていた——
+というのが、この日いちばん血の気が引いた瞬間だった。
+
+*** しめに :技術与太話:
+
+3月から仕事が忙しくて、ブログのメンテナンスがほとんどできていなかった。
+その間に静かに進行していた事故に、こんな回り道をして初めて気づく
+ことになるとは思っていなかった。放置していた期間の長さがそのまま
+被害の大きさに直結するのだな、と実感した出来事でもあった。
+
+すっきり直って、正直ほっとしている。次はもう少しこまめに見ておこうと思う。
