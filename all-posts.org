@@ -5525,3 +5525,12 @@ content/post/2010-4ca5-ca76/cover.jpg       | Bin 65943 -> 0 bytes
 被害の大きさに直結するのだな、と実感した出来事でもあった。
 
 すっきり直って、正直ほっとしている。次はもう少しこまめに見ておこうと思う。
+
+** TODO test cover :夏:
+:PROPERTIES:
+:EXPORT_FILE_NAME: E6CA9C0D-5053-42C0-92F6-742FC882AFF2
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
+:EXPORT_DATE: 2026-07-26 14:41:51
+:EXPORT_HUGO_CATEGORIES: hugo ox-hugo
+:EXPORT_HUGO_LASTMOD:
+:END:
