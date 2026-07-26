@@ -71,10 +71,10 @@ FORCE=false
 cover_month() {
 	local month="${1}"
 	case "${month}" in
-	01 | 05 | 09) echo "01" ;;
-	02 | 06 | 10) echo "02" ;;
-	03 | 07 | 11) echo "03" ;;
-	04 | 08 | 12) echo "04" ;;
+	01 | 02 | 03) echo "01" ;;
+	04 | 05 | 06) echo "02" ;;
+	07 | 08 | 09) echo "03" ;;
+	10 | 11 | 12) echo "04" ;;
 	*) abort "Invalid month: ${month}" ;;
 	esac
 }
