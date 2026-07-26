@@ -184,11 +184,10 @@ Live CD のイメージ作成には、以前は metro を使っていたのだ�
 #+end_src
 
 *** Live CD の作成は chroot 環境で行う
-- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/in.sh][CHROOT環境設定]][[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/in.sh][]]
-- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/in.sh][]][[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/chroot.sh][コンパイル用]][[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/chroot.sh][]]
-- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/chroot.sh][]][[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/out.sh][CHROOT解除]]
-- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/mkrootimg.sh][MAKE
-  ROOT-IMAGE]]
+- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/in.sh][CHROOT環境設定]]
+- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/in.sh][コンパイル用]]
+- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/chroot.sh][CHROOT]]
+- [[http://github.com/ac1965/config-ac1965/blob/master/etc/skel/script/mkrootimg.sh][MAKE ROOT-IMAGE]]
 
 こんな感じで使っている。CHROOT は私の環境では "/var/tmp/jail/squashfs-root" にしている。
 #+begin_src sh
