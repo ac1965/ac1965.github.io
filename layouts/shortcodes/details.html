@@ -1,17 +1,18 @@
 {{- /*
   details.html — Collapsible <details> shortcode
   Usage:
-    {{< details "Summary text" >}}
-    Inner **markdown** content
-    {{< /details >}}
+    {{< details summary="Summary text" >}}Inner **markdown**{{< /details >}}
+    {{< details summary="Open by default" open="true" >}}...{{< /details >}}
 
-    {{< details "Open by default" open >}}
-    ...
-    {{< /details >}}
+    Positional args still work for backward compatibility:
+    {{< details "Summary text" >}}...{{< /details >}}
+    {{< details "Open by default" open >}}...{{< /details >}}
 */ -}}
-{{- $summary := .Get 0 | default "Details" -}}
-{{- $open    := .Get 1 -}}
-<details{{ if $open }} open{{ end }}>
+{{- $summary := or (.Get "summary") (.Get 0) | default "Details" -}}
+{{- $openArg := or (.Get "open") (.Get 1) -}}
+{{- $open    := and $openArg (ne $openArg "false") -}}
+{{- $id      := printf "details-%d" .Ordinal -}}
+<details{{ if $open }} open{{ end }} id="{{ $id }}">
   <summary class="cursor-pointer font-semibold">
     {{- $summary | markdownify -}}
   </summary>

@@ -3,8 +3,21 @@
 # https://gohugo.io/configuration/markup/
 
 [goldmark]
+  [goldmark.parser]
+    wrapStandAloneImageWithinParagraph = false   # [ADD] 画像を<p>で自動ラップしない(テーマ新既定)
+
+    [goldmark.parser.attribute]
+      block = true                               # [ADD] ブロック要素への属性記法 {.class #id} を許可
+
   [goldmark.renderer]
     unsafe = true       # Allows raw HTML in Markdown content
+
+  [goldmark.extensions]
+    [goldmark.extensions.passthrough]             # [ADD] LaTeX数式のパススルー(KaTeX等と併用時に有効)
+      enable = true
+      [goldmark.extensions.passthrough.delimiters]
+        block = [['\[', '\]'], ['$$', '$$']]
+        inline = [['\(', '\)']]
 
 [highlight]
   noClasses = false     # Required for Blowfish syntax highlighting
@@ -12,4 +25,4 @@
 [tableOfContents]
   startLevel = 2
   endLevel   = 4
-  ordered    = false
+  ordered    = false    # 既存値を維持
