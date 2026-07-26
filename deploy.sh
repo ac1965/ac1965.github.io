@@ -44,9 +44,19 @@ readonly SCRIPT_NAME="${0:t}"
 readonly PROJECTS_ROOT="${PROJECTS_ROOT:-${0:A:h:h}}"
 readonly HUGO_DIR="${PROJECTS_ROOT}/mysite"
 readonly PUBLIC_DIR="${PROJECTS_ROOT}/deploy"
-readonly COVER_SRC_DIR="${HUGO_DIR}/assets/img/cover"
 readonly CONTENT_POST_DIR="${HUGO_DIR}/content/post"
 readonly COVER_EXT="jpg"
+
+# カバー画像の優先順位付きフォールバックチェーン（高→低）
+#   Tier 0: post_dir に cover.* が既に存在する場合はスキップ（既存の冪等性ガード、下記ループ内）
+#   Tier 1: front matterの cover: 明示指定 → COVER_SRC_DIR 基準の相対パス、または絶対パス
+#   Tier 2: COVER_TAG_DIR/<tag>/*.${COVER_EXT} からハッシュで決定的に1枚選択
+#   Tier 3: COVER_SEASONAL_DIR/<group>.${COVER_EXT}（旧構成 COVER_SRC_DIR/<group>.${COVER_EXT} も後方互換で参照）
+#   Tier 4: COVER_DEFAULT。ここまで来て解決しない場合の最終フォールバック（原則ここには来ない想定）
+readonly COVER_SRC_DIR="${HUGO_DIR}/assets/img/cover"
+readonly COVER_TAG_DIR="${COVER_SRC_DIR}/tags"
+readonly COVER_SEASONAL_DIR="${COVER_SRC_DIR}/seasonal"
+readonly COVER_DEFAULT="${COVER_SRC_DIR}/default.${COVER_EXT}"
 
 DRY_RUN=false
 SKIP_COVER=false
@@ -86,6 +96,110 @@ post_month() {
 	fi
 
 	echo "${month:-}"
+}
+
+# Tier 1: front matterの cover: (YAML) / cover = (TOML) 明示指定を取得する。
+# 指定が無ければ空文字を返す。パスの実在チェックは呼び出し側で行う
+# （存在しない指定は「警告して次のTierへフォールスルー」させる設計のため、
+#  ここでは abort しない）。
+post_front_matter_cover() {
+	local md_file="${1}"
+	# 注意: zshでは "path" は $PATH に紐付けられた特殊パラメータ。
+	# ここで "local path" を宣言すると関数内で $PATH が空になり、
+	# grep/sed 等の外部コマンド呼び出しが軒並み無言で失敗する
+	# （"2>/dev/null || true" で握りつぶされるため気付きにくい）。
+	# そのため変数名は cover_path とし、path という名前は避ける。
+	local line cover_path
+
+	line="$(grep -m1 -E '^cover[[:space:]]*[:=]' "${md_file}" 2>/dev/null || true)"
+	[[ -z "${line}" ]] && { echo ""; return; }
+
+	# "cover:" / "cover =" の右辺だけを取り出し、前後の引用符を除去
+	cover_path="$(echo "${line}" | sed -E 's/^cover[[:space:]]*[:=][[:space:]]*//; s/^["'\'']//; s/["'\'']$//')"
+	[[ -z "${cover_path}" ]] && { echo ""; return; }
+
+	# 絶対パス指定はそのまま、相対パスは COVER_SRC_DIR 基準で解決する
+	if [[ "${cover_path}" == /* ]]; then
+		echo "${cover_path}"
+	else
+		echo "${COVER_SRC_DIR}/${cover_path}"
+	fi
+}
+
+# front matterの tags: (YAML配列 or ブロックリスト) / TOML配列からタグ一覧を
+# 空白区切りの文字列として返す。前後の引用符・空白は簡易的に除去する。
+# ox-hugoが出す代表的な2形式（インライン配列 / ブロックリスト）のみ対応。
+# それ以外の記法（複雑なYAML）は非対応 — 検出できなければ単に空を返し、
+# 呼び出し側（select_tag_cover）はTier2をスキップして次のTierへ進む。
+post_tags() {
+	local md_file="${1}"
+	local -a tags
+	local line
+
+	# インライン配列: tags: ["a", "b"]  /  tags = ["a", "b"]
+	line="$(grep -m1 -E '^tags[[:space:]]*[:=][[:space:]]*\[' "${md_file}" 2>/dev/null || true)"
+	if [[ -n "${line}" ]]; then
+		local inner
+		inner="${line#*\[}"
+		inner="${inner%%\]*}"
+		tags=("${(@s/,/)inner}")
+		tags=("${(@)tags// /}")
+		tags=("${(@)tags//[\"\']/}")
+	else
+		# ブロックリスト形式:
+		#   tags:
+		#     - a
+		#     - b
+		local in_block=false v
+		while IFS= read -r line; do
+			if [[ "${in_block}" == true ]]; then
+				if [[ "${line}" =~ ^[[:space:]]*-[[:space:]]*(.+)$ ]]; then
+					v="${match[1]}"
+					v="${v//[\"\']/}"
+					tags+=("${v}")
+					continue
+				fi
+				# インデントされた行が続かなくなったらブロック終了
+				[[ "${line}" =~ ^[[:space:]] ]] && continue
+				break
+			elif [[ "${line}" =~ ^tags:[[:space:]]*$ ]]; then
+				in_block=true
+			fi
+		done < "${md_file}"
+	fi
+
+	echo "${tags[@]}"
+}
+
+# Tier 2: post_tags() が返すタグを front matter に書かれた順で走査し、
+# COVER_TAG_DIR/<tag>/ の中身が空でない「最初に一致したタグ」だけを
+# 候補プールとして採用する（複数タグの画像を混ぜない）。
+# プール内の選択はハッシュ（記事名の cksum）を候補数で割った余りで決める
+# 完全ステートレスな方式 — 使用履歴ファイルは持たない。
+# 同じ記事名なら常に同じ画像になる（rebuild-safe）。
+select_tag_cover() {
+	local md_file="${1}" post_name="${2}"
+	local -a tags pool
+	tags=(${(z)"$(post_tags "${md_file}")"})
+
+	local tag dir
+	for tag in "${tags[@]}"; do
+		[[ -z "${tag}" ]] && continue
+		dir="${COVER_TAG_DIR}/${tag}"
+		[[ -d "${dir}" ]] || continue
+		pool=("${dir}"/*.${COVER_EXT}(N))
+		(( ${#pool[@]} > 0 )) && break
+	done
+
+	(( ${#pool[@]} == 0 )) && { echo ""; return; }
+
+	# ディレクトリのinode順に依存させないよう、名前の昇順に確定ソート
+	pool=("${(@o)pool}")
+
+	local hash_num idx
+	hash_num="$(print -n -- "${post_name}" | cksum | awk '{print $1}')"
+	idx=$(( hash_num % ${#pool[@]} + 1 ))   # zshの配列は1始まり
+	echo "${pool[${idx}]}"
 }
 
 require_cmd() {
@@ -164,16 +278,20 @@ place_covers() {
 
 	step "Placing cover images"
 
-	# グループごとのカバーファイルパスをキャッシュ（同じグループを何度も
-	# ディスクチェックしないための連想配列。zshネイティブ）
-	local -A cover_cache
+	# Tier 4（デフォルト）は必ず解決できる必要があるため、無ければここで
+	# 即中断する（ループの途中で発覚させない。require_cmd等と同じ思想）。
+	[[ -f "${COVER_DEFAULT}" ]] || abort "Default cover not found: ${COVER_DEFAULT}"
+
+	# Tier 3（季節グループ）用キャッシュ（同じグループを何度もディスク
+	# チェックしないための連想配列。zshネイティブ）
+	local -A seasonal_cache
 
 	# zshネイティブのグロブでmdファイルを配列取得（bashのfind+read -d''をglob修飾子に置換）
 	local -a md_files
 	md_files=("${CONTENT_POST_DIR}"/*.md(N))
 
-	local md_file post_name post_dir month cover_group cover_file
-	local -a existing_covers skipped_posts
+	local md_file post_name post_dir month cover_group cover_file seasonal_file tier
+	local -a existing_covers
 	for md_file in "${md_files[@]}"; do
 		post_name="${md_file:t:r}"   # basename、拡張子除去（zsh modifier）
 		post_dir="${CONTENT_POST_DIR}/${post_name}"
@@ -181,43 +299,64 @@ place_covers() {
 		# Ensure post directory exists
 		[[ -d "${post_dir}" ]] || mkdir -p "${post_dir}"
 
-		# 既存カバーの検出。"cover.jpg" のような正規のパターンに加え、
+		# Tier 0: 既存カバーの検出。"cover.jpg" のような正規のパターンに加え、
 		# "cover 2.jpg" / "cover-2.jpg" のような亜種も「既存扱い」にして、
-		# 季節画像の二重コピーを防ぐ（対策Bをすり抜けた場合の保険）。
+		# 画像の二重コピーを防ぐ（対策Bをすり抜けた場合の保険）。
+		# ここで確定済みとみなし、以降のTierは一切評価しない（冪等性優先）。
 		existing_covers=("${post_dir}"/cover.*(N) "${post_dir}"/cover[-_\ ]*(N))
 		if (( ${#existing_covers[@]} > 0 )); then
 			continue
 		fi
 
-		# 記事自身の公開月からカバーグループを決定（deploy実行月ではない）。
-		# 取得できない場合は「実行時月へのフォールバック」をせず、
-		# このカバー配置を丸ごとスキップして最後にまとめて警告する。
-		month="$(post_month "${md_file}")"
-		if [[ -z "${month}" ]]; then
-			skipped_posts+=("${post_name}")
-			continue
-		fi
-		cover_group="$(cover_month "${month}")"
+		cover_file=""
+		tier=""
 
-		if [[ -z "${cover_cache[${cover_group}]:-}" ]]; then
-			cover_file="${COVER_SRC_DIR}/${cover_group}.${COVER_EXT}"
-			[[ -f "${cover_file}" ]] || abort "Cover source not found: ${cover_file}"
-			cover_cache[${cover_group}]="${cover_file}"
+		# Tier 1: front matter明示指定
+		cover_file="$(post_front_matter_cover "${md_file}")"
+		if [[ -n "${cover_file}" ]]; then
+			if [[ -f "${cover_file}" ]]; then
+				tier="明示指定"
+			else
+				warn "  ${post_name}: front matterのcover指定が見つかりません: ${cover_file} → 次のTierへ"
+				cover_file=""
+			fi
 		fi
-		cover_file="${cover_cache[${cover_group}]}"
+
+		# Tier 2: タグ別ライブラリから決定的に選択
+		if [[ -z "${cover_file}" ]]; then
+			cover_file="$(select_tag_cover "${md_file}" "${post_name}")"
+			[[ -n "${cover_file}" ]] && tier="タグ一致"
+		fi
+
+		# Tier 3: 季節グループ（記事自身の公開月から決定。deploy実行月ではない）
+		if [[ -z "${cover_file}" ]]; then
+			month="$(post_month "${md_file}")"
+			if [[ -n "${month}" ]]; then
+				cover_group="$(cover_month "${month}")"
+				if [[ -z "${seasonal_cache[${cover_group}]:-}" ]]; then
+					if [[ -f "${COVER_SEASONAL_DIR}/${cover_group}.${COVER_EXT}" ]]; then
+						seasonal_file="${COVER_SEASONAL_DIR}/${cover_group}.${COVER_EXT}"
+					else
+						# 旧構成（seasonal/未移行）との後方互換
+						seasonal_file="${COVER_SRC_DIR}/${cover_group}.${COVER_EXT}"
+					fi
+					[[ -f "${seasonal_file}" ]] || abort "Seasonal cover not found: ${seasonal_file}"
+					seasonal_cache[${cover_group}]="${seasonal_file}"
+				fi
+				cover_file="${seasonal_cache[${cover_group}]}"
+				tier="季節(${month}月→group${cover_group})"
+			fi
+		fi
+
+		# Tier 4: デフォルト（ここまで来て解決しない場合の最終フォールバック）
+		if [[ -z "${cover_file}" ]]; then
+			cover_file="${COVER_DEFAULT}"
+			tier="デフォルト"
+		fi
 
 		cp "${cover_file}" "${post_dir}/cover.${COVER_EXT}"
-		info "  ${post_name} (${month}月) → cover group ${cover_group} 適用"
+		info "  ${post_name} → [${tier}] ${cover_file:t}"
 	done
-
-	if (( ${#skipped_posts[@]} > 0 )); then
-		warn "front matterの日付が解析できず、カバー配置をスキップした記事:"
-		local sp
-		for sp in "${skipped_posts[@]}"; do
-			warn "  ${sp}"
-		done
-		warn "手動でカバーを確認するか、front matter の date/publishDate 形式を確認してください。"
-	fi
 }
 
 # ─────────────────────────────────────────
