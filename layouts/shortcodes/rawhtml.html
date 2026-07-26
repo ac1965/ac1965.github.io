@@ -2,6 +2,11 @@
   rawhtml.html — Render raw HTML inside Org/Markdown content.
   Usage: {{< rawhtml >}}<div>...</div>{{< /rawhtml >}}
   NOTE: Requires markup.goldmark.renderer.unsafe = true in config.
-        Use sparingly; prefer Markdown or shortcodes where possible.
+        Author-trusted content only — this bypasses all HTML sanitization.
+        Prefer Markdown or a dedicated shortcode where possible.
 */ -}}
-{{- .Inner | safeHTML -}}
+{{- with .Inner -}}
+  {{- . | safeHTML -}}
+{{- else -}}
+  {{- errorf "rawhtml: shortcode requires inner content (site %q)" site.Title -}}
+{{- end -}}

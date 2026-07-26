@@ -1,30 +1,53 @@
 # -- Theme Parameters --
 # https://blowfish.page/docs/configuration/#theme-parameters
 
-colorScheme           = "congo"   # Options: blowfish, avocado, ocean, fire, slate, nuclear, bamboo, sawdust, goldfish, terminal, congo
-defaultAppearance     = "light"   # Options: light, dark
+colorScheme           = "congo"
+defaultAppearance     = "light"
 autoSwitchAppearance  = true
 
-enableSearch          = true
-enableCodeCopy        = true
+enableA11y                   = false   # [ADD] テーマ新既定に合わせ明示化
+enableSearch                 = true
+enableCodeCopy               = true
+enableStructuredBreadcrumbs  = false   # [ADD] 構造化パンくずデータ(未使用のためfalse明示)
 
 # mainSections = ["section1", "section2"]
 # robots = ""
 
-disableImageOptimization   = false
-disableTextInHeader        = false
+disableImageOptimization    = false
+disableImageOptimizationMD  = false    # [ADD] Markdown内画像の最適化無効化フラグ(テーマ新規)
+disableTextInHeader         = false
 
 # defaultBackgroundImage = "IMAGE.jpg"
 # defaultFeaturedImage   = "IMAGE.jpg"
 
+fingerprintAlgorithm = "sha512"        # [ADD] SRIハッシュアルゴリズム明示(既定値と同じだが明示推奨)
+
 smartTOC                      = true
 smartTOCHideUnfocusedChildren = true
+
+giteaDefaultServer   = "https://git.fsfe.org"        # [ADD] sharingLinksでgitea使用時の既定サーバ
+forgejoDefaultServer = "https://v11.next.forgejo.org" # [ADD] 同上forgejo版
+
+# -------------------------
+# Language Redirect          [ADD] 多言語サイト用クライアント側リダイレクト
+# -------------------------
+[languageRedirect]
+  enabled = false
+  storageKey = "blowfish_preferred_language"
+  browserRedirectHomeOnly = true
+  storedLanguageRedirect = true
+
+# -------------------------
+# SEO                        [ADD]
+# -------------------------
+[seo]
+# metaDescriptionOrder = ["summary", "description", "site"]
 
 # -------------------------
 # Header
 # -------------------------
 [header]
-  layout = "fixed-gradient"   # Options: basic, fixed, fixed-fill, fixed-gradient, fixed-fill-blur
+  layout = "fixed-gradient"
 
 # -------------------------
 # Footer
@@ -40,8 +63,7 @@ smartTOCHideUnfocusedChildren = true
 # Homepage
 # -------------------------
 [homepage]
-  layout              = "custom"   # Options: page, profile, hero, card, background, custom
-  # homepageImage     = "Tokyo-station.jpg"
+  layout              = "custom"
   showRecent          = true
   showRecentItems     = 6
   showMoreLink        = true
@@ -62,13 +84,12 @@ smartTOCHideUnfocusedChildren = true
   showAuthor              = true
   showAuthorBottom        = true
   showHero                = true
-  heroStyle               = "basic"   # Options: basic, big, background, thumbAndBackground
+  heroStyle               = "basic"
   layoutBackgroundBlur    = true
   layoutBackgroundHeaderSpace = false
   showBreadcrumbs         = true
   showDraftLabel          = true
   showEdit                = false
-  # editURL               = "https://github.com/username/repo/"
   editAppendPath          = true
   seriesOpened            = false
   showHeadingAnchors      = true
@@ -83,14 +104,15 @@ smartTOCHideUnfocusedChildren = true
   showWordCount           = true
   showZenMode             = false
   showComments            = true
-  # sharingLinks = ["linkedin", "x-twitter", "reddit", "facebook", "email", "whatsapp", "telegram"]
+  externalLinkForceNewTab = true   # [ADD] 外部リンクを新規タブで開く(既定true、明示化)
+  # sharingLinks = ["linkedin", "x-twitter", "reddit", "facebook", "email", "whatsapp", "telegram", "line"]  # [ADD候補] "line"追加可(日本語読者向け)
 
 # -------------------------
 # List
 # -------------------------
 [list]
   showHero                  = true
-  heroStyle                 = "background"   # Options: basic, big, background, thumbAndBackground
+  heroStyle                 = "background"
   layoutBackgroundBlur      = true
   layoutBackgroundHeaderSpace = true
   showBreadcrumbs           = false
@@ -136,58 +158,26 @@ smartTOCHideUnfocusedChildren = true
   cardView              = false
   cardViewScreenWidth   = false
 
-# -------------------------
-# Firebase (Views / Likes)
-# -------------------------
 [firebase]
-  # apiKey            = "XXXXXX"
-  # authDomain        = "XXXXXX"
-  # projectId         = "XXXXXX"
-  # storageBucket     = "XXXXXX"
-  # messagingSenderId = "XXXXXX"
-  # appId             = "XXXXXX"
-  # measurementId     = "XXXXXX"
+  # apiKey = "XXXXXX"
+  # ...
 
-# -------------------------
-# Analytics
-# -------------------------
 [fathomAnalytics]
-  # site   = "ABC12345"
-  # domain = "llama.yoursite.com"
-
 [umamiAnalytics]
-  # websiteid = "ABC12345"
-  # domain    = "llama.yoursite.com"
-  # dataDomains = "yoursite.com,yoursite2.com"
-
 [selineAnalytics]
-  # token     = "XXXXXX"
-  # trackClicks     = true
-  # trackAttributes = true
-  # ignorePages     = []
 
-# -------------------------
-# Monetisation
-# -------------------------
 [buymeacoffee]
-  # identifier            = ""
-  # globalWidget         = true
-  # globalWidgetMessage  = "Hello"
-  # globalWidgetColor    = "#FFDD00"
-  # globalWidgetPosition = "Right"
 
-# -------------------------
-# Search Engine Verification
-# -------------------------
 [verification]
-  # google    = ""
-  # bing      = ""
+  # google = ""
+  # bing = ""
   # pinterest = ""
-  # yandex    = ""
+  # yandex = ""
+  # fediverse = ""   # [ADD] Fediverse(Mastodon等)検証用メタタグ
 
-# -------------------------
-# RSS Next (Feed Management)
-# -------------------------
-[rssNext]
+[advertisement]        # [ADD] テーマ新規セクション
+  # adsense = ""
+
+[rssnext]               # ※旧 [rssNext] からキー名を小文字に修正(テーマ既定に合わせて大小文字を統一)
   # feedId = ""
   # userId = ""
