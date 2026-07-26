@@ -48,7 +48,7 @@ grepが失敗する記事は全部「その日の月」に丸められる。結�
 </span></span><span class=line><span class=cl>content/post/2010-4ca5-ca76/cover.jpg       | Bin 65943 -&gt; 0 bytes
 </span></span><span class=line><span class=cl>...</span></span></code></pre></div></div><p><code>Bin XXXXX -> 0 bytes</code> 。 <code>delete mode</code> 。全部「削除」だった。</p><p>3月21日、46記事のうち、ほぼ全部の <code>.md</code> ファイルと画像ファイル
 （カバー画像だけでなく、記事本文中に貼っていた写真も含めて）が、
-たった1回のコミットでまとめて消えていた。</p><details><summary class="cursor-pointer font-semibold">何が起きていたか、時系列で整理すると</summary><div class="mt-2 prose dark:prose-invert max-w-none"><ol><li>2026-03-21：何らかの操作で、全記事の =.md= と画像がまとめて削除される</li><li>その後：README.org側からox-hugoで記事は再エクスポートされ、テキストは復活</li><li>しかし画像は復活しないまま、deploy.shが空のディレクトリに季節画像を
+たった1回のコミットでまとめて消えていた。</p><details id=details-0><summary class="cursor-pointer font-semibold">何が起きていたか、時系列で整理すると</summary><div class="mt-2 prose dark:prose-invert max-w-none"><ol><li>2026-03-21：何らかの操作で、全記事の =.md= と画像がまとめて削除される</li><li>その後：README.org側からox-hugoで記事は再エクスポートされ、テキストは復活</li><li>しかし画像は復活しないまま、deploy.shが空のディレクトリに季節画像を
 機械的に配置し続けていた</li><li>結果、季節画像の誤配置バグとは <em>別に</em>、記事内画像そのものが
 3月21日以降ずっと欠落していた</li></ol></div></details><p>「カバー画像のローテーションがおかしい」と思って調べ始めたら、
 その裏でもっと大きな損失が3ヶ月半も気づかれずに転がっていた——
