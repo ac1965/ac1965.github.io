@@ -1,0 +1,2 @@
+grep -lE '^cover[[:space:]]*=' content/post/*.md | wc -l   # 12件になるはず
+   head -12 content/post/2020-64ac-ab0e.md   # cover = "custom/2020-64ac-ab0e.jpg" が出ているか
