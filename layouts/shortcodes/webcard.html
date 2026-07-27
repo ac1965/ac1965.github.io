@@ -1,93 +1,48 @@
-{{- /*
-  webcard.html — OGP link card shortcode
-  Usage: {{< webcard "https://example.com" >}}
-         {{< webcard url="https://example.com" >}}
-  Requires Hugo >= 0.141.0 (uses `try` for resources.GetRemote error handling)
-*/ -}}
-{{- $url := or (.Get "url") (.Get 0) -}}
+{{- $url := .Get 0 | default (.Get "url") -}}
 {{- if not $url -}}
-  {{- errorf "webcard: URL argument is required (page %q)" .Page.File.Path -}}
+  {{ errorf "webcard shortcode: URLが指定されていません (%s)" .Position }}
 {{- end -}}
-{{- $u := urls.Parse $url -}}
-{{- $title := "" -}}
-{{- $description := "" -}}
-{{- $image := "" -}}
 
-{{- with try (resources.GetRemote $url (dict
-      "headers" (dict "User-Agent" "Mozilla/5.0 (compatible; HugoWebcardBot/1.0)")
-    )) -}}
-  {{- with .Err -}}
-    {{- warnf "webcard: failed to fetch %q: %s" $url . -}}
-  {{- else with .Value -}}
-    {{- $html := .Content -}}
-    {{- $find := "" -}}
-    {{- if eq $u.Hostname "www.youtube.com" -}}
-      {{- with findRE `(?s)<body[^>]*>.*?</body>` $html -}}
-        {{- $find = index . 0 -}}
-      {{- end -}}
-    {{- else -}}
-      {{- with findRE `(?s)<head[^>]*>.*?</head>` $html -}}
-        {{- $find = index . 0 -}}
-      {{- end -}}
-    {{- end -}}
-    {{- range findRE `<meta[^>]+>` $find -}}
-      {{- $property := replaceRE `(?i).*\bproperty="([^"]*)".*` "$1" . -}}
-      {{- $name     := replaceRE `(?i).*\bname="([^"]*)".*`     "$1" . -}}
-      {{- $content  := replaceRE `(?i).*\bcontent="([^"]*)".*`  "$1" . -}}
-      {{- if eq $property "og:title"       -}}{{- $title       = $content -}}{{- end -}}
-      {{- if eq $property "og:description" -}}{{- $description = $content -}}{{- end -}}
-      {{- if eq $property "og:image"       -}}{{- $image       = $content -}}{{- end -}}
-      {{- if and (eq $description "") (eq $name "description") -}}
-        {{- $description = $content -}}
-      {{- end -}}
-    {{- end -}}
-    {{- /* og:image が相対URLの場合に絶対URL化 */ -}}
-    {{- if and $image (not (in $image "://")) -}}
-      {{- $image = printf "%s://%s%s" $u.Scheme $u.Host (strings.TrimPrefix "/" $image | printf "/%s") -}}
-    {{- end -}}
-    <!-- webcard: success -->
-    <div class="web-card group h-[120px] bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow rounded-lg my-4 sm:my-6 overflow-hidden">
-      <a href="{{ $url }}" target="_blank" rel="noopener noreferrer" class="flex h-full group-hover:no-underline">
-        <div class="shrink-0 h-[120px] w-[120px] sm:w-[200px]">
-          {{- with $image -}}
-            <img src="{{ htmlUnescape . }}" alt="{{ or ($description | plainify | truncate 60) ($title | plainify | truncate 60) }}"
-                 class="m-0 h-full w-full object-cover" loading="lazy" decoding="async">
-          {{- else -}}
-            <div class="flex h-full w-full bg-neutral-200 dark:bg-neutral-700 justify-center items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                   stroke-width="1.5" stroke="currentColor" class="h-8 w-8 text-neutral-400">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-              </svg>
-            </div>
-          {{- end -}}
-        </div>
-        <div class="flex flex-1 flex-col justify-between py-3 px-4 min-w-0">
-          <div class="text-sm font-semibold leading-snug line-clamp-2 text-neutral-900 dark:text-neutral-100">
-            {{- if $title -}}{{ $title | plainify }}{{- else -}}{{ $u.Host | truncate 40 }}{{- end -}}
-          </div>
-          {{- with $description -}}
-            <div class="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mt-1">
-              {{- . | plainify | truncate 120 -}}
-            </div>
-          {{- end -}}
-          <div class="flex items-center gap-1 mt-2">
-            <img src="https://www.google.com/s2/favicons?domain={{ $u.Hostname }}&sz=16"
-                 alt="" width="16" height="16" class="m-0 rounded-sm" loading="lazy" decoding="async">
-            <span class="text-xs text-neutral-400 truncate">{{ $u.Host }}</span>
-          </div>
-        </div>
-      </a>
-    </div>
-  {{- else -}}
-    {{- warnf "webcard: no content returned for %q" $url -}}
+{{- $ogTitle := "" -}}
+{{- $ogImage := "" -}}
+{{- $ogSiteName := "" -}}
+
+{{- with resources.GetRemote $url -}}
+  {{- $html := .Content -}}
+
+  {{- $titleTags := findRE `<meta[^>]+(?:property|name)=["']og:title["'][^>]*>` $html 1 -}}
+  {{- if gt (len $titleTags) 0 -}}
+    {{- $ogTitle = replaceRE `.*content=["']([^"']*)["'].*` "$1" (index $titleTags 0) -}}
+  {{- end -}}
+
+  {{- $imageTags := findRE `<meta[^>]+(?:property|name)=["']og:image["'][^>]*>` $html 1 -}}
+  {{- if gt (len $imageTags) 0 -}}
+    {{- $ogImage = replaceRE `.*content=["']([^"']*)["'].*` "$1" (index $imageTags 0) -}}
+  {{- end -}}
+
+  {{- $siteTags := findRE `<meta[^>]+(?:property|name)=["']og:site_name["'][^>]*>` $html 1 -}}
+  {{- if gt (len $siteTags) 0 -}}
+    {{- $ogSiteName = replaceRE `.*content=["']([^"']*)["'].*` "$1" (index $siteTags 0) -}}
   {{- end -}}
 {{- else -}}
-  <!-- webcard: failure -->
-  <div class="flex items-center gap-3 h-[60px] bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg my-4 px-4">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
-    </svg>
-    <a href="{{ $url }}" class="text-sm text-neutral-600 dark:text-neutral-400 truncate">{{ $url }}</a>
-  </div>
+  {{- warnf "webcard shortcode: %s の取得に失敗しました (%s)" $url .Position -}}
 {{- end -}}
+
+{{- $domain := (urls.Parse $url).Host -}}
+{{- $faviconURL := printf "https://www.google.com/s2/favicons?domain=%s&sz=64" $domain -}}
+
+<div class="widget">
+  <a href="{{ $url }}" target="_blank" rel="noopener noreferrer nofollow" aria-label="{{ $ogTitle | default $url }}"></a>
+  {{- with $ogImage }}
+  <div class="widget-img">
+    <img src="{{ . }}" alt="{{ $ogTitle }}" loading="lazy" />
+  </div>
+  {{- end }}
+  <div class="widget-info">
+    <span class="widget-title">{{ $ogTitle | default $url }}</span>
+    <span class="widget-via">
+      <img src="{{ $faviconURL }}" alt="{{ $domain }}" />
+      {{ $ogSiteName | default $domain }}
+    </span>
+  </div>
+</div>
