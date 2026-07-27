@@ -7,6 +7,8 @@ resources/
 .hugo_build.lock
 
 # Page Bundle: Markdown のみ無視、画像等のアセットは残す
+content/posts/index.md
+content/posts/*.md
 content/posts/**/index.md
 content/posts/**/*.md
 !content/posts/**/*.jpg
