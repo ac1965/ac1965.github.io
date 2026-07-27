@@ -7,20 +7,20 @@ resources/
 .hugo_build.lock
 
 # Page Bundle: Markdown のみ無視、画像等のアセットは残す
-content/posts/index.md
-content/posts/*.md
-content/posts/**/index.md
-content/posts/**/*.md
-content/posts/**/cover.jpg
-!content/posts/**/*.jpg
-!content/posts/**/*.jpeg
-!content/posts/**/*.png
-!content/posts/**/*.webp
-!content/posts/**/*.gif
-!content/posts/**/**/*.jpg
-!content/posts/**/**/*.jpeg
-!content/posts/**/**/*.png
-!content/posts/**/**/*.gif
+content/post/index.md
+content/post/*.md
+content/post/**/index.md
+content/post/**/*.md
+content/post/**/cover.jpg
+!content/post/**/*.jpg
+!content/post/**/*.jpeg
+!content/post/**/*.png
+!content/post/**/*.webp
+!content/post/**/*.gif
+!content/post/**/**/*.jpg
+!content/post/**/**/*.jpeg
+!content/post/**/**/*.png
+!content/post/**/**/*.gif
 
 # Emacs バックアップ・オートセーブ
 *~
