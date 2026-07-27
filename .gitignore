@@ -17,7 +17,10 @@ content/posts/**/cover.jpg
 !content/posts/**/*.png
 !content/posts/**/*.webp
 !content/posts/**/*.gif
-!content/posts/**/gallery/
+!content/posts/**/**/*.jpg
+!content/posts/**/**/*.jpeg
+!content/posts/**/**/*.png
+!content/posts/**/**/*.gif
 
 # Emacs バックアップ・オートセーブ
 *~
