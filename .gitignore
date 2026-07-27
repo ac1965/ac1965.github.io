@@ -1,9 +1,24 @@
 # iCloud/Dropbox等の同期競合コピー対策
 * [0-9].*
 
-public
-content/post
+# Hugo ビルド出力
+public/
+resources/
 .hugo_build.lock
 
-resources/_gen/
-public/
+# Page Bundle: Markdown のみ無視、画像等のアセットは残す
+content/posts/**/index.md
+content/posts/**/*.md
+!content/posts/**/*.jpg
+!content/posts/**/*.jpeg
+!content/posts/**/*.png
+!content/posts/**/*.webp
+!content/posts/**/*.gif
+
+# Emacs バックアップ・オートセーブ
+*~
+\#*\#
+.\#*
+
+# org-mode
+.org-id-locks/
