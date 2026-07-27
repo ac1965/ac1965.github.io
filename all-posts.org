@@ -13,18 +13,48 @@ C-c C-e H A でOrgからMarkdown変換
 hugo server (-D)
 
 #+begin_quote
-全コンテンツの文体を先のチャットで生成した文体にリファクタリング
+以下の「ネタ」を、ty07.net（Hugo/ox-hugo, Blowfishテーマ）の
+all-posts.org にそのままペーストできる、トップレベル記事エントリの
+org-modeサブツリーに変換してください。
 
-- #+begin 〜 #+end の構成はそのままとし、ブロック内の文体はかえて
+# 出力フォーマット
+- `* blog` の直下にぶら下がる形式なので、見出しレベルは `**`（レベル2）
+- 見出し直後に以下のPROPERTIESドロワーを付与する（このファイルの既存記事と同じ項目・同じ順序）:
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: <slug>
+  :EXPORT_DATE: <YYYY-MM-DD HH:MM:SS>
+  :EXPORT_HUGO_TAGS: <タグをスペース区切り>
+  :EXPORT_HUGO_CATEGORIES: <カテゴリ>
+  :EXPORT_HUGO_LASTMOD:
+  :END:
+  ※ EXPORT_HUGO_LASTMODは空欄のままでよい（#+hugo_auto_set_lastmod: t のため自動設定される）
+- TODO状態は既存記事の慣習に合わせて付与するか判断する（下書き段階ならTODO、確定ならDONEまたは無し）
+
+# 文体
+- フランクな一人称・だ/である調（このファイルの過去記事のトーンに合わせる）
+- 新しい感想・解釈・事実を書き足さない。渡された「ネタ」の範囲内で言い回しを整える
+
+# 強調記法（org と Markdown の使い分け）
+- 地の文（本文）は org 記法で統一: 太字 `*string*` / 斜体 `/string/` / コード `=string=` / verbatim `~string~`
+- `#+begin_export hugo` ブロックの中身だけは Markdown 記法で統一: 太字 `**string**` / 斜体 `*string*`
+  （org記法とMarkdown記法で「アスタリスク1個」の意味が逆転するため、混在させない）
+
+# ブロック構造
+- Perplexity/EllamaなどAI出力の引用は文体を変えず、`#+begin_quote` または
+  Blowfishの `{{<details>}}` ショートコード（`#+begin_export hugo` 経由）で
+  引用であることを明示する
+- org見出し（`*`〜`****`）は `#+begin_quote` 等のブロック内には入れない
+
+# 最終チェック
+- 出力後、`scripts/check_emphasis.py` での検査を想定した書き方にする
+  （全角文字に接して =verbatim= / ~code~ / *bold* が無効化されないよう、
+  記号の前後にスペースや区切りを意識する。URL・シェルコマンド・カーネルログ・
+  ショートコード属性内の `` ` `` や `~` は対象外）
+
+---
+ネタ:
+<ここに元ネタ・会話内容・ラフな説明文を貼る>
 #+end_quote
-
-上記プロンプトについての補足:
-
-- 「先のチャットで生成した文体」というのは、フランクな一人称・だ/である調（過去にこのファイルへ追加した「カバー画像を直したら〜」等の記事のトーン）を指す。まずは1記事だけ試して方向性を確認してから、全体に展開するのが安全。
-- Perplexity/Ellamaなど、AIの出力をそのままコピペしている箇所は文体を変えない。代わりに =#+begin_quote= や、Blowfishの ={{<details>}}= ショートコード（ =#+begin_export hugo= 経由）で「引用」であることを明示し、地の文（自分の言葉で書いた部分）だけをリファクタリング対象にする。
-- Org見出し（ =*= 〜 =****= ）は =#+begin_quote= 等のブロックの中には入れられない。対話ログのようにブロックで囲みたいのに見出しを使ってしまっている箇所は、見出しをやめて ={{<details>}}= ショートコード内の地の文（太字ラベル等）に置き換える。
-- 文体を変える過程で新しい感想や解釈を書き足さない。あくまで「同じことを別の言い回しで言う」範囲にとどめ、事実や意見を足したり削ったりしない。
-- 作業の最後に =scripts/check_emphasis.py= でこのファイル自体も検査し、全角文字に接して効かなくなった =verbatim= / ~code~ / *bold* があれば直す。ただしURL・シェルコマンド・カーネルログ・ショートコード属性など、そもそもOrg記法として書かれていない技術的な文字列の =`= や =~= は誤検知なので触らない。
 
 * blog
 ** TODO Test Syntaxhighliter
@@ -217,9 +247,9 @@ Live CD のイメージ作成には、以前は metro を使っていたのだ�
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** 今なら(2/28/2010まで)、JTAGモジュールが無料の組み込み
-   :PROPERTIES:
-   :CUSTOM_ID: 今なら2282010までjtagモジュールが無料の組み込み
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: 今なら2282010までjtagモジュールが無料の組み込み
+:END:
 
 今なら（2/28/2010まで）、JTAGモジュールが無料でついてくる組み込みLinuxキットの [[http://www.globalscaletechnologies.com/p-31-guruplug-server-standard.aspx][guruplug std.]] を注文した。4月から配送が始まるらしいので、5月までには届いてくれるだろうか。
 
@@ -251,7 +281,7 @@ backtrack4 に xmonad を入れてみた。
 
 - $HOME/.xmonad/xmonad.hs
 
-#+BEGIN_SRC sh
+#+begin_src sh
   import XMonad
   import XMonad.Config.Kde
   import qualified XMonad.StackSet as W -- to shift and float windows
@@ -272,11 +302,11 @@ backtrack4 に xmonad を入れてみた。
      myOtherFloats = ["alsamixer"]
      webApps       = ["Firefox-bin", "Opera"] -- open on desktop 2
      ircApps       = ["Ksirc"]                -- open on desktop 3
-#+END_SRC
+#+end_src
 
 - 設定
 
-#+BEGIN_SRC sh
+#+begin_src sh
   sudo apt-get install language-pack-ja
   sudo apt-get install scim scim-anthy kasumi
   sudo apt-get install ttf-vlgothic
@@ -286,7 +316,7 @@ backtrack4 に xmonad を入れてみた。
   cat $HOME/.kde3/env/set_window_manager.sh
   KDEWM=/usr/bin/xmonad
   chmod +x $HOME/.kde3/env/set_window_manager.sh
-#+END_SRC
+#+end_src
 ** DONE USB Encrypt for Backtrack
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2010-3bdc-01ca
@@ -299,7 +329,7 @@ backtrack4 に xmonad を入れてみた。
 
 さらに手を加えたものをここに置いておく。squashfs を LUKS で暗号化するものになっている。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "bt4-customise.sh">}}
 ```sh
   btisoname=bt4.iso
@@ -456,21 +486,21 @@ backtrack4 に xmonad を入れてみた。
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** guruplug が届く前に環境を作っておこう
-   :PROPERTIES:
-   :CUSTOM_ID: guruplug-が届く前に環境を作っておこう
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: guruplug-が届く前に環境を作っておこう
+:END:
 
 *** 1日目
-  :PROPERTIES:
-  :CUSTOM_ID: 日目
-  :END:
+:PROPERTIES:
+:CUSTOM_ID: 日目
+:END:
 
 クロスコンパイル環境やルートファイルシステムまわりの作業メモ。[[http://www.plugcomputer.org/plugwiki/index.php/GuruPlug%22][GuruPlug Wiki]] に自分なりの補足を加えたものも含んでいる。
 
 **** 参考にしたポイント
-   :PROPERTIES:
-   :CUSTOM_ID: 参考にしたポイント
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: 参考にしたポイント
+:END:
 
 - [[http://www.gentoo.org/proj/en/base/embedded/cross-development.xml][cross-development]]
 - [[http://computingplugs.com/index.php/Building_a_custom_kernel][Building
@@ -480,23 +510,23 @@ backtrack4 に xmonad を入れてみた。
 クロスコンパイルは [[http://www.gnu.org/software/hurd/][GNU Hurd]] で遊んで以来ずっと触っていなかったけれど、Gentoo だとかなり楽にできる。
 
 **** クロスコンパイル環境のセットアップ
-   :PROPERTIES:
-   :CUSTOM_ID: クロスコンパイル環境のセットアップ
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: クロスコンパイル環境のセットアップ
+:END:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   sudo emerge -av portage-utils crossdev
   sudo crossdev armv5tel-softfloat-linux-gnueabi
-#+END_SRC
+#+end_src
 
 **** U-Boot とカーネルセットアップ
-   :PROPERTIES:
-   :CUSTOM_ID: u-boot-とカーネルセットアップ
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: u-boot-とカーネルセットアップ
+:END:
 
 ここは Wiki に書いてあるとおりに進めればOK。最後に mkimage を PATH の通っているところにコピーしておくのを忘れずに。これをやらないとカーネル（uImage）のビルドでこけてしまう。
 
-#+BEGIN_SRC sh
+#+begin_src sh
   sudo git clone git://git.denx.de/u-boot-marvell.git u-boot-marvell.git
   sudo cd u-boot-marvell.git
   sudo git checkout -b testing origin/testing
@@ -514,44 +544,44 @@ backtrack4 に xmonad を入れてみた。
   sudo make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm uImage
   sudo make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm modules
   sudo make CROSS_COMPILE=armv5tel-softfloat-linux-gnueabi- ARCH=arm modules_install INSTALL_MOD_PATH=/usr/armv5tel-softfloat-linux-gnueabi
-#+END_SRC
+#+end_src
 
 **** mtd-toolsのセットアップ
-   :PROPERTIES:
-   :CUSTOM_ID: mtd-toolsのセットアップ
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: mtd-toolsのセットアップ
+:END:
 
 git リポジトリ（git://git.infradead.org/mtd-utils.git）を使ってみることにする。ubifs でルートファイルシステムを構築するための準備。
 
-#+BEGIN_SRC sh
+#+begin_src sh
   sudo ebuild /usr/portage/sys-fs/mtd-utils/mtd-utils-99999999.ebuild compile
   sudo ebuild /usr/portage/sys-fs/mtd-utils/mtd-utils-99999999.ebuild merge
   sudo ebuild /usr/portage/sys-fs/mtd-utils/mtd-utils-99999999.ebuild clean
-#+END_SRC
+#+end_src
 
 **** ルートファイルシステムのセットアップ
-   :PROPERTIES:
-   :CUSTOM_ID: ルートファイルシステムのセットアップ
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: ルートファイルシステムのセットアップ
+:END:
 
 crossdev で作ったクロスコンパイラで基本システム（stage1）を構築しようとしたところ、`cpio' のコンパイルで失敗してしまった。
 
 今日は眠いのでここまでにしておく。
 
-#+BEGIN_SRC sh
+#+begin_src sh
   cd /usr/armv5tel-softfloat-linux-gnueabi
   mkdir etc
   cd etc
   ln -s /usr/portage/profiles/default/linux/arm/10.0 make.profile
   cp /tmp/make.conf-arm make.conf
   armv5tel-softfloat-linux-gnueabi-emerge -av @system
-#+END_SRC
+#+end_src
 
 - 参考：/usr/armv5tel-softfloat-linux-gnueabi/etc/make.conf
 
 あくまで自分の環境用の設定なので、同じ内容にする必要はない。ROOT="..." のデフォルトは "/" なので、きちんと指定しておかないと上書きされてしまうので注意。あと、クロスコンパイルの場合は CBUILD の指定も必要になる。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "/usr/armv5tel-softfloat-linux-gnueabi/etc/make.conf" >}}
 ```
   # NEVER change this
@@ -598,23 +628,23 @@ crossdev で作ったクロスコンパイラで基本システム（stage1）�
   ACCEPT_LICENSE="*"
 ```
 {{</details >}}
-  #+end_export
+#+end_export
 
 *** 2日目
-  :PROPERTIES:
-  :CUSTOM_ID: 日目-1
-  :END:
+:PROPERTIES:
+:CUSTOM_ID: 日目-1
+:END:
 
 **** cpioのコンパイルエラーは stat(2) の引数が指定されていなかっただけだった
-   :PROPERTIES:
-   :CUSTOM_ID: cpioのコンパイルエラーはstat2-の引数が指定されていなかっただけだった
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: cpioのコンパイルエラーはstat2-の引数が指定されていなかっただけだった
+:END:
 
 野良ebuildを挟んで解決。
 
 - src/filtypes.h の patch
 
-#+BEGIN_EXAMPLE
+#+begin_example
   diff -urN cpio-2.11-/src/filetypes.h cpio-2.11/src/filetypes.h
   --- cpio-2.11-/src/filetypes.h  2010-04-15 18:03:16.639694128 +0900
   +++ cpio-2.11/src/filetypes.h   2010-04-15 18:04:03.545691921 +0900
@@ -624,14 +654,14 @@ crossdev で作ったクロスコンパイラで基本システム（stage1）�
    int lstat ();
   -int stat ();
   +int stat (const char *path, struct stat *buf);
-#+END_EXAMPLE
+#+end_example
 
 **** 野良ebuild cpio-2.11-r1.ebuild
-   :PROPERTIES:
-   :CUSTOM_ID: 野良ebuild-cpio-2.11-r1.ebuild
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: 野良ebuild-cpio-2.11-r1.ebuild
+:END:
 
-   #+begin_export hugo
+#+begin_export HUGO
   {{<details "cpio-2.11-r1.ebuild">}}
   ```
   # Copyright 1999-2010 Gentoo Foundation
@@ -673,17 +703,17 @@ crossdev で作ったクロスコンパイラで基本システム（stage1）�
   }
   ```
   {{</details>}}
-  #+end_export
+#+end_export
 
 *** 3日目
-  :PROPERTIES:
-  :CUSTOM_ID: 日目-2
-  :END:
+:PROPERTIES:
+:CUSTOM_ID: 日目-2
+:END:
 
 **** クロス環境での stage1 がエラーで出来ていない状態
-   :PROPERTIES:
-   :CUSTOM_ID: クロス環境での-stage1-がエラーで出来ていない状態
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: クロス環境での-stage1-がエラーで出来ていない状態
+:END:
 
 肝心のguruplug本体がまだ届いていないので、焦らずゆっくり進めることにする。あとで distcc を使ってホストマシン側でコンパイルできるように、クロスコンパイル環境を作り直しておこう。
 
@@ -691,7 +721,7 @@ crossdev で作ったクロスコンパイラで基本システム（stage1）�
 
 SYSROOT を検索する必要があるため、binutils は 2.19.51.0.12 より新しいものにする。参考：[[http://bugs.gentoo.org/275666]]
 
-#+BEGIN_SRC sh
+#+begin_src sh
   sudo crossdev --clean armv5tel-softfloat-linux-gnueabi
   sudo emerge -p binutils linux-headers gcc glibc
   ....
@@ -706,27 +736,27 @@ SYSROOT を検索する必要があるため、binutils は 2.19.51.0.12 より�
       --g 4.3.3-r2 \
       --l 2.9_p20081201-r2 \
       --ex-gdb
-#+END_SRC
+#+end_src
 
 *** 4日目
-  :PROPERTIES:
-  :CUSTOM_ID: 日目-3
-  :END:
+:PROPERTIES:
+:CUSTOM_ID: 日目-3
+:END:
 
 **** クロスコンパイル環境で ARM(armv5tel)用の gentoo stage1
 ができたので動作確認をした
-   :PROPERTIES:
-   :CUSTOM_ID: クロスコンパイル環境で-armarmv5tel用の-gentoo-stage1-ができたので動作確認をした
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: クロスコンパイル環境で-armarmv5tel用の-gentoo-stage1-ができたので動作確認をした
+:END:
 
 perl と Linux-PAM についてはクロスコンパイルがうまくいかなかったので、こちらは別途自分で用意することにする。
 
 **** [[http://www.gentoo.org/proj/en/base/embedded/handbook/?part=1&chap=5]]
-   :PROPERTIES:
-   :CUSTOM_ID: httpwww.gentoo.orgprojenbaseembeddedhandbookpart1chap5
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: httpwww.gentoo.orgprojenbaseembeddedhandbookpart1chap5
+:END:
 
-    #+begin_export hugo
+#+begin_export HUGO
     {{<details "QEMU の user-mode + binfmt + chroot で動作確認をした">}}
     ```
     # export PS1="(`uname -m`:\W) "
@@ -780,7 +810,7 @@ perl と Linux-PAM についてはクロスコンパイルがうまくいかな�
    (i684:/ ) umount /proc/sys/fs/binfmt_misc
    ```
    {{</details>}}
-   #+end_export
+#+end_export
 ** DONE Xorg
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2010-bba0-bea3
@@ -792,13 +822,13 @@ perl と Linux-PAM についてはクロスコンパイルがうまくいかな�
 GuruPlug がなかなか届かないので、待っている間に Funtoo と xorg-1.8 まわりを整理してみた。
 
 *** boot-update
-  :PROPERTIES:
-  :CUSTOM_ID: boot-update
-  :END:
+:PROPERTIES:
+:CUSTOM_ID: boot-update
+:END:
 
 grubの設定を助けてくれるツールのようだ。[[http://www.funtoo.org/en/funtoo/core/boot/][boot-update]] というもので、grub-1.97+を試してみたけれど、multiboot にはまだきちんと対応していないみたい。/etc/boot.conf に次のように書いておいて `boot-update` と打つだけで済むので楽ではあるものの、"Backtrack 4" のほうは利用側の root-fs が無理やり埋め込まれてしまっているので、少し手直しが必要になる。/boot/grub/grub.cfg を手で修正すれば大丈夫。
 
-#+BEGIN_SRC sh
+#+begin_src sh
   boot {
       path /boot
       generate grub
@@ -821,57 +851,57 @@ grubの設定を助けてくれるツールのようだ。[[http://www.funtoo.or
       params += BOOT=casper boot=casper persistent rw quiet
       params += real_root=auto
   }
-#+END_SRC
+#+end_src
 
 *** xorg-1.8
-  :PROPERTIES:
-  :CUSTOM_ID: xorg-1.8
-  :END:
+:PROPERTIES:
+:CUSTOM_ID: xorg-1.8
+:END:
 
 しばらく放置していたので、そろそろと思い試してみることにした。
 
 **** MASKを外す
-   :PROPERTIES:
-   :CUSTOM_ID: maskを外す
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: maskを外す
+:END:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   echo 'x11-base/xorg-server' >> /etc/portage/package.unmask
   echo 'x11-base/xorg-server * ~* **' >> /etc/portage/package.keywords/x11-base
-#+END_SRC
+#+end_src
 
 *** emege xorg-server
-   :PROPERTIES:
-   :CUSTOM_ID: emege-xorg-server
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: emege-xorg-server
+:END:
 
 USE="udev -hal" で emerge してみたところ、キーボードとマウスが認識されなくなってしまった。ある程度予想はしていたので、sshd を立ち上げておいて、別端末から pkill して対処した。
 
 参考：[[http://body0r.wordpress.com/2010/04/16/xorg-udev-toggle/][こちらの記事]]
 
 *** emerge udev
-   :PROPERTIES:
-   :CUSTOM_ID: emerge-udev
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: emerge-udev
+:END:
 
 MASKを外して、udev をアップデートする。
 
-#+BEGIN_SRC sh
+#+begin_src sh
   echo 'sys-fs/udev' >> /etc/portage/package.unmask
   echo 'sys-fs/udev * ~* **' >> /etc/portage/package.keywords/sys-fs
   emerge -u udev
-#+END_SRC
+#+end_src
 
 *** udevルールの追加
-   :PROPERTIES:
-   :CUSTOM_ID: udevルールの追加
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: udevルールの追加
+:END:
 
 /usr/share/X11/xorg.conf.d がシステム設定になっているので、/etc/X11/xorg.conf.d 側にキーボードとマウスの設定を追加しておく。
 
 これで無事解決。
 
-#+BEGIN_SRC sh
+#+begin_src sh
   # cat /etc/X11/xorg.conf.d/10-keyboard.conf
   Section "InputClass"
           Identifier "Keyboard"
@@ -896,7 +926,7 @@ MASKを外して、udev をアップデートする。
       Option "VertScrollDelta" "100"
       Option "TapButton1" "1"
   EndSection
-#+END_SRC
+#+end_src
 ** DONE Guruplug Arrived
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2010-e6dc-e8c7
@@ -912,24 +942,24 @@ MASKを外して、udev をアップデートする。
 熱くなりやすいのは Plus と同じかもしれない。どこまで熱くなるかはまた次回試してみようと思う（週末にでも。でも、何かイベントがあったような気もするけど……）。
 
 *** おきまりの first impression ということで、お写真を
-   :PROPERTIES:
-   :CUSTOM_ID: おきまりの-first-impression-ということでお写真を
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: おきまりの-first-impression-ということでお写真を
+:END:
 
 以前のブログサイトにアップロードしていた画像なので、こちらには残っていない（w）
 
 *** JTAG ボード [fn:1] を繋ぎ、FTDI USB シリアルデバイス(例ではttyUSB0)を確認したら
-   :PROPERTIES:
-   :CUSTOM_ID: jtag-ボード-1-を繋ぎftdi-usb-シリアルデバイス例では-ttyusb0を確認したら
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: jtag-ボード-1-を繋ぎftdi-usb-シリアルデバイス例では-ttyusb0を確認したら
+:END:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   usb 2-2: FTDI USB Serial Device converter now attached to ttyUSB0
-#+END_SRC
+#+end_src
 
 =screen /dev/ttyUSB0 115200= として `screen` コマンドでターミナルを立ち上げておく。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{< details "U-Bootの確認">}}
 ```
   U-Boot 2009.11-rc1-00602-g8e6db3d (Dec 24 2009 - 03:11:17)
@@ -1019,7 +1049,7 @@ MASKを外して、udev をアップデートする。
 {{</details>}}
 #+end_export
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "bootしてみましょ">}}
 なかなかいい速度感。悪くない。
 
@@ -1324,9 +1354,9 @@ MASKを外して、udev をアップデートする。
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** guruplug が届いてから遊んだこと
-   :PROPERTIES:
-   :CUSTOM_ID: guruplug-が届いてから遊んだこと
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: guruplug-が届いてから遊んだこと
+:END:
 
 - U-Bootのアップデート
 - Kernelのアップデート
@@ -1341,9 +1371,9 @@ wiki に書いてあることで十分だった。Gentoo RFS については、s
 - [[http://mark.ossdl.de/2009/09/gentoo-on-the-sheevaplug/]]
 
 *** 進行形
-   :PROPERTIES:
-   :CUSTOM_ID: 進行形
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: 進行形
+:END:
 
 - Pyblosxom + Paste + Nginx
 
@@ -1353,12 +1383,12 @@ KEYWORD のチェックを無効にしてから Nginx をインストールし�
 
 Nginx + paster + Pyblosxom の組み合わせでは動作を確認できたのだけど、wbgpager だけはうまく動かなかった。
 
-原因を追いかけるのが面倒だったので、いまのところは Apache + mod_wsgi + Pyblosxom で動かしている。[2010-07-19]
+原因を追いかけるのが面倒だったので、いまのところは Apache + mod_wsgi + Pyblosxom で動かしている。[2010-07-19 Mon]
 
 *** 将来
-   :PROPERTIES:
-   :CUSTOM_ID: 将来
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: 将来
+:END:
 
 - HoneyPod の実装
 
@@ -1368,19 +1398,19 @@ GuruPlug を使ったアイデアとして、やりたいのは HoneyPod の実�
 
 iptables は問題なく動作した。honeyd も動いている。あとはルータ側で honeyd の virtual-honeypots に流し込むだけ。
 
-ただ、mwcollect が SIGSEGV で落ちてしまっている。[2010-07-19]
+ただ、mwcollect が SIGSEGV で落ちてしまっている。[2010-07-19 Mon]
 
 *** 最後に前回の宿題
-   :PROPERTIES:
-   :CUSTOM_ID: 最後に前回の宿題
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: 最後に前回の宿題
+:END:
 
 耐久テストとしては、届いてから（今週月曜日）カーネルを変更したりしていたので実質4日間くらいの稼働になるけれど、いまのところ全く問題ない。熱暴走はまだ起きていないものの、USBスティックのほうが熱くなっている感じがする。
 
 本体の発熱については、某掲示板で騒がれているほどひどくはない。話題になっているのは GuruPlug PLUS（ethx2 + eSTA のほう）だけのようだ。
 
 
-#+begin_export hugo
+#+begin_export HUGO
 {{< details "[現在の GuruPlug Std.]">}}
 - U-Boot
 
@@ -2069,7 +2099,7 @@ iptables は問題なく動作した。honeyd も動いている。あとはル�
 :END:
 「四季・ユートピアノ」とか「中尾幸世」っていう女優（朗読家）、知ってる人はどれくらいいるだろう。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "「四季・ユートピアノ」とは">}}
 NHKで20年ほど前に放映された作品。演出は世界的に知られる[佐々木昭一郎](http://ja.wikipedia.org/wiki/%E4%BD%90%E3%80%85%E6%9C%A8%E6%98%AD%E4%B8%80%E9%83%8E)氏で、中尾さんにとっては2作目にあたる。中尾さんについては[微音空間 中尾幸世](http://www.utopiano.com/)に詳しいので、気になったら覗いてみてほしい。
 {{</details>}}
@@ -2079,7 +2109,7 @@ NHKで20年ほど前に放映された作品。演出は世界的に知られる
 
 [[file:20100730266.jpg]]
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "YouTube 四季・ユートピアノ">}}
 YouTubeでしか再生できないので、「YouTubeで見る」をクリックして懐かしい映像を楽しんでもらえたら嬉しい。
 {{<youtubeLite id="ivEGmvSjyz0" title="四季・ユートピアノ">}}
@@ -2099,147 +2129,147 @@ YouTubeでしか再生できないので、「YouTubeで見る」をクリック
 Welcome to [[http://hexo.io][Hexo]]!
 
 *** 環境
-   :PROPERTIES:
-   :CUSTOM_ID: 環境
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: 環境
+:END:
 
 - OS X Yosemite 10.10.3
 - Node.js
 
-#+BEGIN_SRC sh
+#+begin_src sh
   git clone git://github.com/creationix/nvm.git ~/.nvm
   test -f ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh
   nvm ls-remote
   nvm install 0.12.2
   node -v
   v0.12.2
-#+END_SRC
+#+end_src
 
 *** 前準備
-   :PROPERTIES:
-   :CUSTOM_ID: 前準備
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: 前準備
+:END:
 
 github にリポジトリを作っておく。中身は空っぽで構わない。
 
 例：Mac の brew で hub をインストールしている場合
 
-#+BEGIN_SRC sh
+#+begin_src sh
   cd ~/Documents/github
   mkdir ac1965.github.io
   cd ac1965.github.io
   hub init
   hub create ac1965/ac1965.github.io
-#+END_SRC
+#+end_src
 
 *** Hexo インストール
-   :PROPERTIES:
-   :CUSTOM_ID: hexo-インストール
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: hexo-インストール
+:END:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   $ npm install -g hexo
-#+END_SRC
+#+end_src
 
 **** 準備（ブログ用のディレクトリを作る）
-    :PROPERTIES:
-    :CUSTOM_ID: 準備ブログ用のディレクトリを作る
-    :END:
+:PROPERTIES:
+:CUSTOM_ID: 準備ブログ用のディレクトリを作る
+:END:
 
 hexo init フォルダ名、という形で使う。
 
 フォルダを指定しないとカレントディレクトリに作られてしまうので、きちんと指定しておこう。
 
-#+BEGIN_SRC sh
+#+begin_src sh
   cd ~/Documents
   $ hexo init site
   $ cd site
   $ npm install
-#+END_SRC
+#+end_src
 
 **** 動作確認
-    :PROPERTIES:
-    :CUSTOM_ID: 動作確認
-    :END:
+:PROPERTIES:
+:CUSTOM_ID: 動作確認
+:END:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   $ hexo server
-#+END_SRC
+#+end_src
 
 この状態でウェブブラウザから[[http://localhost:4000/][http://localhost:4000]]にアクセスして確認してみる。
 
 **** Github にデプロイしてみる
-    :PROPERTIES:
-    :CUSTOM_ID: github-にデプロイしてみる
-    :END:
+:PROPERTIES:
+:CUSTOM_ID: github-にデプロイしてみる
+:END:
 
 Hexo の 3.0 以降は、ぐぐって出てきた情報とはデプロイの仕組みが少し変わっているようだ。
 
-#+BEGIN_SRC sh
+#+begin_src sh
   $ hexo deploy
   ERROR Deployer not found: github
-#+END_SRC
+#+end_src
 
 要するにデプロイヤが github から git に変わっていて、追加でモジュールをインストールする必要があった。
 
-#+BEGIN_SRC sh
+#+begin_src sh
   $ npm install hexo-deployer-git --save
-#+END_SRC
+#+end_src
 
 詳しくは：[[https://github.com/hexojs/hexo/issues/1040]]
 
 参考：_config.ymlの deploy部分
 
-#+BEGIN_EXAMPLE
+#+begin_example
   deploy:
     type: git
     repo: git@github.com:ac1965/ac1965.github.io.git
     branch: master
-#+END_EXAMPLE
+#+end_example
 
 **** テーマを変えてみよう
-    :PROPERTIES:
-    :CUSTOM_ID: テーマを変えてみよう
-    :END:
+:PROPERTIES:
+:CUSTOM_ID: テーマを変えてみよう
+:END:
 
 [[http://hexo.io/themes/][テーマ一覧]]から気に入ったものを探してみるのもいい。
 
-#+BEGIN_SRC sh
+#+begin_src sh
   $ git clone https://github.com/joyceim/hexo-theme-apollo.git themes/apollo
-#+END_SRC
+#+end_src
 
 参考：_config.ymlの languageとthemes 部分
 
-#+BEGIN_EXAMPLE
+#+begin_example
   language: defualt
   ...
   theme: apollo
-#+END_EXAMPLE
+#+end_example
 
 **** ポスト
-    :PROPERTIES:
-    :CUSTOM_ID: ポスト
-    :END:
+:PROPERTIES:
+:CUSTOM_ID: ポスト
+:END:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   $ hexo new "My New Post"
   INFO  Created: ~/Documents/site/source/_posts/My-New-Post.md
-#+END_SRC
+#+end_src
 
 source/_posts/My-New-Post.md をエディタで編集する（[[https://help.github.com/articles/github-flavored-markdown/][GFM]]：Github Flavored Markdown 形式）。
 
 詳しくは： [[http://hexo.io/docs/writing.html][Writing]]
 
 **** 静的ファイルの作成
-    :PROPERTIES:
-    :CUSTOM_ID: 静的ファイルの作成
-    :END:
+:PROPERTIES:
+:CUSTOM_ID: 静的ファイルの作成
+:END:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   $ hexo generate
   $ hexo generate --deploy
   $ hexo deploy --generate
-#+END_SRC
+#+end_src
 
 詳しくは： [[http://hexo.io/docs/generating.html][Generating]]
 ** DONE Using Packer for Archassult
@@ -2251,14 +2281,14 @@ source/_posts/My-New-Post.md をエディタで編集する（[[https://help.git
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** すこしまとめてみる
-   :PROPERTIES:
-   :CUSTOM_ID: すこしまとめてみる
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: すこしまとめてみる
+:END:
 
 **** 前提
-    :PROPERTIES:
-    :CUSTOM_ID: 前提
-    :END:
+:PROPERTIES:
+:CUSTOM_ID: 前提
+:END:
 
 - base は ArchLinux ISO からつくる
 - ArchAssault の環境は repository 掘るところ位まで
@@ -2267,43 +2297,43 @@ source/_posts/My-New-Post.md をエディタで編集する（[[https://help.git
   の環境は作成済み
 
 *** じつのところ
-    :PROPERTIES:
-    :CUSTOM_ID: じつのところ
-    :END:
+:PROPERTIES:
+:CUSTOM_ID: じつのところ
+:END:
 
 Packer の細かい設定はまだよくわかっていない。Vagrant の box を作るためのパッケージだということは知っているけれど。というわけで、ベースの box さえ作ってしまえば、あとは =vagrant up= でどんどん環境をデプロイしていくほうが良さそうだと思い始めている。
 
 *** 作成
-    :PROPERTIES:
-    :CUSTOM_ID: 作成
-    :END:
+:PROPERTIES:
+:CUSTOM_ID: 作成
+:END:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   $ git clone https://github.com/ac1965/archassault-packer.git
   $ cd archassult-packer
   $ packer build -only=virtualbox-iso template.json
   $ vagrant box add archassault packer_archassault_virtualbox.box
   $ vagrant init archassult
   $ vagrant up
-#+END_SRC
+#+end_src
 
 **** 手をつけているところ
-     :PROPERTIES:
-     :CUSTOM_ID: 手をつけているところ
-     :END:
+:PROPERTIES:
+:CUSTOM_ID: 手をつけているところ
+:END:
 
 Cuckoo環境の半自動生成
 - [[http://www.cuckoosandbox.org][Cuckoo]]で簡易マルウェア自動解析をしてみたい
 - [[http://cuckoo.readthedocs.org/en/latest/installation/guest/][ゲストOSの準備]]としては、あらかじめ [[https://www.modern.ie/ja-jp][ModernIE]] から Linux 版の Virtualbox イメージをダウンロードしておき、[[https://www.python.org/getit/][Python]] と [[http://www.pythonware.com/products/pil/][PIL(Python Image Library)]] をインストールしておく。cuckoo の agent.py は起動時に自動実行できるよう agent.pyw にリネームしておく。
 
-#+BEGIN_SRC sh
+#+begin_src sh
   reg.exe ADD "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run" -v "Agent" -t REG_SZ -d "C:\Python27\agent.pyw"
-#+END_SRC
+#+end_src
 
 *** 参考
-    :PROPERTIES:
-    :CUSTOM_ID: 参考
-    :END:
+:PROPERTIES:
+:CUSTOM_ID: 参考
+:END:
 
 - [[https://www.archlinux.org][Archlinux]]
 - [[https://www.archassault.org][ArchAssault]]
@@ -2319,9 +2349,9 @@ Cuckoo環境の半自動生成
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** 定期検診
-   :PROPERTIES:
-   :CUSTOM_ID: 定期検診
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: 定期検診
+:END:
 
 今日は60日ぶりの定期検診。
 
@@ -2338,9 +2368,9 @@ Cuckoo環境の半自動生成
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** ブログってw
-   :PROPERTIES:
-   :CUSTOM_ID: ブログってw
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: ブログってw
+:END:
 毎日書き続けるものだから、筆不精な自分には向いていないというのはよくわかっている。紙の日記も三日坊主だったし。
 
 そもそも、ブログというのは作っては壊しての繰り返しで、結局ログとしてまともに残っていないことのほうが多いものだ。
@@ -2360,43 +2390,43 @@ Cuckoo環境の半自動生成
 :EXPORT_HUGO_LASTMOD:
 :END:
 *** Hexo から Hugo
-   :PROPERTIES:
-   :CUSTOM_ID: hexo-から-hugo
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: hexo-から-hugo
+:END:
 サイトジェネレータを [[https://gohugo.io][Hugo]] に変えてみた。インストールといっても homebrew を使うので簡単 :grin:
 
 [[https://www.webfx.com/tools/emoji-cheat-sheet/][EMOJI-CHEAT-SHEET]]
 *** インストール
-   :PROPERTIES:
-   :CUSTOM_ID: インストール
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: インストール
+:END:
 [[https://brew.sh/index_ja][Homebrew]] はインストール済みという前提で進める。
-#+BEGIN_SRC sh
+#+begin_src sh
   $ brew update
   $ brew install hugo
-#+END_SRC
+#+end_src
 テーマは [[https://conao3.com][conao3さん]] の [[https://github.com/conao3/anatole-ext][anatole-ext]] にすることにした。
-#+BEGIN_SRC sh
+#+begin_src sh
   $ hugo new site hoge
   $ cd hoge
   $ git clone https://github.com/conao3/anatole-ext themes/anatole-ext
   $ hugo new posts/first-article.md
-#+END_SRC
+#+end_src
 これで hoge ディレクトリーが作成され、その配下に雛形が作成される。
 *** 自分用のメモ
 **** 展開
-#+BEGIN_SRC sh
+#+begin_src sh
   $ git clone git@github.com:ac1965/hugo.git ./hugo-blog
   $ cd hugo-blog
   $ git clone git@github.com:ac1965/anatole-ext themes/anatole-ext
   $ hugo
-#+END_SRC
+#+end_src
 hugo コマンドを実行すると、public ディレクトリの下にコンテンツが生成される。
 **** `deploy.sh'
 hexo と大きく違うのは、デプロイの仕組みが利用者まかせになっているところ。
 
 私の環境では本体用と公開用でリポジトリを分けていて、本体は hugo-blog、公開用は ac1965.github.com として管理している。
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "deploy.sh">}}
 ```sh
   #! /bin/bash
@@ -2498,7 +2528,7 @@ hexo と大きく違うのは、デプロイの仕組みが利用者まかせに
 
 大瀧詠一さんを久しぶりに聴きたくなってググっていたら、「ナイアガラ・サウンドのルーツとは？」という記事に出会った。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{< webcard "https://www.tbsradio.jp/140516">}}
 
 {{< amazon asin="B0007NFTP6" title="大滝詠一 Niagara Moon 30th Anniversary Edition" >}}
@@ -2511,49 +2541,49 @@ hexo と大きく違うのは、デプロイの仕組みが利用者まかせに
 
 *** 君は天然色
 
-#+begin_export hugo
+#+begin_export HUGO
 {{< youtube lMzAd4DBNWI >}}
 #+end_export
 
 The Pixies Three - Cold Cold Winter
 
-#+begin_export hugo
+#+begin_export HUGO
 {{< youtube Ta3U5wN9IlU >}}
 #+end_export
 
 The Honeycombs - Color Slide
-#+begin_export hugo
+#+begin_export HUGO
 {{< youtube GtjPgTNRl30 >}}
 #+end_export
 
 *** 風立ちぬ
-#+begin_export hugo
+#+begin_export HUGO
 {{< youtube Iu2TNkaqMKQ >}}
 #+end_export
 
 Jimmy Clanton - Venus In Blue Jeans
-#+begin_export hugo
+#+begin_export HUGO
 {{< youtube _13davmxPb4 >}}
 #+end_export
 
 *** 夢で逢えたら
-#+begin_export hugo
+#+begin_export HUGO
 {{< youtube VLe-bHNwFCo >}}
 #+end_export
 
 The Shirelles - Foolish Little Girl
-#+begin_export hugo
+#+begin_export HUGO
 {{< youtube 8zAX5StHD6A >}}
 #+end_export
 
 *** うなずきマーチ
-#+begin_export hugo
+#+begin_export HUGO
 {{< youtube Nxn-wrZrSXk >}}
 #+end_export
 
 
 The Rivingtons - Papa Oom Mow Mow
-#+begin_export hugo
+#+begin_export HUGO
 {{< youtube EQrQjNNZCAo >}}
 #+end_export
 ** DONE 2021 GW なろう系小説
@@ -2571,7 +2601,7 @@ The Rivingtons - Papa Oom Mow Mow
 話は少し逸れるけれど、ライトウェイトランゲージ（LL）という言葉を今の若い人は知らないらしい。少なくとも、自分より8歳下の職場の人は知らなかった。インタープリタという概念自体は理解してもらえたので、逆にインタープリタ「という呼び方」を知らない人のほうが多いのかもしれないと思うと、ちょっとした違和感がある。
 
 *** 聖女の魔力は万能です
-#+begin_export hugo
+#+begin_export HUGO
 {{< webcard "https://ncode.syosetu.com/n8139dg/" >}}
 #+end_export
 
@@ -2580,7 +2610,7 @@ The Rivingtons - Papa Oom Mow Mow
 コミック版もアニメ版もある。というより、なろう系小説はほとんどがそういう形で展開されているものだ。
 
 *** 転生したらスライムだった件
-#+begin_export hugo
+#+begin_export HUGO
 {{< webcard "https://ncode.syosetu.com/n6316bn/" >}}
 #+end_export
 
@@ -2589,7 +2619,7 @@ The Rivingtons - Papa Oom Mow Mow
 こちらは4月時点で読み終えている。アニメのほうは第2シーズンに向けてお休み中。
 
 *** 無職転生 - 異世界行ったら本気だす -
-#+begin_export hugo
+#+begin_export HUGO
 {{< webcard "https://ncode.syosetu.com/n9669bk/" >}}
 #+end_export
 
@@ -2600,7 +2630,7 @@ The Rivingtons - Papa Oom Mow Mow
 GW はこれからが本番 :laughing:
 
 何を次に読もうかはまだ決めていない。この前届いた「[ダンジョンに出会いを求めるのは間違っているだろうか](https://www.amazon.co.jp/gp/product/B08XM5PBMJ/1)」でも読もうかな。Kindle本はまだ読んでいないものも積み上がっているし :laughing:
-#+begin_export hugo
+#+begin_export HUGO
 {{< amazon asin="B08XM5PBMJ" title="ダンジョンに出会いを求めるのは間違っているだろうか 17" >}}
 #+end_export
 
@@ -2613,7 +2643,7 @@ GW はこれからが本番 :laughing:
 TODO<->DONE (C-c C-t / s-<- ->)
 [Orgチート](https://emacsclub.github.io/html/org_tutorial.html)
 ** DONE ひさしぶりに
-CLOSED: [2023-12-03 Sat 09:31]
+CLOSED: [2023-12-03 Sun 09:31]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2023-76f0-5099
 :EXPORT_DATE: 2023-12-03
@@ -2663,7 +2693,7 @@ CLOSED: [2024-03-23 Sat 10:27]
 
 最初は正直よくわからなかったけど、見進めるうちにどんどん引き込まれる、本当に面白い作品だった。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<figure src="frieren.jpg" width="50%" height="50%">}}
 
 {{<details "あらすじ">}}
@@ -2689,7 +2719,7 @@ CLOSED: [2024-03-23 Sat 10:27]
 
 [[https://watch.amazon.co.jp/detail?gti=amzn1.dv.gti.c74f9d3b-74ad-4853-b591-742901681ec0&territory=JP&ref_=share_mac_season&r=web][アニメ Eps.28]]
 
-#+begin_export hugo
+#+begin_export HUGO
 {{< x user="ac1965" id="1771335505801826603" >}}
 #+end_export
 ** DONE このサイトのデプロイについて
@@ -2716,9 +2746,9 @@ CLOSED: [2024-03-30 Sat 14:52]
 これによると、 *GitHub Pages* には2つのタイプがあるらしい。
 
 - User or Organization Site
-   =https://<username or organization>.github.io/= のURLで公開されるタイプ
+  =https://<username or organization>.github.io/= のURLで公開されるタイプ
 - Project Site
-   =https://<username>.github.io/repository/= のURLで公開されるタイプ
+  =https://<username>.github.io/repository/= のURLで公開されるタイプ
 
 リポジトリ名が =username.github.io= 以外の場合は後者になるということがわかった。たぶん、その理解で合っていると思う。
 
@@ -2734,7 +2764,7 @@ CLOSED: [2024-03-30 Sat 14:52]
 
 ただ、CNAME がうまく処理されなかったので、結局は以前とほぼ同じデプロイ方法に落ち着いた。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "deploy.sh">}}
 ```sh
   #!/bin/bash
@@ -2789,7 +2819,7 @@ CLOSED: [2024-04-17 Wed 22:49]
 :END:
 表現したかったことは、たぶん全部実現できた 🤫
 
-#+begin_export hugo
+#+begin_export HUGO
 {{< github repo="nunocoracao/blowfish" >}}
 
 {{< github repo="ac1965/ac1965.github.io" >}}
@@ -2815,7 +2845,7 @@ CLOSED: [2024-04-21 Sun 01:12]
 
 そんなことを思い出しながら =So What= を聴いている。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{< youtubeLite id="vDqULFUg6CY" label="Kind Of Blue" >}}
 <p>
 <iframe id="embedPlayer" src="https://embed.music.apple.com/jp/album/kind-of-blue/268443092?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=auto" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s 6 loading-indicator; background-color: rgb(228, 228, 228);"></iframe>
@@ -2826,7 +2856,7 @@ CLOSED: [2024-04-21 Sun 01:12]
 
 Bitches Brew のジャケットアートワークなんかも好きだった。
 
-#+begin_export hugo
+#+begin_export HUGO
 <p>
 <iframe id="embedPlayer" src="https://embed.music.apple.com/jp/album/bitches-brew/168376392?app=music&amp;itsct=music_box_player&amp;itscg=30200&amp;ls=1&amp;theme=auto" height="450px" frameborder="0" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *; clipboard-write" style="width: 100%; max-width: 660px; overflow: hidden; border-radius: 10px; transform: translateZ(0px); animation: 2s 6 loading-indicator; background-color: rgb(228, 228, 228);"></iframe>
 </p>
@@ -2835,7 +2865,7 @@ Bitches Brew のジャケットアートワークなんかも好きだった。
 
 高校生になる頃からは他のジャズプレイヤーや違うジャンルの音楽を聴くようになっていて、Miles が晩年にファンクやロックを取り入れたアルバムは当時は買わなかった。その代わり、最近はYouTubeやサブスク[fn:1]で改めて聴き直している。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{< youtubeLite id="XIOZHH8rtZ0" label="Hannibal" >}}
 #+end_export
 
@@ -2852,7 +2882,7 @@ CLOSED: [2024-04-27 Sat 12:03]
 :END:
 犬山祭は、愛知県犬山市で毎年4月の第1土曜・日曜に行われる春季祭礼で、かなり大規模なお祭りだ。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "祭の概要">}}
 1日目を「試楽（しんがく）」、2日目を「本楽（ほんがく）」と呼ぶ。城下町であった13の（縦横の通りの1ブロック毎に下本町、中本町、魚屋町、寺内町などの名称がある）各町より、犬山では「車山」と書いて「やま」と呼ばれる13輌の山車が曳き回される。「試楽」では、車山が針綱神社へ向かい、からくりを奉納する。その後1年分を表す365個の提灯に載せ変え、早い町内では18時30分から21時30分ごろまで提灯に火を点して町内を巡る。夜の部については「夜車山（よやま）」と呼び分けている。「本楽」は針綱神社で神事が行われ、13町の車山と共に3町（内田、坂下大本町、鵜飼町）の練り物も同神社へ集結する。また、曳き手（手古衆）達が力を合わせ車山の一方を持ち上げ一気に半回転することは「どんでん」と呼ばれる。
 
@@ -2865,7 +2895,7 @@ CLOSED: [2024-04-27 Sat 12:03]
 叔父は、理由は聞いていないけれど会社員を早期退職して[[https://gallerykiya.jimdofree.com/kiya工房/][大工さん]]になった人で、自分にとっては父親と同じくらい、生き方や考え方を尊敬している人だ。兄弟だから、どこか似ているところがあるのかもしれない。父は生活のために会社員を続けていたけれど、50代のはじめ（53歳くらいだったか）に、書道家と家業の禰宜を務めるために早期退職している。
 
 犬山祭の試楽（1日目の土曜日）は雨になることが多いらしいのだけど、今年は好天に恵まれて、にぎわいをしっかり感じることができた。祭のほうは用事があったので、車山[fn:1]の提灯に火が灯った頃に叔父の家に戻り、お茶を飲みながら叔父や従姉妹と少し話をしてからおいとました。
-#+begin_export hugo
+#+begin_export HUGO
 {{<carousel images="inuyama-fest/*" aspectRatio="16-9" interval="2500">}}
 #+end_export
 
@@ -2880,7 +2910,7 @@ CLOSED: [2024-04-28 Sun 13:42]
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false :cover "custom/2024-cf97-098e.jpg"
 :END:
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "あらすじ">}}
 季節は春。皇太子・若宮の后を選ぶ「登殿の儀」が始まった。南家の姫・浜木綿、西家の姫・真赭の薄、北家の姫・白珠、そして病の姉に代わり急きょ登殿した東家の姫・あせび。
 
@@ -2893,7 +2923,7 @@ CLOSED: [2024-04-28 Sun 13:42]
 
 原作小説のほうは文藝春秋のウェブサイトで、㊗アニメ化を記念して第一章が全文無料公開されている。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<webcard "https://books.bunshun.jp/sp/karasu">}}
 
 {{<webcard "https://www.amazon.co.jp/gp/video/detail/0NCCWYPWNQFQPNMNJZ2MDO9DSK/">}}
@@ -2912,7 +2942,7 @@ GWも終盤。作り置きの焼きそばに追いソースをかけて、お腹
 
 洗濯物も気持ちよく乾いていたので、お天道様には感謝。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<carousel images="gw-2024/*" aspectRatio="16-9" interval="2500">}}
 #+end_export
 ** DONE emacs:libgccjit:'libgcc_s.1.1.dylib' no such file
@@ -2932,21 +2962,21 @@ native-compilation[fn:1] は libgccjit を使っているのだけど、libgcc_s
 寝ている間に小人さんが直してくれないかな🤔
 
 #+begin_src sh
-otool -L libgccjit.0.dylib
-libgccjit.0.dylib:
-	/usr/local/opt/libgccjit/lib/gcc/current/libgccjit.0.dylib (compatibility version 0.0.0, current version 26.0.26)
-	/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)
-	/usr/local/opt/isl/lib/libisl.23.dylib (compatibility version 27.0.0, current version 27.0.0)
-	/usr/local/opt/libmpc/lib/libmpc.3.dylib (compatibility  version 7.0.0, current version 7.1.0)
-	/usr/local/opt/mpfr/lib/libmpfr.6.dylib (compatibility version 9.0.0, current version 9.1.0)
-	/usr/local/opt/gmp/lib/libgmp.10.dylib (compatibility version 16.0.0, current version 16.0.0)
-	/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.12)
-	/usr/local/opt/zstd/lib/libzstd.1.dylib (compatibility version 1.0.0, current version 1.5.6)
-	@rpath/libgcc_s.1.1.dylib (compatibility version 1.0.0, current version 1.1.0)
-	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1345.100.2)
+  otool -L libgccjit.0.dylib
+  libgccjit.0.dylib:
+  	/usr/local/opt/libgccjit/lib/gcc/current/libgccjit.0.dylib (compatibility version 0.0.0, current version 26.0.26)
+  	/usr/lib/libiconv.2.dylib (compatibility version 7.0.0, current version 7.0.0)
+  	/usr/local/opt/isl/lib/libisl.23.dylib (compatibility version 27.0.0, current version 27.0.0)
+  	/usr/local/opt/libmpc/lib/libmpc.3.dylib (compatibility  version 7.0.0, current version 7.1.0)
+  	/usr/local/opt/mpfr/lib/libmpfr.6.dylib (compatibility version 9.0.0, current version 9.1.0)
+  	/usr/local/opt/gmp/lib/libgmp.10.dylib (compatibility version 16.0.0, current version 16.0.0)
+  	/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.12)
+  	/usr/local/opt/zstd/lib/libzstd.1.dylib (compatibility version 1.0.0, current version 1.5.6)
+  	@rpath/libgcc_s.1.1.dylib (compatibility version 1.0.0, current version 1.1.0)
+  	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1345.100.2)
 #+end_src
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "config.log 抜粋">}}
 ```
 configure:27351: ./conftest
@@ -3534,7 +3564,7 @@ ChatGPT に聞いてみた。
 君のことを少しずつ知り始めたばかりだけど、最強のエディタを作るためにいくつか質問させてね。これが君の理想に近づくための第一歩だよ！
 #+end_quote
 
-#+begin_export hugo
+#+begin_export HUGO
 {{< accordion mode="collapse" >}}
 {{< accordionItem title="質問" open=true >}}
 1. *エディタの用途*: どんな作業を主に行う予定？プログラミング、文章作成、ノート取り、その他の用途？
@@ -3581,13 +3611,13 @@ CLOSED: [2024-10-27 Sun 10:11]
 :CUSTOM_ID: macosのdefaultsコマンドでエクスポートできるドメイン名とその内容を一覧にするにはまずターミナルで以下のコマンドを使用して利用可能なドメインを取得します
 :END:
 #+begin_src sh
-defaults domains
+  defaults domains
 #+end_src
 
 このコマンドを実行すると、利用可能なドメインのリストが表示されます。各ドメインに対して、次のようにして内容を確認できます。
 
 #+begin_src sh
-defaults read ドメイン名
+  defaults read ドメイン名
 #+end_src
 
 以下は一般的なmacOSのドメインとその内容の例です：
@@ -3596,15 +3626,15 @@ defaults read ドメイン名
 :PROPERTIES:
 :CUSTOM_ID: 一般的なmacosのドメイン一覧
 :END:
-| ドメイン名                  | 内容の例                                       |
-|-----------------------------+------------------------------------------------|
-| com.apple.finder            | Finderの設定（表示オプションなど）             |
-| com.apple.dock              | Dockの設定（位置、大きさなど）                 |
-| com.apple.systempreferences | システム環境設定全般                           |
-| NSGlobalDomain              | グローバル設定（フォントサイズ、言語など）     |
-| com.apple.screensaver       | スクリーンセーバーの設定                       |
+| ドメイン名                    | 内容の例                                 |
+|-----------------------------+-----------------------------------------|
+| com.apple.finder            | Finderの設定（表示オプションなど）           |
+| com.apple.dock              | Dockの設定（位置、大きさなど）               |
+| com.apple.systempreferences | システム環境設定全般                        |
+| NSGlobalDomain              | グローバル設定（フォントサイズ、言語など）      |
+| com.apple.screensaver       | スクリーンセーバーの設定                    |
 | com.apple.mail              | Mailアプリの設定（署名、フォルダ表示など）     |
-| com.apple.iTunes            | iTunesの設定（ライブラリオプションなど）       |
+| com.apple.iTunes            | iTunesの設定（ライブラリオプションなど）      |
 | com.apple.Safari            | Safariブラウザの設定（プライバシー、履歴など） |
 
 *注意点*: -
@@ -3626,7 +3656,7 @@ defaults read ドメイン名
 2. *設定をエクスポートする* ために、以下のコマンドを実行します。ここでは例として =com.apple.finder= ドメインをエクスポートします。
 
    #+begin_src sh
-   defaults export com.apple.finder ~/Desktop/finder.plist
+     defaults export com.apple.finder ~/Desktop/finder.plist
    #+end_src
 
    このコマンドは、Finderの設定を =finder.plist= というファイルとしてデスクトップに保存します。
@@ -3634,8 +3664,8 @@ defaults read ドメイン名
 3. *必要な他のドメインも同様にエクスポート* します。例えば、DockやSafariの設定もエクスポートする場合は、次のようにします。
 
    #+begin_src sh
-   defaults export com.apple.dock ~/Desktop/dock.plist
-   defaults export com.apple.safari ~/Desktop/safari.plist
+     defaults export com.apple.dock ~/Desktop/dock.plist
+     defaults export com.apple.safari ~/Desktop/safari.plist
    #+end_src
 
 **** 設定のインポート
@@ -3651,21 +3681,21 @@ defaults read ドメイン名
 3. *以下のコマンドを実行して設定をインポート* します。例としてFinderの設定をインポートする場合：
 
    #+begin_src sh
-   defaults import com.apple.finder ~/Desktop/finder.plist
+     defaults import com.apple.finder ~/Desktop/finder.plist
    #+end_src
 
 4. *他のドメインも同様にインポート* します。
 
    #+begin_src sh
-   defaults import com.apple.dock ~/Desktop/dock.plist
-   defaults import com.apple.safari ~/Desktop/safari.plist
+     defaults import com.apple.dock ~/Desktop/dock.plist
+     defaults import com.apple.safari ~/Desktop/safari.plist
    #+end_src
 
 5. *アプリケーションを再起動* する必要がある場合があります。例えば、FinderやDockの場合は次のコマンドで再起動できます。
 
    #+begin_src sh
-   killall Finder
-   killall Dock
+     killall Finder
+     killall Dock
    #+end_src
 
 これにより、新しいPCに古いPCからの設定が適用されます。必要なドメインについては、 =defaults domains= コマンドで確認できます。
@@ -3683,7 +3713,7 @@ CLOSED: [2024-11-10 Sun 22:33]
 *** あたらしい、おもちゃ Ollama
 
 #+begin_quote
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "LLMの目的、目標と課題">}}
 大規模言語モデル（LLM）は、膨大なデータと高度な計算力を使用して訓練された人工知能の一種で、特に自然言語処理（NLP）を目的としています。
 具体的には、文章の生成、質問応答、翻訳、要約、チャットボットとしての対話など、多岐にわたる言語タスクを遂行できます。
@@ -3720,7 +3750,7 @@ LLMには技術的な目標と同時に、いくつかの課題も存在しま�
 #+end_quote
 
 #+begin_quote
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "Ollamaって？">}}
 Ollamaは、ローカルで大規模言語モデル（LLM）を実行・管理するためのソフトウェアです。
 ユーザーは、自身のパソコンでAIモデルを直接動かせるため、クラウドサービスに依存せず、プライバシー保護やデータの制御が可能です。
@@ -3737,7 +3767,7 @@ Ollamaでは、「Modelfile」と呼ばれる設定ファイルを用いるこ�
 
 
 #+begin_quote
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "Ollamaで扱うAIモデルの構造">}}
 Ollamaで扱われるAIモデルの構造は、主に大規模言語モデル（LLM）に基づいています。
 この構造は多層ニューラルネットワークで構成され、特にトランスフォーマーアーキテクチャを採用している点が特徴です。
@@ -3811,24 +3841,24 @@ OllamaをmacOSにインストールし、EmacsからEllamaを設定して利用�
 1. *Homebrewを使用してインストール*:
    ターミナルを開き、以下のコマンドを実行します。
    #+begin_src bash
-   brew install ollama
+     brew install ollama
    #+end_src
 
 2. *Ollamaの動作確認*:
    インストール後、次のコマンドでバージョンを確認します。
    #+begin_src bash
-   ollama --version
+     ollama --version
    #+end_src
 
 3. *モデルのダウンロードと実行*:
    例えば、 =gemma2:9b= モデルを使う場合、以下のコマンドを実行します。
    #+begin_src bash
-   ollama run gemma2:9b
+     ollama run gemma2:9b
    #+end_src
 
 4. *対話の終了*:
    #+begin_src bash
-   Ctrl + d または /bye
+     Ctrl + d または /bye
    #+end_src
 
 **** EmacsでEllamaの設定
@@ -3836,15 +3866,15 @@ OllamaをmacOSにインストールし、EmacsからEllamaを設定して利用�
 1. *Emacsに必要なパッケージをインストール*:
    =use-package= を使用してEllamaを設定します。以下の設定をEmacsの設定ファイル（通常は =~/.emacs.d/init.el= ）に追加します。
    #+begin_src emacs-lisp
-   (use-package ellama
-     :init
-     (setq ellama-keymap-prefix "C-c e")  ;; キーバインディングの設定
-     (setq ellama-language "Japanese")      ;; 言語設定
-     (require 'llm-ollama)
-     (setq ellama-provider (make-llm-ollama
-       :host "localhost"                     ;; Ollamaが動作しているホスト名
-       :chat-model "gemma2:9b"               ;; 使用するチャットモデル名
-       :embedding-model "gemma2:9b")))       ;; 使用する埋め込みモデル名
+     (use-package ellama
+       :init
+       (setq ellama-keymap-prefix "C-c e")  ;; キーバインディングの設定
+       (setq ellama-language "Japanese")      ;; 言語設定
+       (require 'llm-ollama)
+       (setq ellama-provider (make-llm-ollama
+         :host "localhost"                     ;; Ollamaが動作しているホスト名
+         :chat-model "gemma2:9b"               ;; 使用するチャットモデル名
+         :embedding-model "gemma2:9b")))       ;; 使用する埋め込みモデル名
    #+end_src
 
 2. *EmacsからEllamaを使用する*:
@@ -3859,61 +3889,61 @@ OllamaをmacOSにインストールし、EmacsからEllamaを設定して利用�
 私は[[https://github.com/conao3/leaf.el][ leaf ]]を使っているので、それに合わせて書き換えたものを貼っておく。
 
 #+begin_src emacs-lisp
-(leaf ellama
-  :after llm-ollama
-  :ensure t
-  :init
-  (setopt ellama-language "Japanese")
-  (setopt ellama-sessions-directory (concat no-littering-var-directory "ellama-sessions"))
-  (setopt ellama-naming-scheme 'ellama-generate-name-by-llm)
-  (setopt ellama-provider
-          (make-llm-ollama
-           ;; this model should be pulled to use it
-           ;; value should be the same as you print in terminal during pull
-           :chat-model "llama3:8b-instruct-q8_0"
-           :embedding-model "nomic-embed-text"
-           :default-chat-non-standard-params '(("num_ctx" . 8192))))
-  (setopt ellama-summarization-provider
-          (make-llm-ollama
-           :chat-model "qwen2.5:3b"
-           :embedding-model "nomic-embed-text"
-           :default-chat-non-standard-params '(("num_ctx" . 32768))))
-  ;; llm providers for interactive switching.
-  (setopt ellama-providers
-          '(("zephyr" . (make-llm-ollama
-    		             :chat-model "zephyr:7b-beta-q6_K"
-    		             :embedding-model "zephyr:7b-beta-q6_K"))
-            ("mistral" . (make-llm-ollama
-    		              :chat-model "mistral:7b-instruct-v0.2-q6_K"
-    		              :embedding-model "mistral:7b-instruct-v0.2-q6_K"))
-            ("mixtral" . (make-llm-ollama
-    		              :chat-model "mixtral:8x7b-instruct-v0.1-q3_K_M-4k"
-    		              :embedding-model "mixtral:8x7b-instruct-v0.1-q3_K_M-4k"))
-            ("codestral" . (make-llm-ollama
-                            :chat-model "codestral:22b-v0.1-q4_K_S"
-                            :embedding-model "codestral:22b-v0.1-q4_K_S"))
-            ("gemma2" . (make-llm-ollama
-                         :chat-model "gemma2:27b-instruct-q4_K_S"
-                         :embedding-model "gemma2:27b-instruct-q4_K_S"))
-            ("command-r" . (make-llm-ollama
-                            :chat-model "command-r:35b"
-                            :embedding-model "command-r:35b"))
-            ("llama3.1" . (make-llm-ollama
-                           :chat-model "llama3.1:8b"
-                           :embedding-model "llama3.1:8b"))))
-  ;; Naming new sessions with llm
-  (setopt ellama-naming-provider
-          (make-llm-ollama
-           :chat-model "llama3:8b-instruct-q8_0"
-           :embedding-model "nomic-embed-text"
-           :default-chat-non-standard-params '(("stop" . ("\n")))))
-  ;; Translation llm provider
-  (setopt ellama-translation-provider
-          (make-llm-ollama
-           :chat-model "qwen2.5:3b"
-           :embedding-model "nomic-embed-text"
-           :default-chat-non-standard-params
-           '(("num_ctx" . 32768)))))
+  (leaf ellama
+    :after llm-ollama
+    :ensure t
+    :init
+    (setopt ellama-language "Japanese")
+    (setopt ellama-sessions-directory (concat no-littering-var-directory "ellama-sessions"))
+    (setopt ellama-naming-scheme 'ellama-generate-name-by-llm)
+    (setopt ellama-provider
+            (make-llm-ollama
+             ;; this model should be pulled to use it
+             ;; value should be the same as you print in terminal during pull
+             :chat-model "llama3:8b-instruct-q8_0"
+             :embedding-model "nomic-embed-text"
+             :default-chat-non-standard-params '(("num_ctx" . 8192))))
+    (setopt ellama-summarization-provider
+            (make-llm-ollama
+             :chat-model "qwen2.5:3b"
+             :embedding-model "nomic-embed-text"
+             :default-chat-non-standard-params '(("num_ctx" . 32768))))
+    ;; llm providers for interactive switching.
+    (setopt ellama-providers
+            '(("zephyr" . (make-llm-ollama
+      		             :chat-model "zephyr:7b-beta-q6_K"
+      		             :embedding-model "zephyr:7b-beta-q6_K"))
+              ("mistral" . (make-llm-ollama
+      		              :chat-model "mistral:7b-instruct-v0.2-q6_K"
+      		              :embedding-model "mistral:7b-instruct-v0.2-q6_K"))
+              ("mixtral" . (make-llm-ollama
+      		              :chat-model "mixtral:8x7b-instruct-v0.1-q3_K_M-4k"
+      		              :embedding-model "mixtral:8x7b-instruct-v0.1-q3_K_M-4k"))
+              ("codestral" . (make-llm-ollama
+                              :chat-model "codestral:22b-v0.1-q4_K_S"
+                              :embedding-model "codestral:22b-v0.1-q4_K_S"))
+              ("gemma2" . (make-llm-ollama
+                           :chat-model "gemma2:27b-instruct-q4_K_S"
+                           :embedding-model "gemma2:27b-instruct-q4_K_S"))
+              ("command-r" . (make-llm-ollama
+                              :chat-model "command-r:35b"
+                              :embedding-model "command-r:35b"))
+              ("llama3.1" . (make-llm-ollama
+                             :chat-model "llama3.1:8b"
+                             :embedding-model "llama3.1:8b"))))
+    ;; Naming new sessions with llm
+    (setopt ellama-naming-provider
+            (make-llm-ollama
+             :chat-model "llama3:8b-instruct-q8_0"
+             :embedding-model "nomic-embed-text"
+             :default-chat-non-standard-params '(("stop" . ("\n")))))
+    ;; Translation llm provider
+    (setopt ellama-translation-provider
+            (make-llm-ollama
+             :chat-model "qwen2.5:3b"
+             :embedding-model "nomic-embed-text"
+             :default-chat-non-standard-params
+             '(("num_ctx" . 32768)))))
 #+end_src
 
 **** 設定ファイル（Modelfile）の作成
@@ -3924,7 +3954,7 @@ Ollamaでは、カスタムモデルの設定ファイルとして _Modelfile_ �
 1. *Modelfileの作成*:
    モデルと同じディレクトリに =Modelfile= という名前のファイルを作成し、以下の内容を記述します。
 #+begin_src shell
-   from /ollama/gemma2-9b-chat-gguf
+  from /ollama/gemma2-9b-chat-gguf
 #+end_src
 #+end_quote
 
@@ -3932,7 +3962,7 @@ Ollamaでは、カスタムモデルの設定ファイルとして _Modelfile_ �
 
 =M-x ellama-chat= で試しに遊んでみたら、思っていたよりずっとちゃんとしていて驚いた🤣
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "Ellamaとの会話ログ">}}
 *User:* emacs29以上で動作する設定ファイル
 
@@ -4013,91 +4043,91 @@ CLOSED: [2024-11-16 Sat 02:25]
 :END:
 *** 機能別キーバインド
 **** 基本編集操作
-| キーバインド  | 機能                                       |
-|---------------|--------------------------------------------|
-| C-<backspace> | カーソルの前の文字を削除                   |
-| C-?           | ヘルプコマンドを開く                       |
-| C-x u         | 元に戻す（undo-fu-only-undo）               |
-| C-z           | やり直す（undo-fu-only-redo）               |
+| キーバインド    | 機能                         |
+|---------------+-----------------------------|
+| C-<backspace> | カーソルの前の文字を削除        |
+| C-?           | ヘルプコマンドを開く            |
+| C-x u         | 元に戻す（undo-fu-only-undo） |
+| C-z           | やり直す（undo-fu-only-redo） |
 
 **** ウィンドウおよびフレーム管理
-| キーバインド  | 機能                                       |
-|---------------|--------------------------------------------|
-| C-.           | 他のウィンドウに移動                       |
-| s-o           | 他のフレームでファイルを開く               |
-| s-m           | 新しいフレームを作成                       |
-| s-w           | 現在のフレームを削除                       |
-| s-.           | ウィンドウ分割を切り替える                 |
-| s-j           | 他のウィンドウでファイルを開く             |
+| キーバインド | 機能                       |
+|------------+---------------------------|
+| C-.        | 他のウィンドウに移動          |
+| s-o        | 他のフレームでファイルを開く   |
+| s-m        | 新しいフレームを作成          |
+| s-w        | 現在のフレームを削除          |
+| s-.        | ウィンドウ分割を切り替える     |
+| s-j        | 他のウィンドウでファイルを開く |
 
 **** ファイルおよびバッファ操作
-| キーバインド  | 機能                                       |
-|---------------|--------------------------------------------|
-| C-c o         | ファイルを開く                             |
-| C-c v         | ファイルを読み取り専用モードで開く          |
-| C-c k         | バッファを閉じてウィンドウを閉じる         |
+| キーバインド | 機能                          |
+|------------+------------------------------|
+| C-c o      | ファイルを開く                  |
+| C-c v      | ファイルを読み取り専用モードで開く |
+| C-c k      | バッファを閉じてウィンドウを閉じる |
 
 **** 検索および置換
-| キーバインド  | 機能                                       |
-|---------------|--------------------------------------------|
-| C-c r         | バッファ内の文字列を置換                   |
-| C-c C-r       | consult-ripgrepで検索                      |
-| C-s           | consult-lineでバッファ内検索               |
-| M-g g         | 行に移動（consult-goto-line）              |
-| M-g i         | バッファ内の関数検索（consult-imenu）      |
-| M-g b         | バッファ切り替え（consult-buffer）          |
+| キーバインド | 機能                               |
+|------------+-----------------------------------|
+| C-c r      | バッファ内の文字列を置換              |
+| C-c C-r    | consult-ripgrepで検索              |
+| C-s        | consult-lineでバッファ内検索         |
+| M-g g      | 行に移動（consult-goto-line）       |
+| M-g i      | バッファ内の関数検索（consult-imenu） |
+| M-g b      | バッファ切り替え（consult-buffer）    |
 
 **** コメントおよび整列
-| キーバインド  | 機能                                       |
-|---------------|--------------------------------------------|
-| C-c ;         | 選択範囲をコメントアウト                   |
-| C-c :         | 選択範囲のコメントアウトを解除             |
-| C-c M-a       | 正規表現で揃える                           |
+| キーバインド | 機能                       |
+|------------+---------------------------|
+| C-c ;      | 選択範囲をコメントアウト      |
+| C-c :      | 選択範囲のコメントアウトを解除 |
+| C-c M-a    | 正規表現で揃える             |
 
 **** スクロールと移動
-| キーバインド      | 機能                                   |
-|-------------------|----------------------------------------|
-| C-s-<up>          | 上方向にスクロール                     |
-| C-s-<down>        | 下方向にスクロール                     |
-| s-<up>            | バッファの先頭に移動                   |
-| s-<down>          | バッファの末尾に移動                   |
-| s-<wheel-up>      | 他のウィンドウをスクロールアップ       |
-| s-<wheel-down>    | 他のウィンドウをスクロールダウン       |
+| キーバインド     | 機能                        |
+|----------------+----------------------------|
+| C-s-<up>       | 上方向にスクロール            |
+| C-s-<down>     | 下方向にスクロール            |
+| s-<up>         | バッファの先頭に移動           |
+| s-<down>       | バッファの末尾に移動           |
+| s-<wheel-up>   | 他のウィンドウをスクロールアップ |
+| s-<wheel-down> | 他のウィンドウをスクロールダウン |
 
 **** テキストサイズ調整
-| キーバインド  | 機能                                       |
-|---------------|--------------------------------------------|
-| C-+           | テキストサイズを増加                       |
-| C--           | テキストサイズを縮小                       |
+| キーバインド | 機能              |
+|------------+------------------|
+| C-+        | テキストサイズを増加 |
+| C--        | テキストサイズを縮小 |
 
 **** Orgモード
-| キーバインド  | 機能                                       |
-|---------------|--------------------------------------------|
-| C-c c         | Orgエントリをキャプチャ                    |
+| キーバインド | 機能                 |
+|------------+---------------------|
+| C-c c      | Orgエントリをキャプチャ |
 
 **** Emacs制御
-| キーバインド  | 機能                                       |
-|---------------|--------------------------------------------|
-| C-q           | Emacsを終了                                |
-| M-q           | バッファを保存してEmacsを終了              |
-| s-r           | Emacsを再起動                              |
+| キーバインド | 機能                       |
+|------------+---------------------------|
+| C-q        | Emacsを終了                |
+| M-q        | バッファを保存してEmacsを終了 |
+| s-r        | Emacsを再起動              |
 
 **** Magit
-| キーバインド  | 機能                                       |
-|---------------|--------------------------------------------|
-| C-x g         | Magitステータスを開く                      |
+| キーバインド | 機能                |
+|------------+--------------------|
+| C-x g      | Magitステータスを開く |
 
 **** Embark
-| キーバインド  | 機能                                       |
-|---------------|--------------------------------------------|
-| s-/           | Embarkアクション                           |
-| s-;           | Embark Do What I Mean                      |
-| C-<f2>        | Embarkバインディング                       |
+| キーバインド | 機能                   |
+|------------+-----------------------|
+| s-/        | Embarkアクション        |
+| s-;        | Embark Do What I Mean |
+| C-<f2>     | Embarkバインディング     |
 
 **** その他
-| キーバインド  | 機能                                       |
-|---------------|--------------------------------------------|
-| M-x           | 拡張コマンドを実行                         |
+| キーバインド | 機能             |
+|------------+-----------------|
+| M-x        | 拡張コマンドを実行 |
 
 ** 2026年の生成AI、エンジニア的に気になるトレンド3選
 :PROPERTIES:
@@ -4189,7 +4219,7 @@ Emacs の設定は、放っておくと本当にカオスになってしまう�
 設定は10層に分かれていて、依存関係は必ず下から上への一方向のみ。
 
 #+begin_example
-early-init → core → ui → auth → completion → orgx → vcs → dev → utils → personal
+  early-init → core → ui → auth → completion → orgx → vcs → dev → utils → personal
 #+end_example
 
 =core= が UI に依存してはいけないし、 =vcs= が =dev= に依存してもいけない。この制約を守ることで、モジュールを消したり差し替えたりしても他が壊れないようにしている。
@@ -4204,11 +4234,11 @@ early-init → core → ui → auth → completion → orgx → vcs → dev → 
 
 =utils/utils-claude.el= として、低レベルの HTTP クライアントを作った。公開しているAPIは3つの関数だけ。
 
-| 関数 | 役割 |
-|------|------|
-| =utils-claude-get-api-key= | =auth-source= から API キーを取得 |
-| =utils-claude-request-sync= | 同期 POST |
-| =utils-claude-request= | 非同期バリアント（コールバック） |
+| 関数                         | 役割                            |
+|-----------------------------+--------------------------------|
+| =utils-claude-get-api-key=  | =auth-source= から API キーを取得 |
+| =utils-claude-request-sync= | 同期 POST                       |
+| =utils-claude-request=      | 非同期バリアント（コールバック）     |
 
 =utils= 層に置いたのは、UI にも Org にも依存しない純粋なトランスポート層だから。built-in の =url= ・ =json= ・ =auth-source= しか使っていないので、どの上位層からでも =require= できる。
 
@@ -4223,20 +4253,20 @@ early-init → core → ui → auth → completion → orgx → vcs → dev → 
 いちばん面白いのは、Org Babel の言語として登録したところで、
 
 #+begin_src org
-,#+begin_src claude :system "You are a code reviewer."
-このコードのリファクタリング案を教えてください。
-...
-,#+end_src
+  ,#+begin_src claude :system "You are a code reviewer."
+  このコードのリファクタリング案を教えてください。
+  ...
+  ,#+end_src
 #+end_src
 
 これを =C-c C-c= で評価すると、そのままアシスタントの応答が結果として入る。 =:system= ・ =:model= ・ =:tokens= といったヘッダ引数もサポートしている。
 
 インタラクティブなコマンドも3つ追加した。
 
-| コマンド | 動作 |
-|----------|------|
-| =my/claude-refactor-defun= | カーソル位置の =defun= をリファクタリング依頼 |
-| =my/claude-complete-docstring= | =defun= の docstring を生成 |
+| コマンド                           | 動作                                           |
+|-----------------------------------+-----------------------------------------------|
+| =my/claude-refactor-defun=        | カーソル位置の =defun= をリファクタリング依頼        |
+| =my/claude-complete-docstring=    | =defun= の docstring を生成                    |
 | =my/claude-analyze-require-graph= | バッファの =require= グラフを分析して上向き依存を検出 |
 
 =personal= 層に置いたのは、これが完全に個人的なワークフローの選択だから。共有モジュールのロード順に影響を与えてはいけない、という原則も理由のひとつになっている。
@@ -4249,13 +4279,13 @@ ox-hugo のサブツリーエクスポートは =* blog= 直下にエントリ�
 
 プロパティドロワーは自動で埋まるようになっている。
 
-| プロパティ | 値 |
-|-----------|-----|
-| =EXPORT_FILE_NAME= | UUID（=org-id-new=） |
-| =EXPORT_DATE= | 現在時刻 |
-| =EXPORT_HUGO_TAGS= | インタラクティブ入力 |
-| =EXPORT_HUGO_CATEGORIES= | インタラクティブ入力 |
-| =EXPORT_HUGO_LASTMOD= | 空（ox-hugo がエクスポート時に補完） |
+| プロパティ                 | 値                              |
+|--------------------------+---------------------------------|
+| =EXPORT_FILE_NAME=       | UUID（=org-id-new=）             |
+| =EXPORT_DATE=            | 現在時刻                         |
+| =EXPORT_HUGO_TAGS=       | インタラクティブ入力                |
+| =EXPORT_HUGO_CATEGORIES= | インタラクティブ入力                |
+| =EXPORT_HUGO_LASTMOD=    | 空（ox-hugo がエクスポート時に補完） |
 
 デフォルトの =blog.org= は実際には存在しないので、 =personal/ac1965.el= で =my:f:capture-blog-file= を =all-posts.org= にオーバーライドしている。これをやっておかないと、キャプチャ時に =org-find-olp: Heading not found= というエラーが出てしまう。
 
@@ -4272,7 +4302,7 @@ ox-hugo のサブツリーエクスポートは =* blog= 直下にエントリ�
 
 これで「 =C-c c b= でスケルトン作成 → 書く → 保存」だけで Hugo へのエクスポートまで完結するようになった。この記事自体も、そのフローで書いている。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{< alert >}}
 訂正点：
 orgx/orgx-auto-hugo.el を追加して、all-posts.org への org-capture が確定したら org-hugo-export-wim-to-md :all-subtrees が自動で走るようにした。
@@ -4346,7 +4376,7 @@ macOS デスクトップアプリ版の Claude で、たまにチャット入力
 
 手順は次のとおり。Userscripts をインストールしたら Safari の拡張機能から有効化し、ツールバーのアイコンをクリックして出てくる画面から進める。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "手順">}}
 1. ポップアップ下部の「Open Extension Page」をクリック
 2. 新しいSafariタブで拡張機能の管理ページ（フル画面のエディタ画面）が開く
@@ -4396,7 +4426,7 @@ macOS デスクトップアプリ版の Claude で、たまにチャット入力
 
 保存できたら、実際にちゃんと動くか試してみよう。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "動作検証">}}
   1. claude.aiのチャット入力欄をクリック
   2. 日本語入力モードで「かんじへんかん」と入力
@@ -4413,7 +4443,7 @@ macOS デスクトップアプリ版の Claude で、たまにチャット入力
 
 気になる人向けに、仕組みをもう少し詳しく書いておく。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "仕組みの詳細">}}
 このスクリプトは、Safari版claude.aiのDOMにJavaScriptを注入して、ブラウザ標準のEnterキー処理を「横取り」する方式。claude.ai本体のページ実装は一切いじらず、ブラウザ拡張機能側でイベントを先に受け取ってキャンセルしているだけだ。
 
@@ -4457,11 +4487,11 @@ Emacs 31 の最初のプリテスト版（ =emacs-31.0.90= ）が公開された
 
 話を始める前に、事実関係を整理しておく。
 
-| 呼び名 | バージョン | 状態 |
-|---+---+---|
-| 安定版 | 30.2 | いま普通に使うならこれ |
-| Emacs 31 | 31.0.90 | プリテスト（第1版）。正式リリース前 |
-| master | 32.0.50 | 開発の最先端。31 の機能をすべて含む |
+| 呼び名    | バージョン | 状態                           |
+|----------+----------+-------------------------------|
+| 安定版    |     30.2 | いま普通に使うならこれ            |
+| Emacs 31 |  31.0.90 | プリテスト（第1版）。正式リリース前 |
+| master   |  32.0.50 | 開発の最先端。31 の機能をすべて含む |
 
 つまり *2026年7月時点で Emacs 31.1 はまだ正式リリースされていない* 。
 ただし、master ブランチを自分でビルドしている人なら、
@@ -4739,14 +4769,14 @@ Emacs には昔から =hideshow= という「関数を折りたたむ」機能�
 31 の NEWS には「互換性のない変更」という節があり、
 そこから自分の設定に影響しそうなものを拾っておいた。
 
-| 変更点 | どう困るか |
-|---+---|
-| =if-let= / =when-let= が非推奨に | 末尾に =*= が付いた形（=if-let*=）に書き換えが必要 |
-| ts-mode のインデント設定の変数名が変わった | 独自に設定していると効かなくなる |
-| Pcase の入れ子バッククォートが使えない | =pcase= を凝った使い方をしていると壊れる |
-| 文字列の書き換え制限が厳しくなった | リテラル文字列を破壊的に変更するコードがエラーに |
-| Org 9.8 が同梱される | 自分で Org のバージョンを固定していると二重管理になる |
-| =site-start.el= の読み込み順が変わった | Homebrew などが置いたファイルの挙動が変わりうる |
+| 変更点                                | どう困るか                                     |
+|--------------------------------------+----------------------------------------------|
+| =if-let= / =when-let= が非推奨に       | 末尾に =*= が付いた形（=if-let*=）に書き換えが必要  |
+| ts-mode のインデント設定の変数名が変わった | 独自に設定していると効かなくなる                   |
+| Pcase の入れ子バッククォートが使えない     | =pcase= を凝った使い方をしていると壊れる           |
+| 文字列の書き換え制限が厳しくなった         | リテラル文字列を破壊的に変更するコードがエラーに      |
+| Org 9.8 が同梱される                   | 自分で Org のバージョンを固定していると二重管理になる |
+| =site-start.el= の読み込み順が変わった   | Homebrew などが置いたファイルの挙動が変わりうる     |
 
 これらは、いきなり本番の設定に適用してハマるのではなく、
 *ブランチを切って、ひとつずつ試す* のが確実だ。
@@ -4768,12 +4798,12 @@ Emacs には昔から =hideshow= という「関数を折りたたむ」機能�
 
 数字で言えば、こうなる。
 
-| 項目 | 現状 | 移行後 |
-|---+---+---|
-| tree-sitter 設定 | 約155行 | 約55行 |
-| 自作タイマー | 手書き | 設定項目1つ |
-| 自作デバウンス | 3か所 | ライブラリ呼び出し |
-| 削除できるパッケージ | — | 最大5個 |
+| 項目              | 現状    | 移行後           |
+|------------------+--------+-----------------|
+| tree-sitter 設定  | 約155行 | 約55行           |
+| 自作タイマー       | 手書き  | 設定項目1つ       |
+| 自作デバウンス      | 3か所   | ライブラリ呼び出し |
+| 削除できるパッケージ | —      | 最大5個          |
 
 ただ、正直なところ *行数が減ること自体はどうでもいい* 。
 
@@ -4806,7 +4836,7 @@ Emacs には昔から =hideshow= という「関数を折りたたむ」機能�
 新機能の正確な引数や挙動は、 =C-h f= で関数のドキュメントを引くのがいちばん早い。
 ブログ記事（この記事も含めて）を鵜呑みにせず、手元で確かめてほしい。
 
-** DONE GNU Machのソースコードを、素人が興味本位で読んでみた話   :Hurd:GNUMach:カーネル:コードリーディング:OS自作:
+** DONE GNU Machのソースコードを、素人が興味本位で読んでみた話 :Hurd:GNUMach:カーネル:コードリーディング:OS自作:
 CLOSED: [2026-07-20 Mon 18:43]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 8C8263C5-1E11-4D71-9257-57DE794305F2
@@ -4840,13 +4870,13 @@ Twitter(もうXって呼ぶべきなんだろうか)のタイムラインの雑�
 
 ディレクトリ構成を見るだけでも性格がわかる。
 
-| ディレクトリ                | 中身                                     | 規模          |
-|------------------------------+--------------------------------------------+----------------|
-| ~kern/~                      | スケジューラ・タスク/スレッド管理           | 約31,500行     |
-| ~ipc/~                       | Mach IPC(ポート・メッセージング)           | 約16,600行     |
-| ~vm/~                        | 仮想メモリ管理                              | 約21,200行     |
-| ~device/~                    | デバイス抽象層                              | 約9,700行      |
-| ~linux/~                     | Linuxから移植したドライバ群                 | 約345,500行    |
+| ディレクトリ | 中身                          | 規模        |
+|------------+------------------------------+------------|
+| ~kern/~    | スケジューラ・タスク/スレッド管理  | 約31,500行  |
+| ~ipc/~     | Mach IPC(ポート・メッセージング) | 約16,600行  |
+| ~vm/~      | 仮想メモリ管理                  | 約21,200行  |
+| ~device/~  | デバイス抽象層                  | 約9,700行   |
+| ~linux/~   | Linuxから移植したドライバ群      | 約345,500行 |
 
 見ての通り ~linux/~ が圧倒的に大きいんだけど、これは中身がMachというより
 「LinuxのドライバをMachの作法でラップしたもの」がほとんどだからだ。
@@ -4869,14 +4899,14 @@ Mach IPCの根幹は「すべてはポートへのメッセージ送信である
 ある。
 
 #+begin_src c
-is_read_lock(space);
-entry = ipc_entry_lookup(space, dest_name);      // 名前→エントリ
-...
-dest_port = (ipc_port_t) entry->ie_object;
-ip_lock(dest_port);
-is_read_unlock(space);
-...
-dest_port->ip_srights++;                          // 参照カウント増加
+  is_read_lock(space);
+  entry = ipc_entry_lookup(space, dest_name);      // 名前→エントリ
+  ...
+  dest_port = (ipc_port_t) entry->ie_object;
+  ip_lock(dest_port);
+  is_read_unlock(space);
+  ...
+  dest_port->ip_srights++;                          // 参照カウント増加
 #+end_src
 
 つまりユーザ空間が持っている「ポート」というのは、実体としてはただの
@@ -4913,17 +4943,17 @@ Machのメモリオブジェクトは「シャドウチェーン」という親�
 仕組みになっている。コードで言うとこの部分だ。
 
 #+begin_src c
-if (m->absent) {
-    offset += object->shadow_offset;
-    next_object = object->shadow;
-    if (next_object == VM_OBJECT_NULL) {
-        /* シャドウチェーンの末端 = ゼロフィルページを生成 */
-        real_m = vm_page_grab(VM_PAGE_HIGHMEM);
-        ...
-        vm_page_zero_fill(m);
-    }
-    /* else: 親オブジェクトを見に行く */
-}
+  if (m->absent) {
+      offset += object->shadow_offset;
+      next_object = object->shadow;
+      if (next_object == VM_OBJECT_NULL) {
+          /* シャドウチェーンの末端 = ゼロフィルページを生成 */
+          real_m = vm_page_grab(VM_PAGE_HIGHMEM);
+          ...
+          vm_page_zero_fill(m);
+      }
+      /* else: 親オブジェクトを見に行く */
+  }
 #+end_src
 
 これ、要するに ~fork()~ したあとの匿名メモリ(ヒープやBSS)がどう実現
@@ -4948,10 +4978,10 @@ Copy-on-Writeの実装も同じ発想の延長で、書き込みが起きた瞬�
 *カーネル自身は決めていない* んだよね。
 
 #+begin_src c
-while (!src_object->pager_ready) {
-    vm_object_wait(src_object, VM_OBJECT_EVENT_PAGER_READY, interruptible);
-    ...
-}
+  while (!src_object->pager_ready) {
+      vm_object_wait(src_object, VM_OBJECT_EVENT_PAGER_READY, interruptible);
+      ...
+  }
 #+end_src
 
 外部のページャ(ユーザ空間で動くサーバプロセス)が「私が管理するこの
@@ -5066,12 +5096,12 @@ RPC——タスク自身が自分の優先度を変更するための呼び出�
 これに、修正前は上限チェックが一切なかった。
 
 #+begin_src c
-task_lock(task);
-if (task->max_priority > priority) {      // ← 追加されたチェック
-    task_unlock(task);
-    return KERN_NO_ACCESS;
-}
-task->priority = priority;
+  task_lock(task);
+  if (task->max_priority > priority) {      // ← 追加されたチェック
+      task_unlock(task);
+      return KERN_NO_ACCESS;
+  }
+  task->priority = priority;
 #+end_src
 
 Machの優先度は数値が小さいほど「偉い」扱いなので、これはつまり「誰でも
@@ -5095,7 +5125,7 @@ CVE番号が付くような華々しい脆弱性ではなく、開発者自身�
 
 気が向いたら、スケジューラ(~sched_prim.c~)のロードバランシング周りも
 続けて読んでみようと思う。
-** DONE 夏になるとラタトゥイユを作りたくなる   :料理:夏:エッセイ:暮らし:
+** DONE 夏になるとラタトゥイユを作りたくなる :料理:夏:エッセイ:暮らし:
 CLOSED: [2026-07-20 Mon 21:52]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 9F01D74C-5C06-495F-A1AB-8949E9B41B9E
@@ -5107,7 +5137,7 @@ CLOSED: [2026-07-20 Mon 21:52]
 が一斉に並び始めるのを見ると、体のどこかのスイッチが入るんだと思う。
 「あ、この時期が来たな」という感覚に近い。
 
-#+CAPTION: 切り分けた夏野菜。色だけで、もう気分が上がる
+#+caption: 切り分けた夏野菜。色だけで、もう気分が上がる
 [[file:./images/ratatouille-01.jpg]]
 
 *** 手順というほどのものでもない
@@ -5129,7 +5159,7 @@ CLOSED: [2026-07-20 Mon 21:52]
 トマトを加えたら、あとは弱火でことこと。塩、こしょう、あればエルブ・
 ド・プロヴァンスを少し。蓋を少しずらして、水分を飛ばしながら30分ほど。
 
-#+CAPTION: 弱火でことこと煮込んでいる途中
+#+caption: 弱火でことこと煮込んでいる途中
 [[file:./images/ratatouille-02.jpg]]
 
 *** 冷やして食べる、翌日の方が美味しい問題
@@ -5145,7 +5175,7 @@ CLOSED: [2026-07-20 Mon 21:52]
 一皿にもなる。応用が利くところも、夏に何度も作ってしまう理由の一つ
 かもしれない。
 
-#+CAPTION: 冷やして翌日食べる一皿
+#+caption: 冷やして翌日食べる一皿
 [[file:./images/ratatouille-03.jpg]]
 
 *** 何を作っているのか、というより
@@ -5165,8 +5195,8 @@ CLOSED: [2026-07-21 Tue 23:19]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 31836D4D-E645-4ABF-B393-A429ECD8C835
 :EXPORT_DATE: 2026-07-21 23:17:09
-:EXPORT_HUGO_TAGS:  emacs elisp
-:EXPORT_HUGO_CATEGORIES:  開発
+:EXPORT_HUGO_TAGS: emacs elisp
+:EXPORT_HUGO_CATEGORIES: 開発
 :EXPORT_HUGO_LASTMOD:
 :END:
 普段は ~README.org~ をいじって設定を壊しては直す、という生活をしているが、たまには自分が毎日呼び出している ~eval~ が実際どう動いているのか見てみたくなった。というわけでGNU Emacs本体のCソース、 ~src/eval.c~ (4,700行弱)を読んでみた記録。読み終えて分かったのは、この評価器が「言語処理系としての正しさ」より「1985年から動いているコードを1行も壊さないこと」を一貫して優先し続けてきた、継ぎ足しの塊だということだった。
@@ -5193,14 +5223,14 @@ Emacs Lispで何かを評価するとき、内部では ~eval_sub~ という関�
 ~if~ や ~let~ や ~while~ といった特殊形式は、 ~UNEVALLED~ という印がついたSUBRとして定義されている。
 
 #+begin_src c
-DEFUN ("if", Fif, Sif, 2, UNEVALLED, 0, ...)
-  (Lisp_Object args)
-{
-  Lisp_Object cond = eval_sub (XCAR (args));
-  if (!NILP (cond))
-    return eval_sub (Fcar (XCDR (args)));
-  return Fprogn (Fcdr (XCDR (args)));
-}
+  DEFUN ("if", Fif, Sif, 2, UNEVALLED, 0, ...)
+    (Lisp_Object args)
+  {
+    Lisp_Object cond = eval_sub (XCAR (args));
+    if (!NILP (cond))
+      return eval_sub (Fcar (XCDR (args)));
+    return Fprogn (Fcdr (XCDR (args)));
+  }
 #+end_src
 
 つまり ~(if cond then else)~ と書いたとき、Emacsは ~cond~ の部分だけを評価してから、Cのif文で ~then~ か ~else~ のどちらを評価するかを自分で決めている。マクロ展開という別フェーズがあるわけではなく、評価器がその場その場で「これは何を評価すべきか」を判断しているだけ、というのが素朴で好きなところだ。ちなみに ~if~ の内部で ~else~ 節の評価を丸ごと ~Fprogn~ に投げているのを見ると、「 ~if~ は ~progn~ に依存して実装されている」という実装同士の依存関係も透けて見える。
@@ -5222,8 +5252,8 @@ DEFUN ("if", Fif, Sif, 2, UNEVALLED, 0, ...)
 さらに面白いのが ~(defvar foo)~ (初期値なし)の挙動だ。これは、そのシンボルを「このスコープでは動的扱いにする」という *一時的な* 目印として、環境alistに *コンスセルではなく裸のシンボル* を突っ込む。
 
 #+begin_src c
-Vinternal_interpreter_environment
-  = Fcons (sym, Vinternal_interpreter_environment);
+  Vinternal_interpreter_environment
+    = Fcons (sym, Vinternal_interpreter_environment);
 #+end_src
 
 変数参照コードは ~Fassq~ (コンスセルのcarを探す関数)を使うので、裸のシンボルには絶対にヒットしない。一方 ~let~ 側は ~Fmemq~ (リストの要素そのものが ~eq~ で一致するか探す関数)でこの裸シンボルを検出し、レキシカル束縛をやめて動的束縛に切り替える。
@@ -5286,14 +5316,14 @@ CLOSED: [2026-07-25 Sat 10:09]
 きっかけは単純だった。Emacsでいつも通り =~/.authinfo.gpg= を開こうとしたら、こんなエラーが出た。
 
 #+begin_src text
-Error while decrypting with "/opt/homebrew/bin/gpg":
-gpg: keydb_search failed: I/O error during SQL operation
-gpg: encrypted with ECDH key, ID D8E725A8316E4066
-gpg: key "AA2C51685BA2F0416C2FEB16BEBE9731AC8B2551" not found: I/O error during SQL operation
-gpg: all values passed to '--default-key' ignored
-gpg: keydb_search failed: I/O error during SQL operation
-gpg: public key decryption failed: No secret key
-gpg: decryption failed: No secret key
+  Error while decrypting with "/opt/homebrew/bin/gpg":
+  gpg: keydb_search failed: I/O error during SQL operation
+  gpg: encrypted with ECDH key, ID D8E725A8316E4066
+  gpg: key "AA2C51685BA2F0416C2FEB16BEBE9731AC8B2551" not found: I/O error during SQL operation
+  gpg: all values passed to '--default-key' ignored
+  gpg: keydb_search failed: I/O error during SQL operation
+  gpg: public key decryption failed: No secret key
+  gpg: decryption failed: No secret key
 #+end_src
 
 "I/O error during SQL operation" ってなんだ。GPGでSQLのエラーが出るのを初めて見た。
@@ -5319,15 +5349,15 @@ gpg: decryption failed: No secret key
 keyboxdのSQLiteパスをそもそも通らないようにする。レガシー形式の =pubring.kbx= に戻すだけだ。
 
 #+begin_src bash
-gpgconf --kill all
-sed -i '' '/^use-keyboxd$/d' ~/.gnupg/common.conf
-mv ~/.gnupg/public-keys.d ~/.gnupg/public-keys.d.broken.$(date +%Y%m%d)
-gpgconf --kill all
-gpg --list-keys
+  gpgconf --kill all
+  sed -i '' '/^use-keyboxd$/d' ~/.gnupg/common.conf
+  mv ~/.gnupg/public-keys.d ~/.gnupg/public-keys.d.broken.$(date +%Y%m%d)
+  gpgconf --kill all
+  gpg --list-keys
 #+end_src
 
 #+begin_src text
-gpg: keybox '/Users/ac1965/.gnupg/pubring.kbx' が作成されました
+  gpg: keybox '/Users/ac1965/.gnupg/pubring.kbx' が作成されました
 #+end_src
 
 これで "I/O error during SQL operation" は綺麗さっぱり消えた。もちろん公開鍵は空っぽになるので、その後は秘密鍵（ =private-keys-v1.d= は無傷で残っている）に対応する公開鍵を再インポートする作業が必要になる。
@@ -5339,10 +5369,10 @@ gpg: keybox '/Users/ac1965/.gnupg/pubring.kbx' が作成されました
 .authinfo.gpg を開くたびにパスフレーズを打つのも面倒だったので、この機会に =pinentry-touchid= を導入してTouch ID認証に置き換えた。 =gpg-agent.conf= はこうなっている。
 
 #+begin_src conf
-allow-loopback-pinentry
-default-cache-ttl 1800
-# allow-emacs-pinentry
-pinentry-program /opt/homebrew/bin/pinentry-touchid
+  allow-loopback-pinentry
+  default-cache-ttl 1800
+  # allow-emacs-pinentry
+  pinentry-program /opt/homebrew/bin/pinentry-touchid
 #+end_src
 
 =allow-emacs-pinentry= はあえてコメントアウトしてある。有効にするとEmacsのミニバッファ入力が優先されるケースがあり、Touch ID方式と競合するからだ。
@@ -5368,8 +5398,8 @@ pinentry-program /opt/homebrew/bin/pinentry-touchid
 なので実際にKeychainへ登録する一連の流れはこうなる。
 
 #+begin_src bash
-# 事前に、pinentry-macにKeychain保存を許可しておく
-defaults write org.gpgtools.common UseKeychain -bool yes
+  # 事前に、pinentry-macにKeychain保存を許可しておく
+  defaults write org.gpgtools.common UseKeychain -bool yes
 #+end_src
 
 その状態でパスフレーズ入力が必要な操作（ =gpg -as -= でも実際の復号でもいい）を行うと、 =pinentry-mac= のダイアログに「Save in Keychain」のチェックボックスが出る。ここにチェックを入れると、続けてmacOSのログインパスワード入力を求められることがある。これは =pinentry-mac= や =pinentry-touchid= がこのエントリにアクセスする権限をOSから正式に認可してもらうためのもので、ここで *Always Allow* を選んでおく。
@@ -5385,25 +5415,25 @@ If a password entry is found but is not "owned" by the pinentry-touchid program 
 登録できたかどうかはCLIから確認できる。
 
 #+begin_src bash
-security find-generic-password -s 'GnuPG'
+  security find-generic-password -s 'GnuPG'
 #+end_src
 
 属性の一覧が返れば登録済み。何も見つからなければ次のようなエラーになる。
 
 #+begin_src text
-security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.
+  security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.
 #+end_src
 
 パスフレーズの権限が完全に =pinentry-touchid= 側に移った後は、 =pinentry-mac= 側からの新規書き込みを止めておくとよい。README側も推奨している設定。
 
 #+begin_src bash
-defaults write org.gpgtools.common DisableKeychain -bool yes
+  defaults write org.gpgtools.common DisableKeychain -bool yes
 #+end_src
 
 エントリを消したいとき（パスフレーズをローテートした時など）は、これも =security= コマンド一発。
 
 #+begin_src bash
-security delete-generic-password -s 'GnuPG' -a '<アカウント名>'
+  security delete-generic-password -s 'GnuPG' -a '<アカウント名>'
 #+end_src
 
 =<アカウント名>= は =find-generic-password -s 'GnuPG'= で返ってくる属性一覧の中の =acct= の値。gpg-agentが渡すcache-idがベースになっているので、事前に確認してから使う。
@@ -5446,10 +5476,10 @@ Claudeに調査を手伝ってもらいながら =resources/_gen= （Hugoのビ�
 を覗いていて、妙なことに気づいた。
 
 #+begin_src text
-resources/_gen/images/post/2010-1620-4255/cover_hu_be95bd4d5cc45593.jpg
-resources/_gen/images/post/2010-3be9-c756/cover_hu_be95bd4d5cc45593.jpg
-resources/_gen/images/post/2016-d5bf-eafd/cover_hu_be95bd4d5cc45593.jpg
-resources/_gen/images/post/2023-76f0-5099/cover_hu_be95bd4d5cc45593.jpg
+  resources/_gen/images/post/2010-1620-4255/cover_hu_be95bd4d5cc45593.jpg
+  resources/_gen/images/post/2010-3be9-c756/cover_hu_be95bd4d5cc45593.jpg
+  resources/_gen/images/post/2016-d5bf-eafd/cover_hu_be95bd4d5cc45593.jpg
+  resources/_gen/images/post/2023-76f0-5099/cover_hu_be95bd4d5cc45593.jpg
 #+end_src
 
 Hugoのキャッシュファイル名についているハッシュ値は、元画像のバイト列と
@@ -5463,12 +5493,12 @@ Hugoのキャッシュファイル名についているハッシュ値は、元�
 バグが確信に変わった。
 
 #+begin_src zsh
-date_line="$(grep -m1 -E '^(date|publishDate)[[:space:]]*[:=]' "${md_file}" 2>/dev/null || true)"
-...
-if [[ -z "${month:-}" ]]; then
-    month="$(date +%m)"   # ← ここ
-    warn "front matterにdateが見つからないため実行時月(${month})にフォールバック"
-fi
+  date_line="$(grep -m1 -E '^(date|publishDate)[[:space:]]*[:=]' "${md_file}" 2>/dev/null || true)"
+  ...
+  if [[ -z "${month:-}" ]]; then
+      month="$(date +%m)"   # ← ここ
+      warn "front matterにdateが見つからないため実行時月(${month})にフォールバック"
+  fi
 #+end_src
 
 front matterの日付を取得できなかった場合、 *実行時点の月* にフォールバック
@@ -5484,13 +5514,13 @@ grepが失敗する記事は全部「その日の月」に丸められる。結�
 気づいて、Gitの履歴を辿ってみることにした。
 
 #+begin_src sh
-for f in content/post/*/cover.jpg; do
-  slug=$(dirname "$f" | xargs basename)
-  n=$(git log --follow --format=%H -- "$f" | while read c; do
-        git show "${c}:${f}" 2>/dev/null | git hash-object --stdin
-      done | sort -u | wc -l)
-  echo "${slug}: ${n} unique blob(s)"
-done
+  for f in content/post/*/cover.jpg; do
+    slug=$(dirname "$f" | xargs basename)
+    n=$(git log --follow --format=%H -- "$f" | while read c; do
+          git show "${c}:${f}" 2>/dev/null | git hash-object --stdin
+        done | sort -u | wc -l)
+    echo "${slug}: ${n} unique blob(s)"
+  done
 #+end_src
 
 ほとんどの記事で blob 数が2〜4。つまり中身が何度か変わっている。
@@ -5499,29 +5529,29 @@ done
 気づいた。
 
 #+begin_src sh
-git log --since="2026-03-20" --until="2026-03-22" \
-  --format='%H %ad %s' --date=short -- 'content/post/*/cover.jpg' \
-  | sort -u -k1,1
+  git log --since="2026-03-20" --until="2026-03-22" \
+    --format='%H %ad %s' --date=short -- 'content/post/*/cover.jpg' \
+    | sort -u -k1,1
 #+end_src
 
 #+begin_src text
-dea1ff4b49445799379f6183ff758593d924cb82 2026-03-21 Update
+  dea1ff4b49445799379f6183ff758593d924cb82 2026-03-21 Update
 #+end_src
 
 このコミット、何をしたのか見てみた。
 
 #+begin_src sh
-git show --stat dea1ff4b49445799379f6183ff758593d924cb82 | head -60
+  git show --stat dea1ff4b49445799379f6183ff758593d924cb82 | head -60
 #+end_src
 
 出てきたのは、こういう行がひたすら続く出力だった。
 
 #+begin_src text
-content/post/2010-1620-4255.md              |  18 -
-content/post/2010-1620-4255/cover.jpg       | Bin 1820880 -> 0 bytes
-content/post/2010-4ca5-ca76.md              | 744 ---------------------
-content/post/2010-4ca5-ca76/cover.jpg       | Bin 65943 -> 0 bytes
-...
+  content/post/2010-1620-4255.md              |  18 -
+  content/post/2010-1620-4255/cover.jpg       | Bin 1820880 -> 0 bytes
+  content/post/2010-4ca5-ca76.md              | 744 ---------------------
+  content/post/2010-4ca5-ca76/cover.jpg       | Bin 65943 -> 0 bytes
+  ...
 #+end_src
 
 =Bin XXXXX -> 0 bytes= 。 =delete mode= 。全部「削除」だった。
@@ -5530,7 +5560,7 @@ content/post/2010-4ca5-ca76/cover.jpg       | Bin 65943 -> 0 bytes
 （カバー画像だけでなく、記事本文中に貼っていた写真も含めて）が、
 たった1回のコミットでまとめて消えていた。
 
-#+begin_export hugo
+#+begin_export HUGO
 {{<details "何が起きていたか、時系列で整理すると">}}
 1. 2026-03-21：何らかの操作で、全記事の =.md= と画像がまとめて削除される
 2. その後：README.org側からox-hugoで記事は再エクスポートされ、テキストは復活
@@ -5593,7 +5623,7 @@ custom判定の11記事を =assets/img/cover/custom/= へ移し終えて、い�
 確認したら、カテゴリページのビルドがエラーで落ちた。
 
 #+begin_src text
-error calling Resize: failed to resize image ".../cover.png": resize ...: image: unknown format
+  error calling Resize: failed to resize image ".../cover.png": resize ...: image: unknown format
 #+end_src
 
 原因は、該当記事のディレクトリに **0バイトの =cover.png= という残骸**が同居していたこと。
@@ -5627,11 +5657,11 @@ Hugoのページバンドルは =cover.*= という名前のファイルをfront
 使うのが正解で、思いつきで名前を作っても黙って無視されるだけだった。
 
 #+begin_src text
-;; NG: ox-hugoが認識せず、front matterに一切出てこない
-:EXPORT_HUGO_COVER: custom/foo.jpg
+  ;; NG: ox-hugoが認識せず、front matterに一切出てこない
+  :EXPORT_HUGO_COVER: custom/foo.jpg
 
-;; OK: 唯一の任意キー用の経路
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/foo.jpg"
+  ;; OK: 唯一の任意キー用の経路
+  :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/foo.jpg"
 #+end_src
 
 Emacsのcaptureテンプレート側も同じ間違いをしていたので、新規記事作成時に自動挿入
@@ -5643,5 +5673,820 @@ Emacsのcaptureテンプレート側も同じ間違いをしていたので、�
 「1つ直したら、もぐら叩きみたいに次から次へと別の問題が顔を出す」タイプの話だった。
 機械的な分類、ページバンドルの優先順位、ox-hugoの仕様——それぞれは独立した小さな
 落とし穴なのだけど、1つの作業の中で3つ続けて踏むと、さすがに笑ってしまった。
+** DONE Blowfish（Hugoテーマ）のショートコード使い方まとめ
+CLOSED: [2026-07-27 Mon 21:57]
+:PROPERTIES:
+:EXPORT_FILE_NAME: blowfish-shortcode-reference
+:EXPORT_DATE: 2026-07-27 10:00:00
+:EXPORT_HUGO_TAGS: Hugo Blowfish ox-hugo Shortcode
+:EXPORT_HUGO_CATEGORIES: Hugo
+:EXPORT_HUGO_LASTMOD:
+:END:
 
-今度こそ本当に片付いた、と思いたい。
+参照元は [[https://github.com/nunocoracao/blowfish][nunocoracao/blowfish]] の exampleSite ドキュメントと [[https://blowfish.page/docs/shortcodes/][公式サイトのshortcodesページ]]（2026年7月確認）。
+
+ox-hugoでタングル/エクスポートする前提なので、ショートコードを書く部分は全部 =#+begin_export hugo= 〜 =#+end_export= で囲んである。org地の文（説明・表）はそのままMarkdownとして出力されるので、export ブロックは不要。
+
+org-mode的には「構文そのものを文字として見せたいexportブロック」と「実際にHugoに変換させて機能させるexportブロック」は区別が必要である。=#+begin_export hugo= はox-hugoに素通しされて実際にレンダリングされてしまうので、構文自体を文字として見せたい場合は =#+begin_example=（または =#+begin_src org=）で一段リテラル化してから、その直後に本物の =#+begin_export hugo= ブロックを続ける、という2段構成にしている。
+
+ただし =#+begin_example= で囲んだだけでは不十分だった。Hugoのショートコード展開は、囲んでいるのがMarkdownのコードフェンスかどうかを見ずに、ファイル全体のテキストから波括弧2つのショートコード記法を機械的に探して実行してしまうため、コードブロックの中に書いた例文もそのまま実行されてビルドエラーや取得失敗の原因になる。これを防ぐには、Hugo公式のショートコードのエスケープ記法を使う必要がある。開き括弧の直後と閉じ括弧の直前に「/* 」「 */」を挟むと、実行されずに文字通りの文字列としてそのまま出力される。以下すべての節の「書き方はこう」の例では、この記法で統一した。
+
+*** Alert（警告・注意喚起ボックス）
+
+記事内に目立つメッセージボックスを表示する。中身は Markdown 記法。
+
+書き方はこうなる。
+
+#+begin_example
+#+begin_export hugo
+{{</* alert */>}}
+**Warning!** This action is destructive!
+{{</* /alert */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< alert >}}
+**Warning!** This action is destructive!
+{{< /alert >}}
+#+end_export
+
+アイコン付き・色指定もできる。
+
+#+begin_example
+#+begin_export hugo
+{{</* alert icon="fire" cardColor="#e63946" iconColor="#1d3557" textColor="#f1faee" */>}}
+This is an error!
+{{</* /alert */>}}
+#+end_export
+#+end_example
+
+#+begin_export hugo
+{{< alert icon="fire" cardColor="#e63946" iconColor="#1d3557" textColor="#f1faee" >}}
+This is an error!
+{{< /alert >}}
+#+end_export
+
+| パラメータ  | 説明                                            |
+|-------------+-------------------------------------------------|
+| icon        | 任意。左側アイコン名。デフォルト: triangle-exclamation |
+| iconColor   | 任意。アイコン色（hex or カラー名）              |
+| cardColor   | 任意。カード背景色                               |
+| textColor   | 任意。テキスト色                                 |
+
+*** Admonition（GitHub/Obsidian 風コールアウト）
+
+これはショートコードではなく Hugo の render hook 経由のMarkdown拡張構文。=#+begin_export hugo= で囲む必要はなく、そのままorg内でblockquote記法として書ける（ただしox-hugo側でblockquoteへの変換確認が必要。確実に反映したい場合はexportブロック推奨）。
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+> [!TIP]
+> A Tip type admonition.
+
+> [!TIP]+ Custom Title + Custom Icon
+> A collapsible admonition with custom title.
+{icon="twitter"}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+> [!TIP]
+> A Tip type admonition.
+
+> [!TIP]+ Custom Title + Custom Icon
+> A collapsible admonition with custom title.
+{icon="twitter"}
+#+end_export
+
+対応タイプはGitHub系（NOTE / TIP / IMPORTANT / WARNING / CAUTION）とObsidian系（note / abstract / info / todo / tip / success / question / warning / failure / danger / bug / example / quote）。=+=/=-= で折りたたみ制御もできる（Obsidian互換）。
+
+*** Accordion（アコーディオン／折りたたみパネル）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* accordion mode="open" separated=true */>}}
+  {{</* accordionItem title="Markdown example" icon="code" open=true */>}}
+  本文（Markdown）
+  {{</* /accordionItem */>}}
+
+  {{</* accordionItem title="Shortcode example" md=false */>}}
+  {{</* alert */>}}インラインアラート{{</* /alert */>}}
+  {{</* /accordionItem */>}}
+{{</* /accordion */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< accordion mode="open" separated=true >}}
+  {{< accordionItem title="Markdown example" icon="code" open=true >}}
+  本文（Markdown）
+  {{< /accordionItem >}}
+
+  {{< accordionItem title="Shortcode example" md=false >}}
+  {{< alert >}}インラインアラート{{< /alert >}}
+  {{< /accordionItem >}}
+{{< /accordion >}}
+#+end_export
+
+| パラメータ | 説明                                                       |
+|------------+--------------------------------------------------------------|
+| mode       | collapse（単一展開）/ open（複数展開）。デフォルト collapse |
+| separated  | true で各項目を独立カード表示                              |
+| title      | 必須。ヘッダタイトル                                        |
+| open       | デフォルトで開いた状態にする                                |
+| icon       | タイトル前のアイコン                                        |
+| align      | left / center / right                                      |
+
+*** Ansible Galaxy Card
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* ansible role="geerlingguy.docker" */>}}
+{{</* ansible collection="community.general" */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< ansible role="geerlingguy.docker" >}}
+{{< ansible collection="community.general" >}}
+#+end_export
+
+=role= または =collection= のどちらか一方を指定する（ビルド時に =resources.GetRemote= で取得、ブラウザ側では更新されない）。
+
+*** Article（記事埋め込み）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* article link="/docs/welcome/" showSummary=true compactSummary=true */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< article link="/docs/welcome/" showSummary=true compactSummary=true >}}
+#+end_export
+
+| パラメータ     | 説明                                       |
+|----------------+---------------------------------------------|
+| link           | 必須。埋め込み先の .RelPermalink            |
+| showSummary    | 任意。サマリー表示可否                      |
+| compactSummary | 任意。コンパクト表示                        |
+
+サブフォルダ運用時はパスを含めて指定する必要がある。
+
+*** Badge
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* badge */>}}
+New article!
+{{</* /badge */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< badge >}}
+New article!
+{{< /badge >}}
+#+end_export
+
+*** Button
+
+書き方はこう。=pageRef= は存在する内部ページのパスを指定する必要があるので、ここでは記法例として =docs/getting-started= を挙げているが、実際に使う際はサイト内の実在パスに置き換えること（存在しないパスを =pageRef= に渡すとビルド時に =REF_NOT_FOUND= エラーになりビルド自体が止まる）。
+
+#+begin_example
+#+begin_export hugo
+{{</* button href="#button" target="_self" */>}}
+Call to action
+{{</* /button */>}}
+
+{{</* button pageRef="docs/getting-started" */>}}
+Get started
+{{</* /button */>}}
+#+end_export
+#+end_example
+
+=href= 版（任意URL/アンカー）はそのままレンダリングできる。
+
+#+begin_export hugo
+{{< button href="#button" target="_self" >}}
+Call to action
+{{< /button >}}
+#+end_export
+
+=pageRef=（内部ページ参照）と =href=（任意URL）が併用時は =pageRef= 優先。=target=/=rel= も指定できる。
+
+*** Carousel（画像カルーセル）
+
+書き方はこう。=captions= の中の =*formatting*= もMarkdown記法（斜体）である点に注意。
+
+#+begin_example
+#+begin_export hugo
+{{</* carousel images="gallery/*" aspectRatio="21-9" interval="2500" */>}}
+
+{{</* carousel images="gallery/*" captions="{01.jpg:First image with *formatting*,02.jpg:Second image}" */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< carousel images="gallery/*" aspectRatio="21-9" interval="2500" >}}
+
+{{< carousel images="gallery/*" captions="{01.jpg:First image with *formatting*,02.jpg:Second image}" >}}
+#+end_export
+
+| パラメータ  | 説明                                          |
+|-------------+------------------------------------------------|
+| images      | 必須。画像名/URLにマッチする正規表現            |
+| captions    | 任意。key:caption 形式リスト（Markdown可）      |
+| aspectRatio | 任意。デフォルト 16-9                           |
+| interval    | 任意。自動スクロール間隔(ms)。デフォルト 2000   |
+
+*** Chart（Chart.js グラフ）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* chart */>}}
+type: 'bar',
+data: {
+  labels: ['Tomato', 'Blueberry', 'Banana'],
+  datasets: [{ label: '# of votes', data: [12, 19, 3] }]
+}
+{{</* /chart */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< chart >}}
+type: 'bar',
+data: {
+  labels: ['Tomato', 'Blueberry', 'Banana'],
+  datasets: [{ label: '# of votes', data: [12, 19, 3] }]
+}
+{{< /chart >}}
+#+end_export
+
+Chart.jsの設定をそのまま記述する。
+
+*** Code Importer（外部コード取り込み）
+
+書き方はこう。=url= は実在するファイルのraw URLを指定する必要があり、ここでのURLは記法説明用のプレースホルダーなので実レンダリングはしていない（プレースホルダーのままビルドすると =unable to fetch= の警告が出る）。
+
+#+begin_example
+#+begin_export hugo
+{{</* codeimporter url="https://raw.githubusercontent.com/.../mdimporter.html" type="go" startLine="11" endLine="18" */>}}
+#+end_export
+#+end_example
+
+| パラメータ         | 説明                     |
+|---------------------+--------------------------|
+| url                 | 必須。外部コードファイルURL |
+| type                | シンタックスハイライト言語 |
+| startLine / endLine | 任意。取り込み範囲        |
+
+*** Codeberg / Forgejo / Gitea / GitHub / GitLab Card（外部リポジトリカード）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* codeberg repo="forgejo/forgejo" */>}}
+{{</* forgejo server="https://v11.next.forgejo.org" repo="a/mastodon" */>}}
+{{</* gitea server="https://git.fsfe.org" repo="FSFE/fsfe-website" */>}}
+{{</* github repo="nunocoracao/blowfish" showThumbnail=true */>}}
+{{</* gitlab projectID="278964" */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< codeberg repo="forgejo/forgejo" >}}
+{{< forgejo server="https://v11.next.forgejo.org" repo="a/mastodon" >}}
+{{< gitea server="https://git.fsfe.org" repo="FSFE/fsfe-website" >}}
+{{< github repo="nunocoracao/blowfish" showThumbnail=true >}}
+{{< gitlab projectID="278964" >}}
+#+end_export
+
+各サービスAPIからスター数・フォーク数等をリアルタイム取得表示する。=github= のみ =showThumbnail= がある。=gitlab= は =baseURL= でセルフホスト対応。
+
+*** Email（難読化メールリンク）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* email email="mailto:hello@test.com" text="text" subject="Reply to awesome article" */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< email email="mailto:hello@test.com" text="text" subject="Reply to awesome article" >}}
+#+end_export
+
+*** Figure（画像・図表）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* figure
+    src="abstract.jpg"
+    alt="Abstract purple artwork"
+    caption="Photo by [Jr Korpa](https://unsplash.com/@jrkorpa)"
+*/>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< figure
+    src="abstract.jpg"
+    alt="Abstract purple artwork"
+    caption="Photo by [Jr Korpa](https://unsplash.com/@jrkorpa)"
+>}}
+#+end_export
+
+標準Markdown画像記法でも自動変換されるので、org中では通常の =[[file:image.jpg]]= リンクをox-hugoが変換する形でも良い。細かい制御（caption/class/nozoom等）が必要な場合だけexportブロックで明示する。
+
+| パラメータ  | 説明                                                        |
+|-------------+--------------------------------------------------------------|
+| src         | 必須。ページリソース→assets/→static/の順で探索               |
+| alt         | 代替テキスト                                                  |
+| caption     | キャプション(Markdown可)                                     |
+| class       | <img>への追加CSSクラス                                        |
+| figureClass | <figure>への追加CSSクラス（ギャラリー用）                     |
+| href/target | リンク先URL・target                                           |
+| nozoom      | true でズーム機能無効化                                        |
+| default     | true で標準Hugo figure挙動に戻す                               |
+
+*** Gallery（画像ギャラリー）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* gallery */>}}
+  <img src="gallery/01.jpg" class="grid-w33" />
+  <img src="gallery/02.jpg" class="grid-w50 md:grid-w33 xl:grid-w25" />
+{{</* /gallery */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< gallery >}}
+  <img src="gallery/01.jpg" class="grid-w33" />
+  <img src="gallery/02.jpg" class="grid-w50 md:grid-w33 xl:grid-w25" />
+{{< /gallery >}}
+#+end_export
+
+=class="grid-wXX"=（10%〜100%、5%刻み。33%/66%も可）でカラム幅を指定する。
+
+*** Gist（GitHub Gist埋め込み）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* gist "octocat" "6cad326836d38bd3a7ae" */>}}
+{{</* gist "rauchg" "2052694" "README.md" */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< gist "octocat" "6cad326836d38bd3a7ae" >}}
+{{< gist "rauchg" "2052694" "README.md" >}}
+#+end_export
+
+引数は [0] GitHubユーザー名 / [1] Gist ID / [2] 任意、Gist内の特定ファイル名。
+
+*** Hugging Face Card
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* huggingface model="google-bert/bert-base-uncased" */>}}
+{{</* huggingface dataset="stanfordnlp/imdb" */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< huggingface model="google-bert/bert-base-uncased" >}}
+{{< huggingface dataset="stanfordnlp/imdb" >}}
+#+end_export
+
+=model= か =dataset= のどちらか一方を指定する。
+
+*** Icon（SVGアイコン）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* icon "github" */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< icon "github" >}}
+#+end_export
+
+独自アイコンは =assets/icons/= にSVG配置し、拡張子なしファイル名で参照できる。
+
+*** KaTeX（数式）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* katex */>}}
+\(f(a,b,c) = (a^2+b^2+c^2)^3\)
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< katex >}}
+\(f(a,b,c) = (a^2+b^2+c^2)^3\)
+#+end_export
+
+記事内に1回だけ配置すればページ内の数式が自動レンダリングされる。org自体のLaTeX記法（=\( \)=）と併用する場合はexportブロック内でエスケープが崩れないか要確認。
+
+*** Keyword / KeywordList（キーワード強調）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* keyword */>}} *Super* skill {{</* /keyword */>}}
+
+{{</* keywordList */>}}
+{{</* keyword icon="github" */>}} Lorem ipsum dolor. {{</* /keyword */>}}
+{{</* keyword icon="code" */>}} **Important** skill {{</* /keyword */>}}
+{{</* /keywordList */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。=*Super*=（斜体1個）と =**Important**=（太字2個）が使い分けられている点に注目。
+
+#+begin_export hugo
+{{< keyword >}} *Super* skill {{< /keyword >}}
+
+{{< keywordList >}}
+{{< keyword icon="github" >}} Lorem ipsum dolor. {{< /keyword >}}
+{{< keyword icon="code" >}} **Important** skill {{< /keyword >}}
+{{< /keywordList >}}
+#+end_export
+
+*** Lead（リード文強調）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* lead */>}}
+When life gives you lemons, make lemonade.
+{{</* /lead */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< lead >}}
+When life gives you lemons, make lemonade.
+{{< /lead >}}
+#+end_export
+
+*** List（記事一覧表示）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* list limit=2 */>}}
+{{</* list title="Samples" cardView=true limit=6 where="Type" value="sample" */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< list limit=2 >}}
+{{< list title="Samples" cardView=true limit=6 where="Type" value="sample" >}}
+#+end_export
+
+| パラメータ | 説明                                              |
+|------------+----------------------------------------------------|
+| limit      | 必須。表示件数                                      |
+| title      | 任意。デフォルト Recent                             |
+| cardView   | 任意。カード表示                                    |
+| where/value| 任意。記事フィルタ条件（Hugoの where クエリに準拠） |
+
+*** LTR/RTL
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+- This is a markdown list.
+{{%/* rtl */%}}
+- هذه القائمة باللغة العربية
+{{%/* /rtl */%}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+- This is a markdown list.
+{{% rtl %}}
+- هذه القائمة باللغة العربية
+{{% /rtl %}}
+#+end_export
+
+*** Markdown Importer（外部Markdown取り込み）
+
+書き方はこう。こちらも =url= は記法説明用のプレースホルダーなので、実在するraw URLに置き換えるまでは実レンダリングしない。
+
+#+begin_example
+#+begin_export hugo
+{{</* mdimporter url="https://raw.githubusercontent.com/.../README.md" */>}}
+#+end_export
+#+end_example
+
+*** Mermaid（図表・ダイアグラム）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* mermaid */>}}
+graph LR;
+A[Lemons]-->B[Lemonade];
+B-->C[Profit]
+{{</* /mermaid */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< mermaid >}}
+graph LR;
+A[Lemons]-->B[Lemonade];
+B-->C[Profit]
+{{< /mermaid >}}
+#+end_export
+
+org標準の =#+begin_src mermaid= ブロックとは別物である点に注意（Hugo側でレンダリングさせたい場合はexport hugoブロックを使う）。
+
+*** Swatches（カラーパレット表示）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* swatches "#64748b" "#3b82f6" "#06b6d4" */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< swatches "#64748b" "#3b82f6" "#06b6d4" >}}
+#+end_export
+
+*** Tabs（タブ切り替え）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* tabs group="lang" default="Python" */>}}
+    {{</* tab label="JavaScript" icon="code" */>}}
+    ```javascript
+    console.log("Hello");
+    ```
+    {{</* /tab */>}}
+    {{</* tab label="Python" icon="sun" */>}}
+    ```python
+    print("Hello")
+    ```
+    {{</* /tab */>}}
+{{</* /tabs */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< tabs group="lang" default="Python" >}}
+    {{< tab label="JavaScript" icon="code" >}}
+    ```javascript
+    console.log("Hello");
+    ```
+    {{< /tab >}}
+    {{< tab label="Python" icon="sun" >}}
+    ```python
+    print("Hello")
+    ```
+    {{< /tab >}}
+{{< /tabs >}}
+#+end_export
+
+| パラメータ | 説明                                                          |
+|------------+-----------------------------------------------------------------|
+| group      | 任意。同一グループ名のタブは連動切替                             |
+| default    | 任意。デフォルトアクティブタブのラベル                            |
+| label      | 必須（tab側）。タブラベル                                         |
+| icon       | 任意（tab側）。ラベル前アイコン                                   |
+| md         | 任意（tab側）。false でネストしたショートコード使用可              |
+
+*** Timeline（タイムライン）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* timeline */>}}
+{{</* timelineItem icon="github" header="header" badge="badge test" subheader="subheader" */>}}
+本文
+{{</* /timelineItem */>}}
+{{</* /timeline */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< timeline >}}
+{{< timelineItem icon="github" header="header" badge="badge test" subheader="subheader" >}}
+本文
+{{< /timelineItem >}}
+{{< /timeline >}}
+#+end_export
+
+| パラメータ(timelineItem) | 説明                       |
+|--------------------------+-----------------------------|
+| md                       | Markdownとしてレンダリングするか |
+| icon                     | タイムラインビジュアルに使うアイコン |
+| header                   | 見出し                     |
+| badge                    | 右上バッジテキスト         |
+| subheader                | サブ見出し                 |
+
+*** TypeIt（タイプライター演出）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* typeit
+  tag=h3
+  speed=50
+  breakLines=false
+  loop=true
+*/>}}
+"Frankly, my dear, I don't give a damn."
+{{</* /typeit */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< typeit
+  tag=h3
+  speed=50
+  breakLines=false
+  loop=true
+>}}
+"Frankly, my dear, I don't give a damn."
+{{< /typeit >}}
+#+end_export
+
+| パラメータ       | 説明                                             |
+|------------------+---------------------------------------------------|
+| tag              | 描画するHTMLタグ                                   |
+| classList        | CSSクラスリスト                                    |
+| initialString    | 初期表示文字列                                     |
+| speed            | タイピング速度(ms)                                 |
+| lifeLike         | 人間らしい不規則タイピング                          |
+| startDelay       | 開始までの遅延                                     |
+| breakLines       | 複数文字列を改行表示するか                          |
+| waitUntilVisible | ビューポート内表示時に開始（デフォルト true）        |
+| loop             | ループ再生                                         |
+
+*** Video（動画埋め込み）
+
+書き方はこう。=caption= の中の =**説明文**= もMarkdown記法（太字）である点に注意。
+
+#+begin_example
+#+begin_export hugo
+{{</* video
+    src="https://example.com/video.webm"
+    poster="https://example.com/poster.jpg"
+    caption="**説明文**"
+    loop=true
+    muted=true
+*/>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< video
+    src="https://example.com/video.webm"
+    poster="https://example.com/poster.jpg"
+    caption="**説明文**"
+    loop=true
+    muted=true
+>}}
+#+end_export
+
+| パラメータ                                          | 説明                                        |
+|------------------------------------------------------+----------------------------------------------|
+| src                                                  | 必須。ローカル/URL                          |
+| poster                                               | 任意。サムネイル画像                        |
+| caption                                              | 任意。Markdownキャプション                  |
+| autoplay/loop/muted/controls/playsinline             | 各種再生制御（真偽値）                      |
+| preload                                              | metadata/none/auto                          |
+| start/end                                            | 再生開始・終了秒数                          |
+| ratio                                                | アスペクト比（16/9等）                      |
+| fit                                                  | contain/cover/fill                          |
+
+*** Youtube Lite（YouTube軽量埋め込み）
+
+書き方はこう。
+
+#+begin_example
+#+begin_export hugo
+{{</* youtubeLite id="SgXhGb-7QbU" label="Blowfish-tools demo" params="start=130&end=10&controls=0" */>}}
+#+end_export
+#+end_example
+
+実際にレンダリングすると、こう表示される。
+
+#+begin_export hugo
+{{< youtubeLite id="SgXhGb-7QbU" label="Blowfish-tools demo" params="start=130&end=10&controls=0" >}}
+#+end_export
+
+| パラメータ | 説明                                                      |
+|------------+-------------------------------------------------------------|
+| id         | 必須。YouTube動画ID                                        |
+| label      | 任意。ラベル                                                |
+| params     | 任意。YouTube Player Parameters（&区切りで複数指定）        |
+
+*** 補足（org運用時の注意点）
+
+=#+begin_export hugo ... #+end_export= の中身は ox-hugo によって *無変換のまま素通し* される。org内の =*bold*= や =/italic/= のようなorg記法は効かないので、ショートコード内で強調したい場合はMarkdownの =**bold**= / =*italic*= をそのまま書く（この記事もその方針で統一している）。
+
+=all-posts.org= のようにファイル内に複数記事が =* 見出し= で区切られている場合、ox-hugoの =#+hugo_base_dir= や各見出しの =:EXPORT_FILE_NAME:= プロパティ設定が別途必要になる。
+
+既存記事に貼り付ける際は、export blockの直前直後に空行を入れないとorg側のパース崩れが起きるケースがあるので注意する。
+
+Admonitionだけはショートコードではなく =render-blockquote.html= によるMarkdown render hook実装である。
+
+「構文そのものを文字として見せたい」場合は、=#+begin_export hugo= をそのまま書くのではなく =#+begin_example=（または =#+begin_src org=）で一段リテラル化してから、その直後に本物の =#+begin_export hugo= ブロックを続けて実際のレンダリング結果も見せる、という2段構成にしておくと分かりやすい。
+
+ただし =#+begin_example= で囲むだけでは足りない。Hugoのショートコード展開はMarkdownのコードフェンスの中かどうかを見ずに、ファイル全体から波括弧2つのショートコード記法を探して実行してしまうため、例文として書いたつもりの =pageRef= や外部URL指定がそのまま実行されて =REF_NOT_FOUND= やfetch失敗の原因になることがある。=#+begin_example= の中に書くショートコード例は、開き括弧の直後と閉じ括弧の直前に「/* 」「 */」を挟むエスケープ記法（Hugo公式）で書いておく必要がある。
