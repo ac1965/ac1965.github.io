@@ -5687,7 +5687,7 @@ CLOSED: [2026-07-27 Mon 21:57]
 
 ox-hugoでタングル/エクスポートする前提なので、ショートコードを書く部分は全部 =#+begin_export hugo= 〜 =#+end_export= で囲んである。org地の文（説明・表）はそのままMarkdownとして出力されるので、export ブロックは不要。
 
-org-mode的には「構文そのものを文字として見せたいexportブロック」と「実際にHugoに変換させて機能させるexportブロック」は区別が必要である。=#+begin_export hugo= はox-hugoに素通しされて実際にレンダリングされてしまうので、構文自体を文字として見せたい場合は =#+begin_example=（または =#+begin_src org=）で一段リテラル化してから、その直後に本物の =#+begin_export hugo= ブロックを続ける、という2段構成にしている。
+org-mode的には「構文そのものを文字として見せたいexportブロック」と「実際にHugoに変換させて機能させるexportブロック」は区別が必要である。 =#+begin_export hugo= はox-hugoに素通しされて実際にレンダリングされてしまうので、構文自体を文字として見せたい場合は =#+begin_example=（または =#+begin_src org=）で一段リテラル化してから、その直後に本物の =#+begin_export hugo= ブロックを続ける、という2段構成にしている。
 
 ただし =#+begin_example= で囲んだだけでは不十分だった。Hugoのショートコード展開は、囲んでいるのがMarkdownのコードフェンスかどうかを見ずに、ファイル全体のテキストから波括弧2つのショートコード記法を機械的に探して実行してしまうため、コードブロックの中に書いた例文もそのまま実行されてビルドエラーや取得失敗の原因になる。これを防ぐには、Hugo公式のショートコードのエスケープ記法を使う必要がある。開き括弧の直後と閉じ括弧の直前に「/* 」「 */」を挟むと、実行されずに文字通りの文字列としてそのまま出力される。以下すべての節の「書き方はこう」の例では、この記法で統一した。
 
@@ -5738,7 +5738,7 @@ This is an error!
 
 *** Admonition（GitHub/Obsidian 風コールアウト）
 
-これはショートコードではなく Hugo の render hook 経由のMarkdown拡張構文。=#+begin_export hugo= で囲む必要はなく、そのままorg内でblockquote記法として書ける（ただしox-hugo側でblockquoteへの変換確認が必要。確実に反映したい場合はexportブロック推奨）。
+これはショートコードではなく Hugo の render hook 経由のMarkdown拡張構文。 =#+begin_export hugo= で囲む必要はなく、そのままorg内でblockquote記法として書ける（ただしox-hugo側でblockquoteへの変換確認が必要。確実に反映したい場合はexportブロック推奨）。
 
 書き方はこう。
 
@@ -5873,7 +5873,7 @@ New article!
 
 *** Button
 
-書き方はこう。=pageRef= は存在する内部ページのパスを指定する必要があるので、ここでは記法例として =docs/getting-started= を挙げているが、実際に使う際はサイト内の実在パスに置き換えること（存在しないパスを =pageRef= に渡すとビルド時に =REF_NOT_FOUND= エラーになりビルド自体が止まる）。
+書き方はこう。 =pageRef= は存在する内部ページのパスを指定する必要があるので、ここでは記法例として =docs/getting-started= を挙げているが、実際に使う際はサイト内の実在パスに置き換えること（存在しないパスを =pageRef= に渡すとビルド時に =REF_NOT_FOUND= エラーになりビルド自体が止まる）。
 
 #+begin_example
 #+begin_export hugo
@@ -5895,11 +5895,11 @@ Call to action
 {{< /button >}}
 #+end_export
 
-=pageRef=（内部ページ参照）と =href=（任意URL）が併用時は =pageRef= 優先。=target=/=rel= も指定できる。
+=pageRef= （内部ページ参照）と =href= （任意URL）が併用時は =pageRef= 優先。 =target= / =rel= も指定できる。
 
 *** Carousel（画像カルーセル）
 
-書き方はこう。=captions= の中の =*formatting*= もMarkdown記法（斜体）である点に注意。
+書き方はこう。 =captions= の中の =*formatting*= もMarkdown記法（斜体）である点に注意。
 
 #+begin_example
 #+begin_export hugo
@@ -5994,7 +5994,7 @@ Chart.jsの設定をそのまま記述する。
 {{< gitlab projectID="278964" >}}
 #+end_export
 
-各サービスAPIからスター数・フォーク数等をリアルタイム取得表示する。=github= のみ =showThumbnail= がある。=gitlab= は =baseURL= でセルフホスト対応。
+各サービスAPIからスター数・フォーク数等をリアルタイム取得表示する。 =github= のみ =showThumbnail= がある。 =gitlab= は =baseURL= でセルフホスト対応。
 
 *** Email（難読化メールリンク）
 
@@ -6071,7 +6071,7 @@ Chart.jsの設定をそのまま記述する。
 {{< /gallery >}}
 #+end_export
 
-=class="grid-wXX"=（10%〜100%、5%刻み。33%/66%も可）でカラム幅を指定する。
+=class= ="grid-wXX"= （10%〜100%、5%刻み。33%/66%も可）でカラム幅を指定する。
 
 *** Gist（GitHub Gist埋め込み）
 
@@ -6166,7 +6166,7 @@ Chart.jsの設定をそのまま記述する。
 #+end_export
 #+end_example
 
-実際にレンダリングすると、こう表示される。=*Super*=（斜体1個）と =**Important**=（太字2個）が使い分けられている点に注目。
+実際にレンダリングすると、こう表示される。 =*Super*= （斜体1個）と =**Important**= （太字2個）が使い分けられている点に注目。
 
 #+begin_export hugo
 {{< keyword >}} *Super* skill {{< /keyword >}}
@@ -6487,6 +6487,6 @@ org標準の =#+begin_src mermaid= ブロックとは別物である点に注意
 
 Admonitionだけはショートコードではなく =render-blockquote.html= によるMarkdown render hook実装である。
 
-「構文そのものを文字として見せたい」場合は、=#+begin_export hugo= をそのまま書くのではなく =#+begin_example=（または =#+begin_src org=）で一段リテラル化してから、その直後に本物の =#+begin_export hugo= ブロックを続けて実際のレンダリング結果も見せる、という2段構成にしておくと分かりやすい。
+「構文そのものを文字として見せたい」場合は、=#+begin_export hugo= をそのまま書くのではなく =#+begin_example= （または =#+begin_src org= ）で一段リテラル化してから、その直後に本物の =#+begin_export hugo= ブロックを続けて実際のレンダリング結果も見せる、という2段構成にしておくと分かりやすい。
 
 ただし =#+begin_example= で囲むだけでは足りない。Hugoのショートコード展開はMarkdownのコードフェンスの中かどうかを見ずに、ファイル全体から波括弧2つのショートコード記法を探して実行してしまうため、例文として書いたつもりの =pageRef= や外部URL指定がそのまま実行されて =REF_NOT_FOUND= やfetch失敗の原因になることがある。=#+begin_example= の中に書くショートコード例は、開き括弧の直後と閉じ括弧の直前に「/* 」「 */」を挟むエスケープ記法（Hugo公式）で書いておく必要がある。
