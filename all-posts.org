@@ -21,12 +21,16 @@ org-modeサブツリーに変換してください。
 - `* blog` の直下にぶら下がる形式なので、見出しレベルは `**`（レベル2）
 - 見出し直後に以下のPROPERTIESドロワーを付与する（このファイルの既存記事と同じ項目・同じ順序）:
   :PROPERTIES:
-  :EXPORT_FILE_NAME: <slug>
+  :EXPORT_HUGO_BUNDLE: <slug>
+  :EXPORT_FILE_NAME: index
   :EXPORT_DATE: <YYYY-MM-DD HH:MM:SS>
   :EXPORT_HUGO_TAGS: <タグをスペース区切り>
   :EXPORT_HUGO_CATEGORIES: <カテゴリ>
   :EXPORT_HUGO_LASTMOD:
   :END:
+  ※ Page Bundle化済み（2026-07-30〜）のため、EXPORT_FILE_NAMEは常に"index"固定。
+  記事固有のスラッグはEXPORT_HUGO_BUNDLE側に入れること（<slug>はorg-id-new等で生成した
+  既存記事と同じ形式のUUID/短縮ハッシュを想定）。
   ※ EXPORT_HUGO_LASTMODは空欄のままでよい（#+hugo_auto_set_lastmod: t のため自動設定される）
 - TODO状態は既存記事の慣習に合わせて付与するか判断する（下書き段階ならTODO、確定ならDONEまたは無し）
 
@@ -59,7 +63,8 @@ org-modeサブツリーに変換してください。
 * blog
 ** TODO Test Syntaxhighliter
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2009-7fbf-eb10
+:EXPORT_HUGO_BUNDLE: 2009-7fbf-eb10
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2009-07-06 19:00:00
 :EXPORT_HUGO_TAGS: Pybloxsom Syntaxhighliter Python
 :EXPORT_HUGO_CATEGORIES: CMS
@@ -104,7 +109,8 @@ PyBlosxomの話とは直接関係ないんだけど、[[http://alexgorbatchev.co
 #+end_src
 ** DONE New PC
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2009-7fbf-eb12
+:EXPORT_HUGO_BUNDLE: 2009-7fbf-eb12
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2009-11-14 14:22:36
 :EXPORT_HUGO_TAGS: ISO-Image
 :EXPORT_HUGO_CATEGORIES: Linux
@@ -229,7 +235,8 @@ Live CD のイメージ作成には、以前は metro を使っていたのだ�
 #+end_src
 ** DONE awesome window manager
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2010-ad26-26d8
+:EXPORT_HUGO_BUNDLE: 2010-ad26-26d8
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-02-13 22:42:10
 :EXPORT_HUGO_TAGS: Awesome
 :EXPORT_HUGO_CATEGORIES: WindowManager
@@ -240,7 +247,8 @@ Live CD のイメージ作成には、以前は metro を使っていたのだ�
 - git://github.com/bioe007/awesome-configs.git
 ** DONE Guruplug Std.
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2010-f5af-e341
+:EXPORT_HUGO_BUNDLE: 2010-f5af-e341
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-02-18 20:00:43
 :EXPORT_HUGO_TAGS: Guruplug
 :EXPORT_HUGO_CATEGORIES: Guruplug
@@ -258,7 +266,8 @@ Live CD のイメージ作成には、以前は metro を使っていたのだ�
 - [[http://www.openplug.org/data/]]
 ** DONE xmonad window manager
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2010-1620-4255
+:EXPORT_HUGO_BUNDLE: 2010-1620-4255
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-03-06 19:50:41
 :EXPORT_HUGO_TAGS: Xmonad
 :EXPORT_HUGO_CATEGORIES: WindowManager
@@ -269,7 +278,8 @@ awesome が最高だと思っていたけど、[[http://xmonad.org/][Xmonad]] �
 - git clone git://github.com/jelly/dotfiles.git
 ** DONE Xmonad for Backtrack4
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2010-3be9-c756
+:EXPORT_HUGO_BUNDLE: 2010-3be9-c756
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-03-08 08:23:09
 :EXPORT_HUGO_TAGS: Xmonad Backtrack4
 :EXPORT_HUGO_CATEGORIES: WindowManager Distribution
@@ -319,7 +329,8 @@ backtrack4 に xmonad を入れてみた。
 #+end_src
 ** DONE USB Encrypt for Backtrack
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2010-3bdc-01ca
+:EXPORT_HUGO_BUNDLE: 2010-3bdc-01ca
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-04-04 17:50:17
 :EXPORT_HUGO_TAGS: Backtrack
 :EXPORT_HUGO_CATEGORIES: Distribution
@@ -479,7 +490,8 @@ backtrack4 に xmonad を入れてみた。
 #+end_export
 ** DONE Guruplug 届くまでにやったこと
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2010-ceb7-ee44
+:EXPORT_HUGO_BUNDLE: 2010-ceb7-ee44
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-04-14 23:31:13
 :EXPORT_HUGO_TAGS: Guruplug crossdev
 :EXPORT_HUGO_CATEGORIES: Guruplug
@@ -813,7 +825,8 @@ perl と Linux-PAM についてはクロスコンパイルがうまくいかな�
 #+end_export
 ** DONE Xorg
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2010-bba0-bea3
+:EXPORT_HUGO_BUNDLE: 2010-bba0-bea3
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-06-01 07:39:03
 :EXPORT_HUGO_TAGS: Xorg
 :EXPORT_HUGO_CATEGORIES: WindowManager
@@ -929,7 +942,8 @@ MASKを外して、udev をアップデートする。
 #+end_src
 ** DONE Guruplug Arrived
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2010-e6dc-e8c7
+:EXPORT_HUGO_BUNDLE: 2010-e6dc-e8c7
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-07-12 23:31:13
 :EXPORT_HUGO_TAGS: Guruplug
 :EXPORT_HUGO_CATEGORIES: Guruplug
@@ -1346,7 +1360,8 @@ MASKを外して、udev をアップデートする。
 [fn:1] 先行予約だと JTAG ボードが無料でついてくるのだけど、PC-BOX に JTAG ボードが必需品になっている。後発で買った人は自分で工作するか、諦めるかのどちらか。とはいえ必要ない人だっているので、一概にどちらがいいとは言えない。
 ** DONE Guruplug Subquent
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2010-4ca5-ca76
+:EXPORT_HUGO_BUNDLE: 2010-4ca5-ca76
+:EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2010-4ca5-ca76.jpg"
 :EXPORT_DATE: 2010-07-16 23:32:33
 :EXPORT_HUGO_TAGS: Guruplug
@@ -2090,7 +2105,8 @@ iptables は問題なく動作した。honeyd も動いている。あとはル�
 #+end_export
 ** DONE 四季・ユートピアノ 中尾幸世さん
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2010-ae11-dbbf
+:EXPORT_HUGO_BUNDLE: 2010-ae11-dbbf
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-07-31 15:14:28
 :EXPORT_HUGO_TAGS: 中尾幸世 四季・ユートピアノ
 :EXPORT_HUGO_CATEGORIES: Entertainment
@@ -2120,7 +2136,8 @@ YouTubeでしか再生できないので、「YouTubeで見る」をクリック
 
 ** DONE Hexo でハロー
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2015-984a-97f1
+:EXPORT_HUGO_BUNDLE: 2015-984a-97f1
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2015-04-28 08:49:41
 :EXPORT_HUGO_TAGS: Hexo
 :EXPORT_HUGO_CATEGORIES: SSG
@@ -2274,7 +2291,8 @@ source/_posts/My-New-Post.md をエディタで編集する（[[https://help.git
 詳しくは： [[http://hexo.io/docs/generating.html][Generating]]
 ** DONE Using Packer for Archassult
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2015-92a5-278e
+:EXPORT_HUGO_BUNDLE: 2015-92a5-278e
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2015-04-28 14:24:13
 :EXPORT_HUGO_TAGS: Archassult Packer
 :EXPORT_HUGO_CATEGORIES: Distribution
@@ -2341,7 +2359,8 @@ Cuckoo環境の半自動生成
 - [[https://github.com/ac1965/archassault-packer][オレオレ Packer]]
 ** DONE 健康診断
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2016-fbf9-cc8d
+:EXPORT_HUGO_BUNDLE: 2016-fbf9-cc8d
+:EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2016-fbf9-cc8d.jpg"
 :EXPORT_DATE: 2016-05-07 11:59:21
 :EXPORT_HUGO_TAGS: 健康診断-2016
@@ -2361,7 +2380,8 @@ Cuckoo環境の半自動生成
 
 ** DONE What Blog?
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2016-d5bf-eafd
+:EXPORT_HUGO_BUNDLE: 2016-d5bf-eafd
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2016-06-18 11:14:19
 :EXPORT_HUGO_TAGS: Tweet
 :EXPORT_HUGO_CATEGORIES: Life
@@ -2382,7 +2402,8 @@ Cuckoo環境の半自動生成
 とか、そんなことばかり。でもよく考えると、のび太が今の時代にいたら、Twitterのヘビーユーザーになっていたかもしれない（笑）
 ** DONE Hugo
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2020-64ac-ab0e
+:EXPORT_HUGO_BUNDLE: 2020-64ac-ab0e
+:EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2020-64ac-ab0e.jpg"
 :EXPORT_DATE: 2020-10-27 22:46:10
 :EXPORT_HUGO_TAGS: Hugo
@@ -2471,7 +2492,8 @@ hexo と大きく違うのは、デプロイの仕組みが利用者まかせに
 #+end_export
 ** DONE iPhone 12 Pro
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2020-4b4f-83fe
+:EXPORT_HUGO_BUNDLE: 2020-4b4f-83fe
+:EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2020-4b4f-83fe.jpg"
 :EXPORT_DATE: 2020-11-15 08:53:00
 :EXPORT_HUGO_TAGS: iPhone
@@ -2487,7 +2509,8 @@ hexo と大きく違うのは、デプロイの仕組みが利用者まかせに
 
 ** DONE 不要不急
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2021-3072-328a
+:EXPORT_HUGO_BUNDLE: 2021-3072-328a
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2021-02-20 16:43:00
 :EXPORT_HUGO_TAGS: COVID-19
 :EXPORT_HUGO_CATEGORIES: COVID
@@ -2500,7 +2523,8 @@ hexo と大きく違うのは、デプロイの仕組みが利用者まかせに
 
 ** DONE 貝殻喫茶室
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2021-b683-9118
+:EXPORT_HUGO_BUNDLE: 2021-b683-9118
+:EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2021-b683-9118.jpg"
 :EXPORT_DATE: 2021-02-28 19:50:00
 :EXPORT_HUGO_TAGS: 貝殻喫茶室
@@ -2517,7 +2541,8 @@ hexo と大きく違うのは、デプロイの仕組みが利用者まかせに
 
 ** DONE 2021 GW 大瀧詠一
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2021-ae45-5638
+:EXPORT_HUGO_BUNDLE: 2021-ae45-5638
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2021-04-29 09:02:23
 :EXPORT_HUGO_TAGS: 大瀧詠一 GW
 :EXPORT_HUGO_CATEGORIES: Music
@@ -2588,7 +2613,8 @@ The Rivingtons - Papa Oom Mow Mow
 #+end_export
 ** DONE 2021 GW なろう系小説
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2021-4317-c611
+:EXPORT_HUGO_BUNDLE: 2021-4317-c611
+:EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2021-4317-c611.jpg"
 :EXPORT_DATE: 2021-05-01
 :EXPORT_HUGO_TAGS: なろう系小説 GW
@@ -2645,7 +2671,8 @@ TODO<->DONE (C-c C-t / s-<- ->)
 ** DONE ひさしぶりに
 CLOSED: [2023-12-03 Sun 09:31]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2023-76f0-5099
+:EXPORT_HUGO_BUNDLE: 2023-76f0-5099
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2023-12-03
 :EXPORT_HUGO_TAGS: Things
 :EXPORT_HUGO_CATEGORIES: Life
@@ -2660,7 +2687,8 @@ CLOSED: [2023-12-03 Sun 09:31]
 ** DONE Yinyoo インイヤーモニター カナル型 CCZ Coffee Bean
 CLOSED: [2024-03-16 Sat 13:14]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-32af-0903
+:EXPORT_HUGO_BUNDLE: 2024-32af-0903
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2024-03-16
 :EXPORT_HUGO_TAGS: CCZ 中華イヤフォン
 :EXPORT_HUGO_CATEGORIES: WiredrEearphone
@@ -2682,7 +2710,8 @@ CLOSED: [2024-03-16 Sat 13:14]
 ** DONE 葬送のフリーレン
 CLOSED: [2024-03-23 Sat 10:27]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-3ec3-22af
+:EXPORT_HUGO_BUNDLE: 2024-3ec3-22af
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: Frieren 葬送のフリーレン
 :EXPORT_HUGO_CATEGORIES: Anime Manga
@@ -2725,7 +2754,8 @@ CLOSED: [2024-03-23 Sat 10:27]
 ** DONE このサイトのデプロイについて
 CLOSED: [2024-03-30 Sat 14:52]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-036f-d136
+:EXPORT_HUGO_BUNDLE: 2024-036f-d136
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: Hugo
 :EXPORT_HUGO_CATEGORIES: SSG GithubPages
@@ -2810,7 +2840,8 @@ CLOSED: [2024-03-30 Sat 14:52]
 ** DONE ThemaをBlowfishにした
 CLOSED: [2024-04-17 Wed 22:49]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-abf9-45ae
+:EXPORT_HUGO_BUNDLE: 2024-abf9-45ae
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: Hugo Blowfish
 :EXPORT_HUGO_CATEGORIES: SSG
@@ -2831,7 +2862,8 @@ CLOSED: [2024-04-17 Wed 22:49]
 ** DONE ひさしぶりに Miles をききたくなった
 CLOSED: [2024-04-21 Sun 01:12]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-b55f-0ad0
+:EXPORT_HUGO_BUNDLE: 2024-b55f-0ad0
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: MilesDavis
 :EXPORT_HUGO_CATEGORIES: Music
@@ -2873,7 +2905,8 @@ Bitches Brew のジャケットアートワークなんかも好きだった。
 ** DONE 犬山祭
 CLOSED: [2024-04-27 Sat 12:03]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-8776-0378
+:EXPORT_HUGO_BUNDLE: 2024-8776-0378
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: 犬山祭
 :EXPORT_HUGO_CATEGORIES: Life
@@ -2903,7 +2936,8 @@ CLOSED: [2024-04-27 Sat 12:03]
 ** DONE 烏は主を選ばない
 CLOSED: [2024-04-28 Sun 13:42]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-cf97-098e
+:EXPORT_HUGO_BUNDLE: 2024-cf97-098e
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: 烏は主を選ばない
 :EXPORT_HUGO_CATEGORIES: Anime Manga Novel
@@ -2931,7 +2965,8 @@ CLOSED: [2024-04-28 Sun 13:42]
 ** DONE 五月晴れの昼下がり
 CLOSED: [2024-05-04 Sat 15:19]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-25cb-9aad
+:EXPORT_HUGO_BUNDLE: 2024-25cb-9aad
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: GW
 :EXPORT_HUGO_CATEGORIES: Life
@@ -2948,7 +2983,8 @@ GWも終盤。作り置きの焼きそばに追いソースをかけて、お腹
 ** DONE emacs:libgccjit:'libgcc_s.1.1.dylib' no such file
 CLOSED: [2024-05-12 Sun 16:48]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-460b-9889
+:EXPORT_HUGO_BUNDLE: 2024-460b-9889
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: Native-Compilation
 :EXPORT_HUGO_CATEGORIES: Emacs
@@ -3551,7 +3587,8 @@ make distclean && ./autogen.sh  && \
 ** DONE ボクが満足するような最強のエディタを作って
 CLOSED: [2024-07-30 Tue 16:48]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-af41-3f35
+:EXPORT_HUGO_BUNDLE: 2024-af41-3f35
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS:
 :EXPORT_HUGO_CATEGORIES: editor
@@ -3583,7 +3620,8 @@ ChatGPT に聞いてみた。
 ** DONE 麦わら帽子は
 CLOSED: [2024-09-29 Sun 17:05]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-0f97-7524
+:EXPORT_HUGO_BUNDLE: 2024-0f97-7524
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: life
 :EXPORT_HUGO_CATEGORIES:
@@ -3596,7 +3634,8 @@ CLOSED: [2024-09-29 Sun 17:05]
 ** DONE macOSメモ
 CLOSED: [2024-10-27 Sun 10:11]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-1095-1010
+:EXPORT_HUGO_BUNDLE: 2024-1095-1010
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: macOS
 :EXPORT_HUGO_CATEGORIES: macOS
@@ -3703,7 +3742,8 @@ CLOSED: [2024-10-27 Sun 10:11]
 ** DONE EmacsでLLM
 CLOSED: [2024-11-10 Sun 22:33]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-1096-ac4f
+:EXPORT_HUGO_BUNDLE: 2024-1096-ac4f
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: Emacs LLM-OLLAMA ellama
 :EXPORT_HUGO_CATEGORIES:
@@ -4034,7 +4074,8 @@ Ollamaでは、カスタムモデルの設定ファイルとして _Modelfile_ �
 ** DONE 備忘録(Emacsのショートカットキー)
 CLOSED: [2024-11-16 Sat 02:25]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2024-af4b-d2f0
+:EXPORT_HUGO_BUNDLE: 2024-af4b-d2f0
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE:
 :EXPORT_HUGO_TAGS: Emacs
 :EXPORT_HUGO_CATEGORIES:
@@ -4131,7 +4172,8 @@ CLOSED: [2024-11-16 Sat 02:25]
 
 ** 2026年の生成AI、エンジニア的に気になるトレンド3選
 :PROPERTIES:
-:EXPORT_FILE_NAME: 2E498C3D-1D1E-4A15-A009-AC02D9BBF0C0
+:EXPORT_HUGO_BUNDLE: 2E498C3D-1D1E-4A15-A009-AC02D9BBF0C0
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-03-20 16:46:45
 :EXPORT_HUGO_TAGS: LLM Trend
 :EXPORT_HUGO_CATEGORIES: LLM
@@ -4186,7 +4228,8 @@ Gartnerによると、2026年末までに世界の企業の80%以上がGenAI API
 
 ** .emacs.d を Literate Configuration で管理する
 :PROPERTIES:
-:EXPORT_FILE_NAME: 626C0EF7-AA23-4120-9251-E01A0CF78C4A
+:EXPORT_HUGO_BUNDLE: 626C0EF7-AA23-4120-9251-E01A0CF78C4A
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-03-20 19:19:06
 :EXPORT_HUGO_TAGS: emacs org-mode literate-programming ox-hugo claude-apis
 :EXPORT_HUGO_CATEGORIES: emacs
@@ -4328,7 +4371,8 @@ Literate Configuration ＋ 階層アーキテクチャは、最初に組み上�
 
 ** このブログについて
 :PROPERTIES:
-:EXPORT_FILE_NAME: 3131D2A3-87C7-4448-8287-00D2639E784F
+:EXPORT_HUGO_BUNDLE: 3131D2A3-87C7-4448-8287-00D2639E784F
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-03-21 13:42:27
 :EXPORT_HUGO_TAGS: blog hugo emacs org-mode
 :EXPORT_HUGO_CATEGORIES: misc
@@ -4354,7 +4398,8 @@ Literate Configuration ＋ 階層アーキテクチャは、最初に組み上�
 ** DONE Claude on Safari
 CLOSED: [2026-07-05 Sun 16:38]
 :PROPERTIES:
-:EXPORT_FILE_NAME: E8771CC0-4C3E-40B6-A6BB-D2F1A157D323
+:EXPORT_HUGO_BUNDLE: E8771CC0-4C3E-40B6-A6BB-D2F1A157D323
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-05 15:19:37
 :EXPORT_HUGO_TAGS: safari
 :EXPORT_HUGO_CATEGORIES:
@@ -4458,7 +4503,8 @@ macOS デスクトップアプリ版の Claude で、たまにチャット入力
 ** DONE Emacs 31 は「自分で書いたコード」を減らすチャンスだ
 CLOSED: [2026-07-11 Sat 22:27]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 1508CDB9-FF8C-4BEF-82CE-0609BA5E6CAB
+:EXPORT_HUGO_BUNDLE: 1508CDB9-FF8C-4BEF-82CE-0609BA5E6CAB
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-11 22:17:55
 :EXPORT_HUGO_TAGS: emacs
 :EXPORT_HUGO_CATEGORIES: emacs
@@ -4839,7 +4885,8 @@ Emacs には昔から =hideshow= という「関数を折りたたむ」機能�
 ** DONE GNU Machのソースコードを、素人が興味本位で読んでみた話 :Hurd:GNUMach:カーネル:コードリーディング:OS自作:
 CLOSED: [2026-07-20 Mon 18:43]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 8C8263C5-1E11-4D71-9257-57DE794305F2
+:EXPORT_HUGO_BUNDLE: 8C8263C5-1E11-4D71-9257-57DE794305F2
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-20 18:37:25
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -5128,7 +5175,8 @@ CVE番号が付くような華々しい脆弱性ではなく、開発者自身�
 ** DONE 夏になるとラタトゥイユを作りたくなる :料理:夏:エッセイ:暮らし:
 CLOSED: [2026-07-20 Mon 21:52]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 9F01D74C-5C06-495F-A1AB-8949E9B41B9E
+:EXPORT_HUGO_BUNDLE: 9F01D74C-5C06-495F-A1AB-8949E9B41B9E
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-20 21:50:09
 :END:
 
@@ -5193,7 +5241,8 @@ CLOSED: [2026-07-20 Mon 21:52]
 ** DONE evalの中身を覗いてみた ─ Emacsが40年抱えてきた矛盾の話
 CLOSED: [2026-07-21 Tue 23:19]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 31836D4D-E645-4ABF-B393-A429ECD8C835
+:EXPORT_HUGO_BUNDLE: 31836D4D-E645-4ABF-B393-A429ECD8C835
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-21 23:17:09
 :EXPORT_HUGO_TAGS: emacs elisp
 :EXPORT_HUGO_CATEGORIES: 開発
@@ -5304,7 +5353,8 @@ Emacs Lispで何かを評価するとき、内部では ~eval_sub~ という関�
 ** DONE keyboxdのSQLiteエラーからTouch ID復号まで――GPGまわりを一日かけて掘った話
 CLOSED: [2026-07-25 Sat 10:09]
 :PROPERTIES:
-:EXPORT_FILE_NAME: ABCC7BC2-D99D-413A-8913-011B056D7CD7
+:EXPORT_HUGO_BUNDLE: ABCC7BC2-D99D-413A-8913-011B056D7CD7
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-25 10:07:40
 :EXPORT_HUGO_TAGS: emacs gnupg macos touchid gpg
 :EXPORT_HUGO_CATEGORIES: 環境構築
@@ -5458,7 +5508,8 @@ If a password entry is found but is not "owned" by the pinentry-touchid program 
 ** DONE 深追いしたら3ヶ月前の全記事画像消失にたどり着いた話
 CLOSED: [2026-07-25 Sat 19:56]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 24A95472-559B-4CCE-9452-414534CA2418
+:EXPORT_HUGO_BUNDLE: 24A95472-559B-4CCE-9452-414534CA2418
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-25 19:18:53
 :EXPORT_HUGO_CATEGORIES: Hugo Git
 :EXPORT_HUGO_LASTMOD:
@@ -5587,7 +5638,8 @@ grepが失敗する記事は全部「その日の月」に丸められる。結�
 ** DONE カバー画像を直したら、また別の穴が3つ出てきた話
 CLOSED: [2026-07-26 Sun 15:25]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 35C2A8B0-80A0-432D-828D-43D7F0D70F02
+:EXPORT_HUGO_BUNDLE: 35C2A8B0-80A0-432D-828D-43D7F0D70F02
+:EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
 :EXPORT_DATE: 2026-07-26 15:00:00
 :EXPORT_HUGO_TAGS: Hugo ox-hugo Emacs
@@ -5676,7 +5728,8 @@ Emacsのcaptureテンプレート側も同じ間違いをしていたので、�
 ** DONE Blowfish（Hugoテーマ）のショートコード使い方まとめ
 CLOSED: [2026-07-27 Mon 21:57]
 :PROPERTIES:
-:EXPORT_FILE_NAME: blowfish-shortcode-reference
+:EXPORT_HUGO_BUNDLE: blowfish-shortcode-reference
+:EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-27 10:00:00
 :EXPORT_HUGO_TAGS: Hugo Blowfish ox-hugo Shortcode
 :EXPORT_HUGO_CATEGORIES: Hugo
@@ -6490,3 +6543,127 @@ Admonitionだけはショートコードではなく =render-blockquote.html= �
 「構文そのものを文字として見せたい」場合は、=#+begin_export hugo= をそのまま書くのではなく =#+begin_example= （または =#+begin_src org= ）で一段リテラル化してから、その直後に本物の =#+begin_export hugo= ブロックを続けて実際のレンダリング結果も見せる、という2段構成にしておくと分かりやすい。
 
 ただし =#+begin_example= で囲むだけでは足りない。Hugoのショートコード展開はMarkdownのコードフェンスの中かどうかを見ずに、ファイル全体から波括弧2つのショートコード記法を探して実行してしまうため、例文として書いたつもりの =pageRef= や外部URL指定がそのまま実行されて =REF_NOT_FOUND= やfetch失敗の原因になることがある。=#+begin_example= の中に書くショートコード例は、開き括弧の直後と閉じ括弧の直前に「/* 」「 */」を挟むエスケープ記法（Hugo公式）で書いておく必要がある。
+** DONE 画像消失を直しに行ったら、直すべき場所が4つあった話
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: 2026-6cd3-bcb7
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: 2026-07-30 12:00:00
+:EXPORT_HUGO_TAGS: Hugo ox-hugo Emacs Git
+:EXPORT_HUGO_CATEGORIES: Hugo
+:EXPORT_HUGO_LASTMOD:
+:END:
+前回、3ヶ月半前から全記事の画像が消えていたことに気づいた話を書いた。
+原因は分かったので「あとは直すだけ」のつもりだったのだが、実際に手を
+付けてみると、直すべき場所は1箇所どころか4箇所あった。しかも直している
+最中に、また別の画像を消すというオチまで付いた。備忘として一通り
+記録しておく。
+
+*** そもそもの根本原因：flatファイルとPage Bundleの取り違え
+
+うちのHugoサイトは、ox-hugoが記事を =content/post/<slug>.md= という
+flatなファイルとして書き出す構成になっていた。カバー画像は
+=content/post/<slug>/cover.jpg= という、記事ファイルと同名の別
+ディレクトリに =deploy.sh= が機械的に配置する、という運用でずっと
+やってきた。
+
+これがそもそもの間違いだった。Hugoの世界では =<slug>.md= と =<slug>/=
+は同名でも無関係な存在で、後者はPage Resourceとして認識されない。
+Blowfishテーマのカバー画像自動検出（ =.Resources.ByType "image"= ）は
+Page Bundle（ =<slug>/index.md= の形）でしか機能しないので、うちの
+構成では最初から蚊帳の外だった。 =deploy.sh= が季節画像をローテー
+ションで機械的に置き続けていたのは、いわばこの構造的な欠陥を隠す
+ための対症療法だったわけだ。
+
+*** 直した場所その1：all-posts.org を一括変換
+
+ox-hugoには =:EXPORT_HUGO_BUNDLE:= という、まさにこのためのプロパティ
+がある。全49記事の =:EXPORT_FILE_NAME: <slug>= を
+
+#+begin_src org
+:EXPORT_HUGO_BUNDLE: <slug>
+:EXPORT_FILE_NAME: index
+#+end_src
+
+に機械的に変換した。Hugoは =<slug>.md= でも =<slug>/index.md= でも
+同じ =/post/<slug>/= に解決するので、パーマリンクへの影響はゼロ。
+これは気楽に一括変換していい変更だった。
+
+*** 直した場所その2： =deploy.sh= のカバー画像配置ロジック
+
+ここで最初の見落としに気づいた。カバー画像を置く =place_covers()=
+関数は =content/post/*.md= を直接グロブしていたので、記事が
+=<slug>/index.md= に変わった瞬間、対象ファイルを1件も見つけられなく
+なって沈黙する。グロブを =*/index.md= に変え、post_dirの導出も
+文字列結合からindex.mdの親ディレクトリ参照に直した。
+
+*** 直した場所その3と4：新規記事が古い形式に戻ってしまう2つの入り口
+
+ここまでで「よし直った」と思っていたのだが、もう2箇所あることに
+気づいた。新規記事は =C-c c b= のorg-captureテンプレートから作る
+のだが、Emacs設定（ =orgx-core.el= のベース版と、それを上書きする
+=personal/ac1965.el= の2箇所）の両方とも =:EXPORT_FILE_NAME:
+%(org-id-new)= のままだった。これでは次に書く記事から、また
+flat構造に逆戻りしてしまう。
+
+さらにもう1つ。 =all-posts.org= の冒頭には、ネタをAIに投げて記事の
+下書きを生成させるためのプロンプトテンプレートを仕込んであるの
+だが、その中のPROPERTIESドロワーの見本も =EXPORT_FILE_NAME: <slug>=
+のままだった。ソースコードだけ直して、その生成元になるテンプレート
+文章を見落とすところだった。地味だが、これを見落とすと「なぜか
+たまに古い形式の記事が紛れ込む」という原因不明のバグを将来の自分に
+仕込むところだった。
+
+*** そして、また画像を消した
+
+一通り直したので、動作確認のつもりで一度 =content/post= を
+=rm -rf= してから再exportしてみた。 =content/post= はビルド成果物
+なので.gitignore対象、消しても再生成されるだけのはずだった。
+
+ところが、記事本文で使っていたBlowfishのfigure/carouselショートコード
+（ =src="frieren.jpg"= や =images="inuyama-fest/*"= のように画像を
+直接指定するタイプ）が参照していた画像だけは戻ってこなかった。
+
+理由は単純で、これらはPage Resourceとして =content/post/<slug>/=
+直下に *手で置いていただけ* のファイルだった。カバー画像は
+=deploy.sh= が毎回決定的に再生成するし、Orgの =[[file:...]]= リンク
+はox-hugoが自動でコピーし直してくれる。しかしshortcode内の
+=src="..."= はox-hugoにとってただの文字列で、どの自動生成の仕組みにも
+紐づいていなかった。一番安全なはずの「ビルド成果物だから消していい」
+という前提が、実はこの種の画像には最初から成り立っていなかった、
+というわけだ。
+
+*** deployブランチという名の保険
+
+さすがに焦ったが、幸い逃げ道が残っていた。うちの =deploy.sh= は
+ビルド後の =public/= を、sourceとは別の =deploy= ブランチにpushして
+いる。つまり、公開されているHTML・画像そのものが独立したGit履歴を
+持っているということだ。
+
+GitHubのTrees APIで =deploy= ブランチの履歴を遡り、3月21日の大量
+削除が起きる直前、最後に正常だったdeployコミットを特定した。そこから
+Hugoのリサイズキャッシュ（ =*_hu_<hash>.*= ）を除いた *オリジナル
+ファイルだけ* を掘り出したところ、10記事・37ファイル、 =frieren.jpg=
+も =inuyama-fest/= の写真11枚も無事に発見できた。全ファイル、コミット
+時点のGit blobサイズと突き合わせて一致を確認済みで、EXIF情報から
+撮影日時まで読み取れる、正真正銘のオリジナルだった。
+
+これを機に、 =assets/img/post-assets/<slug>/= という「正本置き場」を
+新設し、 =deploy.sh= に =sync_post_assets()= を追加した。build毎に
+ここから =content/post/<slug>/= へ同期するので、以後は =rm -rf
+content/post= してもこの種の画像はもう消えない。
+
+** しめに
+
+「カバー画像のローテーションがおかしい」から始まった話が、Page
+Bundleへの構造変更、Emacs側の2つの入り口、AIプロンプトテンプレート、
+そして本文画像そのものの消失発覚と、芋づる式に広がっていった。
+
+一番の教訓は、「ビルド成果物だから消していい」という前提は、何に
+よってどう再生成されるかを1つずつ確認しない限り信用してはいけない、
+ということだった。cover.jpgとインライン画像は見た目には
+同じ「content/post配下のファイル」だが、裏の仕組みはまったく別物
+だった。今回はたまたまdeployブランチという保険が効いたからよかった
+ものの、無ければ本当に取り返しがつかなかった。
+
+直すべき場所を1つ見つけるたびに、もう1つ見つかる。地味に骨の折れる
+作業だったが、これで少なくとも同じ事故は起きなくなったはずだ。
