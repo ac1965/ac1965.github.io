@@ -6543,12 +6543,14 @@ Admonitionだけはショートコードではなく =render-blockquote.html= �
 「構文そのものを文字として見せたい」場合は、=#+begin_export hugo= をそのまま書くのではなく =#+begin_example= （または =#+begin_src org= ）で一段リテラル化してから、その直後に本物の =#+begin_export hugo= ブロックを続けて実際のレンダリング結果も見せる、という2段構成にしておくと分かりやすい。
 
 ただし =#+begin_example= で囲むだけでは足りない。Hugoのショートコード展開はMarkdownのコードフェンスの中かどうかを見ずに、ファイル全体から波括弧2つのショートコード記法を探して実行してしまうため、例文として書いたつもりの =pageRef= や外部URL指定がそのまま実行されて =REF_NOT_FOUND= やfetch失敗の原因になることがある。=#+begin_example= の中に書くショートコード例は、開き括弧の直後と閉じ括弧の直前に「/* 」「 */」を挟むエスケープ記法（Hugo公式）で書いておく必要がある。
-** DONE 画像消失を直しに行ったら、直すべき場所が4つあった話
+
+** DONE 画像消失を直しに行ったら、直すべき場所が4つあった話 :夏:
+CLOSED: [2026-07-30 Thu 01:39]
 :PROPERTIES:
-:EXPORT_HUGO_BUNDLE: 2026-6cd3-bcb7
+:EXPORT_HUGO_BUNDLE: 98FFC285-65B1-414E-AB12-173F11B603B6
 :EXPORT_FILE_NAME: index
-:EXPORT_DATE: 2026-07-30 12:00:00
-:EXPORT_HUGO_TAGS: Hugo ox-hugo Emacs Git
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
+:EXPORT_DATE: 2026-07-30 01:35:47
 :EXPORT_HUGO_CATEGORIES: Hugo
 :EXPORT_HUGO_LASTMOD:
 :END:
