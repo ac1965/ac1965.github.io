@@ -4,13 +4,18 @@
          {{< webcard url="https://example.com/" >}}
 
   IMPORTANT FIX vs. previous version:
-  The old code only checked whether resources.GetRemote returned nil,
-  which per Hugo's docs only happens reliably for a 404. Any other
-  failure (timeout, DNS failure, TLS error, 5xx, connection refused)
-  leaves .Err set on a *non-nil* resource — and if .Err is never read,
-  Hugo fails the entire site build, not just this one card. We now
-  check .Err explicitly and fall back to a plain link on any failure,
-  so one dead URL can never take down the build.
+  Directly reading `.Err` on a resources.GetRemote result was REMOVED in
+  Hugo v0.141.0 (not just deprecated) — confirmed against a real build on
+  Hugo v0.164.0, which fails with:
+    "can't evaluate field Err in type resource.Resource:
+     Resource.Err was removed in Hugo v0.141.0 and replaced with a new
+     try keyword"
+  The replacement is to wrap the call in `try`, which returns a value
+  with `.Err` and `.Value` fields, per Hugo's own docs
+  (https://gohugo.io/functions/go-template/try/). This still achieves
+  the original goal: any fetch failure (timeout, DNS, TLS, 5xx, etc.)
+  produces a warning and a plain-link fallback instead of failing the
+  entire site build.
 */ -}}
 {{- $url := .Get 0 | default (.Get "url") -}}
 {{- if not $url -}}
@@ -25,18 +30,17 @@
     "timeout" "10s"
     "headers" (dict "User-Agent" "Mozilla/5.0 (compatible; HugoWebcardBot/1.0)")
 -}}
-{{- $remote := resources.GetRemote $url $opts -}}
-{{- if $remote -}}
-  {{- with $remote.Err -}}
+{{- with try (resources.GetRemote $url $opts) -}}
+  {{- with .Err -}}
     {{- warnf "webcard shortcode: %s の取得に失敗しました: %s (%s)" $url . $.Position -}}
-  {{- else -}}
-    {{- $html := $remote.Content -}}
+  {{- else with .Value -}}
+    {{- $html := .Content -}}
     {{- $ogTitle    = partial "inline/og-meta.html" (dict "html" $html "property" "og:title") -}}
     {{- $ogImage    = partial "inline/og-meta.html" (dict "html" $html "property" "og:image") -}}
     {{- $ogSiteName = partial "inline/og-meta.html" (dict "html" $html "property" "og:site_name") -}}
+  {{- else -}}
+    {{- warnf "webcard shortcode: %s の取得に失敗しました (%s)" $url $.Position -}}
   {{- end -}}
-{{- else -}}
-  {{- warnf "webcard shortcode: %s の取得に失敗しました (%s)" $url .Position -}}
 {{- end -}}
 
 {{- $domain := (urls.Parse $url).Host -}}
