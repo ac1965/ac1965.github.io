@@ -58,6 +58,13 @@ readonly COVER_TAG_DIR="${COVER_SRC_DIR}/tags"
 readonly COVER_SEASONAL_DIR="${COVER_SRC_DIR}/seasonal"
 readonly COVER_DEFAULT="${COVER_SRC_DIR}/default.${COVER_EXT}"
 
+# figure/carousel等のBlowfishショートコードはPage Resource（content/post/<slug>/
+# 配下の実ファイル）しか参照できず、static/やox-hugoの自動コピー機構の対象外。
+# そのため正本をここに置き、build毎に対応する content/post/<slug>/ へ同期する
+# （POST_ASSETS_SRC_DIR/<slug>/ の中身をそのままrsyncするだけなので、
+#  ネストしたディレクトリ（例: inuyama-fest/）もそのまま複製される）。
+readonly POST_ASSETS_SRC_DIR="${HUGO_DIR}/assets/img/post-assets"
+
 DRY_RUN=false
 SKIP_COVER=false
 FORCE=false
@@ -269,6 +276,41 @@ preflight_checks() {
 }
 
 # ─────────────────────────────────────────
+# Sync post-local assets (figure/carousel等のPage Resource用画像)
+# ─────────────────────────────────────────
+# cover.jpgと違い内容がpost固有でTierによる決定的生成もできないため、
+# 正本自体をGit管理下（POST_ASSETS_SRC_DIR）に置いて再現性を担保する。
+# content/post は .gitignore 対象のビルド生成物なので、`rm -rf content/post`
+# しても本関数が毎回このディレクトリから復元する。
+sync_post_assets() {
+	step "Syncing post-local assets"
+
+	[[ -d "${POST_ASSETS_SRC_DIR}" ]] || return 0
+
+	local -a slug_dirs
+	slug_dirs=("${POST_ASSETS_SRC_DIR}"/*(/N))
+
+	if (( ${#slug_dirs[@]} == 0 )); then
+		info "  (POST_ASSETS_SRC_DIR is empty — nothing to sync)"
+		return 0
+	fi
+
+	local slug_dir slug post_dir
+	for slug_dir in "${slug_dirs[@]}"; do
+		slug="${slug_dir:t}"
+		post_dir="${CONTENT_POST_DIR}/${slug}"
+
+		if [[ ! -d "${post_dir}" ]]; then
+			warn "  ${slug}: ${post_dir} が存在しません（index.md未export?）→ skip"
+			continue
+		fi
+
+		rsync -a "${slug_dir}/" "${post_dir}/"
+		info "  ${slug} ← $(find "${slug_dir}" -type f | wc -l | tr -d ' ') files synced"
+	done
+}
+
+# ─────────────────────────────────────────
 # Place cover images
 # ─────────────────────────────────────────
 place_covers() {
@@ -288,15 +330,22 @@ place_covers() {
 
 	# zshネイティブのグロブでmdファイルを配列取得（bashのfind+read -d''をglob修飾子に置換）
 	local -a md_files
-	md_files=("${CONTENT_POST_DIR}"/*.md(N))
+	# NOTE(Page Bundle移行): ox-hugoの出力が content/post/<slug>.md という
+	# flatファイルから content/post/<slug>/index.md という真のPage Bundleに
+	# 変わったため、グロブとpost_name/post_dirの導出方法を変更している。
+	# 旧: md_files=("${CONTENT_POST_DIR}"/*.md(N))
+	#     post_name="${md_file:t:r}"（拡張子除去）
+	#     post_dir="${CONTENT_POST_DIR}/${post_name}"（文字列結合で別途生成）
+	md_files=("${CONTENT_POST_DIR}"/*/index.md(N))
 
 	local md_file post_name post_dir month cover_group cover_file seasonal_file tier
 	local -a existing_covers
 	for md_file in "${md_files[@]}"; do
-		post_name="${md_file:t:r}"   # basename、拡張子除去（zsh modifier）
-		post_dir="${CONTENT_POST_DIR}/${post_name}"
+		post_dir="${md_file:h}"      # index.md の親ディレクトリ = bundle dir（zsh modifier）
+		post_name="${post_dir:t}"    # bundle dir のbasename = post slug
 
-		# Ensure post directory exists
+		# post_dir は index.md の存在によりHugoビルド上すでに実在するが、
+		# 念のためのガードとして残す（cover配置前に消えている異常系対策）。
 		[[ -d "${post_dir}" ]] || mkdir -p "${post_dir}"
 
 		# Tier 0: 既存カバーの検出。"cover.jpg" のような正規のパターンに加え、
@@ -406,6 +455,7 @@ commit_and_push() {
 main() {
 	parse_args "$@"
 	preflight_checks
+	sync_post_assets
 	place_covers
 	build_site
 
