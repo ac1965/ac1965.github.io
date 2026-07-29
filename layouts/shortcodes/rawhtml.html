@@ -1,9 +1,19 @@
 {{- /*
   rawhtml.html — Render raw HTML inside Org/Markdown content.
   Usage: {{< rawhtml >}}<div>...</div>{{< /rawhtml >}}
-  NOTE: Requires markup.goldmark.renderer.unsafe = true in config.
-        Author-trusted content only — this bypasses all HTML sanitization.
-        Prefer Markdown or a dedicated shortcode where possible.
+
+  NOTE: markup.goldmark.renderer.unsafe = true is NOT required for this
+        shortcode to work. That site-wide setting only controls whether
+        Goldmark passes through raw HTML written *directly* inside
+        Markdown source; it has no effect on this shortcode's output,
+        because .Inner | safeHTML marks the string safe before Goldmark
+        ever sees it. If unsafe = true is currently set in your config
+        only because of this shortcode, it can likely be removed —
+        removing it narrows the blast radius of "raw HTML passes through
+        unchecked" to just this shortcode instead of every .md file.
+
+  Author-trusted content only — this bypasses Go's html/template escaping.
+  Prefer Markdown or a dedicated shortcode where possible.
 */ -}}
 {{- with .Inner -}}
   {{- . | safeHTML -}}

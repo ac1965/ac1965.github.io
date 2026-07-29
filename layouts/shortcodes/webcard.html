@@ -1,3 +1,17 @@
+{{- /*
+  webcard.html — Link preview card with OGP metadata.
+  Usage: {{< webcard "https://example.com/" >}}
+         {{< webcard url="https://example.com/" >}}
+
+  IMPORTANT FIX vs. previous version:
+  The old code only checked whether resources.GetRemote returned nil,
+  which per Hugo's docs only happens reliably for a 404. Any other
+  failure (timeout, DNS failure, TLS error, 5xx, connection refused)
+  leaves .Err set on a *non-nil* resource — and if .Err is never read,
+  Hugo fails the entire site build, not just this one card. We now
+  check .Err explicitly and fall back to a plain link on any failure,
+  so one dead URL can never take down the build.
+*/ -}}
 {{- $url := .Get 0 | default (.Get "url") -}}
 {{- if not $url -}}
   {{ errorf "webcard shortcode: URLが指定されていません (%s)" .Position }}
@@ -7,22 +21,19 @@
 {{- $ogImage := "" -}}
 {{- $ogSiteName := "" -}}
 
-{{- with resources.GetRemote $url -}}
-  {{- $html := .Content -}}
-
-  {{- $titleTags := findRE `<meta[^>]+(?:property|name)=["']og:title["'][^>]*>` $html 1 -}}
-  {{- if gt (len $titleTags) 0 -}}
-    {{- $ogTitle = replaceRE `.*content=["']([^"']*)["'].*` "$1" (index $titleTags 0) -}}
-  {{- end -}}
-
-  {{- $imageTags := findRE `<meta[^>]+(?:property|name)=["']og:image["'][^>]*>` $html 1 -}}
-  {{- if gt (len $imageTags) 0 -}}
-    {{- $ogImage = replaceRE `.*content=["']([^"']*)["'].*` "$1" (index $imageTags 0) -}}
-  {{- end -}}
-
-  {{- $siteTags := findRE `<meta[^>]+(?:property|name)=["']og:site_name["'][^>]*>` $html 1 -}}
-  {{- if gt (len $siteTags) 0 -}}
-    {{- $ogSiteName = replaceRE `.*content=["']([^"']*)["'].*` "$1" (index $siteTags 0) -}}
+{{- $opts := dict
+    "timeout" "10s"
+    "headers" (dict "User-Agent" "Mozilla/5.0 (compatible; HugoWebcardBot/1.0)")
+-}}
+{{- $remote := resources.GetRemote $url $opts -}}
+{{- if $remote -}}
+  {{- with $remote.Err -}}
+    {{- warnf "webcard shortcode: %s の取得に失敗しました: %s (%s)" $url . $.Position -}}
+  {{- else -}}
+    {{- $html := $remote.Content -}}
+    {{- $ogTitle    = partial "inline/og-meta.html" (dict "html" $html "property" "og:title") -}}
+    {{- $ogImage    = partial "inline/og-meta.html" (dict "html" $html "property" "og:image") -}}
+    {{- $ogSiteName = partial "inline/og-meta.html" (dict "html" $html "property" "og:site_name") -}}
   {{- end -}}
 {{- else -}}
   {{- warnf "webcard shortcode: %s の取得に失敗しました (%s)" $url .Position -}}

@@ -7,14 +7,22 @@
     Positional args still work for backward compatibility:
     {{< details "Summary text" >}}...{{< /details >}}
     {{< details "Open by default" open >}}...{{< /details >}}
+
+  NOTE on $summary: markdownify wraps even single-line input in a block-
+  level <p>...</p>, which is invalid where <summary> expects inline
+  content. We render the summary through markdownify (so **bold** etc.
+  still works) and then strip a single enclosing <p> tag, rather than
+  leaving <p> nested inside <summary>.
 */ -}}
 {{- $summary := or (.Get "summary") (.Get 0) | default "Details" -}}
 {{- $openArg := or (.Get "open") (.Get 1) -}}
 {{- $open    := and $openArg (ne $openArg "false") -}}
 {{- $id      := printf "details-%d" .Ordinal -}}
+{{- $summaryHTML := $summary | markdownify -}}
+{{- $summaryHTML = replaceRE `^<p>(.*)</p>\s*$` "$1" (trim $summaryHTML "\n") -}}
 <details{{ if $open }} open{{ end }} id="{{ $id }}">
   <summary class="cursor-pointer font-semibold">
-    {{- $summary | markdownify -}}
+    {{- $summaryHTML | safeHTML -}}
   </summary>
   <div class="mt-2 prose dark:prose-invert max-w-none">
     {{- .Inner | markdownify -}}
