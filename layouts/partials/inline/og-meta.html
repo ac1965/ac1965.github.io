@@ -1,0 +1,30 @@
+{{- /*
+  partials/inline/og-meta.html — extract one OGP/meta value from raw HTML.
+
+  Order-independent: unlike a single regex that assumes
+  `property="og:x" content="..."`, this first isolates each <meta ...>
+  tag, filters by property/name, then extracts `content` separately —
+  so `<meta content="..." property="og:x">` (attributes reversed) is
+  matched too.
+
+  Params (dict):
+    html     - raw HTML string to search
+    property - e.g. "og:title", "og:image", "og:site_name"
+
+  Returns: the content value, or "" if not found.
+*/ -}}
+{{- $html     := .html -}}
+{{- $property := .property -}}
+{{- $value    := "" -}}
+{{- $propRE   := printf `(?:property|name)=["']%s["']` $property -}}
+{{- range findRE `<meta[^>]*>` $html -}}
+  {{- if eq $value "" -}}
+    {{- if findRE $propRE . -}}
+      {{- $contentMatches := findRE `content=["']([^"']*)["']` . 1 -}}
+      {{- if gt (len $contentMatches) 0 -}}
+        {{- $value = replaceRE `.*content=["']([^"']*)["'].*` "$1" (index $contentMatches 0) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $value -}}

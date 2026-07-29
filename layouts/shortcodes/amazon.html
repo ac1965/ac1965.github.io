@@ -3,6 +3,13 @@
   Usage: {{< amazon asin="XXXXXXXXXX" title="Book Title" >}}
          {{< amazon asin="XXXXXXXXXX" title="Book Title" tag="your-assoc-22" >}}
   Note: falls back to site.Params.amazonAssociateTag if `tag` is omitted.
+
+  KNOWN LIMITATION: the images-na.ssl-images-amazon.com/.../P/{ASIN}...jpg
+  pattern is an unofficial convention, not a documented Amazon API. It
+  tends to work for books (ASIN == ISBN-derived) but is unreliable for
+  many other product categories, where the image may 404. The onerror
+  fallback below hides a broken <img> but does not replace it with
+  anything — consider a text-only fallback if this matters for your use.
 */ -}}
 {{- $asin  := .Get "asin"  -}}
 {{- $title := .Get "title" | default "Amazon商品" -}}
@@ -13,7 +20,10 @@
   {{- warnf "amazon: %q does not look like a valid ASIN (page %q)" $asin .Page.File.Path -}}
 {{- end -}}
 {{- $tag        := .Get "tag" | default (site.Params.amazonAssociateTag | default "") -}}
-{{- $productURL := printf "https://www.amazon.co.jp/dp/%s/?tag=%s" $asin $tag -}}
+{{- $productURL := printf "https://www.amazon.co.jp/dp/%s/" $asin -}}
+{{- if $tag -}}
+  {{- $productURL = printf "%s?tag=%s" $productURL $tag -}}
+{{- end -}}
 {{- $imageURL   := printf "https://images-na.ssl-images-amazon.com/images/P/%s.09.MZZZZZZZ.jpg" $asin -}}
 <div class="amazon-card flex gap-4 items-center border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 my-4 bg-white dark:bg-neutral-800 shadow-sm hover:shadow-md transition-shadow">
   <a href="{{ $productURL }}" target="_blank" rel="noopener noreferrer nofollow sponsored" class="shrink-0">
