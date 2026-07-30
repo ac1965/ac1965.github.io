@@ -1,0 +1,8 @@
+# iCloud Drive / Photos のローカルキャッシュ
+find ~/Library/Mobile\ Documents -iname "ratatouille*" 2>/dev/null
+
+# 旧ブログ環境やバックアップが別ディレクトリに残っていないか
+find ~/Projects ~/Documents ~/Desktop -iname "ratatouille*" 2>/dev/null
+
+# Time Machineのローカルスナップショット（あれば）
+tmutil listlocalsnapshots / 2>/dev/null
