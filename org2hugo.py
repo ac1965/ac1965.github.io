@@ -58,15 +58,39 @@ pandocの独自仕様ではなく Org自体の org-export-with-special-strings �
    Page Bundle方式で画像を記事ディレクトリに同梱している場合はパスの
    付け替えが必要になる可能性がある（このファイル単体では判別不能）。
 
+## Page Bundle (Leaf Bundle) 対応
+EXPORT_HUGO_BUNDLE プロパティが設定されているサブツリーだけ、Leaf Bundle
+として出力する（オプトイン方式・既存記事の出力先は一切変わらない）。
+ox-hugo本体の仕様 (`org-hugo--heading-get-slug`) に合わせ、実際に
+Leaf Bundleにするには EXPORT_FILE_NAME を "index" にする必要がある:
+
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: index
+  :EXPORT_HUGO_BUNDLE: 2024-25cb-9aad
+  :END:
+
+  → content/post/2024-25cb-9aad/index.md として出力される。
+
+本文中のローカル画像参照（Markdown の ![alt](path) と、生HTMLの
+<img src="path">）のうち、リモートURLでないものは、--asset-dir で
+指定したディレクトリ（未指定でもorg_file自身のディレクトリは常に
+探索対象）から実ファイルを探して bundle ディレクトリ直下にコピーし、
+参照パスをファイル名のみに書き換える
+（`org-hugo--attachment-rewrite-maybe` の簡略再現）。
+見つからない画像はコピーせず警告を出す（参照パスはそのまま残る）。
+
 ## 使い方
-  python3 org2hugo.py all-posts.org --outdir ./content --dry-run
-  python3 org2hugo.py all-posts.org --outdir ./content
-  python3 org2hugo.py all-posts.org --outdir ./content --tz "+09:00"
+  python3 org2hugo.py all-posts.org --outdir ./content/post --dry-run
+  python3 org2hugo.py all-posts.org --outdir ./content/post
+  python3 org2hugo.py all-posts.org --outdir ./content/post --tz "+09:00"
+  python3 org2hugo.py all-posts.org --outdir ./content/post \\
+      --asset-dir ./images --asset-dir ~/Pictures/blog
 """
 from __future__ import annotations
 
 import argparse
 import re
+import shutil
 import subprocess
 import sys
 from dataclasses import dataclass, field
@@ -470,13 +494,118 @@ def _strip_pandoc_attribute_leaks(md: str) -> str:
     return md
 
 
+_MD_IMG_RE = re.compile(r'!\[([^\]]*)\]\(([^)\s]+)((?:\s+"[^"]*")?)\)')
+_HTML_IMG_SRC_RE = re.compile(r'(<img\b[^>]*\bsrc=")([^"]+)(")')
+
+
+def _is_local_path(path: str) -> bool:
+    """URL（http/https等）やdata:URIではない、ローカルファイルパスらしき
+    文字列かどうかを判定する。"""
+    if re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*://", path):
+        return False
+    if path.startswith("//") or path.startswith("data:"):
+        return False
+    return True
+
+
+def _resolve_local_image(
+    path: str, search_dirs: list[Path], bundle_slug: str | None = None
+) -> Path | None:
+    """search_dirs（org-hugo--attachment-rewrite-maybe相当の探索）の中から
+    実在するファイルを探す。各search_dirに対して以下を順に試す:
+      1. パスそのまま (例: ./images/foo.jpg)
+      2. basenameのみ (例: foo.jpg)
+      3. <search_dir>/<bundle_slug>/パスそのまま
+      4. <search_dir>/<bundle_slug>/basenameのみ
+    3・4は実データで確認された "assets/img/post-assets/<slug>/<file>"
+    のような、記事slugごとのサブディレクトリ運用に対応するため。
+    """
+    clean = path.split("#", 1)[0].split("?", 1)[0]
+    name = Path(clean).name
+    for d in search_dirs:
+        candidates = [d / clean, d / name]
+        if bundle_slug:
+            candidates += [d / bundle_slug / clean, d / bundle_slug / name]
+        for candidate in candidates:
+            if candidate.is_file():
+                return candidate
+    return None
+
+
+def copy_bundle_images(
+    md: str,
+    search_dirs: list[Path],
+    bundle_dir: Path,
+    dry_run: bool,
+    warnings: list[str],
+    bundle_slug: str | None = None,
+) -> str:
+    """Page Bundle (Leaf Bundle) 向けに、本文中のローカル画像参照を
+    bundle_dir 直下にコピーし、参照パスをファイル名だけに書き換える。
+
+    org-hugo--attachment-rewrite-maybe の簡略版:
+    - リモートURL (http/https等) は対象外、そのまま
+    - 見つからない画像はコピーせず警告のみ（参照パスはそのまま残す）
+    - 同名で中身の違うファイルが既にコピー先にある場合は "-1", "-2"...
+      を付けて衝突を回避する
+    - bundle_slug が指定されていれば、各search_dir直下だけでなく
+      <search_dir>/<bundle_slug>/ 配下も探索する
+    """
+    copied: dict[str, str] = {}  # 元のパス文字列 -> コピー後のファイル名
+
+    def handle(path: str) -> str:
+        if not _is_local_path(path):
+            return path
+        if path in copied:
+            return copied[path]
+        src = _resolve_local_image(path, search_dirs, bundle_slug)
+        if src is None:
+            warnings.append(f"画像が見つからずコピーできませんでした: {path}")
+            return path
+        dest_name = src.name
+        dest = bundle_dir / dest_name
+        i = 1
+        while dest.exists() and dry_run is False and dest.resolve() != src.resolve():
+            dest_name = f"{src.stem}-{i}{src.suffix}"
+            dest = bundle_dir / dest_name
+            i += 1
+        if not dry_run:
+            bundle_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dest)
+        copied[path] = dest_name
+        return dest_name
+
+    def md_repl(m: re.Match) -> str:
+        alt, path, title = m.group(1), m.group(2), m.group(3)
+        return f"![{alt}]({handle(path)}{title})"
+
+    def html_repl(m: re.Match) -> str:
+        pre, path, post = m.group(1), m.group(2), m.group(3)
+        return f"{pre}{handle(path)}{post}"
+
+    md = _MD_IMG_RE.sub(md_repl, md)
+    md = _HTML_IMG_SRC_RE.sub(html_repl, md)
+    return md
+
+
+
 def process_file(
-    src_path: Path, outdir: Path, dry_run: bool, verbose: bool, tz_offset_str: str = "+09:00"
+    src_path: Path,
+    outdir: Path,
+    dry_run: bool,
+    verbose: bool,
+    tz_offset_str: str = "+09:00",
+    asset_search_dirs: list[Path] | None = None,
 ) -> None:
     sign = 1 if tz_offset_str.startswith("+") else -1
     hh, mm = tz_offset_str.lstrip("+-").split(":")
     tz = timezone(sign * timedelta(hours=int(hh), minutes=int(mm)))
     run_time = datetime.now()
+
+    # 画像探索先: 明示指定ディレクトリ + org_file自身の置かれているディレクトリ
+    # (org-hugo--attachment-rewrite-maybe が default-directory を候補に
+    #  含めるのと同じ発想)
+    search_dirs = list(asset_search_dirs or []) + [src_path.parent]
 
     text = src_path.read_text(encoding="utf-8")
     subtrees = split_subtrees(text)
@@ -484,6 +613,7 @@ def process_file(
     print(f"{len(subtrees)} 件のサブツリーを検出（{src_path}）", file=sys.stderr)
 
     all_warnings: list[str] = []
+    bundle_count = 0
     for post in subtrees:
         slug = post.properties.get("EXPORT_FILE_NAME", "").strip()
         if not slug:
@@ -500,18 +630,45 @@ def process_file(
             all_warnings.append(f"{slug}: pandoc変換失敗: {e.stderr}")
             continue
 
-        content = front_matter + "\n\n" + body_md
-        out_path = outdir / f"{slug}.md"
+        # --- Page Bundle (Leaf Bundle) 判定 ---
+        # ox-hugo本体の仕様 (org-hugo--heading-get-slug) に合わせ、
+        # EXPORT_HUGO_BUNDLE が設定されている記事だけをLeaf Bundle化する
+        # （既存記事の出力先は一切変わらないオプトイン方式）。
+        bundle = post.properties.get("EXPORT_HUGO_BUNDLE", "").strip()
+        if bundle:
+            if slug != "index":
+                warnings.append(
+                    f"EXPORT_HUGO_BUNDLE=\'{bundle}\' が設定されていますが "
+                    f"EXPORT_FILE_NAME=\'{slug}\' です。ox-hugoの仕様上、"
+                    f"Leaf Bundleにするには EXPORT_FILE_NAME を \'index\' に"
+                    f"する必要があります（このまま index.md として出力します）"
+                )
+            out_path = outdir / bundle / "index.md"
+            bundle_count += 1
+        else:
+            out_path = outdir / f"{slug}.md"
 
         if verbose:
-            print(f"-> {out_path}  (title={post.title!r}, todo={post.todo_state})",
+            kind = f"bundle={bundle}" if bundle else "flat"
+            print(f"-> {out_path}  (title={post.title!r}, todo={post.todo_state}, {kind})",
                   file=sys.stderr)
+
+        if not dry_run:
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+
+        if bundle:
+            body_md = copy_bundle_images(body_md, search_dirs, out_path.parent, dry_run, warnings, bundle)
+
+        content = front_matter + "\n\n" + body_md
+
         for w in warnings:
             all_warnings.append(f"{slug}: {w}")
 
         if not dry_run:
-            out_path.parent.mkdir(parents=True, exist_ok=True)
             out_path.write_text(content, encoding="utf-8")
+
+    if bundle_count:
+        print(f"（うち Leaf Bundle 化した記事: {bundle_count} 件）", file=sys.stderr)
 
     if all_warnings:
         print("\n--- warnings ---", file=sys.stderr)
@@ -527,9 +684,12 @@ def main() -> None:
     ap.add_argument("--verbose", action="store_true")
     ap.add_argument("--tz", default="+09:00",
                      help="CLOSED/lastmodのタイムゾーンオフセット（既定: +09:00 = Asia/Tokyo）")
+    ap.add_argument("--asset-dir", type=Path, action="append", default=[],
+                     help="Page Bundle化した記事の画像を探すディレクトリ（複数指定可）。"
+                          "指定が無くてもorg_file自身のディレクトリは常に探索対象。")
     args = ap.parse_args()
 
-    process_file(args.org_file, args.outdir, args.dry_run, args.verbose, args.tz)
+    process_file(args.org_file, args.outdir, args.dry_run, args.verbose, args.tz, args.asset_dir)
 
 
 if __name__ == "__main__":
