@@ -6653,7 +6653,7 @@ Hugoのリサイズキャッシュ（ =*_hu_<hash>.*= ）を除いた *オリジ
 ここから =content/post/<slug>/= へ同期するので、以後は =rm -rf
 content/post= してもこの種の画像はもう消えない。
 
-** しめに
+*** しめに
 
 「カバー画像のローテーションがおかしい」から始まった話が、Page
 Bundleへの構造変更、Emacs側の2つの入り口、AIプロンプトテンプレート、
@@ -6668,3 +6668,52 @@ Bundleへの構造変更、Emacs側の2つの入り口、AIプロンプトテン
 
 直すべき場所を1つ見つけるたびに、もう1つ見つかる。地味に骨の折れる
 作業だったが、これで少なくとも同じ事故は起きなくなったはずだ。
+
+*** 参考：Page Bundleとは
+
+なぜflatファイルとPage Bundleを取り違えるとこんなことになるのか、
+ここで改めて整理しておく。
+
+#+begin_export hugo
+{{< accordion mode="collapse" >}}
+
+{{< accordionItem title="Leaf Bundle と Branch Bundle" >}}
+Hugoでは通常、1つのコンテンツファイル（`.md`）が1ページに対応する。
+**Page Bundle**は、そのファイルと関連リソース（画像など）を同じ
+ディレクトリにまとめる仕組みで、2種類ある。
+
+- **Leaf Bundle**：`index.md`を含み、子ページを持たないバンドル
+  （例: `content/post/my-post/index.md`）
+- **Branch Bundle**：`_index.md`を含み、子ページを持てるバンドル
+  （セクションのトップページなど）
+
+今回の記事群は`<slug>.md`という素の`.md`ファイルだった。同名の
+`<slug>/`ディレクトリを隣に置いても、Hugoから見ればこの2つは無関係な
+存在で、後者はPage Resourceとして認識されない。
+{{< /accordionItem >}}
+
+{{< accordionItem title="なぜこの構造がいいのか" >}}
+「1記事＝1つのまとまり」という単位で、コンテンツと素材を同じ場所に
+置けるのが本質。バンドル内のファイルは`.Resources`経由でテンプレート
+から直接参照でき、リサイズ・フォーマット変換・fingerprintなどの画像
+処理をパス指定なしで書けるようになる。
+{{< /accordionItem >}}
+
+{{< accordionItem title="メリット" >}}
+- 記事の削除・移動がディレクトリ単位で完結し、画像の消し忘れが起きにくい
+- 相対パスで画像参照を書ける（`![](cover.jpg)`）
+- `.Resources.GetMatch`などのPage Resources APIが使える
+- `headless: true`で「素材だけ共有する」バンドルも作れる
+{{< /accordionItem >}}
+
+{{< accordionItem title="デメリット" >}}
+- 記事数だけディレクトリが増え、一覧性が下がる
+- Branch Bundle配下の非indexページはPage Resourceになれない、という制約
+- ox-hugo側の対応（`EXPORT_HUGO_BUNDLE`＋`EXPORT_FILE_NAME: index`）が
+  必須で、既存記事は一括変換が要る
+- ビルド・デプロイスクリプト側も`<slug>.md`から`<slug>/index.md`への
+  パス変更に追従できていないと、今回のように静かに壊れる
+{{< /accordionItem >}}
+
+{{< /accordion >}}
+#+end_export
