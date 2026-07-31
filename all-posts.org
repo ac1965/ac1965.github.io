@@ -61,52 +61,6 @@ org-modeサブツリーに変換してください。
 #+end_quote
 
 * blog
-** TODO Test Syntaxhighliter
-:PROPERTIES:
-:EXPORT_HUGO_BUNDLE: 2009-7fbf-eb10
-:EXPORT_FILE_NAME: index
-:EXPORT_DATE: 2009-07-06 19:00:00
-:EXPORT_HUGO_TAGS: Pyblosxom SyntaxHighlighter Python
-:EXPORT_HUGO_CATEGORIES: Tech
-:EXPORT_HUGO_LASTMOD:
-:END:
-PyBlosxomの話とは直接関係ないんだけど、[[http://alexgorbatchev.com/wiki/SyntaxHighlighter][SyntaxHighlighter]]を試しに入れてみた。
-#+begin_src python
-  #! /usr/bin/env python
-
-  import sys
-  import re
-  import poplib, email
-  from email import Header
-
-  host = 'localhost'
-  port = 'PORT'
-  account = 'MAIL-ADDRESS'
-  password = 'PASSWORD'
-
-  s = poplib.POP3 (host, port)
-  s.apop (account, password)
-  n = len (s.list ()[1])
-
-  # X-Spambayes-MailId: 1238488913
-  for i in range (n):
-      l = s.retr (i+1)[1]
-      msg = email.message_from_string ('\n'.join (l))
-      subject = Header.decode_header (msg.get ('subject'))[0][0]
-      dtispamsign = Header.decode_header (msg.get ('x-dti-spam-flag'))[0][0]
-      spamsign = Header.decode_header (msg.get ('x-spam-flag'))[0][0]
-      mailid = Header.decode_header (msg.get ('x-spam-probability'))[0][0]
-      if dtispamsign == 'Yes':
-          print '<D>', i+1, spamsign, dtispamsign, subject
-          s.dele(i+1)
-      elif spamsign == 'Yes':
-          print '<D>', i+1, spamsign, dtispamsign, subject
-          s.dele(i+1)
-      else:
-          print '   ', i+1, spamsign, dtispamsign, subject
-
-  s.quit ()
-#+end_src
 ** DONE New PC
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2009-7fbf-eb12
@@ -4170,7 +4124,7 @@ CLOSED: [2024-11-16 Sat 02:25]
 |------------+-----------------|
 | M-x        | 拡張コマンドを実行 |
 
-** 2026年の生成AI、エンジニア的に気になるトレンド3選
+** DONE 2026年の生成AI、エンジニア的に気になるトレンド3選
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2E498C3D-1D1E-4A15-A009-AC02D9BBF0C0
 :EXPORT_FILE_NAME: index
@@ -4226,7 +4180,7 @@ Gartnerによると、2026年末までに世界の企業の80%以上がGenAI API
 
 引き続き、キャッチアップを続けていきたい。
 
-** .emacs.d を Literate Configuration で管理する
+** DONE .emacs.d を Literate Configuration で管理する
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 626C0EF7-AA23-4120-9251-E01A0CF78C4A
 :EXPORT_FILE_NAME: index
@@ -4369,7 +4323,7 @@ org-capture でブログ用テンプレート（キー b）を選択してスケ
 
 Literate Configuration ＋ 階層アーキテクチャは、最初に組み上げるコストは高いけれど、長く使い続けるならやってよかったと思っている。「Emacs の設定が育てにくい」と感じている人の参考になれば嬉しい。
 
-** このブログについて
+** DONE このブログについて
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 3131D2A3-87C7-4448-8287-00D2639E784F
 :EXPORT_FILE_NAME: index
@@ -5174,73 +5128,6 @@ CVE番号が付くような華々しい脆弱性ではなく、開発者自身�
 
 気が向いたら、スケジューラ(~sched_prim.c~)のロードバランシング周りも
 続けて読んでみようと思う。
-** TODO 夏になるとラタトゥイユを作りたくなる
-:PROPERTIES:
-:EXPORT_HUGO_BUNDLE: 9F01D74C-5C06-495F-A1AB-8949E9B41B9E
-:EXPORT_FILE_NAME: index
-:EXPORT_DATE: 2026-07-20 21:50:09
-:EXPORT_HUGO_TAGS: 料理 夏 エッセイ 暮らし
-:EXPORT_HUGO_CATEGORIES: Life
-:END:
-
-夏になると、決まってラタトゥイユが作りたくなる。理由らしい理由はあまり
-なくて、たぶん八百屋やスーパーの棚に、なす・ズッキーニ・パプリカ・トマト
-が一斉に並び始めるのを見ると、体のどこかのスイッチが入るんだと思う。
-「あ、この時期が来たな」という感覚に近い。
-
-#+caption: 切り分けた夏野菜。色だけで、もう気分が上がる
-[[file:./images/ratatouille-01.jpg]]
-
-*** 手順というほどのものでもない
-
-作り方自体は、そんなに難しいものではない。
-
-なすを1cm角くらいに切って、塩を振ってしばらく置く。水分と一緒に軽い
-アクが抜けていくのを待つあいだに、ズッキーニ、パプリカ(赤と黄色、
-できれば両方)、玉ねぎ、にんにくを刻んでおく。トマトは湯むきして
-ざく切りにするか、面倒な日は缶詰のホールトマトで済ませる。正直、味の
-差はそこまで大きくない。
-
-鍋にオリーブオイルとにんにくを入れて弱火で香りを出し、玉ねぎがしんなり
-するまで炒める。そこからは野菜ごとに火の通り方が全然違うので、なす→
-ズッキーニ→パプリカの順に、時間差をつけて加えていく。全部を同時に
-放り込むと、なすだけくたくたになって、パプリカはまだ生っぽい、という
-残念な仕上がりになりがちなので、ここだけは面倒でも守るようにしている。
-
-トマトを加えたら、あとは弱火でことこと。塩、こしょう、あればエルブ・
-ド・プロヴァンスを少し。蓋を少しずらして、水分を飛ばしながら30分ほど。
-
-#+caption: 弱火でことこと煮込んでいる途中
-[[file:./images/ratatouille-02.jpg]]
-
-*** 冷やして食べる、翌日の方が美味しい問題
-
-ラタトゥイユのいいところは、作ったその日よりも、一晩置いた翌日の方が
-確実に美味しくなることだと思う。野菜から出た水分と調味料が、冷蔵庫の
-中でゆっくり馴染んでいく。だから週末にまとめて多めに作って、平日の
-昼にレンジで軽く温めたり、逆にキンキンに冷やしてそのまま食べたりする。
-
-夏の暑い盛りに、冷たいラタトゥイユを白ワインと一緒に出されると、それ
-だけで「今日はもう他に何もしなくていい」という気分になる。冷製パスタの
-ソース代わりにしても良いし、卵を落として軽く煮込めばシャクシュカ寄りの
-一皿にもなる。応用が利くところも、夏に何度も作ってしまう理由の一つ
-かもしれない。
-
-#+caption: 冷やして翌日食べる一皿
-[[file:./images/ratatouille-03.jpg]]
-
-*** 何を作っているのか、というより
-
-料理をしている時間そのものが、実はいちばんの目的なんじゃないかと最近
-思う。野菜を切って、火にかけて、匂いが変わっていくのを眺めているだけの
-時間。仕事のことも、読みかけのコードのことも、その間はきれいに頭から
-抜けている。
-
-ラタトゥイユは特に、手が込んでいるように見えて実際はそこまで難しくない
-料理なので、「ちゃんとしたものを作った」という満足感と、「そんなに
-頑張ってない」という気楽さを、両方いっぺんに味わえるところが気に入って
-いる。今年の夏も、たぶん何度か作ることになる。
-
 ** DONE evalの中身を覗いてみた ─ Emacsが40年抱えてきた矛盾の話
 CLOSED: [2026-07-21 Tue 23:19]
 :PROPERTIES:
