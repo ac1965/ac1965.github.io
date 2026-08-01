@@ -6598,11 +6598,12 @@ Hugoでは通常、1つのコンテンツファイル（`.md`）が1ページに
 ** DONE Makefile が自分自身を tangle する設定で、実機でしかハマらないバグを4連発踏んだ話
 CLOSED: [2026-08-01 Sat 20:24]
 :PROPERTIES:
-:EXPORT_FILE_NAME: 230F6519-AF86-4E80-B141-5A9160B1B5B4
+:EXPORT_HUGO_BUNDLE: 230F6519-AF86-4E80-B141-5A9160B1B5B4
+:EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
-:EXPORT_HUGO_TAGS: Emacs Org-mode Makefile Graphviz Mermaid デバッグ
 :EXPORT_DATE: 2026-08-01 20:22:06
 :EXPORT_HUGO_CATEGORIES: Tech
+:EXPORT_HUGO_TAGS: Emacs Org-mode Makefile Graphviz Mermaid デバッグ
 :EXPORT_HUGO_LASTMOD:
 :END:
 
