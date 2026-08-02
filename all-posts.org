@@ -6690,7 +6690,7 @@ tangleの副作用範囲、leafマクロの内部実装、puppeteerのバージ�
 積み重なるとは思っていなかった
 
 ** DONE AIエージェント活用の現状と限界 —— 2026年、任せていい業務・危ない業務
-CLOSED: [2026-08-02 Sun 11:51]
+CLOSED: [2026-08-02 Sun 11:01]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2898c301-940e-41db-8e51-a03d4208713d
 :EXPORT_FILE_NAME: index
@@ -6751,9 +6751,9 @@ GMOインターネットグループの調査によると、グループ全体�
 
 [fn:nsight] [[https://www.nsight.jp/blog/ai-agent-governance-risk/][社内AIエージェントのガバナンスとリスク管理（Nsight）]]
 ** DONE セキュリティ投資のROIを経営層に説明する —— AIエージェント時代の「防げた損失」の語り方
-CLOSED: [2026-08-02 Sun 11:01]
+CLOSED: [2026-08-02 Sun 11:51]
 :PROPERTIES:
-:EXPORT_HUGO_BUNDLE: 5256DF0C-5445-46E4-9B68-B19F91DF78F0
+:EXPORT_HUGO_BUNDLE: 09d21fd6-33d3-4907-b868-84417bf076e1
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
 :EXPORT_DATE: 2026-08-02 11:47:51
