@@ -6829,8 +6829,8 @@ CLOSED: [2026-08-02 Sun 14:07]
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
 :EXPORT_DATE: 2026-08-02 14:01:35
-:EXPORT_HUGO_CATEGORIES: 医療 呼吸器 メモ 闘病記
-:EXPORT_HUGO_LASTMOD: Life
+:EXPORT_HUGO_CATEGORIES: Life
+:EXPORT_HUGO_LASTMOD:
 :END:
 
 間質性肺炎について調べる機会があったので、一般的な知識と合わせて自分の検査結果もメモしておく。もちろん最終的な判断は主治医のものであり、以下はあくまで自分用の整理である。
