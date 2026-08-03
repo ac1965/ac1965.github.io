@@ -24,7 +24,6 @@ org-modeサブツリーに変換してください。
   :EXPORT_HUGO_BUNDLE: <slug>
   :EXPORT_FILE_NAME: index
   :EXPORT_DATE: <YYYY-MM-DD HH:MM:SS>
-  :EXPORT_HUGO_TAGS: <タグをスペース区切り>
   :EXPORT_HUGO_CATEGORIES: <カテゴリ>
   :EXPORT_HUGO_LASTMOD:
   :END:
@@ -32,6 +31,11 @@ org-modeサブツリーに変換してください。
   記事固有のスラッグはEXPORT_HUGO_BUNDLE側に入れること（<slug>はorg-id-new等で生成した
   既存記事と同じ形式のUUID/短縮ハッシュを想定）。
   ※ EXPORT_HUGO_LASTMODは空欄のままでよい（#+hugo_auto_set_lastmod: t のため自動設定される）
+  ※ タグは EXPORT_HUGO_TAGS プロパティではなく、見出し行末に Org のインラインタグ
+  （`:tag1:tag2:` 形式）として付与する。ハイフンは Org タグの構文上使えないため、
+  複合語はアンダースコア1つで代用する（例: Ox-Hugo → Ox_Hugo。ox-hugo側で自動的に
+  ハイフンへ戻って書き出される）。見出し行の例:
+  ** DONE 記事タイトル :Emacs:Ox_Hugo:Literate_Programming:
 - TODO状態は既存記事の慣習に合わせて付与するか判断する（下書き段階ならTODO、確定ならDONEまたは無し）
 
 # 文体
@@ -61,12 +65,11 @@ org-modeサブツリーに変換してください。
 #+end_quote
 
 * blog
-** DONE New PC
+** DONE New PC :ISO_Image:Gentoo:LiveCD:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2009-7fbf-eb12
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2009-11-14 14:22:36
-:EXPORT_HUGO_TAGS: ISO-Image Gentoo LiveCD
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -187,24 +190,22 @@ Live CD のイメージ作成には、以前は metro を使っていたのだ�
   # ./out.sh
   # ./mkrootimg.sh
 #+end_src
-** DONE awesome window manager
+** DONE awesome window manager :Awesome:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2010-ad26-26d8
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-02-13 22:42:10
-:EXPORT_HUGO_TAGS: Awesome
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
 [[http://awesome.naquadah.org/][awesome]] の設定を見直してみた。見た目にはあまり変わっていないように見えるかもしれないけど、tag（他のウィンドウマネージャでいうところのワークスペース）を動的に生成する shifty というのを使ってみている。
 
 - git://github.com/bioe007/awesome-configs.git
-** DONE Guruplug Std.
+** DONE Guruplug Std. :Guruplug:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2010-f5af-e341
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-02-18 20:00:43
-:EXPORT_HUGO_TAGS: Guruplug
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -218,24 +219,22 @@ Live CD のイメージ作成には、以前は metro を使っていたのだ�
 - [[http://www.plugcomputer.org/]]
 - [[http://plugcomputer.org/plugwiki/index.php?title=Main_Page]]
 - [[http://www.openplug.org/data/]]
-** DONE xmonad window manager
+** DONE xmonad window manager :Xmonad:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2010-1620-4255
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-03-06 19:50:41
-:EXPORT_HUGO_TAGS: Xmonad
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
 awesome が最高だと思っていたけど、[[http://xmonad.org/][Xmonad]] はさらに良かった。キーボードだけで操作できるし、awesome と違って設定ファイルが多少おかしくなっても以前の設定のまま動いてくれるので、使う側としては安心感がある。awesome で気に入っていたものは、だいたい xmonad 側にも揃っている。bioe007 が書いた awesome の revelation がお気に入りだったので、同じようなものが xmonad にもないか、いま探しているところ。
 
 - git clone git://github.com/jelly/dotfiles.git
-** DONE Xmonad for Backtrack4
+** DONE Xmonad for Backtrack4 :Xmonad:Backtrack4:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2010-3be9-c756
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-03-08 08:23:09
-:EXPORT_HUGO_TAGS: Xmonad Backtrack4
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -281,12 +280,11 @@ backtrack4 に xmonad を入れてみた。
   KDEWM=/usr/bin/xmonad
   chmod +x $HOME/.kde3/env/set_window_manager.sh
 #+end_src
-** DONE USB Encrypt for Backtrack
+** DONE USB Encrypt for Backtrack :Backtrack:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2010-3bdc-01ca
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-04-04 17:50:17
-:EXPORT_HUGO_TAGS: Backtrack
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -442,12 +440,11 @@ backtrack4 に xmonad を入れてみた。
 ```
 {{</details>}}
 #+end_export
-** DONE Guruplug 届くまでにやったこと
+** DONE Guruplug 届くまでにやったこと :Guruplug:Crossdev:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2010-ceb7-ee44
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-04-14 23:31:13
-:EXPORT_HUGO_TAGS: Guruplug Crossdev
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -777,12 +774,11 @@ perl と Linux-PAM についてはクロスコンパイルがうまくいかな�
    ```
    {{</details>}}
 #+end_export
-** DONE Xorg
+** DONE Xorg :Xorg:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2010-bba0-bea3
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-06-01 07:39:03
-:EXPORT_HUGO_TAGS: Xorg
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -894,12 +890,11 @@ MASKを外して、udev をアップデートする。
       Option "TapButton1" "1"
   EndSection
 #+end_src
-** DONE Guruplug Arrived
+** DONE Guruplug Arrived :Guruplug:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2010-e6dc-e8c7
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2010-07-12 23:31:13
-:EXPORT_HUGO_TAGS: Guruplug
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -1312,13 +1307,12 @@ MASKを外して、udev をアップデートする。
 #+end_export
 
 [fn:1] 先行予約だと JTAG ボードが無料でついてくるのだけど、PC-BOX に JTAG ボードが必需品になっている。後発で買った人は自分で工作するか、諦めるかのどちらか。とはいえ必要ない人だっているので、一概にどちらがいいとは言えない。
-** DONE Guruplug Subquent
+** DONE Guruplug Subquent :Guruplug:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2010-4ca5-ca76
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2010-4ca5-ca76.jpg"
 :EXPORT_DATE: 2010-07-16 23:32:33
-:EXPORT_HUGO_TAGS: Guruplug
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2057,6 +2051,7 @@ iptables は問題なく動作した。honeyd も動いている。あとはル�
 #+END_EXAMPLE
 {{</details>}}
 #+end_export
+# NOTE: このタグ("四季・ユートピアノ")には Org のインラインタグで許容されない文字(・)が含まれるため、他記事と異なりインライン化せず :EXPORT_HUGO_TAGS: プロパティのまま残している。
 ** DONE 四季・ユートピアノ 中尾幸世さん
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2010-ae11-dbbf
@@ -2088,12 +2083,11 @@ YouTubeでしか再生できないので、「YouTubeで見る」をクリック
 
 [[https://github.com/yt-dlp/yt-dlp][yt-dlp]] みたいなダウンローダーで映像を落とすのは、たしか違法だったはず🤔　アップロードしたり売ったりするのが違法だというのは覚えているんだけど、細かいところはあやふやになってしまった。
 
-** DONE Hexo でハロー
+** DONE Hexo でハロー :Hexo:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2015-984a-97f1
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2015-04-28 08:49:41
-:EXPORT_HUGO_TAGS: Hexo
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2243,12 +2237,11 @@ source/_posts/My-New-Post.md をエディタで編集する（[[https://help.git
 #+end_src
 
 詳しくは： [[http://hexo.io/docs/generating.html][Generating]]
-** DONE Using Packer for Archassult
+** DONE Using Packer for Archassult :ArchAssault:Packer:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2015-92a5-278e
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2015-04-28 14:24:13
-:EXPORT_HUGO_TAGS: ArchAssault Packer
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2311,13 +2304,12 @@ Cuckoo環境の半自動生成
 - [[https://www.archassault.org][ArchAssault]]
 - [[https://github.com/elasticdog/packer-arch][Archlinux用のPackerテンプレ]]
 - [[https://github.com/ac1965/archassault-packer][オレオレ Packer]]
-** DONE 健康診断
+** DONE 健康診断 :健康診断:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2016-fbf9-cc8d
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2016-fbf9-cc8d.jpg"
 :EXPORT_DATE: 2016-05-07 11:59:21
-:EXPORT_HUGO_TAGS: 健康診断
 :EXPORT_HUGO_CATEGORIES: Life
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2332,12 +2324,11 @@ Cuckoo環境の半自動生成
 
 血圧は正常だった。主治医からは「血圧だけは正常ですね」なんて言われる始末（笑）[[file:blood-pressure-result.jpg]]
 
-** DONE What Blog?
+** DONE What Blog? :Tweet:ブログ:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2016-d5bf-eafd
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2016-06-18 11:14:19
-:EXPORT_HUGO_TAGS: Tweet ブログ
 :EXPORT_HUGO_CATEGORIES: Meta
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2354,13 +2345,12 @@ Cuckoo環境の半自動生成
 「眠い」「お腹が空いた」
 
 とか、そんなことばかり。でもよく考えると、のび太が今の時代にいたら、Twitterのヘビーユーザーになっていたかもしれない（笑）
-** DONE Hugo
+** DONE Hugo :Hugo:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2020-64ac-ab0e
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2020-64ac-ab0e.jpg"
 :EXPORT_DATE: 2020-10-27 22:46:10
-:EXPORT_HUGO_TAGS: Hugo
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2444,13 +2434,12 @@ hexo と大きく違うのは、デプロイの仕組みが利用者まかせに
 ```
 {{</details>}}
 #+end_export
-** DONE iPhone 12 Pro
+** DONE iPhone 12 Pro :iPhone:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2020-4b4f-83fe
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2020-4b4f-83fe.jpg"
 :EXPORT_DATE: 2020-11-15 08:53:00
-:EXPORT_HUGO_TAGS: iPhone
 :EXPORT_HUGO_CATEGORIES: Life
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2473,12 +2462,11 @@ hexo と大きく違うのは、デプロイの仕組みが利用者まかせに
 [[file:2nd-shot.png]]
 
 部屋の照明を落として、PCの画面光だけで撮った一枚。
-** DONE 不要不急
+** DONE 不要不急 :COVID_19:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2021-3072-328a
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2021-02-20 16:43:00
-:EXPORT_HUGO_TAGS: COVID-19
 :EXPORT_HUGO_CATEGORIES: Life
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2487,13 +2475,12 @@ hexo と大きく違うのは、デプロイの仕組みが利用者まかせに
 
 不要不急が制限されているコロナ禍のなかで、人は豊かな生活を求めることができるのだろうか。
 
-** DONE 貝殻喫茶室
+** DONE 貝殻喫茶室 :貝殻喫茶室:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2021-b683-9118
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2021-b683-9118.jpg"
 :EXPORT_DATE: 2021-02-28 19:50:00
-:EXPORT_HUGO_TAGS: 貝殻喫茶室
 :EXPORT_HUGO_CATEGORIES: Life
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2505,12 +2492,11 @@ hexo と大きく違うのは、デプロイの仕組みが利用者まかせに
 [[file:kaigara-01.jpeg]]
 [[file:kaigara-02.jpeg]]
 
-** DONE 2021 GW 大瀧詠一
+** DONE 2021 GW 大瀧詠一 :大瀧詠一:GW:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2021-ae45-5638
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2021-04-29 09:02:23
-:EXPORT_HUGO_TAGS: 大瀧詠一 GW
 :EXPORT_HUGO_CATEGORIES: Entertainment
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2577,13 +2563,12 @@ The Rivingtons - Papa Oom Mow Mow
 #+begin_export HUGO
 {{< youtube EQrQjNNZCAo >}}
 #+end_export
-** DONE 2021 GW なろう系小説
+** DONE 2021 GW なろう系小説 :なろう系小説:GW:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2021-4317-c611
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover "custom/2021-4317-c611.jpg"
 :EXPORT_DATE: 2021-05-01
-:EXPORT_HUGO_TAGS: なろう系小説 GW
 :EXPORT_HUGO_CATEGORIES: Entertainment
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2634,13 +2619,12 @@ GW はこれからが本番 :laughing:
 
 TODO<->DONE (C-c C-t / s-<- ->)
 [Orgチート](https://emacsclub.github.io/html/org_tutorial.html)
-** DONE ひさしぶりに
+** DONE ひさしぶりに :Things:
 CLOSED: [2023-12-03 Sun 09:31]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2023-76f0-5099
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2023-12-03
-:EXPORT_HUGO_TAGS: Things
 :EXPORT_HUGO_CATEGORIES: Life
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2650,13 +2634,12 @@ CLOSED: [2023-12-03 Sun 09:31]
 とはいえ、生活のためというほど切実なものでもないし、他に口を出せることもそう多くはない。
 
 ホスピタリティを大事にした対応をすることで、見返りは期待していなくても、育てていく喜びのようなものは感じられている。
-** DONE Yinyoo インイヤーモニター カナル型 CCZ Coffee Bean
+** DONE Yinyoo インイヤーモニター カナル型 CCZ Coffee Bean :CCZ:中華イヤフォン:
 CLOSED: [2024-03-16 Sat 13:14]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-32af-0903
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2024-03-16
-:EXPORT_HUGO_TAGS: CCZ 中華イヤフォン
 :EXPORT_HUGO_CATEGORIES: Life
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -2673,13 +2656,12 @@ CLOSED: [2024-03-16 Sat 13:14]
 寝ながら使うイヤフォンとしても、音質・音圧ともに好みに合っていて、今では一軍として活躍している。
 
 [[file:coffee-bean.png]]
-** DONE 葬送のフリーレン
+** DONE 葬送のフリーレン :Frieren:葬送のフリーレン:
 CLOSED: [2024-03-23 Sat 10:27]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-3ec3-22af
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: Frieren 葬送のフリーレン
 :EXPORT_HUGO_CATEGORIES: Entertainment
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false :cover "custom/2024-3ec3-22af.jpg"
@@ -2717,13 +2699,12 @@ CLOSED: [2024-03-23 Sat 10:27]
 #+begin_export HUGO
 {{< x user="ac1965" id="1771335505801826603" >}}
 #+end_export
-** DONE このサイトのデプロイについて
+** DONE このサイトのデプロイについて :Hugo:GitHubPages:Deploy:
 CLOSED: [2024-03-30 Sat 14:52]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-036f-d136
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: Hugo GitHubPages Deploy
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin true
@@ -2803,13 +2784,12 @@ CLOSED: [2024-03-30 Sat 14:52]
 ```
 {{</details>}}
 #+end_export
-** DONE ThemaをBlowfishにした
+** DONE ThemaをBlowfishにした :Hugo:Blowfish:
 CLOSED: [2024-04-17 Wed 22:49]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-abf9-45ae
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: Hugo Blowfish
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
@@ -2825,13 +2805,12 @@ CLOSED: [2024-04-17 Wed 22:49]
 
 {{< webcard "https://ncode.syosetu.com/n7944cf/" >}}
 #+end_export
-** DONE ひさしぶりに Miles をききたくなった
+** DONE ひさしぶりに Miles をききたくなった :MilesDavis:
 CLOSED: [2024-04-21 Sun 01:12]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-b55f-0ad0
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: MilesDavis
 :EXPORT_HUGO_CATEGORIES: Entertainment
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false :cover "custom/2024-b55f-0ad0.jpg"
@@ -2868,13 +2847,12 @@ Bitches Brew のジャケットアートワークなんかも好きだった。
 #+end_export
 
 [fn:1] [[https://tools.applemediaservices.com/apple-music]]
-** DONE 犬山祭
+** DONE 犬山祭 :犬山祭:
 CLOSED: [2024-04-27 Sat 12:03]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-8776-0378
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: 犬山祭
 :EXPORT_HUGO_CATEGORIES: Life
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false :cover "custom/2024-8776-0378.jpg"
@@ -2899,13 +2877,12 @@ CLOSED: [2024-04-27 Sat 12:03]
 #+end_export
 
 [fn:1] 車山(やま)は他地域の祭における山車や曳山のことで、3層(下層がお囃子所、最上層にはからくりが置かれ、中層は「中山」と呼ばれて最上層のからくりを動かす層)の独特な構造。
-** DONE 烏は主を選ばない
+** DONE 烏は主を選ばない :烏は主を選ばない:
 CLOSED: [2024-04-28 Sun 13:42]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-cf97-098e
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: 烏は主を選ばない
 :EXPORT_HUGO_CATEGORIES: Entertainment
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false :cover "custom/2024-cf97-098e.jpg"
@@ -2928,13 +2905,12 @@ CLOSED: [2024-04-28 Sun 13:42]
 
 {{<webcard "https://www.amazon.co.jp/gp/video/detail/0NCCWYPWNQFQPNMNJZ2MDO9DSK/">}}
 #+end_export
-** DONE 五月晴れの昼下がり
+** DONE 五月晴れの昼下がり :GW:
 CLOSED: [2024-05-04 Sat 15:19]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-25cb-9aad
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: GW
 :EXPORT_HUGO_CATEGORIES: Life
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false :cover "custom/2024-25cb-9aad.jpg"
@@ -2946,13 +2922,12 @@ GWも終盤。作り置きの焼きそばに追いソースをかけて、お腹
 #+begin_export HUGO
 {{<carousel images="gw-2024/*" aspectRatio="16-9" interval="2500">}}
 #+end_export
-** DONE emacs:libgccjit:'libgcc_s.1.1.dylib' no such file
+** DONE emacs:libgccjit:'libgcc_s.1.1.dylib' no such file :Emacs:Native_Compilation:
 CLOSED: [2024-05-12 Sun 16:48]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-460b-9889
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: Emacs Native-Compilation
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
@@ -3550,13 +3525,12 @@ make distclean && ./autogen.sh  && \
 #+end_export
 
 [fn:1] Emacsのエディタ機能は大量のLispで作られているため処理速度は遅く重たい。ネイティブコードとは実行する都度読んで解釈していたLispコードをバイナリコードにバックグラウンドで自動的にコンパイルする機能で、次回から最速で動作することが期待される。
-** DONE ボクが満足するような最強のエディタを作って
+** DONE ボクが満足するような最強のエディタを作って :Emacs:ChatGPT:
 CLOSED: [2024-07-30 Tue 16:48]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-af41-3f35
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: Emacs ChatGPT
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
@@ -3583,13 +3557,12 @@ ChatGPT に聞いてみた。
 
 これらの情報をもとに、君にとって最強のエディタを作るための計画を立てるよ。エディタが具体的にどうなるか楽しみだね！
 #+end_export
-** DONE 麦わら帽子は
+** DONE 麦わら帽子は :Life:
 CLOSED: [2024-09-29 Sun 17:05]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-0f97-7524
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: Life
 :EXPORT_HUGO_CATEGORIES: Life
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
@@ -3597,13 +3570,12 @@ CLOSED: [2024-09-29 Sun 17:05]
 今年の夏休みも終わった。
 
 吉田拓郎の「夏休み」の歌詞が頭の中で繰り返し流れている。1日の半分くらいは横になって過ごしていた。疲れが溜まっている気分だったので、まあ仕方ない。
-** DONE macOSメモ
+** DONE macOSメモ :macOS:
 CLOSED: [2024-10-27 Sun 10:11]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-1095-1010
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: macOS
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
@@ -3694,13 +3666,12 @@ killall Dock
 #+end_export
 
 ざっと聞いた感じ、GUIでちまちま設定し直すよりは断然速そうだ。ただ =defaults export= はドメイン単位でしか吐き出せないので、乗り換えのたびに何のドメインをエクスポートすべきか調べるのが地味に面倒そうではある。とりあえずこの記事をメモ代わりに残しておいて、次に環境を作り直すタイミングで実際に試してみようと思う。
-** DONE EmacsでLLM
+** DONE EmacsでLLM :Emacs:Ollama:Ellama:LLM:
 CLOSED: [2024-11-10 Sun 22:33]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-1096-ac4f
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: Emacs Ollama Ellama LLM
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
@@ -4009,13 +3980,12 @@ Ollamaでは、カスタムモデルの設定ファイルとして _Modelfile_ �
 #+end_export
 
 教科書的な説明を淡々と返してくるだけかと思いきや、ちゃんと動く（つもりの）コードまで組み立ててくるのは、正直ちょっと感動した。エラーが残っている部分はご愛嬌として、年末年始はこのあたりをもう少し触って、実用に耐えるくらいまで設定を詰めていきたい。
-** DONE 備忘録(Emacsのショートカットキー)
+** DONE 備忘録(Emacsのショートカットキー) :Emacs:
 CLOSED: [2024-11-16 Sat 02:25]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2024-af4b-d2f0
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE:
-:EXPORT_HUGO_TAGS: Emacs
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :pin false
@@ -4108,12 +4078,11 @@ CLOSED: [2024-11-16 Sat 02:25]
 |------------+-----------------|
 | M-x        | 拡張コマンドを実行 |
 
-** DONE 2026年の生成AI、エンジニア的に気になるトレンド3選
+** DONE 2026年の生成AI、エンジニア的に気になるトレンド3選 :LLM:Trend:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2E498C3D-1D1E-4A15-A009-AC02D9BBF0C0
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-03-20 16:46:45
-:EXPORT_HUGO_TAGS: LLM Trend
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -4164,12 +4133,11 @@ Gartnerによると、2026年末までに世界の企業の80%以上がGenAI API
 
 引き続き、キャッチアップを続けていきたい。
 
-** DONE .emacs.d を Literate Configuration で管理する
+** DONE .emacs.d を Literate Configuration で管理する :Emacs:Org_Mode:Literate_Programming:Ox_Hugo:Claude_APIs:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 626C0EF7-AA23-4120-9251-E01A0CF78C4A
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-03-20 19:19:06
-:EXPORT_HUGO_TAGS: Emacs Org-Mode Literate-Programming Ox-Hugo Claude-APIs
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -4307,12 +4275,11 @@ org-capture でブログ用テンプレート（キー b）を選択してスケ
 
 Literate Configuration ＋ 階層アーキテクチャは、最初に組み上げるコストは高いけれど、長く使い続けるならやってよかったと思っている。「Emacs の設定が育てにくい」と感じている人の参考になれば嬉しい。
 
-** DONE このブログについて
+** DONE このブログについて :Blog:Hugo:Emacs:Org_Mode:
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 3131D2A3-87C7-4448-8287-00D2639E784F
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-03-21 13:42:27
-:EXPORT_HUGO_TAGS: Blog Hugo Emacs Org-Mode
 :EXPORT_HUGO_CATEGORIES: Meta
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -4333,13 +4300,12 @@ Literate Configuration ＋ 階層アーキテクチャは、最初に組み上�
 
 細々とでも続いているのは、自分のためのメモとして機能しているからだと思う。数年前に書いた設定を見返して「あー、こんなことをやっていたな」となるのが、意外と悪くない。誰かの役に立てばそれはそれで嬉しいけれど、まずは自分のための場所として、これからものんびり続けていくつもり。
 
-** DONE Claude on Safari
+** DONE Claude on Safari :Safari:Claude:
 CLOSED: [2026-07-05 Sun 16:38]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: E8771CC0-4C3E-40B6-A6BB-D2F1A157D323
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-05 15:19:37
-:EXPORT_HUGO_TAGS: Safari Claude
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -4438,13 +4404,12 @@ macOS デスクトップアプリ版の Claude で、たまにチャット入力
    addEventListener('keydown', fn, true)の第3引数trueでキャプチャフェーズに登録する。これでclaude.ai本体のイベントリスナー（バブリングフェーズで動作）より先にこのスクリプトが実行され、event.stopImmediatePropagation()とevent.preventDefault()で送信処理そのものへの到達をブロックできる、という仕組み。
 {{</details>}}
 #+end_export
-** DONE Emacs 31 は「自分で書いたコード」を減らすチャンスだ
+** DONE Emacs 31 は「自分で書いたコード」を減らすチャンスだ :Emacs:
 CLOSED: [2026-07-11 Sat 22:27]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 1508CDB9-FF8C-4BEF-82CE-0609BA5E6CAB
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-11 22:17:55
-:EXPORT_HUGO_TAGS: Emacs
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -4820,13 +4785,12 @@ Emacs には昔から =hideshow= という「関数を折りたたむ」機能�
 新機能の正確な引数や挙動は、 =C-h f= で関数のドキュメントを引くのがいちばん早い。
 ブログ記事（この記事も含めて）を鵜呑みにせず、手元で確かめてほしい。
 
-** DONE GNU Machのソースコードを、素人が興味本位で読んでみた話
+** DONE GNU Machのソースコードを、素人が興味本位で読んでみた話 :Hurd:GNUMach:カーネル:コードリーディング:OS自作:
 CLOSED: [2026-07-20 Mon 18:43]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 8C8263C5-1E11-4D71-9257-57DE794305F2
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-20 18:37:25
-:EXPORT_HUGO_TAGS: Hurd GNUMach カーネル コードリーディング OS自作
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -5112,13 +5076,12 @@ CVE番号が付くような華々しい脆弱性ではなく、開発者自身�
 
 気が向いたら、スケジューラ(~sched_prim.c~)のロードバランシング周りも
 続けて読んでみようと思う。
-** DONE evalの中身を覗いてみた ─ Emacsが40年抱えてきた矛盾の話
+** DONE evalの中身を覗いてみた ─ Emacsが40年抱えてきた矛盾の話 :Emacs:Elisp:
 CLOSED: [2026-07-21 Tue 23:19]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 31836D4D-E645-4ABF-B393-A429ECD8C835
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-21 23:17:09
-:EXPORT_HUGO_TAGS: Emacs Elisp
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -5224,13 +5187,12 @@ Emacs Lispで何かを評価するとき、内部では ~eval_sub~ という関�
 
 次はバイトコードエンジン(~bytecode.c~)か、 ~condition-case~ / ~catch~-~throw~ の非局所脱出まわりを読んでみようと思っている。
 
-** DONE keyboxdのSQLiteエラーからTouch ID復号まで――GPGまわりを一日かけて掘った話
+** DONE keyboxdのSQLiteエラーからTouch ID復号まで――GPGまわりを一日かけて掘った話 :Emacs:GnuPG:macOS:TouchID:GPG:
 CLOSED: [2026-07-25 Sat 10:09]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: ABCC7BC2-D99D-413A-8913-011B056D7CD7
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-25 10:07:40
-:EXPORT_HUGO_TAGS: Emacs GnuPG macOS TouchID GPG
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -5379,14 +5341,13 @@ If a password entry is found but is not "owned" by the pinentry-touchid program 
 
 同じ沼にハマった人の参考になれば。
 
-** DONE 深追いしたら3ヶ月前の全記事画像消失にたどり着いた話
+** DONE 深追いしたら3ヶ月前の全記事画像消失にたどり着いた話 :Hugo:Git:Ox_Hugo:Deploy:
 CLOSED: [2026-07-25 Sat 19:56]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 24A95472-559B-4CCE-9452-414534CA2418
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-25 19:18:53
 :EXPORT_HUGO_CATEGORIES: Tech
-:EXPORT_HUGO_TAGS: Hugo Git Ox-Hugo Deploy
 :EXPORT_HUGO_LASTMOD:
 :END:
 
@@ -5510,14 +5471,13 @@ grepが失敗する記事は全部「その日の月」に丸められる。結�
 
 すっきり直って、正直ほっとしている。次はもう少しこまめに見ておこうと思う。
 
-** DONE カバー画像を直したら、また別の穴が3つ出てきた話
+** DONE カバー画像を直したら、また別の穴が3つ出てきた話 :Hugo:Ox_Hugo:Emacs:
 CLOSED: [2026-07-26 Sun 15:25]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 35C2A8B0-80A0-432D-828D-43D7F0D70F02
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
 :EXPORT_DATE: 2026-07-26 15:00:00
-:EXPORT_HUGO_TAGS: Hugo Ox-Hugo Emacs
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -5600,13 +5560,12 @@ Emacsのcaptureテンプレート側も同じ間違いをしていたので、�
 「1つ直したら、もぐら叩きみたいに次から次へと別の問題が顔を出す」タイプの話だった。
 機械的な分類、ページバンドルの優先順位、ox-hugoの仕様——それぞれは独立した小さな
 落とし穴なのだけど、1つの作業の中で3つ続けて踏むと、さすがに笑ってしまった。
-** DONE Blowfish（Hugoテーマ）のショートコード使い方まとめ
+** DONE Blowfish（Hugoテーマ）のショートコード使い方まとめ :Hugo:Blowfish:Ox_Hugo:Shortcode:
 CLOSED: [2026-07-27 Mon 21:57]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: blowfish-shortcode-reference
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-07-27 10:00:00
-:EXPORT_HUGO_TAGS: Hugo Blowfish Ox-Hugo Shortcode
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -6419,7 +6378,7 @@ Admonitionだけはショートコードではなく =render-blockquote.html= �
 
 ただし =#+begin_example= で囲むだけでは足りない。Hugoのショートコード展開はMarkdownのコードフェンスの中かどうかを見ずに、ファイル全体から波括弧2つのショートコード記法を探して実行してしまうため、例文として書いたつもりの =pageRef= や外部URL指定がそのまま実行されて =REF_NOT_FOUND= やfetch失敗の原因になることがある。=#+begin_example= の中に書くショートコード例は、開き括弧の直後と閉じ括弧の直前に「/* 」「 */」を挟むエスケープ記法（Hugo公式）で書いておく必要がある。
 
-** DONE 画像消失を直しに行ったら、直すべき場所が4つあった話
+** DONE 画像消失を直しに行ったら、直すべき場所が4つあった話 :Hugo:Ox_Hugo:PageBundle:Deploy:夏:
 CLOSED: [2026-07-30 Thu 01:39]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 98FFC285-65B1-414E-AB12-173F11B603B6
@@ -6427,7 +6386,6 @@ CLOSED: [2026-07-30 Thu 01:39]
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
 :EXPORT_DATE: 2026-07-30 01:35:47
 :EXPORT_HUGO_CATEGORIES: Tech
-:EXPORT_HUGO_TAGS: Hugo Ox-Hugo PageBundle Deploy 夏
 :EXPORT_HUGO_LASTMOD:
 :END:
 前回、3ヶ月半前から全記事の画像が消えていたことに気づいた話を書いた。
@@ -6595,7 +6553,7 @@ Hugoでは通常、1つのコンテンツファイル（`.md`）が1ページに
 {{< /accordion >}}
 #+end_export
 
-** DONE Makefile が自分自身を tangle する設定で、実機でしかハマらないバグを4連発踏んだ話
+** DONE Makefile が自分自身を tangle する設定で、実機でしかハマらないバグを4連発踏んだ話 :Emacs:Org_Mode:Makefile:Graphviz:Mermaid:デバッグ:
 CLOSED: [2026-08-01 Sat 20:24]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 230F6519-AF86-4E80-B141-5A9160B1B5B4
@@ -6603,7 +6561,6 @@ CLOSED: [2026-08-01 Sat 20:24]
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
 :EXPORT_DATE: 2026-08-01 20:22:06
 :EXPORT_HUGO_CATEGORIES: Tech
-:EXPORT_HUGO_TAGS: Emacs Org-mode Makefile Graphviz Mermaid デバッグ
 :EXPORT_HUGO_LASTMOD:
 :END:
 
@@ -6689,13 +6646,12 @@ tangleの副作用範囲、leafマクロの内部実装、puppeteerのバージ�
 展開になった。実機で試してもらうまで確信が持てない類の不具合が、こんなに
 積み重なるとは思っていなかった
 
-** DONE AIエージェント活用の現状と限界 —— 2026年、任せていい業務・危ない業務
+** DONE AIエージェント活用の現状と限界 —— 2026年、任せていい業務・危ない業務 :AIエージェント:DX:ガバナンス:生成AI:ITコンサル:
 CLOSED: [2026-08-02 Sun 11:01]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 2898c301-940e-41db-8e51-a03d4208713d
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: 2026-08-02 10:44:17
-:EXPORT_HUGO_TAGS: AIエージェント DX ガバナンス 生成AI ITコンサル
 :EXPORT_HUGO_CATEGORIES: Strategy
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -6750,14 +6706,13 @@ GMOインターネットグループの調査によると、グループ全体�
 [fn:zenn-gov] [[https://zenn.dev/miyan/articles/ai-code-agent-governance-design-2026][AIエージェント時代のガバナンス設計 —— 禁止から段階的運用への5つの判断軸（Zenn）]]
 
 [fn:nsight] [[https://www.nsight.jp/blog/ai-agent-governance-risk/][社内AIエージェントのガバナンスとリスク管理（Nsight）]]
-** DONE セキュリティ投資のROIを経営層に説明する —— AIエージェント時代の「防げた損失」の語り方
+** DONE セキュリティ投資のROIを経営層に説明する —— AIエージェント時代の「防げた損失」の語り方 :セキュリティ:ROI:AIエージェント:ガバナンス:ITコンサル:
 CLOSED: [2026-08-02 Sun 11:51]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: 09d21fd6-33d3-4907-b868-84417bf076e1
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
 :EXPORT_DATE: 2026-08-02 11:47:51
-:EXPORT_HUGO_TAGS: セキュリティ ROI AIエージェント ガバナンス ITコンサル
 :EXPORT_HUGO_CATEGORIES: Strategy
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -6822,14 +6777,13 @@ MCPを統制するポリシーを持つ組織はわずか8%で、残りの92%は
 
 [fn:enterprise-scaling-roi] [[https://uravation.com/media/ai-agent-enterprise-scaling-23-percent-wall-2026/][【2026年最新】AIエージェント全社展開「23%の壁」を越える条件（株式会社Uravation）]]
 
-** DONE 肺がん検査で分かったこと
+** DONE 肺がん検査で分かったこと :医療:呼吸器:メモ:闘病記:
 CLOSED: [2026-08-02 Sun 14:07]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: F8A85DD4-6221-4B23-8602-EBF96E05732D
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
 :EXPORT_DATE: 2026-08-02 14:01:35
-:EXPORT_HUGO_TAGS: 医療 呼吸器 メモ 闘病記
 :EXPORT_HUGO_CATEGORIES: Life
 :EXPORT_HUGO_LASTMOD:
 :END:
@@ -6907,3 +6861,94 @@ CLOSED: [2026-08-02 Sun 14:07]
 現時点で確定している方針としては、 *8月末にしこりを摘出する手術を胸腔鏡下* で行う予定となっている。具体的な術式については、まだ確認していない。
 
 今後、分かったことがあれば、また追記していきたい。
+** DONE Org インラインタグへの移行と Ox-Hugo 検証 :Emacs:Org_Mode:Ox_Hugo:Blog:
+CLOSED: [2026-08-03 Mon 21:33]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: 7f3a9c2e-4b1d-4e6a-9f0c-2d8b5a1e6c47
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: 2026-08-03 10:00:00
+:EXPORT_HUGO_CATEGORIES: Emacs
+:EXPORT_HUGO_LASTMOD:
+:END:
+
+ブログのタグ付けを =EXPORT_HUGO_TAGS= プロパティではなく Org のインラインタグに寄せたい、という話を Claude に相談した。アップロードした ~README.org~ を見てもらったところ、実は =personal/ac1965.el=(tangle 先)側にすでに実装済みだった。以下、その回答をそのまま引用する。
+
+#+begin_export hugo
+{{< details title="AIとの質疑応答:Ox-Hugo タグの仕組み" >}}
+アップロードいただいた `README.org` を確認したところ、この件はすでに `personal/ac1965.el`(tangle 先)内に実装済みの仕組みがあります。該当箇所(11157–11234行目)に沿って整理します。
+
+**1. タグの記法そのもの**
+
+Org の見出し(エントリー)行では、タグは行末にコロン区切りで直接埋め込みます。
+
+```org
+* TODO 記事タイトル                                    :emacs:org-mode:
+```
+
+これは Org のネイティブ構文で、`EXPORT_HUGO_TAGS` のような PROPERTIES ドロワーへの記述とは別物です。ox-hugo はこの見出しのインラインタグを、`:EXPORT_HUGO_TAGS:` プロパティが**未設定の場合に限り**そのまま Hugo の TOML フロントマターの `tags` に変換します。あなたの設定ではまさにこの経路を使うために、"b"(Blog post)テンプレートから `:EXPORT_HUGO_TAGS: %^{Tags}` の入力欄を意図的に外しています(二重入力を避けるため、11201–11232行目のコメント参照)。
+
+**2. 既存タグ補完付きで設定するコマンド**
+
+手で `:tag:` を打つ代わりに、`ac1965/org-hugo-set-tags` を使います。
+
+- `ac1965--org-hugo-tag-alist-from-buffer` が `my:f:capture-blog-file`(= `all-posts.org`)を `org-map-entries` で走査し、過去に使われた全インラインタグを収集
+- それを `org-tag-alist` として束縛した状態で `org-set-tags-command` を呼ぶ
+- 結果、`C-c C-c` 相当の対話操作で、既存タグの補完候補付きにタグ付けできる
+
+キーバインドは `M-SPC o g`(`ui-leader-o-map` の `"g"`)に割り当て済みです。
+
+**3. 新規記事キャプチャ時の自動化**
+
+`org-capture-before-finalize-hook` に `ac1965--org-capture-set-blog-tags` が登録されており、テンプレートキーが `"b"` のキャプチャを確定する直前に自動で `ac1965/org-hugo-set-tags` が呼ばれます。`before-finalize`(`after-finalize` ではなく)である点がポイントで、これによりタグ付けが完了した状態で `orgx-auto-hugo` の自動エクスポートが走り、ox-hugo が正しくタグを front matter に反映します。
+
+**まとめ**
+
+| 操作 | 方法 |
+|---|---|
+| 既存記事に手動でタグ追加 | 見出し行末で `M-SPC o g`(補完付き) |
+| 素朴な Org 標準コマンド | `org-set-tags-command`(補完対象は現バッファの見出しのみ) |
+| 新規ブログ投稿キャプチャ時 | 確定前に自動でタグ入力プロンプトが出る(フック経由) |
+| ox-hugo への反映 | `EXPORT_HUGO_TAGS` は未設定のまま、見出しのインラインタグがそのまま `tags` フロントマターになる |
+
+補足として、複数の投稿で表記揺れ(例: `emacs` と `Emacs`)が起きると `ac1965--org-hugo-tag-alist-from-buffer` の補完候補が分岐して増殖するため、タグの命名規約(小文字統一・ハイフン区切りなど)を `all-posts.org` の先頭にコメントで残しておくと運用が安定します。
+{{< /details >}}
+#+end_export
+
+仕組みが分かったところで、実際に既存記事のタグを移行する作業も Claude 側にやってもらった。全81種のユニークタグがそのまま Org のタグ構文を通るかどうかを機械的に検証してもらい、52記事あった =EXPORT_HUGO_TAGS= のうち51件をインラインタグへ移す、という内容だ。実機検証の結果は以下の通り。
+
+#+begin_export hugo
+{{< details title="AIによる移行・検証レポート" >}}
+Org のタグ構文で全81種のユニークタグが実際に通るか、Emacs で機械的に検証します。冒頭の投稿生成テンプレート指示も、新しい方式に合わせて更新します。52記事あった `EXPORT_HUGO_TAGS` プロパティのうち51件をインラインタグへ移行しました。実際に Emacs 29.3 + Org 9.6.15 をコンテナ内にインストールし、変換ロジックを実機検証した上での結果です。
+
+**移行前に判明した制約(実機検証)**
+
+Org のインラインタグはハイフンを許容しません(Org 公式マニュアル: タグに使えるのは英数字・`_`・`@`・`#`・`%` のみ)。既存タグには `Ox-Hugo`(5件)・`ISO-Image`・`Literate-Programming`・`Claude-APIs`・`Native-Compilation`・`COVID-19`・`Org-Mode` と、ハイフン入りが7種ありました。
+
+幸い ox-hugo 側に対応機構があり、`org-hugo-prefer-hyphen-in-tags`(既定 `t`)により インラインタグの単一アンダースコアは書き出し時に自動でハイフンへ復元されます(`Ox_Hugo` → `Ox-Hugo`)。ox-hugo 本体のソースから該当関数を取り出し、全81種のユニークタグで「ハイフン→アンダースコア変換 → Org タグとしてparse → ox-hugo変換関数で復元」のラウンドトリップを検証し、1件を除き完全一致を確認しています。
+
+**例外1件: そのまま残した記事**
+
+『中尾幸世 四季・ユートピアノ』のタグ行のみ、「・」(U+30FB)が Org タグ構文で使えず inline化できないため、`:EXPORT_HUGO_TAGS:` プロパティのまま残し、直前に理由をコメントで残しました。
+
+**その他の変更**
+
+- `Org-mode` / `Org-Mode` の表記揺れ(3箇所)→ `Org-Mode` に統一
+- 冒頭のAI投稿生成プロンプト(`#+begin_quote` 内のテンプレート)を、`EXPORT_HUGO_TAGS` を書く旧方式からインラインタグ方式に更新(今後の新規記事もこの方式で生成されるように)
+- `EXPORT_HUGO_CATEGORIES` は今回のスコープ外として一切変更していません
+
+**検証**
+
+- 移行後ファイルを Org として全走査(250見出し)してエラー0件
+- `EXPORT_HUGO_BUNDLE`(UUID)をキーに新旧52記事のタグ内容を突き合わせ、不一致0件
+
+**気づいた点(今回のタスクとは別件)**
+
+ファイル末尾に本文もタグもない空の `TODO aa` 見出し(`EXPORT_HUGO_BUNDLE: 85E1DE12-...`)があります。今回の移行対象外として触れていませんが、意図しない下書きの可能性があるため、必要であれば削除をご検討ください。
+
+**次のステップの提案**
+
+`M-SPC o g`(`ac1965/org-hugo-set-tags`)の補完候補は今後この inline タグから正しく拾えるようになります。実際にコミットする前に、`C-c C-e H A`(`:all-subtrees`)で再エクスポートし、生成される Markdown の front matter が移行前と同じ `tags = [...]` になっているか(特に `Ox-Hugo` など元ハイフン付きタグ)を一度実機で確認されることをお勧めします。
+{{< /details >}}
+#+end_export
+
+というわけで、タグ付けの仕組みそのものは README.org 側にすでに書いてあったが、実際に81種のタグでラウンドトリップ検証までやってもらったのは今回が初めてだ。「・」が唯一の例外として残った点と、末尾に放置された空の =TODO aa= 見出しの存在は、次回の掃除タスクとして覚えておきたい。
