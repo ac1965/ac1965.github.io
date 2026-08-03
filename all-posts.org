@@ -6902,11 +6902,11 @@ Org の見出し(エントリー)行では、タグは行末にコロン区切�
 
 手で `:tag:` を打つ代わりに、`ac1965/org-hugo-set-tags` を使います。
 
-- `ac1965--org-hugo-tag-alist-from-buffer` が
-- `my:f:capture-blog-file`(= `all-posts.org`)を `org-map-entries` で走
-- 査し、過去に使われた全インラインタグを収集それを `org-tag-alist` と
-- して束縛した状態で `org-set-tags-command` を呼ぶ結果、`C-c C-c` 相当
-- の対話操作で、既存タグの補完候補付きにタグ付けできる
+`ac1965--org-hugo-tag-alist-from-buffer` が
+`my:f:capture-blog-file`(= `all-posts.org`)を `org-map-entries` で走査し、
+過去に使われた全インラインタグを収集それを `org-tag-alist` として束縛した状態で
+`org-set-tags-command` を呼ぶ結果、`C-c C-c` 相当の対話操作で、
+既存タグの補完候補付きにタグ付けできる
 
 キーバインドは `M-SPC o g`(`ui-leader-o-map` の `"g"`)に割り当て済みで
 す。
