@@ -7671,48 +7671,51 @@ git add -A
 
 =~/bin= などPATHの通った場所に置いておけば、日常的な =git add -A && gen-commit-msg --commit --edit= の一手で、あの =Update= 地獄に逆戻りすることはなくなるはずだ。
 
-*** 追記: 正しい手順のまとめ
+*** 追記: 正しい手順とスクリプト全文
 :PROPERTIES:
 :CUSTOM_ID: appendix-correct-procedure
 :END:
 
-#+begin_src hugo
-{{< details summary="正しい手順(コマンド込み・まとめ)" >}}
-記事中で試行錯誤した内容を整理し、最終的に妥当だった手順をまとめておく。
-反省点は、*最初から履歴書き換え専用のバックアップクローンを別ディレクトリに作っておく* こと。
+本文で紆余曲折した内容を整理し、最終的に妥当だった手順とスクリプト全文を以下にまとめておく。
+最大の反省点は、*履歴書き換え専用のバックアップは、同一リポジトリ内のブランチではなく
+別ディレクトリへの独立クローンで取る* こと。この教訓を反映し、元の3段構成に
+=0_backup_clone.sh= を加えた0〜3の4段構成にした。
 
-#### 0. 事前準備
+#+begin_src hugo
+{{< details "正しい手順(コマンド込み・まとめ)" >}}
+### 0. バックアップクローンの作成
 
 ```bash
 pip install anthropic --break-system-packages
 pip install git-filter-repo --break-system-packages
 export ANTHROPIC_API_KEY=sk-ant-...
-```
 
-#### 1. 書き換え専用のバックアップクローンを作る(最初にやる)
-
-同一リポジトリ内のブランチでは =filter-repo= の書き換え対象から逃れられない(全ref が対象になる)ため、
-別ディレクトリへの独立クローンを先に作っておく。
-
-```bash
-git clone --no-hardlinks /path/to/original-repo repo-backup-$(date +%Y%m%d)
+chmod +x ~/Downloads/0_backup_clone.sh
+~/Downloads/0_backup_clone.sh /path/to/original-repo
 cd repo-backup-$(date +%Y%m%d)
 ```
 
-以降の作業は *このクローン内* で行い、元リポジトリには一切触れない。
+同一リポジトリ内のブランチでは`filter-repo`の書き換え対象から逃れられない(全refが対象になる)ため、
+別ディレクトリへの独立クローンを先に作る。以降の作業は**このクローン内**で行い、元リポジトリには一切触れない。
 
-#### 2. diffとファイル変更一覧を抽出
-
-抽出スクリプトはカレントディレクトリを対象リポジトリとみなす実装なので、
-書き換え対象のクローン内で実行する。
+### 1. diffとファイル変更一覧を抽出
 
 ```bash
 python3 ~/Downloads/1_extract_diffs.py --out diffs.jsonl
 ```
 
-出力は =diffs.jsonl=(JSON Lines形式、1行1コミット)。
+出力は`diffs.jsonl`(JSON Lines形式、1行1コミット)。カレントディレクトリを対象リポジトリと
+みなす実装なので、必ずクローン内で実行する。マージコミットは除外され、根本コミット(親なし)は
+自動的に空ツリー差分として扱われる。
 
-#### 3. Claude APIでコミットメッセージを生成
+必要に応じて範囲やdiffサイズも指定できる。
+
+```bash
+python3 ~/Downloads/1_extract_diffs.py --out diffs.jsonl --since HEAD~50
+python3 ~/Downloads/1_extract_diffs.py --out diffs.jsonl --max-diff-chars 4000
+```
+
+### 2. Claude APIでコミットメッセージを生成
 
 まず少数件でドライラン確認。
 
@@ -7726,20 +7729,16 @@ python3 ~/Downloads/2_generate_messages.py --in diffs.jsonl --out messages.json 
 python3 ~/Downloads/2_generate_messages.py --in diffs.jsonl --out messages.json
 ```
 
-#### 4. filter-repoで一括置換
+### 3. filter-repoで一括置換
 
 ```bash
-python3 ~/Downloads/2_generate_messages.py --in diffs.jsonl --out messages.json --dry-run --limit 5
 REWRITE_MESSAGES_JSON="$(pwd)/messages.json" \
 git filter-repo --force --commit-callback "$(cat ~/Downloads/3_rewrite_messages.py)"
 ```
 
-=--force= は、対象がフレッシュな独立クローンであっても付けておくと安全
-(filter-repoが「未検証のクローン」と判断するケースがあるため)。
+### 4. 反映前に必ず差分ゼロを確認
 
-#### 5. 反映前に必ず差分ゼロを確認
-
-書き換え後、内容が変わっていないこと(メッセージ以外)を元リポジトリと突き合わせる。
+書き換え後、内容(メッセージ以外)が変わっていないことを元リポジトリと突き合わせる。
 
 ```bash
 git remote add origin git@github.com:xxx/yyy.git
@@ -7747,16 +7746,356 @@ git fetch origin
 git diff main origin/main --stat   # 出力なし = ファイル内容は完全一致、のはず
 ```
 
-差分ゼロを確認してから、初めて force push する。
+差分ゼロを確認してから、初めてforce pushする。
 
 ```bash
 git push --force-with-lease origin main
 ```
 
-#### 教訓の要約
+### 教訓の要約
 
-- バックアップは *別ディレクトリへの独立クローン* で取る。同一リポジトリ内のブランチは =filter-repo= の対象から逃げられない。
-- =--force= の前に、バックアップブランチ名は =git branch -vv= で目視確認する(typoに気づけなかった原因はここ)。
-- push前に =git diff <old> <new> --stat= で内容の同一性を機械的に確認してから =--force-with-lease= を使う。
+- バックアップは**別ディレクトリへの独立クローン**で取る。同一リポジトリ内のブランチは`filter-repo`の対象から逃げられない。
+- `--force`の前に、バックアップの実体(クローン先ディレクトリ)を`ls`や`git rev-list --count`で目視確認する。
+- push前に`git diff <old> <new> --stat`で内容の同一性を機械的に確認してから`--force-with-lease`を使う。
 {{< /details >}}
-#+end_src hugo
+#+end_src
+
+#+begin_src hugo
+{{< details "0_backup_clone.sh(バックアップクローン作成)" >}}
+```bash
+#!/usr/bin/env bash
+#
+# 0_backup_clone.sh
+#
+# filter-repo等の履歴書き換え作業用に、別ディレクトリへの独立クローンを作る。
+# 同一リポジトリ内のブランチはfilter-repoの書き換え対象から逃げられないため、
+# 必ず別ディレクトリのクローンとして退避する。
+#
+# 使い方:
+#   ./0_backup_clone.sh /path/to/original-repo
+#   ./0_backup_clone.sh /path/to/original-repo /path/to/dest-dir   # 出力先を指定する場合
+
+set -euo pipefail
+
+SRC="${1:?使い方: $0 <元リポジトリのパス> [出力先ディレクトリ]}"
+DEST="${2:-repo-backup-$(date +%Y%m%d)}"
+
+if [ -e "$DEST" ]; then
+    echo "[ERROR] 出力先 '$DEST' は既に存在します。別名を指定するか削除してください。" >&2
+    exit 1
+fi
+
+echo "[INFO] クローン中: $SRC -> $DEST"
+git clone --no-hardlinks "$SRC" "$DEST"
+
+cd "$DEST"
+echo "[INFO] クローン完了。カレントディレクトリ: $(pwd)"
+echo "[INFO] コミット数: $(git rev-list --count HEAD)"
+echo "[INFO] ブランチ一覧:"
+git branch -vv
+
+echo ""
+echo "[DONE] 以降の作業はこのディレクトリ内で行ってください: $DEST"
+```
+{{< /details >}}
+#+end_src
+
+#+begin_src hugo
+{{< details "1_extract_diffs.py(diff抽出)" >}}
+```python
+#!/usr/bin/env python3
+"""
+1_extract_diffs.py
+
+対象リポジトリの全コミット(または --since 指定範囲)を走査し、
+各コミットのハッシュ・現メッセージ・diff を JSONL 形式で書き出す。
+
+使い方:
+    cd /path/to/your/repo
+    python3 1_extract_diffs.py --out diffs.jsonl
+    python3 1_extract_diffs.py --out diffs.jsonl --since HEAD~50  # 直近50件のみ
+    python3 1_extract_diffs.py --out diffs.jsonl --max-diff-chars 4000  # diffを切り詰め
+"""
+
+import argparse
+import json
+import subprocess
+import sys
+
+
+def run(cmd):
+    # text=True だとUTF-8として不正なバイト列(バイナリ差分やShift-JISファイル名混入等)で
+    # UnicodeDecodeError を起こして落ちるため、bytesで受け取ってerrors="replace"で手動デコードする
+    result = subprocess.run(cmd, capture_output=True)
+    stdout = result.stdout.decode("utf-8", errors="replace")
+    stderr = result.stderr.decode("utf-8", errors="replace")
+    if result.returncode != 0:
+        print(f"[ERROR] command failed: {' '.join(cmd)}\n{stderr}", file=sys.stderr)
+        sys.exit(1)
+    return stdout
+
+
+def get_commit_list(since):
+    rev_range = since if since else "--all"
+    # 親コミットが複数(マージコミット)は対象外にする(--no-merges)
+    out = run(["git", "log", "--no-merges", "--reverse", "--pretty=format:%H", rev_range])
+    return [h for h in out.splitlines() if h.strip()]
+
+
+def has_parent(commit_hash):
+    result = subprocess.run(
+        ["git", "rev-parse", "--verify", "-q", f"{commit_hash}~1"],
+        capture_output=True, text=True,
+    )
+    return result.returncode == 0
+
+
+def get_commit_info(commit_hash, max_diff_chars):
+    msg = run(["git", "log", "-1", "--pretty=format:%s%n%b", commit_hash]).strip()
+    files = run(["git", "diff-tree", "--no-commit-id", "--name-status", "-r", commit_hash]).strip()
+    if has_parent(commit_hash):
+        diff = run(["git", "diff", f"{commit_hash}~1", commit_hash])
+    else:
+        # 根本コミット(親なし): 空ツリーとの差分 = 全ファイルが追加された状態
+        diff = run(["git", "diff-tree", "--root", "-p", commit_hash])
+    truncated = False
+    if max_diff_chars and len(diff) > max_diff_chars:
+        diff = diff[:max_diff_chars]
+        truncated = True
+    return {
+        "hash": commit_hash,
+        "old_message": msg,
+        "files_changed": files,
+        "diff": diff,
+        "diff_truncated": truncated,
+    }
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", required=True, help="出力先 JSONL ファイル")
+    ap.add_argument("--since", default=None, help="git log に渡すrev-range (例: HEAD~50)。省略時は全履歴")
+    ap.add_argument("--max-diff-chars", type=int, default=6000, help="diffの最大文字数(トークン節約用)")
+    args = ap.parse_args()
+
+    commits = get_commit_list(args.since)
+    print(f"[INFO] {len(commits)} commits found (merge commits excluded).")
+
+    with open(args.out, "w", encoding="utf-8") as f:
+        for i, h in enumerate(commits, 1):
+            info = get_commit_info(h, args.max_diff_chars)
+            f.write(json.dumps(info, ensure_ascii=False) + "\n")
+            if i % 50 == 0:
+                print(f"[INFO] {i}/{len(commits)} processed")
+
+    print(f"[DONE] wrote {args.out}")
+
+
+if __name__ == "__main__":
+    main()
+```
+{{< /details >}}
+#+end_src
+
+#+begin_src hugo
+{{< details "2_generate_messages.py(Claude APIでのメッセージ生成)" >}}
+```python
+#!/usr/bin/env python3
+"""
+2_generate_messages.py
+
+1_extract_diffs.py の出力(diffs.jsonl)を読み、各コミットについて
+Conventional Commits 形式のメッセージを Claude API で生成する。
+
+事前準備:
+    pip install anthropic --break-system-packages
+    export ANTHROPIC_API_KEY=sk-ant-...
+
+使い方(まずドライランで数件だけ確認):
+    python3 2_generate_messages.py --in diffs.jsonl --out messages.json --dry-run --limit 5
+
+問題なければ本番実行(全件):
+    python3 2_generate_messages.py --in diffs.jsonl --out messages.json
+"""
+
+import argparse
+import json
+import os
+import sys
+import time
+
+try:
+    import anthropic
+except ImportError:
+    print("[ERROR] pip install anthropic --break-system-packages を先に実行してください", file=sys.stderr)
+    sys.exit(1)
+
+
+SYSTEM_PROMPT = """あなたはgitコミット履歴の整理を行うアシスタントです。
+与えられたdiffと変更ファイル一覧から、Conventional Commits形式の
+コミットメッセージを1つだけ生成してください。
+
+ルール:
+- 形式: <type>(<scope>): <summary>
+  - type は feat, fix, docs, style, refactor, test, chore, perf のいずれか
+  - scope は変更の主対象(ディレクトリ名やモジュール名など)。不明なら省略可
+  - summary は日本語で50文字以内、命令形または体言止め
+- 本文(1行空けて詳細)は、diffから読み取れる「何を変更したか」を箇条書き2〜4行で。
+  「なぜ」変更したかはdiffから読み取れないため、推測で書かないこと。
+- 出力はコミットメッセージ本文のみ。前置き・後書き・Markdown装飾は一切不要。
+"""
+
+
+def build_user_prompt(entry):
+    return f"""変更ファイル:
+{entry['files_changed']}
+
+diff:
+{entry['diff']}
+{'(diffは長いため途中で切り詰めています)' if entry.get('diff_truncated') else ''}
+
+元のメッセージ(参考、意味がないものが多い): {entry['old_message']!r}
+"""
+
+
+def generate_one(client, entry, model="claude-sonnet-4-6"):
+    resp = client.messages.create(
+        model=model,
+        max_tokens=500,
+        system=SYSTEM_PROMPT,
+        messages=[{"role": "user", "content": build_user_prompt(entry)}],
+    )
+    text_blocks = [b.text for b in resp.content if b.type == "text"]
+    return "".join(text_blocks).strip()
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--in", dest="infile", required=True)
+    ap.add_argument("--out", dest="outfile", required=True, help="hash -> new message の JSON")
+    ap.add_argument("--dry-run", action="store_true", help="ファイルに保存せず、標準出力に表示するのみ")
+    ap.add_argument("--limit", type=int, default=None, help="処理件数を制限(ドライラン確認用)")
+    ap.add_argument("--model", default="claude-sonnet-4-6")
+    ap.add_argument(
+        "--fresh", action="store_true",
+        help="既存の --out ファイルを無視して全件を最初から生成し直す(デフォルトは未処理分のみのレジューム)",
+    )
+    args = ap.parse_args()
+
+    with open(args.infile, encoding="utf-8") as f:
+        entries = [json.loads(line) for line in f if line.strip()]
+
+    # 既存の messages.json があれば読み込み、すでに成功済みのハッシュはスキップする
+    # (= 前回APIエラーでスキップされたコミットだけが対象になる)
+    results = {}
+    if not args.dry_run and not args.fresh and os.path.exists(args.outfile):
+        with open(args.outfile, encoding="utf-8") as f:
+            results = json.load(f)
+        before = len(entries)
+        entries = [e for e in entries if e["hash"] not in results]
+        print(
+            f"[INFO] resume mode: {args.outfile} に既存 {len(results)} 件を検出。"
+            f"未処理 {len(entries)}/{before} 件のみ再試行します。"
+            f" (全件やり直す場合は --fresh を指定)",
+            file=sys.stderr,
+        )
+
+    if args.limit:
+        entries = entries[: args.limit]
+
+    if not entries:
+        print("[INFO] 未処理のコミットはありません。すべて処理済みです。")
+        return
+
+    client = anthropic.Anthropic()  # ANTHROPIC_API_KEY を環境変数から読む
+    failed = []
+
+    for i, entry in enumerate(entries, 1):
+        h = entry["hash"]
+        try:
+            new_msg = generate_one(client, entry, model=args.model)
+        except Exception as e:
+            print(f"[WARN] {h[:8]} failed: {e} -- skip (元のメッセージを維持)", file=sys.stderr)
+            failed.append(h)
+            continue
+
+        if args.dry_run:
+            print("=" * 60)
+            print(f"commit {h[:8]}")
+            print(f"  旧: {entry['old_message']!r}")
+            print(f"  新:\n{new_msg}")
+        else:
+            results[h] = new_msg
+
+        if i % 10 == 0:
+            print(f"[INFO] {i}/{len(entries)} generated", file=sys.stderr)
+            if not args.dry_run:
+                # 途中経過をこまめに保存(長時間実行中のクラッシュ対策)
+                with open(args.outfile, "w", encoding="utf-8") as f:
+                    json.dump(results, f, ensure_ascii=False, indent=2)
+
+        time.sleep(0.3)  # レート制限対策(必要に応じ調整)
+
+    if not args.dry_run:
+        with open(args.outfile, "w", encoding="utf-8") as f:
+            json.dump(results, f, ensure_ascii=False, indent=2)
+        print(f"[DONE] wrote {args.outfile} ({len(results)} messages total)")
+        if failed:
+            print(f"[INFO] {len(failed)} 件が今回も失敗しました。同じコマンドを再実行すれば再試行されます。", file=sys.stderr)
+    else:
+        print(f"\n[DONE] dry-run complete ({len(entries)} entries). ファイルには保存していません。")
+
+
+if __name__ == "__main__":
+    main()
+```
+{{< /details >}}
+#+end_src
+
+#+begin_src hugo
+{{< details "3_rewrite_messages.py(filter-repo commit-callback)" >}}
+```python
+"""
+3_rewrite_messages.py
+
+git filter-repo の --commit-callback に渡すスクリプト。
+messages.json (旧hash -> 新メッセージ) を読み込み、該当コミットの
+メッセージを置き換える。マッピングに存在しないコミットは元のまま維持する。
+
+事前準備:
+    pip install git-filter-repo --break-system-packages
+    (または https://github.com/newren/git-filter-repo をPATHに置く)
+
+使い方:
+    # 必ず 0_backup_clone.sh で別ディレクトリへ独立クローンしてから実行すること
+    # (同一リポジトリ内のブランチはfilter-repoの書き換え対象から逃げられない)
+    ./0_backup_clone.sh /path/to/original-repo
+    cd repo-backup-YYYYMMDD
+
+    REWRITE_MESSAGES_JSON="$(pwd)/messages.json" \
+    git filter-repo --force --commit-callback "$(cat 3_rewrite_messages.py)"
+
+    # 結果をローカルで目視確認
+    git log --oneline | head -50
+
+    # 元リポジトリと内容が完全一致することを確認してから反映
+    git diff main origin/main --stat
+    git push --force-with-lease
+"""
+
+import json
+import os
+
+_MESSAGES_PATH = os.environ.get("REWRITE_MESSAGES_JSON", "messages.json")
+
+with open(_MESSAGES_PATH, encoding="utf-8") as _f:
+    _messages = json.load(_f)
+
+old_hash = commit.original_id.decode("ascii")  # noqa: F821  (filter-repoが注入する変数)
+
+if old_hash in _messages:
+    commit.message = _messages[old_hash].encode("utf-8")  # noqa: F821
+# マッピングにない場合は commit.message を変更しない(元のまま)
+```
+{{< /details >}}
+#+end_src
