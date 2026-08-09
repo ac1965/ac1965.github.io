@@ -7542,6 +7542,7 @@ while [[ $# -gt 0 ]]; do
       exit 0
       ;;
     *)
+```
       echo "[ERROR] unknown option: $1" >&2
       exit 1
       ;;
@@ -7675,84 +7676,87 @@ git add -A
 :CUSTOM_ID: appendix-correct-procedure
 :END:
 
+#+begin_src hugo
 {{< details summary="正しい手順(コマンド込み・まとめ)" >}}
 記事中で試行錯誤した内容を整理し、最終的に妥当だった手順をまとめておく。
 反省点は、*最初から履歴書き換え専用のバックアップクローンを別ディレクトリに作っておく* こと。
 
-**** 0. 事前準備
+#### 0. 事前準備
 
-#+begin_src bash
+```bash
 pip install anthropic --break-system-packages
 pip install git-filter-repo --break-system-packages
 export ANTHROPIC_API_KEY=sk-ant-...
-#+end_src
+```
 
-**** 1. 書き換え専用のバックアップクローンを作る(最初にやる)
+#### 1. 書き換え専用のバックアップクローンを作る(最初にやる)
 
 同一リポジトリ内のブランチでは =filter-repo= の書き換え対象から逃れられない(全ref が対象になる)ため、
 別ディレクトリへの独立クローンを先に作っておく。
 
-#+begin_src bash
+```bash
 git clone --no-hardlinks /path/to/original-repo repo-backup-$(date +%Y%m%d)
 cd repo-backup-$(date +%Y%m%d)
-#+end_src
+```
 
 以降の作業は *このクローン内* で行い、元リポジトリには一切触れない。
 
-**** 2. diffとファイル変更一覧を抽出
+#### 2. diffとファイル変更一覧を抽出
 
 抽出スクリプトはカレントディレクトリを対象リポジトリとみなす実装なので、
 書き換え対象のクローン内で実行する。
 
-#+begin_src bash
+```bash
 python3 ~/Downloads/1_extract_diffs.py --out diffs.jsonl
-#+end_src
+```
 
 出力は =diffs.jsonl=(JSON Lines形式、1行1コミット)。
 
-**** 3. Claude APIでコミットメッセージを生成
+#### 3. Claude APIでコミットメッセージを生成
 
 まず少数件でドライラン確認。
 
-#+begin_src bash
+```bash
 python3 ~/Downloads/2_generate_messages.py --in diffs.jsonl --out messages.json --dry-run --limit 5
-#+end_src
+```
 
 問題なければ本番実行(APIエラー時は自動スキップ、再実行で未処理分のみレジューム)。
 
-#+begin_src bash
+```bash
 python3 ~/Downloads/2_generate_messages.py --in diffs.jsonl --out messages.json
-#+end_src
+```
 
-**** 4. filter-repoで一括置換
+#### 4. filter-repoで一括置換
 
-#+begin_src bash
+```bash
+python3 ~/Downloads/2_generate_messages.py --in diffs.jsonl --out messages.json --dry-run --limit 5
 REWRITE_MESSAGES_JSON="$(pwd)/messages.json" \
 git filter-repo --force --commit-callback "$(cat ~/Downloads/3_rewrite_messages.py)"
-#+end_src
+```
 
 =--force= は、対象がフレッシュな独立クローンであっても付けておくと安全
 (filter-repoが「未検証のクローン」と判断するケースがあるため)。
 
-**** 5. 反映前に必ず差分ゼロを確認
+#### 5. 反映前に必ず差分ゼロを確認
 
 書き換え後、内容が変わっていないこと(メッセージ以外)を元リポジトリと突き合わせる。
 
-#+begin_src bash
+```bash
 git remote add origin git@github.com:xxx/yyy.git
 git fetch origin
 git diff main origin/main --stat   # 出力なし = ファイル内容は完全一致、のはず
-#+end_src
+```
 
 差分ゼロを確認してから、初めて force push する。
 
-#+begin_src bash
+```bash
 git push --force-with-lease origin main
-#+end_src
+```
 
-**** 教訓の要約
+#### 教訓の要約
 
 - バックアップは *別ディレクトリへの独立クローン* で取る。同一リポジトリ内のブランチは =filter-repo= の対象から逃げられない。
 - =--force= の前に、バックアップブランチ名は =git branch -vv= で目視確認する(typoに気づけなかった原因はここ)。
 - push前に =git diff <old> <new> --stat= で内容の同一性を機械的に確認してから =--force-with-lease= を使う。
 {{< /details >}}
+#+end_src hugo
