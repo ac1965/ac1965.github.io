@@ -7227,7 +7227,7 @@ python3 ~/Downloads/1_extract_diffs.py --out diffs.jsonl
 
 Conventional Commits形式で生成させ、diffから読み取れない「なぜ」は推測させない設計にした。APIエラーで落ちたコミットは、既存の出力ファイルを見て未処理分だけ再試行するレジューム方式にした。
 
-システムプロンプトと、実際に各コミットごとにAPIへ渡していたユーザープロンプトの組み立て部分は以下の通り。
+diffと変更ファイル一覧をユーザープロンプトとして渡し、Conventional Commits形式で1件だけ返すよう指示する構成にした(システムプロンプト・スクリプト全文は末尾の追記を参照)。
 
 まず5件だけドライランで確認した。
 
@@ -7268,7 +7268,7 @@ git diff 5c69b505ba018d85627a28035e77112a4a40ca3c~1 5c69b505ba018d85627a28035e77
 
 *** 壁その2: UTF-8として不正なバイト列
 
-760件のうち300件目あたりで =UnicodeDecodeError= が発生。バイナリ差分やエンコーディングの異なるファイル名が混入していたのが原因だった。=subprocess= の出力を =text=True= で自動デコードさせず、bytesで受け取ってから =errors="replace"= で手動デコードするよう直して解決。
+760件のうち300件目あたりで =UnicodeDecodeError= が発生。バイナリ差分やエンコーディングの異なるファイル名が混入していたのが原因だった。 =subprocess= の出力を =text=True= で自動デコードさせず、bytesで受け取ってから =errors="replace"= で手動デコードするよう直して解決。
 
 *** 壁その3: APIエラーでの取りこぼし
 
@@ -7371,9 +7371,22 @@ git clone --no-hardlinks /path/to/original-repo repo-backup-$(date +%Y%m%d)
 
 結果的にファイルの実害は一切なかったが、心臓には悪かった。
 
+もう一つ、後になって効いてきた教訓がある。 =git filter-repo= は *実行後に =.git/config= から remote セクション(=origin= など)を自動的に削除する* 。書き換え後の履歴を、古いリモートへうっかりpushしてしまう事故を防ぐための、filter-repo側の意図的な安全装置だ。この仕様を知らずに =git filter-repo= 実行直後の =git push= が =fatal: No configured push destination= で失敗し、「そもそもリモート未設定だったのか」と早合点して =git remote add origin ...= からやり直す、という遠回りを二度ほど繰り返した。ひどい時には、うろ覚えのURLで別の新しいディレクトリに素の状態で =git clone= してしまい、書き換え済みの本物の作業ディレクトリと、書き換え前の空のcloneが並存して混乱する、という事態にもなった。
+
+対処は単純で、 *実行前に =git remote -v= の出力を控えておき、実行後は同じURLで =git remote add origin= する* ことに尽きる。
+
+#+begin_src bash
+# filter-repo実行前に必ず控えておく
+git remote -v
+
+# filter-repo実行後、originが消えているので同じURLで戻す
+git remote add origin <控えておいたURL>
+git fetch origin
+#+end_src
+
 *** APIクレジット切れとOllamaへの切り替え
 
-760件のメッセージ生成を =2_generate_messages.py=(Claude API版)で流している途中、Anthropicから以下の通知が届いた。
+760件のメッセージ生成を =2_generate_messages.py= (Claude API版)で流している途中、Anthropicから以下の通知が届いた。
 
 #+begin_export hugo
 {{<details "APIクレジット切れの通知">}}
@@ -7428,157 +7441,156 @@ python3 2_generate_messages_ollama.py --in diffs.jsonl --out messages.json --mod
 ここまではリポジトリ全体の一括書き換えの話だったが、これはあくまで一回限りの後始末だ。今後は =Update= のようなコミットを最初から作らないようにする方が本質的なので、日常のコミット時にも Ollama でメッセージ生成を使えるよう、単発の =git diff --cached=(ステージ済みの差分)を渡してConventional Commitsメッセージを生成するスクリプト( =gen-commit-msg.sh= )を作り、[[https://github.com/ac1965/dotfiles][dotfiles]] に追加した。プロンプトの内容は今回の =2_generate_messages_ollama.py= と揃えてあるので、一括書き換え時と日常コミット時でメッセージのスタイルが一貫する。
 
 #+begin_src bash
-  #!/usr/bin/env bash
-  #
-  # gen-commit-msg.sh
-  #
-  # ステージ済みの git diff (git diff --cached) を Ollama に渡し、
-  # Conventional Commits 形式のコミットメッセージを生成する。
-  #
-  # 事前準備:
-  #   ollama serve                    (別ターミナルで起動しておく)
-  #   ollama pull qwen2.5-coder:14b   (初回のみ)
-  #
-  # 使い方:
-  #   git add -A
-  #   ./gen-commit-msg.sh                     # メッセージを表示するだけ
-  #   ./gen-commit-msg.sh --commit            # 生成したメッセージでそのままコミット
-  #   ./gen-commit-msg.sh --commit --edit     # 生成後、エディタで確認・編集してからコミット
-  #   ./gen-commit-msg.sh --model deepseek-coder-v2:16b
-  #   ./gen-commit-msg.sh --host http://localhost:11434
-  #
-  set -euo pipefail
+#!/usr/bin/env bash
+#
+# gen-commit-msg.sh
+#
+# ステージ済みの git diff (git diff --cached) を Ollama に渡し、
+# Conventional Commits 形式のコミットメッセージを生成する。
+#
+# 事前準備:
+#   ollama serve                    (別ターミナルで起動しておく)
+#   ollama pull qwen2.5-coder:14b   (初回のみ)
+#
+# 使い方:
+#   git add -A
+#   ./gen-commit-msg.sh                     # メッセージを表示するだけ
+#   ./gen-commit-msg.sh --commit            # 生成したメッセージでそのままコミット
+#   ./gen-commit-msg.sh --commit --edit     # 生成後、エディタで確認・編集してからコミット
+#   ./gen-commit-msg.sh --model deepseek-coder-v2:16b
+#   ./gen-commit-msg.sh --host http://localhost:11434
+#
+set -euo pipefail
 
-  MODEL="qwen2.5-coder:14b"
-  HOST="http://localhost:11434"
-  DO_COMMIT=0
-  DO_EDIT=0
+MODEL="qwen2.5-coder:14b"
+HOST="http://localhost:11434"
+DO_COMMIT=0
+DO_EDIT=0
 
-  while [[ $# -gt 0 ]]; do
-    case "$1" in
-      --model)  MODEL="$2"; shift 2 ;;
-      --host)   HOST="$2"; shift 2 ;;
-      --commit) DO_COMMIT=1; shift ;;
-      --edit)   DO_EDIT=1; shift ;;
-      -h|--help)
-        sed -n '2,20p' "$0"
-        exit 0
-        ;;
-      ,*)
-  ```
-        echo "[ERROR] unknown option: $1" >&2
-        exit 1
-        ;;
-    esac
-  done
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --model)  MODEL="$2"; shift 2 ;;
+    --host)   HOST="$2"; shift 2 ;;
+    --commit) DO_COMMIT=1; shift ;;
+    --edit)   DO_EDIT=1; shift ;;
+    -h|--help)
+      sed -n '2,20p' "$0"
+      exit 0
+      ;;
+    *)
+      echo "[ERROR] unknown option: $1" >&2
+      exit 1
+      ;;
+  esac
+done
 
-  # --- 前提チェック -----------------------------------------------------
+# --- 前提チェック -----------------------------------------------------
 
-  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    echo "[ERROR] gitリポジトリの中で実行してください" >&2
-    exit 1
-  fi
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "[ERROR] gitリポジトリの中で実行してください" >&2
+  exit 1
+fi
 
-  DIFF="$(git diff --cached)"
-  if [[ -z "$DIFF" ]]; then
-    echo "[ERROR] ステージされた変更がありません。先に 'git add' してください" >&2
-    exit 1
-  fi
+DIFF="$(git diff --cached)"
+if [[ -z "$DIFF" ]]; then
+  echo "[ERROR] ステージされた変更がありません。先に 'git add' してください" >&2
+  exit 1
+fi
 
-  if ! curl -s -o /dev/null -w '%{http_code}' "$HOST/api/tags" | grep -q '^200$'; then
-    echo "[ERROR] $HOST に接続できません。'ollama serve' が起動しているか確認してください" >&2
-    exit 1
-  fi
+if ! curl -s -o /dev/null -w '%{http_code}' "$HOST/api/tags" | grep -q '^200$'; then
+  echo "[ERROR] $HOST に接続できません。'ollama serve' が起動しているか確認してください" >&2
+  exit 1
+fi
 
-  FILES_CHANGED="$(git diff --cached --name-status)"
+FILES_CHANGED="$(git diff --cached --name-status)"
 
-  # --- プロンプト組み立て ------------------------------------------------
+# --- プロンプト組み立て ------------------------------------------------
 
-  SYSTEM_PROMPT='あなたはgitコミット履歴の整理を行うアシスタントです。
-  与えられたdiffと変更ファイル一覧から、Conventional Commits形式の
-  コミットメッセージを1つだけ生成してください。
+SYSTEM_PROMPT='あなたはgitコミット履歴の整理を行うアシスタントです。
+与えられたdiffと変更ファイル一覧から、Conventional Commits形式の
+コミットメッセージを1つだけ生成してください。
 
-  ルール:
-  - 形式: <type>(<scope>): <summary>
-    - type は feat, fix, docs, style, refactor, test, chore, perf のいずれか
-    - scope は変更の主対象(ディレクトリ名やモジュール名など)。不明なら省略可
-    - summary は日本語で50文字以内、命令形または体言止め
-  - 本文(1行空けて詳細)は、diffから読み取れる「何を変更したか」を箇条書き2〜4行で。
-    「なぜ」変更したかはdiffから読み取れないため、推測で書かないこと。
-  - 出力はコミットメッセージ本文のみ。前置き・後書き・Markdown装飾・```などの
+ルール:
+- 形式: <type>(<scope>): <summary>
+  - type は feat, fix, docs, style, refactor, test, chore, perf のいずれか
+  - scope は変更の主対象(ディレクトリ名やモジュール名など)。不明なら省略可
+  - summary は日本語で50文字以内、命令形または体言止め
+- 本文(1行空けて詳細)は、diffから読み取れる「何を変更したか」を箇条書き2〜4行で。
+  「なぜ」変更したかはdiffから読み取れないため、推測で書かないこと。
+- 出力はコミットメッセージ本文のみ。前置き・後書き・Markdown装飾・```などの
   コードフェンスは一切不要。説明や確認の言葉("承知しました"等)も付けないこと。'
 
-  # diffが巨大すぎるとコンテキスト長を超えるため、上限を設けて切り詰める
-  MAX_DIFF_CHARS=8000
-  if [[ ${#DIFF} -gt $MAX_DIFF_CHARS ]]; then
-    DIFF="${DIFF:0:$MAX_DIFF_CHARS}
-  (diffは長いため途中で切り詰めています)"
-  fi
+# diffが巨大すぎるとコンテキスト長を超えるため、上限を設けて切り詰める
+MAX_DIFF_CHARS=8000
+if [[ ${#DIFF} -gt $MAX_DIFF_CHARS ]]; then
+  DIFF="${DIFF:0:$MAX_DIFF_CHARS}
+(diffは長いため途中で切り詰めています)"
+fi
 
-  USER_PROMPT="変更ファイル:
-  ${FILES_CHANGED}
+USER_PROMPT="変更ファイル:
+${FILES_CHANGED}
 
-  diff:
-  ${DIFF}"
+diff:
+${DIFF}"
 
-  # --- Ollama呼び出し -----------------------------------------------------
-  # jqへの依存を避けるため、リクエストJSONの組み立て・レスポンスのパースは python3 で行う
+# --- Ollama呼び出し -----------------------------------------------------
+# jqへの依存を避けるため、リクエストJSONの組み立て・レスポンスのパースは python3 で行う
 
-  REQUEST_JSON="$(
-    MODEL="$MODEL" SYSTEM_PROMPT="$SYSTEM_PROMPT" USER_PROMPT="$USER_PROMPT" python3 -c '
-  import json, os
-  print(json.dumps({
-      "model": os.environ["MODEL"],
-      "system": os.environ["SYSTEM_PROMPT"],
-      "prompt": os.environ["USER_PROMPT"],
-      "stream": False,
-      "options": {"temperature": 0.2},
-  }))
-  '
-  )"
+REQUEST_JSON="$(
+  MODEL="$MODEL" SYSTEM_PROMPT="$SYSTEM_PROMPT" USER_PROMPT="$USER_PROMPT" python3 -c '
+import json, os
+print(json.dumps({
+    "model": os.environ["MODEL"],
+    "system": os.environ["SYSTEM_PROMPT"],
+    "prompt": os.environ["USER_PROMPT"],
+    "stream": False,
+    "options": {"temperature": 0.2},
+}))
+'
+)"
 
-  echo "[INFO] model=$MODEL host=$HOST でメッセージを生成中..." >&2
+echo "[INFO] model=$MODEL host=$HOST でメッセージを生成中..." >&2
 
-  RESPONSE="$(curl -s -X POST "$HOST/api/generate" -d "$REQUEST_JSON")"
+RESPONSE="$(curl -s -X POST "$HOST/api/generate" -d "$REQUEST_JSON")"
 
-  COMMIT_MSG="$(
-    echo "$RESPONSE" | python3 -c '
-  import json, sys
-  data = json.load(sys.stdin)
-  text = data.get("response", "").strip()
-  # モデルが ```...``` で囲って返すことがあるため剥がす
-  if text.startswith("```"):
-      lines = text.split("\n")
-      if lines[0].startswith("```"):
-          lines = lines[1:]
-      if lines and lines[-1].strip() == "```":
-          lines = lines[:-1]
-      text = "\n".join(lines).strip()
-  print(text)
-  '
-  )"
+COMMIT_MSG="$(
+  echo "$RESPONSE" | python3 -c '
+import json, sys
+data = json.load(sys.stdin)
+text = data.get("response", "").strip()
+# モデルが ```...``` で囲って返すことがあるため剥がす
+if text.startswith("```"):
+    lines = text.split("\n")
+    if lines[0].startswith("```"):
+        lines = lines[1:]
+    if lines and lines[-1].strip() == "```":
+        lines = lines[:-1]
+    text = "\n".join(lines).strip()
+print(text)
+'
+)"
 
-  if [[ -z "$COMMIT_MSG" ]]; then
-    echo "[ERROR] メッセージの生成に失敗しました。Ollamaの応答:" >&2
-    echo "$RESPONSE" >&2
-    exit 1
-  fi
+if [[ -z "$COMMIT_MSG" ]]; then
+  echo "[ERROR] メッセージの生成に失敗しました。Ollamaの応答:" >&2
+  echo "$RESPONSE" >&2
+  exit 1
+fi
 
-  echo "----------------------------------------"
-  echo "$COMMIT_MSG"
-  echo "----------------------------------------"
+echo "----------------------------------------"
+echo "$COMMIT_MSG"
+echo "----------------------------------------"
 
-  # --- コミット実行(任意) -------------------------------------------------
+# --- コミット実行(任意) -------------------------------------------------
 
-  if [[ $DO_COMMIT -eq 1 ]]; then
-    if [[ $DO_EDIT -eq 1 ]]; then
-      git commit -e -m "$COMMIT_MSG"
-    else
-      git commit -m "$COMMIT_MSG"
-    fi
+if [[ $DO_COMMIT -eq 1 ]]; then
+  if [[ $DO_EDIT -eq 1 ]]; then
+    git commit -e -m "$COMMIT_MSG"
   else
-    echo "[INFO] --commit を付けると、このメッセージでそのままコミットします" >&2
+    git commit -m "$COMMIT_MSG"
   fi
+else
+  echo "[INFO] --commit を付けると、このメッセージでそのままコミットします" >&2
+fi
 #+end_src
 
 使い方はこうだ。
@@ -7600,7 +7612,7 @@ git add -A
 :END:
 
 本文で紆余曲折した内容を整理し、最終的に妥当だった手順とスクリプト全文を以下にまとめておく。
-最大の反省点は、*履歴書き換え専用のバックアップは、同一リポジトリ内のブランチではなく
+最大の反省点は、 *履歴書き換え専用のバックアップは、同一リポジトリ内のブランチではなく
 別ディレクトリへの独立クローンで取る* こと。この教訓を反映し、元の3段構成に
 =0_backup_clone.sh= を加えた0〜3の4段構成にした。
 
@@ -7661,18 +7673,20 @@ git filter-repo --force --commit-callback "$(cat ~/Downloads/3_rewrite_messages.
 
 **4. 反映前に必ず差分ゼロを確認**
 
-書き換え後、内容(メッセージ以外)が変わっていないことを元リポジトリと突き合わせる。
+書き換え後、内容(メッセージ以外)が変わっていないことを元リポジトリと突き合わせる。ここは手作業だと
+URLやブランチ名の打ち間違い、差分確認を飛ばして次に進んでしまう、といった事故が起きやすいので
+=4_verify_and_push.sh= としてスクリプト化した(スクリプト全文は後述)。デフォルトでは検証のみ行い、
+=--push= を明示しない限り絶対にpushしない。
 
 ```bash
-git remote add origin git@github.com:xxx/yyy.git
-git fetch origin
-git diff main origin/main --stat   # 出力なし = ファイル内容は完全一致、のはず
+# まず検証のみ(pushしない)
+./4_verify_and_push.sh git@github.com:xxx/yyy.git main
 ```
 
-差分ゼロを確認してから、初めてforce pushする。
+差分ゼロを確認できたら、初めてforce pushする。
 
 ```bash
-git push --force-with-lease origin main
+./4_verify_and_push.sh git@github.com:xxx/yyy.git main --push
 ```
 
 **教訓の要約**
@@ -7680,6 +7694,7 @@ git push --force-with-lease origin main
 - バックアップは**別ディレクトリへの独立クローン**で取る。同一リポジトリ内のブランチは`filter-repo`の対象から逃げられない。
 - `--force`の前に、バックアップの実体(クローン先ディレクトリ)を`ls`や`git rev-list --count`で目視確認する。
 - push前に`git diff <old> <new> --stat`で内容の同一性を機械的に確認してから`--force-with-lease`を使う。
+- `filter-repo`は実行後に`origin`リモートを自動的に削除する。実行前に`git remote -v`を控え、実行後は同じURLで`git remote add origin`し直す(この記事内の手順4はそれを踏まえた構成にしてある)。
 {{< /details >}}
 #+end_src
 
@@ -8019,6 +8034,140 @@ old_hash = commit.original_id.decode("ascii")  # noqa: F821  (filter-repoが注�
 if old_hash in _messages:
     commit.message = _messages[old_hash].encode("utf-8")  # noqa: F821
 # マッピングにない場合は commit.message を変更しない(元のまま)
+```
+{{< /details >}}
+#+end_src
+
+#+begin_src hugo
+{{< details "4_verify_and_push.sh(差分ゼロ確認とforce push)" >}}
+```bash
+#!/usr/bin/env bash
+#
+# 4_verify_and_push.sh
+#
+# git filter-repo などで履歴を書き換えた後、元リモートと「メッセージ以外の内容が
+# 完全に一致しているか」を機械的に確認してから、初めて force push する。
+# デフォルトでは検証のみ行い、--push を明示しない限り絶対にpushしない。
+#
+# 前提: filter-repo実行直後は origin リモートが自動的に削除されているため、
+# このスクリプトが remote add からやり直す。
+#
+# 使い方:
+#   cd repo-backup-YYYYMMDD   (書き換え済みの独立クローン内で実行)
+#
+#   # まずは検証のみ(pushしない)
+#   ./4_verify_and_push.sh git@github.com:ac1965/dotfiles.git
+#
+#   # ブランチ名を明示(省略時は現在のブランチ)
+#   ./4_verify_and_push.sh git@github.com:ac1965/dotfiles.git master
+#
+#   # 差分ゼロを確認できたら、実際にpushする
+#   ./4_verify_and_push.sh git@github.com:ac1965/dotfiles.git master --push
+#
+set -euo pipefail
+
+REMOTE_URL="${1:?使い方: $0 <remote-url> [branch] [--push]}"
+shift
+
+BRANCH=""
+DO_PUSH=0
+
+for arg in "$@"; do
+  case "$arg" in
+    --push) DO_PUSH=1 ;;
+    *)      BRANCH="$arg" ;;
+  esac
+done
+
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "[ERROR] gitリポジトリの中で実行してください" >&2
+  exit 1
+fi
+
+# 作業ツリーが汚れていると差分確認の意味がなくなるため先にチェック
+if [[ -n "$(git status --porcelain)" ]]; then
+  echo "[ERROR] 作業ツリーに未コミットの変更があります。先にcommit/stashしてください" >&2
+  git status --short >&2
+  exit 1
+fi
+
+if [[ -z "$BRANCH" ]]; then
+  BRANCH="$(git symbolic-ref --short HEAD)"
+  echo "[INFO] ブランチ未指定のため、現在のブランチ '$BRANCH' を使います" >&2
+fi
+
+# --- リモートの用意 -----------------------------------------------------
+# filter-repo実行後は origin が消えているのが通例だが、
+# 既にorigin以外の名前で設定されているケースも考慮し、専用のリモート名を使う
+
+REMOTE_NAME="verify-origin"
+
+if git remote get-url "$REMOTE_NAME" >/dev/null 2>&1; then
+  git remote remove "$REMOTE_NAME"
+fi
+
+echo "[INFO] リモート追加: $REMOTE_NAME -> $REMOTE_URL" >&2
+git remote add "$REMOTE_NAME" "$REMOTE_URL"
+
+echo "[INFO] fetch中..." >&2
+if ! git fetch "$REMOTE_NAME" "$BRANCH"; then
+  echo "[ERROR] fetchに失敗しました。URL・ブランチ名・認証情報(SSH鍵等)を確認してください" >&2
+  git remote remove "$REMOTE_NAME"
+  exit 1
+fi
+
+REMOTE_REF="$REMOTE_NAME/$BRANCH"
+
+echo "[INFO] リモート側の直近履歴(参考):" >&2
+git log "$REMOTE_REF" --oneline | head -5 >&2
+
+# --- 差分ゼロ確認 ---------------------------------------------------------
+
+echo "" >&2
+echo "[INFO] $BRANCH と $REMOTE_REF の内容差分を確認中..." >&2
+
+DIFF_STAT="$(git diff "$BRANCH" "$REMOTE_REF" --stat)"
+
+if [[ -n "$DIFF_STAT" ]]; then
+  echo "" >&2
+  echo "[ERROR] 差分が検出されました。メッセージ以外の内容(ファイルの中身)が" >&2
+  echo "        書き換え前後で一致していません。push を中止します。" >&2
+  echo "" >&2
+  echo "$DIFF_STAT" >&2
+  echo "" >&2
+  echo "[INFO] 詳細を見る場合: git diff $BRANCH $REMOTE_REF" >&2
+  git remote remove "$REMOTE_NAME"
+  exit 1
+fi
+
+echo "[OK] 差分ゼロを確認しました。ファイル内容は完全に一致しています。" >&2
+
+# --- push(明示指定時のみ) -------------------------------------------------
+
+if [[ $DO_PUSH -eq 0 ]]; then
+  echo "" >&2
+  echo "[INFO] --push を付けずに実行したため、pushは行いません。" >&2
+  echo "[INFO] 問題なければ次のコマンドで反映してください:" >&2
+  echo "       $0 $REMOTE_URL $BRANCH --push" >&2
+  git remote remove "$REMOTE_NAME"
+  exit 0
+fi
+
+echo "" >&2
+echo "[INFO] $REMOTE_NAME/$BRANCH へ force push します..." >&2
+git push --force-with-lease "$REMOTE_NAME" "$BRANCH:$BRANCH"
+
+echo "" >&2
+echo "[DONE] push完了。リモート側の履歴を確認してください:" >&2
+git fetch "$REMOTE_NAME" "$BRANCH" >/dev/null 2>&1
+git log "$REMOTE_REF" --oneline | head -10 >&2
+
+# 後片付け: 検証用の一時リモート名を残すか、originとして正式採用するかは
+# 呼び出し側の判断に委ねる(ここでは削除しない)
+echo "" >&2
+echo "[INFO] リモート '$REMOTE_NAME' はそのまま残しています。" >&2
+echo "       正式にoriginとして使うなら: git remote rename $REMOTE_NAME origin" >&2
+echo "       不要なら: git remote remove $REMOTE_NAME" >&2
 ```
 {{< /details >}}
 #+end_src
