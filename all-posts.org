@@ -7217,38 +7217,6 @@ CLOSED: [2026-08-09 Sun 13:36]
 
 根本コミット(親を持たない最古のコミット)と、UTF-8として不正なバイト列を含むdiffの両方に対応する必要があった(詳細は後述)。
 
-#+begin_src python
-def run(cmd):
-    # text=True だとUTF-8として不正なバイト列(バイナリ差分やShift-JISファイル名混入等)で
-    # UnicodeDecodeError を起こして落ちるため、bytesで受け取りerrors="replace"で手動デコード
-    result = subprocess.run(cmd, capture_output=True)
-    stdout = result.stdout.decode("utf-8", errors="replace")
-    stderr = result.stderr.decode("utf-8", errors="replace")
-    if result.returncode != 0:
-        print(f"[ERROR] command failed: {' '.join(cmd)}\n{stderr}", file=sys.stderr)
-        sys.exit(1)
-    return stdout
-
-
-def has_parent(commit_hash):
-    result = subprocess.run(
-        ["git", "rev-parse", "--verify", "-q", f"{commit_hash}~1"],
-        capture_output=True, text=True,
-    )
-    return result.returncode == 0
-
-
-def get_commit_info(commit_hash, max_diff_chars):
-    msg = run(["git", "log", "-1", "--pretty=format:%s%n%b", commit_hash]).strip()
-    files = run(["git", "diff-tree", "--no-commit-id", "--name-status", "-r", commit_hash]).strip()
-    if has_parent(commit_hash):
-        diff = run(["git", "diff", f"{commit_hash}~1", commit_hash])
-    else:
-        # 根本コミット(親なし): 空ツリーとの差分 = 全ファイルが追加された状態
-        diff = run(["git", "diff-tree", "--root", "-p", commit_hash])
-    ...
-#+end_src
-
 実行コマンドはこれだけ。
 
 #+begin_src bash
@@ -7260,43 +7228,6 @@ python3 ~/Downloads/1_extract_diffs.py --out diffs.jsonl
 Conventional Commits形式で生成させ、diffから読み取れない「なぜ」は推測させない設計にした。APIエラーで落ちたコミットは、既存の出力ファイルを見て未処理分だけ再試行するレジューム方式にした。
 
 システムプロンプトと、実際に各コミットごとにAPIへ渡していたユーザープロンプトの組み立て部分は以下の通り。
-
-#+begin_src python
-SYSTEM_PROMPT = """あなたはgitコミット履歴の整理を行うアシスタントです。
-与えられたdiffと変更ファイル一覧から、Conventional Commits形式の
-コミットメッセージを1つだけ生成してください。
-
-ルール:
-- 形式: <type>(<scope>): <summary>
-  - type は feat, fix, docs, style, refactor, test, chore, perf のいずれか
-  - scope は変更の主対象(ディレクトリ名やモジュール名など)。不明なら省略可
-  - summary は日本語で50文字以内、命令形または体言止め
-- 本文(1行空けて詳細)は、diffから読み取れる「何を変更したか」を箇条書き2〜4行で。
-  「なぜ」変更したかはdiffから読み取れないため、推測で書かないこと。
-- 出力はコミットメッセージ本文のみ。前置き・後書き・Markdown装飾は一切不要。
-"""
-
-
-def build_user_prompt(entry):
-    return f"""変更ファイル:
-{entry['files_changed']}
-
-diff:
-{entry['diff']}
-{'(diffは長いため途中で切り詰めています)' if entry.get('diff_truncated') else ''}
-
-元のメッセージ(参考、意味がないものが多い): {entry['old_message']!r}
-"""
-
-
-# 既存のmessages.jsonがあれば読み込み、すでに成功済みのハッシュはスキップする
-# (= 前回APIエラーでスキップされたコミットだけが対象になる)
-results = {}
-if not args.dry_run and not args.fresh and os.path.exists(args.outfile):
-    with open(args.outfile, encoding="utf-8") as f:
-        results = json.load(f)
-    entries = [e for e in entries if e["hash"] not in results]
-#+end_src
 
 まず5件だけドライランで確認した。
 
@@ -7313,14 +7244,6 @@ python3 ~/Downloads/2_generate_messages.py --in diffs.jsonl --out messages.json
 **** 3. filter-repoでの一括置換
 
 =git filter-repo --commit-callback= に渡す短いスクリプト。マッピングにないコミットは元のまま維持する。
-
-#+begin_src python
-old_hash = commit.original_id.decode("ascii")
-
-if old_hash in _messages:
-    commit.message = _messages[old_hash].encode("utf-8")
-# マッピングにない場合は commit.message を変更しない(元のまま)
-#+end_src
 
 実行コマンドは以下。
 
@@ -7484,7 +7407,7 @@ def generate_one(entry, host, model, timeout):
     return strip_code_fence(data.get("response", ""))
 #+end_src
 
-ここで気づいたのは、=2_generate_messages_ollama.py= と =messages.json= の形式は共通なので、*Claude APIで処理済みの分はそのまま活かして、残りをOllamaで補完するハイブリッド運用も可能* だという点だ。両スクリプトとも =--out= で指定した =messages.json= を実行開始時に読み込み、「すでに入っているハッシュはスキップし、入っていないハッシュだけ処理する」というレジューム方式になっている。 =messages.json= の中身は =コミットハッシュ: メッセージ= という単純な形式で共通しているため、前半をClaude APIで処理し、クレジット切れ以降の残りをOllamaで処理する、という運用がそのまま成立する。
+ここで気づいたのは、 =2_generate_messages_ollama.py= と =messages.json= の形式は共通なので、*Claude APIで処理済みの分はそのまま活かして、残りをOllamaで補完するハイブリッド運用も可能* だという点だ。両スクリプトとも =--out= で指定した =messages.json= を実行開始時に読み込み、「すでに入っているハッシュはスキップし、入っていないハッシュだけ処理する」というレジューム方式になっている。 =messages.json= の中身は =コミットハッシュ: メッセージ= という単純な形式で共通しているため、前半をClaude APIで処理し、クレジット切れ以降の残りをOllamaで処理する、という運用がそのまま成立する。
 
 #+begin_src bash
 # クレジット切れまでにClaude APIで処理できた件数を確認
@@ -7683,7 +7606,7 @@ git add -A
 
 #+begin_src hugo
 {{< details "正しい手順(コマンド込み・まとめ)" >}}
-### 0. バックアップクローンの作成
+0. バックアップクローンの作成
 
 ```bash
 pip install anthropic --break-system-packages
@@ -7698,7 +7621,7 @@ cd repo-backup-$(date +%Y%m%d)
 同一リポジトリ内のブランチでは`filter-repo`の書き換え対象から逃れられない(全refが対象になる)ため、
 別ディレクトリへの独立クローンを先に作る。以降の作業は**このクローン内**で行い、元リポジトリには一切触れない。
 
-### 1. diffとファイル変更一覧を抽出
+**1. diffとファイル変更一覧を抽出**
 
 ```bash
 python3 ~/Downloads/1_extract_diffs.py --out diffs.jsonl
@@ -7715,7 +7638,7 @@ python3 ~/Downloads/1_extract_diffs.py --out diffs.jsonl --since HEAD~50
 python3 ~/Downloads/1_extract_diffs.py --out diffs.jsonl --max-diff-chars 4000
 ```
 
-### 2. Claude APIでコミットメッセージを生成
+**2. Claude APIでコミットメッセージを生成**
 
 まず少数件でドライラン確認。
 
@@ -7729,14 +7652,14 @@ python3 ~/Downloads/2_generate_messages.py --in diffs.jsonl --out messages.json 
 python3 ~/Downloads/2_generate_messages.py --in diffs.jsonl --out messages.json
 ```
 
-### 3. filter-repoで一括置換
+**3. filter-repoで一括置換**
 
 ```bash
 REWRITE_MESSAGES_JSON="$(pwd)/messages.json" \
 git filter-repo --force --commit-callback "$(cat ~/Downloads/3_rewrite_messages.py)"
 ```
 
-### 4. 反映前に必ず差分ゼロを確認
+**4. 反映前に必ず差分ゼロを確認**
 
 書き換え後、内容(メッセージ以外)が変わっていないことを元リポジトリと突き合わせる。
 
@@ -7752,7 +7675,7 @@ git diff main origin/main --stat   # 出力なし = ファイル内容は完全�
 git push --force-with-lease origin main
 ```
 
-### 教訓の要約
+**教訓の要約**
 
 - バックアップは**別ディレクトリへの独立クローン**で取る。同一リポジトリ内のブランチは`filter-repo`の対象から逃げられない。
 - `--force`の前に、バックアップの実体(クローン先ディレクトリ)を`ls`や`git rev-list --count`で目視確認する。
