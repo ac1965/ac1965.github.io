@@ -19,27 +19,35 @@ org-modeサブツリーに変換してください。
 
 # 出力フォーマット
 - `* blog` の直下にぶら下がる形式なので、見出しレベルは `**`（レベル2）
-- 見出し直後に以下のPROPERTIESドロワーを付与する（このファイルの既存記事と同じ項目・同じ順序）:
+- 見出し行の直後、PROPERTIESドロワーの前に付与する要素は状態に応じて変える:
+  - DONE（完了記事）の場合は見出し行の次行に `CLOSED: [YYYY-MM-DD Day HH:MM]` を入れる
+  - TODO（下書き）の場合は CLOSED行を入れない
+- 見出し直後（CLOSED行がある場合はその次）に、以下の項目・順序で
+  PROPERTIESドロワーを付与する（このファイルの既存記事と完全に同じ項目・同じ順序）:
   :PROPERTIES:
   :EXPORT_HUGO_BUNDLE: <slug>
   :EXPORT_FILE_NAME: index
+  :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
   :EXPORT_DATE: <YYYY-MM-DD HH:MM:SS>
   :EXPORT_HUGO_CATEGORIES: <カテゴリ>
   :EXPORT_HUGO_LASTMOD:
   :END:
   ※ Page Bundle化済み（2026-07-30〜）のため、EXPORT_FILE_NAMEは常に"index"固定。
   記事固有のスラッグはEXPORT_HUGO_BUNDLE側に入れること（<slug>はorg-id-new等で生成した
-  既存記事と同じ形式のUUID/短縮ハッシュを想定）。
-  ※ EXPORT_HUGO_LASTMODは空欄のままでよい（#+hugo_auto_set_lastmod: t のため自動設定される）
+  既存記事と同じ形式のUUID/短縮ハッシュを想定。既存記事と重複しないか要確認）。
+  ※ EXPORT_HUGO_CUSTOM_FRONT_MATTER の値は既存記事に倣い :cover "" 固定でよい。
+  ※ EXPORT_HUGO_LASTMODは空欄のままでよい（#+hugo_auto_set_lastmod: t のため自動設定される）。
   ※ タグは EXPORT_HUGO_TAGS プロパティではなく、見出し行末に Org のインラインタグ
   （`:tag1:tag2:` 形式）として付与する。ハイフンは Org タグの構文上使えないため、
   複合語はアンダースコア1つで代用する（例: Ox-Hugo → Ox_Hugo。ox-hugo側で自動的に
   ハイフンへ戻って書き出される）。見出し行の例:
-  ** DONE 記事タイトル :Emacs:Ox_Hugo:Literate_Programming:
-- TODO状態は既存記事の慣習に合わせて付与するか判断する（下書き段階ならTODO、確定ならDONEまたは無し）
+  ** TODO 記事タイトル :Emacs:Ox_Hugo:Literate_Programming:
+- TODO/DONEの判断: 指示がなければ既定は TODO（下書き）とする。DONEにすべき根拠
+  （公開済み・完結している等）が「ネタ」側に明示されている場合のみDONEにし、
+  その場合はCLOSED行も付与する。判断に迷う場合はTODOを選び、その旨を一言添える。
 
 # 文体
-- フランクな一人称・だ/である調（このファイルの過去記事のトーンに合わせる）a
+- フランクな一人称・だ/である調（このファイルの過去記事のトーンに合わせる）
 - 新しい感想・解釈・事実を書き足さない。渡された「ネタ」の範囲内で言い回しを整える
 
 # 強調記法（org と Markdown の使い分け）
@@ -51,7 +59,15 @@ org-modeサブツリーに変換してください。
 - Perplexity/EllamaなどAI出力の引用は文体を変えず、`#+begin_quote` または
   Blowfishの `{{<details>}}` ショートコード（`#+begin_export hugo` 経由）で
   引用であることを明示する
-- org見出し（`*`〜`****`）は `#+begin_quote` 等のブロック内には入れない
+  - `{{<details>}}` の引数は属性形式（title=）ではなく位置引数形式を使う:
+    `{{<details "見出しテキスト">}}` 〜 `{{</details>}}`
+- 「ネタ」中にソースコード・スクリプト・設定ファイルの中身が含まれている場合、
+  要約や言い換えをせず、該当箇所をそのまま `#+begin_src <言語名>` 〜 `#+end_src`
+  ブロックとして本文に組み込む（言語名はコードの種類から適切に判定する。
+  例: Python → python, シェルコマンド → bash）。「ネタ」側で明示的に
+  「このコードも参照させたい／引用したい」等の指示があった場合は特に厳密に、
+  省略や要約をせず該当コードを漏れなく含めること
+- org見出し（`*`〜`****`）は `#+begin_quote` や `#+begin_src` 等のブロック内には入れない
 
 # 最終チェック
 - 出力後、`scripts/check_emphasis.py` での検査を想定した書き方にする
@@ -7176,3 +7192,480 @@ xlwingsは以下2点でのみ必要になる。
 | Excel本体の計算エンジンでの厳密な検証(procurement文書の最終チェック等) | *xlwingsで実Excel*                | LibreOfficeの数式エンジンは非互換関数がある(前述の =XLOOKUP= 等) |
 
 自分の環境(macOS Apple Silicon / WSL Ubuntu 22.04 / Emacs中心)であれば、 *コード資産をopenpyxl/pandas/LibreOfficeベースで統一しWSL側とも共通化* し、Excel本体でしかできない処理(マクロ呼び出し、UI連携)だけ xlwings 経由でmacOS側に残す、という構成が最も再現性・保守性が高くなる。
+
+** DONE Git履歴の書き換えで肝を冷やした話 ── filter-repoとClaudeで760コミットのメッセージを直す :Git:Claude_Code:filter_repo:
+CLOSED: [2026-08-09 Sun 13:36]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: F5C2BA10-AD5B-4E10-9982-A870BB49E8E5
+:EXPORT_FILE_NAME: index
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
+:EXPORT_DATE: 2026-08-09 13:33:00
+:EXPORT_HUGO_CATEGORIES: Tech
+:EXPORT_HUGO_LASTMOD:
+:END:
+長らく =git commit -avm "Update"= でコミットしてきたツケが、.emacs.d リポジトリの760コミット分たまっていた。全部意味のないメッセージなので、いい加減直そうと思い立った。
+
+*** パイプラインを組む
+
+手作業で760件を rewrite するのは非現実的なので、Claudeに頼んで以下の3段構成のスクリプトを組んでもらった。
+
+1. 各コミットの diff とファイル変更一覧を JSONL に抽出する
+2. Claude API に diff を投げて、Conventional Commits形式のメッセージを生成する
+3. =git filter-repo= の =--commit-callback= でメッセージを一括置換する
+
+**** 1. diffの抽出
+
+根本コミット(親を持たない最古のコミット)と、UTF-8として不正なバイト列を含むdiffの両方に対応する必要があった(詳細は後述)。
+
+#+begin_src python
+def run(cmd):
+    # text=True だとUTF-8として不正なバイト列(バイナリ差分やShift-JISファイル名混入等)で
+    # UnicodeDecodeError を起こして落ちるため、bytesで受け取りerrors="replace"で手動デコード
+    result = subprocess.run(cmd, capture_output=True)
+    stdout = result.stdout.decode("utf-8", errors="replace")
+    stderr = result.stderr.decode("utf-8", errors="replace")
+    if result.returncode != 0:
+        print(f"[ERROR] command failed: {' '.join(cmd)}\n{stderr}", file=sys.stderr)
+        sys.exit(1)
+    return stdout
+
+
+def has_parent(commit_hash):
+    result = subprocess.run(
+        ["git", "rev-parse", "--verify", "-q", f"{commit_hash}~1"],
+        capture_output=True, text=True,
+    )
+    return result.returncode == 0
+
+
+def get_commit_info(commit_hash, max_diff_chars):
+    msg = run(["git", "log", "-1", "--pretty=format:%s%n%b", commit_hash]).strip()
+    files = run(["git", "diff-tree", "--no-commit-id", "--name-status", "-r", commit_hash]).strip()
+    if has_parent(commit_hash):
+        diff = run(["git", "diff", f"{commit_hash}~1", commit_hash])
+    else:
+        # 根本コミット(親なし): 空ツリーとの差分 = 全ファイルが追加された状態
+        diff = run(["git", "diff-tree", "--root", "-p", commit_hash])
+    ...
+#+end_src
+
+実行コマンドはこれだけ。
+
+#+begin_src bash
+python3 ~/Downloads/1_extract_diffs.py --out diffs.jsonl
+#+end_src
+
+**** 2. Claude APIでのメッセージ生成
+
+Conventional Commits形式で生成させ、diffから読み取れない「なぜ」は推測させない設計にした。APIエラーで落ちたコミットは、既存の出力ファイルを見て未処理分だけ再試行するレジューム方式にした。
+
+システムプロンプトと、実際に各コミットごとにAPIへ渡していたユーザープロンプトの組み立て部分は以下の通り。
+
+#+begin_src python
+SYSTEM_PROMPT = """あなたはgitコミット履歴の整理を行うアシスタントです。
+与えられたdiffと変更ファイル一覧から、Conventional Commits形式の
+コミットメッセージを1つだけ生成してください。
+
+ルール:
+- 形式: <type>(<scope>): <summary>
+  - type は feat, fix, docs, style, refactor, test, chore, perf のいずれか
+  - scope は変更の主対象(ディレクトリ名やモジュール名など)。不明なら省略可
+  - summary は日本語で50文字以内、命令形または体言止め
+- 本文(1行空けて詳細)は、diffから読み取れる「何を変更したか」を箇条書き2〜4行で。
+  「なぜ」変更したかはdiffから読み取れないため、推測で書かないこと。
+- 出力はコミットメッセージ本文のみ。前置き・後書き・Markdown装飾は一切不要。
+"""
+
+
+def build_user_prompt(entry):
+    return f"""変更ファイル:
+{entry['files_changed']}
+
+diff:
+{entry['diff']}
+{'(diffは長いため途中で切り詰めています)' if entry.get('diff_truncated') else ''}
+
+元のメッセージ(参考、意味がないものが多い): {entry['old_message']!r}
+"""
+
+
+# 既存のmessages.jsonがあれば読み込み、すでに成功済みのハッシュはスキップする
+# (= 前回APIエラーでスキップされたコミットだけが対象になる)
+results = {}
+if not args.dry_run and not args.fresh and os.path.exists(args.outfile):
+    with open(args.outfile, encoding="utf-8") as f:
+        results = json.load(f)
+    entries = [e for e in entries if e["hash"] not in results]
+#+end_src
+
+まず5件だけドライランで確認した。
+
+#+begin_src bash
+python3 ~/Downloads/2_generate_messages.py --in diffs.jsonl --out messages.json --dry-run --limit 5
+#+end_src
+
+出力が良さそうだったので、本番実行。
+
+#+begin_src bash
+python3 ~/Downloads/2_generate_messages.py --in diffs.jsonl --out messages.json
+#+end_src
+
+**** 3. filter-repoでの一括置換
+
+=git filter-repo --commit-callback= に渡す短いスクリプト。マッピングにないコミットは元のまま維持する。
+
+#+begin_src python
+old_hash = commit.original_id.decode("ascii")
+
+if old_hash in _messages:
+    commit.message = _messages[old_hash].encode("utf-8")
+# マッピングにない場合は commit.message を変更しない(元のまま)
+#+end_src
+
+実行コマンドは以下。
+
+#+begin_src bash
+REWRITE_MESSAGES_JSON="$(pwd)/messages.json" \
+git filter-repo --force --commit-callback "$(cat ~/Downloads/3_rewrite_messages.py)"
+#+end_src
+
+ここまでは順調だったが、実行する過程でいくつか想定外の壁にぶつかった。
+
+*** 壁その1: 根本コミットに親がいない
+
+diff抽出スクリプトが =<hash>~1= 形式で親コミットとの差分を取ろうとしていたが、リポジトリ最古の根本コミットには親が存在しないので以下のエラーで落ちた。
+
+#+begin_src bash
+git diff 5c69b505ba018d85627a28035e77112a4a40ca3c~1 5c69b505ba018d85627a28035e77112a4a40ca3c
+# fatal: ambiguous argument '5c69b505ba018d85627a28035e77112a4a40ca3c~1':
+# unknown revision or path not in the working tree.
+#+end_src
+
+=git rev-parse --verify -q= で親の有無を先に確認し、根本コミットだけ =git diff-tree --root -p= に切り替えて対応した。
+
+*** 壁その2: UTF-8として不正なバイト列
+
+760件のうち300件目あたりで =UnicodeDecodeError= が発生。バイナリ差分やエンコーディングの異なるファイル名が混入していたのが原因だった。=subprocess= の出力を =text=True= で自動デコードさせず、bytesで受け取ってから =errors="replace"= で手動デコードするよう直して解決。
+
+*** 壁その3: APIエラーでの取りこぼし
+
+メッセージ生成中に何件かAPIエラーでスキップされる。最初は再実行のたびに全件やり直しになる作りだったので、既存の =messages.json= を読み込んで「まだ入っていないハッシュだけ再試行する」レジューム方式に直した。10件ごとに途中経過を保存するようにもした。
+
+*** 一番肝を冷やした瞬間
+
+=filter-repo --force= を実行する前に、念のためバックアップブランチを作っていた。のだが、確認したところ ~ブランチ名の末尾が1文字欠けていた~ 。=backup-before-rewrite= のつもりが =backup-before-rewrit= になっていた。
+
+さらに悪いことに、=filter-repo= はデフォルトで *リポジトリ内の全ブランチ・全refを書き換え対象にする* 。つまり同一リポジトリ内に作ったバックアップブランチも、本体と一緒に書き換えられてしまっていた。以下のコマンドで確認すると、バックアップのはずのブランチが本体と全く同じコミットを指していた。
+
+#+begin_src bash
+git rev-list --count HEAD
+# 758
+git rev-list --count backup-before-rewrite
+# fatal: ambiguous argument 'backup-before-rewrite': unknown revision or path not in the working tree.
+#+end_src
+
+#+begin_export hugo
+{{<details "この時点でのやり取りの一部(要約)">}}
+#+end_export
+
+#+begin_src bash
+git remote -v
+# (出力なし。そもそもリモート未設定だと思い込んでいた)
+
+git reflog show --all
+# (出力なし)
+
+git fsck --unreachable --lost-found
+# Checking ref database: 100% (1/1), done.
+# Checking object directories: 100% (256/256), done.
+# Checking objects: 100% (11597/11597), done.
+# Verifying commits in commit graph: 100% (762/762), done.
+# (到達不能オブジェクトは0件)
+#+end_src
+
+一時は「ローカルの唯一のコピーが完全に消えた」と覚悟した。
+
+#+begin_export hugo
+{{</details>}}
+#+end_export
+
+しかし実際には =git branch -vv= で見ると、バックアップのつもりだったブランチ名の綴りが違っていただけだった。
+
+#+begin_src bash
+git branch
+#   backup-before-rewrit
+#   feature/wsl-support
+# * main
+
+git branch -D backup-before-rewrit
+#+end_src
+
+さらにリモートを追加してpushしたところ、GitHub側には *書き換え前の本物の履歴が無傷で残っていた* ことが判明した。以前どこかのタイミングで一度pushしていたのを、すっかり忘れていただけだった。
+
+#+begin_src bash
+git remote add origin git@github.com:ac1965/.emacs.d.git
+git push -u origin main
+# ! [rejected]        main -> main (fetch first)
+# error: failed to push some refs to 'github.com:ac1965/.emacs.d.git'
+
+git fetch origin
+# From github.com:ac1965/.emacs.d
+#  * [new branch]      main -> origin/main
+
+git branch real-original-history origin/main
+
+git log origin/main --oneline | head -20
+# 9dacb62 Update
+# 6202000 Update
+# ...(以下Updateが並ぶ、書き換え前の本物の履歴と確定)
+#+end_src
+
+ファイルの中身が完全に一致しているかを確認してから、force pushした。
+
+#+begin_src bash
+git diff main real-original-history --stat
+# (出力なし = 差分ゼロ、ファイル内容は完全一致)
+
+git push --force-with-lease origin main
+
+git log origin/main --oneline | head -20
+# 3d69e3c docs(README.org): ブログファイルを直接開く関数の追加
+# 923a71e docs(design_spec): personal LayerのWSL対応とリーダーキー切替バグ修正の説明を追記
+# ...(書き換え後の意味のあるメッセージに更新されているのを確認)
+
+git branch -D real-original-history
+#+end_src
+
+*** 教訓
+
+=filter-repo= のような履歴書き換え系のコマンドを使うときのバックアップは、*同一リポジトリ内のブランチでは守り切れない* 。書き換え対象は基本的に全ref なので、次からは以下のように別ディレクトリへの独立した clone として退避することにした。
+
+#+begin_src bash
+git clone --no-hardlinks /path/to/original-repo repo-backup-$(date +%Y%m%d)
+#+end_src
+
+=--no-hardlinks= を付けるのは、通常の =git clone= はオブジェクトをハードリンク共有することがあり、元リポジトリ側で =gc --prune= が走るとバックアップ側にも影響し得るため。独立したコピーとして完全に切り離しておくのが確実だ。
+
+結果的にファイルの実害は一切なかったが、心臓には悪かった。
+
+*** APIクレジット切れとOllamaへの切り替え
+
+760件のメッセージ生成を =2_generate_messages.py=(Claude API版)で流している途中、Anthropicから以下の通知が届いた。
+
+#+begin_export hugo
+{{<details "APIクレジット切れの通知">}}
+Your Claude API access is turned off
+Your access to the Claude API has been disabled because your organization
+'Takao's Individual Org' is out of usage credits.
+{{</details>}}
+#+end_export
+
+760コミット分のdiffを都度APIに投げていたので、素朴に途中でクレジットを使い切ってしまった形だ。ここでローカルLLM(Ollama)への切り替えを検討した。
+
+まず素朴に =anthropic.Anthropic()= の呼び出し部分を、Ollamaのローカルサーバー( =http://localhost:11434= )へのHTTPリクエストに差し替えた =2_generate_messages_ollama.py= を用意した。 =SYSTEM_PROMPT= や =build_user_prompt= 、レジューム(未処理分のみ再試行)・ドライラン・途中保存の仕様はClaude API版と完全に同じで、生成バックエンドだけが異なる構成にした。
+
+#+begin_src python
+def generate_one(entry, host, model, timeout):
+    resp = requests.post(
+        f"{host}/api/generate",
+        json={
+            "model": model,
+            "system": SYSTEM_PROMPT,
+            "prompt": build_user_prompt(entry),
+            "stream": False,
+            "options": {
+                "temperature": 0.2,  # コミットメッセージ生成なので低めにして安定させる
+            },
+        },
+        timeout=timeout,
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    return strip_code_fence(data.get("response", ""))
+#+end_src
+
+ここで気づいたのは、=2_generate_messages_ollama.py= と =messages.json= の形式は共通なので、*Claude APIで処理済みの分はそのまま活かして、残りをOllamaで補完するハイブリッド運用も可能* だという点だ。両スクリプトとも =--out= で指定した =messages.json= を実行開始時に読み込み、「すでに入っているハッシュはスキップし、入っていないハッシュだけ処理する」というレジューム方式になっている。 =messages.json= の中身は =コミットハッシュ: メッセージ= という単純な形式で共通しているため、前半をClaude APIで処理し、クレジット切れ以降の残りをOllamaで処理する、という運用がそのまま成立する。
+
+#+begin_src bash
+# クレジット切れまでにClaude APIで処理できた件数を確認
+python3 -c "import json; print(len(json.load(open('messages.json'))))"
+
+# 同じmessages.jsonを指定したまま、Ollama版に切り替えて残りを処理
+python3 2_generate_messages_ollama.py --in diffs.jsonl --out messages.json --model qwen2.5-coder:14b
+#+end_src
+
+実行すると =resume mode: messages.json に既存N件を検出。未処理M件のみ再試行します。= のようなログが出て、Claude API分はそのまま維持しつつ残りだけがOllamaで生成される。ただし、前半(Claude API生成)と後半(Ollama生成)でメッセージの質が不揃いになり得る点は留意しておく必要がある。両者ともプロンプト自体は共通だが、モデルの能力差で要約の的確さや日本語の自然さに差が出ることはあり得るので、気になる場合は filter-repo実行前に =messages.json= を見返して手直しする運用にした。
+
+余談だが、Ollamaのモデル選定で一つ落とし穴があった。コミュニティが公開していた =coney_/gpt-oss_claude-sonnet4.6:latest= というモデルを試したところ、中身は実際にはgpt-ossでありながら「私はAnthropicが開発したClaudeです」と自己紹介する設定になっていた。素性を偽装したモデル名だったので使用を見送り、 =qwen2.5-coder:14b= に切り替えた。
+
+とはいえ、実際にハイブリッド運用で生成された結果を見比べると、パフォーマンスは Claude に軍配が上がる。diffの意図を汲んだ要約の的確さや日本語としての自然さで、やはり差は感じた。コストはかかるが、その分の価値はあると割り切ることにした。
+
+*** 日常運用向けのスクリプトはdotfilesへ
+
+ここまではリポジトリ全体の一括書き換えの話だったが、これはあくまで一回限りの後始末だ。今後は =Update= のようなコミットを最初から作らないようにする方が本質的なので、日常のコミット時にも Ollama でメッセージ生成を使えるよう、単発の =git diff --cached=(ステージ済みの差分)を渡してConventional Commitsメッセージを生成するスクリプト( =gen-commit-msg.sh= )を作り、[[https://github.com/ac1965/dotfiles][dotfiles]] に追加した。プロンプトの内容は今回の =2_generate_messages_ollama.py= と揃えてあるので、一括書き換え時と日常コミット時でメッセージのスタイルが一貫する。
+
+#+begin_src bash
+#!/usr/bin/env bash
+#
+# gen-commit-msg.sh
+#
+# ステージ済みの git diff (git diff --cached) を Ollama に渡し、
+# Conventional Commits 形式のコミットメッセージを生成する。
+#
+# 事前準備:
+#   ollama serve                    (別ターミナルで起動しておく)
+#   ollama pull qwen2.5-coder:14b   (初回のみ)
+#
+# 使い方:
+#   git add -A
+#   ./gen-commit-msg.sh                     # メッセージを表示するだけ
+#   ./gen-commit-msg.sh --commit            # 生成したメッセージでそのままコミット
+#   ./gen-commit-msg.sh --commit --edit     # 生成後、エディタで確認・編集してからコミット
+#   ./gen-commit-msg.sh --model deepseek-coder-v2:16b
+#   ./gen-commit-msg.sh --host http://localhost:11434
+#
+set -euo pipefail
+
+MODEL="qwen2.5-coder:14b"
+HOST="http://localhost:11434"
+DO_COMMIT=0
+DO_EDIT=0
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --model)  MODEL="$2"; shift 2 ;;
+    --host)   HOST="$2"; shift 2 ;;
+    --commit) DO_COMMIT=1; shift ;;
+    --edit)   DO_EDIT=1; shift ;;
+    -h|--help)
+      sed -n '2,20p' "$0"
+      exit 0
+      ;;
+    *)
+      echo "[ERROR] unknown option: $1" >&2
+      exit 1
+      ;;
+  esac
+done
+
+# --- 前提チェック -----------------------------------------------------
+
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "[ERROR] gitリポジトリの中で実行してください" >&2
+  exit 1
+fi
+
+DIFF="$(git diff --cached)"
+if [[ -z "$DIFF" ]]; then
+  echo "[ERROR] ステージされた変更がありません。先に 'git add' してください" >&2
+  exit 1
+fi
+
+if ! curl -s -o /dev/null -w '%{http_code}' "$HOST/api/tags" | grep -q '^200$'; then
+  echo "[ERROR] $HOST に接続できません。'ollama serve' が起動しているか確認してください" >&2
+  exit 1
+fi
+
+FILES_CHANGED="$(git diff --cached --name-status)"
+
+# --- プロンプト組み立て ------------------------------------------------
+
+SYSTEM_PROMPT='あなたはgitコミット履歴の整理を行うアシスタントです。
+与えられたdiffと変更ファイル一覧から、Conventional Commits形式の
+コミットメッセージを1つだけ生成してください。
+
+ルール:
+- 形式: <type>(<scope>): <summary>
+  - type は feat, fix, docs, style, refactor, test, chore, perf のいずれか
+  - scope は変更の主対象(ディレクトリ名やモジュール名など)。不明なら省略可
+  - summary は日本語で50文字以内、命令形または体言止め
+- 本文(1行空けて詳細)は、diffから読み取れる「何を変更したか」を箇条書き2〜4行で。
+  「なぜ」変更したかはdiffから読み取れないため、推測で書かないこと。
+- 出力はコミットメッセージ本文のみ。前置き・後書き・Markdown装飾・```などの
+  コードフェンスは一切不要。説明や確認の言葉("承知しました"等)も付けないこと。'
+
+# diffが巨大すぎるとコンテキスト長を超えるため、上限を設けて切り詰める
+MAX_DIFF_CHARS=8000
+if [[ ${#DIFF} -gt $MAX_DIFF_CHARS ]]; then
+  DIFF="${DIFF:0:$MAX_DIFF_CHARS}
+(diffは長いため途中で切り詰めています)"
+fi
+
+USER_PROMPT="変更ファイル:
+${FILES_CHANGED}
+
+diff:
+${DIFF}"
+
+# --- Ollama呼び出し -----------------------------------------------------
+# jqへの依存を避けるため、リクエストJSONの組み立て・レスポンスのパースは python3 で行う
+
+REQUEST_JSON="$(
+  MODEL="$MODEL" SYSTEM_PROMPT="$SYSTEM_PROMPT" USER_PROMPT="$USER_PROMPT" python3 -c '
+import json, os
+print(json.dumps({
+    "model": os.environ["MODEL"],
+    "system": os.environ["SYSTEM_PROMPT"],
+    "prompt": os.environ["USER_PROMPT"],
+    "stream": False,
+    "options": {"temperature": 0.2},
+}))
+'
+)"
+
+echo "[INFO] model=$MODEL host=$HOST でメッセージを生成中..." >&2
+
+RESPONSE="$(curl -s -X POST "$HOST/api/generate" -d "$REQUEST_JSON")"
+
+COMMIT_MSG="$(
+  echo "$RESPONSE" | python3 -c '
+import json, sys
+data = json.load(sys.stdin)
+text = data.get("response", "").strip()
+# モデルが ```...``` で囲って返すことがあるため剥がす
+if text.startswith("```"):
+    lines = text.split("\n")
+    if lines[0].startswith("```"):
+        lines = lines[1:]
+    if lines and lines[-1].strip() == "```":
+        lines = lines[:-1]
+    text = "\n".join(lines).strip()
+print(text)
+'
+)"
+
+if [[ -z "$COMMIT_MSG" ]]; then
+  echo "[ERROR] メッセージの生成に失敗しました。Ollamaの応答:" >&2
+  echo "$RESPONSE" >&2
+  exit 1
+fi
+
+echo "----------------------------------------"
+echo "$COMMIT_MSG"
+echo "----------------------------------------"
+
+# --- コミット実行(任意) -------------------------------------------------
+
+if [[ $DO_COMMIT -eq 1 ]]; then
+  if [[ $DO_EDIT -eq 1 ]]; then
+    git commit -e -m "$COMMIT_MSG"
+  else
+    git commit -m "$COMMIT_MSG"
+  fi
+else
+  echo "[INFO] --commit を付けると、このメッセージでそのままコミットします" >&2
+fi
+#+end_src
+
+使い方はこうだ。
+
+#+begin_src bash
+chmod +x gen-commit-msg.sh
+
+git add -A
+./gen-commit-msg.sh                    # 生成結果を表示するだけ
+./gen-commit-msg.sh --commit           # そのままコミット
+./gen-commit-msg.sh --commit --edit    # エディタで確認・編集してからコミット
+#+end_src
+
+=~/bin= などPATHの通った場所に置いておけば、日常的な =git add -A && gen-commit-msg --commit --edit= の一手で、あの =Update= 地獄に逆戻りすることはなくなるはずだ。

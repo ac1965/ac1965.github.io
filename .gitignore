@@ -7,3 +7,5 @@ content/post
 
 resources/_gen/
 public/
+/diffs.jsonl
+/messages.json
