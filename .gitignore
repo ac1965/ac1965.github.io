@@ -9,3 +9,16 @@ resources/_gen/
 public/
 /diffs.jsonl
 /messages.json
+# export text, pdf
+*.pdf
+*.tex
+*.synctex.gz
+*.aux
+*.out
+*.log
+*.toc
+*.fdb_latexmk
+*.fls
+
+# other `
+*.patch

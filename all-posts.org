@@ -1,6 +1,25 @@
 #-*- mode: org -*-
 #+title: Hugo blog source
 #+author: YAMASHITA Takao
+#+#+LATEX_COMPILER: lualatex
+#+LATEX_CLASS_OPTIONS: [11pt]
+#+LATEX_HEADER: \usepackage[a4paper,margin=20mm]{geometry}
+#+LATEX_HEADER: \usepackage{luatexja}
+#+LATEX_HEADER: \usepackage{luatexja-fontspec}
+#+LATEX_HEADER: \usepackage{newunicodechar}
+#+LATEX_HEADER: \usepackage{pifont}
+#+LATEX_HEADER_EXTRA: \newfontfamily\EmojiFont{Apple Color Emoji}
+#+LATEX_HEADER_EXTRA: \sloppy
+#+LATEX_HEADER_EXTRA: \newfontfamily\KeySymbolFont{Apple Symbols}
+#+LATEX_HEADER_EXTRA: \ltjdefcharrange{20}{"21A9,"21E5,"21EA,"2303,"2318,"2325,"232B,"238B,"21E7,"2699,"2717,"2B60,"2713}
+#+LATEX_HEADER_EXTRA: \ltjsetparameter{jacharrange={-20}}
+#+LATEX_HEADER_EXTRA: \newunicodechar{⌥}{{\KeySymbolFont ⌥}}
+#+LATEX_HEADER_EXTRA: \newunicodechar{⌃}{{\KeySymbolFont ⌃}}
+#+LATEX_HEADER_EXTRA: \newunicodechar{⇪}{{\KeySymbolFont ⇪}}
+#+LATEX_HEADER_EXTRA: \newunicodechar{⌫}{{\KeySymbolFont ⌫}}
+#+LATEX_HEADER_EXTRA: \newunicodechar{✓}{\ding{51}}
+#+LATEX_HEADER_EXTRA: \newunicodechar{✗}{\ding{55}}
+
 #+hugo_base_dir: ./
 
 #+options: ^:{}
