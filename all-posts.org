@@ -7110,25 +7110,39 @@ CLOSED: [2026-08-08 Sat 20:03]
 :END:
 Claude が Office 文書処理に使っているパッケージは、実はほぼ全て macOS でもそのまま動く（ xlwings のような Excel 本体依存とは異なるアプローチのため ）。
 
+Claude が Office 文書処理に使っているパッケージは、実はほぼ全て macOS でもそのまま動く（ xlwings のような Excel 本体依存とは異なるアプローチのため ）。
+
+#+begin_quote
+[2026-08-15追記] 初稿のPowerPoint行に誤りがあったため訂正した。編集手段を =python-pptx= としていたが、実際の編集手順は unzip → XML直接編集 → zip であり、=python-pptx= はスライド複製・書式保持・SVG/EMF読み込みができないという *制約の注記* としてのみ登場する。出典: Claude環境の =/mnt/skills/public/pptx/SKILL.md=（2026-08-15時点でのセッション内で参照可能な一次資料。過去バージョンや別セッションと完全に同一である保証はない）。
+#+end_quote
+
 *** 全体像(Claude環境の実装)
 
-| 形式             | メインパッケージ                              | 補助                                                        |
-|------------------+------------------------------------------------+-------------------------------------------------------------|
-| *Excel (.xlsx)*     | =openpyxl=                                        | =pandas= 、 =markitdown= 、LibreOffice(数式再計算)             |
-| *Word (.docx)*      | =docx= (npm/Node.js)                              | =pandoc= 、LibreOffice、 =pdftoppm= (Poppler)                   |
-| *PowerPoint (.pptx)* | =pptxgenjs= (npm、新規) / =python-pptx= (編集)      | =markitdown[pptx]= 、 =Pillow= 、 =defusedxml= 、 =lxml= 、LibreOffice、 =pdftoppm= |
+| 形式             | メインパッケージ                                                    | 補助                                                                                     |
+|------------------+----------------------------------------------------------------------+-------------------------------------------------------------------------------------------|
+| *Excel (.xlsx)*     | =openpyxl=                                                            | =pandas= 、 =markitdown= 、LibreOffice(数式再計算)                                          |
+| *Word (.docx)*      | =docx= (npm/Node.js)                                                  | =pandoc= 、LibreOffice、 =pdftoppm= (Poppler)                                                |
+| *PowerPoint (.pptx)* | =pptxgenjs= (npm、新規) / 直接XML編集(=unzip= → =ppt/slides/slideN.xml= 編集 → =zip=) | =markitdown[pptx]= 、 =Pillow= 、 =defusedxml= 、 =lxml= 、 =react= / =react-dom= / =react-icons= / =sharp= (アイコンSVG→PNG化用)、LibreOffice、 =pdftoppm= |
 
 この構成の要点は「 *Office本体不要* 」であること。 xlwings と違い、Excel/Word/PowerPointがインストールされていないLinux/CI環境でも動く前提で組まれている。したがってmacOSでも当然インストール可能だ。
+
+#+begin_quote
+補足: =python-pptx= はpptx処理の公式依存リストには含まれていない。編集の主手段ではなく、「スライド複製ができない」「=text_frame.text=への代入が書式を潰す」「SVG/EMFを読み込めない」という制約を説明する文脈でのみ言及される。読み取り用途にpython-pptxを使う場面はあり得るが、その場合も =markitdown= がまず優先される。
+#+end_quote
 
 *** macOSへのインストール手順
 
 **** 1. Python系(pip / conda環境)
 
 #+begin_src bash
-pip install openpyxl pandas python-pptx 'markitdown[pptx]' Pillow defusedxml lxml
+pip install openpyxl pandas 'markitdown[pptx]' Pillow defusedxml lxml
 #+end_src
 
 Apple Siliconでも標準pipでネイティブ対応。 =lxml= のみビルド済みwheelが提供されているためコンパイル不要で入る。
+
+#+begin_quote
+[修正] 初稿にあった =python-pptx= を依存リストから外した。編集の主手段ではなく、必須パッケージとして扱うのは実態と合わない。
+#+end_quote
 
 **** 2. Node.js系(npmパッケージ)
 
@@ -7136,10 +7150,10 @@ Apple Siliconでも標準pipでネイティブ対応。 =lxml= のみビルド�
 # Node.js未導入の場合
 brew install node
 
-npm install docx pptxgenjs
+npm install docx pptxgenjs react react-dom react-icons sharp
 #+end_src
 
-=docx= (Word生成)、 =pptxgenjs= (PowerPoint生成)はいずれもピュアJS実装で、Office本体もLibreOfficeも不要に *文書の生成そのもの* は完結する。
+=docx= (Word生成)、 =pptxgenjs= (PowerPoint生成)はいずれもピュアJS実装で、Office本体もLibreOfficeも不要に *文書の生成そのもの* は完結する。 =react= / =react-dom= / =react-icons= / =sharp= はpptx内のアイコン埋め込み(SVGをレンダリングしPNGにラスタライズして挿入)用途。
 
 **** 3. LibreOffice(Homebrew)
 
@@ -7211,7 +7225,6 @@ xlwingsは以下2点でのみ必要になる。
 | Excel本体の計算エンジンでの厳密な検証(procurement文書の最終チェック等) | *xlwingsで実Excel*                | LibreOfficeの数式エンジンは非互換関数がある(前述の =XLOOKUP= 等) |
 
 自分の環境(macOS Apple Silicon / WSL Ubuntu 22.04 / Emacs中心)であれば、 *コード資産をopenpyxl/pandas/LibreOfficeベースで統一しWSL側とも共通化* し、Excel本体でしかできない処理(マクロ呼び出し、UI連携)だけ xlwings 経由でmacOS側に残す、という構成が最も再現性・保守性が高くなる。
-
 ** DONE Git履歴の書き換えで肝を冷やした話 ── filter-repoとClaudeで760コミットのメッセージを直す :Git:Claude_Code:filter_repo:
 CLOSED: [2026-08-09 Sun 13:36]
 :PROPERTIES:
