@@ -8299,13 +8299,14 @@ Decrypting /Users/ac1965/.authinfo.gpg...done
 いた。しかし問題の本質はそこではなく、「Emacs 起動のたびに無条件で認証処理を
 走らせる」という設計そのものにあった。
 
+#+begin_export hugo
 {{< details "以前の修正: add-hook の DEPTH を明示した話" >}}
-Emacs 27 以降、~add-hook~ は第3引数に DEPTH を取れる。値が小さいほど先に
+Emacs 27 以降、`add-hook` は第3引数に DEPTH を取れる。値が小さいほど先に
 実行され、省略時は 0 扱いになる。同じ 0 のフック同士は登録順（＝require や
 leaf の展開順）に依存してしまうため、依存関係のあるフックを安全に順序付け
 るには DEPTH を明示するのが定石。
 
-#+begin_src emacs-lisp
+```emacs-lisp
 ;; 修正前: DEPTH 未指定 (どちらも暗黙の 0)
 ;;   → 実行順序が leaf の展開順に依存し、環境変数を参照する側が
 ;;      先に呼ばれてしまうことがあった
@@ -8315,12 +8316,13 @@ leaf の展開順）に依存してしまうため、依存関係のあるフッ
 ;; 修正後: DEPTH を明示し、依存元 (env-setup) を確実に先に実行する
 (add-hook 'after-init-hook #'my/env-setup -10)          ; 先に実行
 (add-hook 'after-init-hook #'dev-ai--setup-api-key 10)  ; 後に実行
-#+end_src
+```
 
-これで =dev-ai--setup-api-key= が =my/env-setup= より後に走ることは保証
+これで `dev-ai--setup-api-key` が `my/env-setup` より後に走ることは保証
 されたが、後述の通り「起動のたびに毎回認証処理そのものが走る」という設計
 上の問題は解消されておらず、Touch ID 二重要求バグの根本原因は別にあった。
 {{< /details >}}
+#+end_export
 
 **** 2. auth-source-backends はキャッシュを持たない
 
