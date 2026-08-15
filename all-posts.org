@@ -8268,7 +8268,7 @@ markdown-preview--send-preview-to: Wrong type argument: number-or-marker-p, nil
     (keymap-set org-capture-mode-map "C-c C-p" #'orgx-auto-hugo-preview-capture))
 #+end_src
 
-** DONE dev-ai.el の Touch ID 二重認証エラーを直した話 :emacs:auth-source:touchid:aidermacs:
+** DONE dev-ai.el の Touch ID 二重認証エラーを直した話 :Emacs:auth_source:touchid:aidermacs:
 CLOSED: [2026-08-15 Sat 17:01]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: DDD7A836-8978-4352-93CC-ADEC2E85A275
@@ -8281,7 +8281,7 @@ CLOSED: [2026-08-15 Sat 17:01]
 
 *** 症状
 
-Emacs 起動直後、\*Messages\* に以下が出力される。
+Emacs 起動直後、 =*Messages*= に以下が出力される。
 
 #+begin_src text
 Decrypting /Users/ac1965/.authinfo.gpg...done
@@ -8405,9 +8405,9 @@ macOS 側の制約で、実装のロジックエラーというより「認証�
 2. 結果の =entries= を =seq-find= で host ごとに振り分ける。
    =auth-source-search= が返す各エントリの =:secret= は関数なので、値を
    取り出すには =funcall= が要る点に注意。
-3. =after-init-hook= を削除し、=aidermacs-run= への =:before= advice に
+3. =after-init-hook= を削除し、 =aidermacs-run= への =:before= advice に
    置き換える。これで認証コストは「実際に aidermacs を呼んだ最初の1回」
-   にのみ発生する。=dev-ai--api-key-configured= フラグでその1回に固定して
+   にのみ発生する。 =dev-ai--api-key-configured= フラグでその1回に固定して
    いるので、2度目以降の =aidermacs-run= では認証処理自体スキップされる。
 
 *** 検証
