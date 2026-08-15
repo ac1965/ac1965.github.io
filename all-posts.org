@@ -1,7 +1,8 @@
 #-*- mode: org -*-
 #+title: Hugo blog source
 #+author: YAMASHITA Takao
-#+#+LATEX_COMPILER: lualatex
+#+STARTUP: show2levels
+#+LATEX_COMPILER: lualatex
 #+LATEX_CLASS_OPTIONS: [11pt]
 #+LATEX_HEADER: \usepackage[a4paper,margin=20mm]{geometry}
 #+LATEX_HEADER: \usepackage{luatexja}
@@ -7108,8 +7109,6 @@ CLOSED: [2026-08-08 Sat 20:03]
 :EXPORT_HUGO_CATEGORIES: Tech
 :EXPORT_HUGO_LASTMOD:
 :END:
-Claude が Office 文書処理に使っているパッケージは、実はほぼ全て macOS でもそのまま動く（ xlwings のような Excel 本体依存とは異なるアプローチのため ）。
-
 Claude が Office 文書処理に使っているパッケージは、実はほぼ全て macOS でもそのまま動く（ xlwings のような Excel 本体依存とは異なるアプローチのため ）。
 
 #+begin_quote
