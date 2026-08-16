@@ -8210,12 +8210,48 @@ echo "       不要なら: git remote remove $REMOTE_NAME" >&2
 
 「追記: 正しい手順とスクリプト全文本文」のスクリプトをパイプライン化した。
 
-実際の実行結果を参考に残す。例はリポジトリ narou が存在する前提、
+実際の実行結果を参考に残す。例はリポジトリ CodeReading が存在する前提、
 
 #+begin_src sh
   cd ~/Projects/
-  scripts/collect_commit_msg narou
-  FO] 書き換え前後の差分(メッセージのみ変更されファイル内容は不変のはず):
+  scripts/collect_commit_msg CodeReading
+  [INFO] クローン中: /Users/ac1965/Projects/CodeReading -> CodeReading-backup-20260816
+  Cloning into 'CodeReading-backup-20260816'...
+  done.
+  [INFO] カレントディレクトリ: /Users/ac1965/Projects/CodeReading-backup-20260816
+  [INFO] コミット数: 3
+  [INFO] ブランチ一覧:
+  ,* main 2c51ec3 [origin/main] chore: .gitignoreに無視対象ファイルを追加
+  [STEP] diff抽出中...
+  [INFO] 3 commits found (merge commits excluded).
+  [DONE] wrote diffs.jsonl
+  [STEP] コミットメッセージ生成中 (model: claude-sonnet-4-6)...
+  [DONE] wrote messages.json (3 messages total)
+  [STEP] filter-repo でメッセージ書き換え中...
+  NOTICE: Removing 'origin' remote; see 'Why is my origin removed?'
+          in the manual if you want to push back there.
+          (was /Users/ac1965/Projects/CodeReading)
+  Parsed 3 commits
+  New history written in 0.04 seconds; now repacking/cleaning...
+  Repacking your repo and cleaning out old unneeded objects
+  HEAD is now at 80d255a chore(.gitignore): 無視対象ファイルを追加
+  Enumerating objects: 23, done.
+  Counting objects: 100% (23/23), done.
+  Delta compression using up to 10 threads
+  Compressing objects: 100% (18/18), done.
+  Writing objects: 100% (23/23), done.
+  Total 23 (delta 4), reused 20 (delta 4), pack-reused 0 (from 0)
+  Completely finished after 0.11 seconds.
+  [STEP] 書き換え前の履歴と比較中...
+  remote: Enumerating objects: 23, done.
+  remote: Counting objects: 100% (23/23), done.
+  remote: Compressing objects: 100% (18/18), done.
+  remote: Total 23 (delta 4), reused 20 (delta 4), pack-reused 0 (from 0)
+  Unpacking objects: 100% (23/23), 26.67 KiB | 26.67 MiB/s, done.
+  From /Users/ac1965/Projects/CodeReading
+   ,* [new branch]      main       -> origin/main
+  branch 'real-original-history' set up to track 'origin/main'.
+  [INFO] 書き換え前後の差分(メッセージのみ変更されファイル内容は不変のはず):
   [STEP] 公開用リモート 'publish' (git@github.com:ac1965/CodeReading.git) を設定中...
   From github.com:ac1965/CodeReading
    ,* [new branch]      main       -> publish/main
