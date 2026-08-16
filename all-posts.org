@@ -8496,14 +8496,14 @@ macOS 側の制約で、実装のロジックエラーというより「認証�
 を「必要になるまで呼ばない」設計に変えたことで解消した。GPG 経由の秘密情報
 アクセスを Emacs Lisp から扱う際は、呼び出し回数そのものがコスト（かつ
 macOS 側の制約でエラー要因）になり得る、という点は覚えておきたい。
-** DONE 「手札が多めのビクトリア」シリーズを読んだ :Reading:Web_Novel:
+** DONE 「手札が多めのビクトリア」シリーズを読んだ :Reading:Web_Novel:なろう系小説:
 CLOSED: [2026-08-16 Sun 10:13]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: F24BDBAE-F90B-4CA4-999F-7DF35EE6785A
 :EXPORT_FILE_NAME: index
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :cover ""
 :EXPORT_DATE: 2026-08-16 10:00:42
-:EXPORT_HUGO_CATEGORIES: Life
+:EXPORT_HUGO_CATEGORIES: Entertainmen
 :EXPORT_HUGO_LASTMOD:
 :END:
 
