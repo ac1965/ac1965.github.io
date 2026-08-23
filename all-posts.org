@@ -9254,6 +9254,8 @@ CLOSED: [2026-08-23 Sun 13:08]
 もう一つ、ずっと片付けられずにいた宿題があった。narou_dl の
 =--emit-pdf= 、つまりEPUBを縦書きPDFにする機能の話だ。
 
+リポジトリはこちら: https://github.com/ac1965/narou_dl/
+
 *** 直せなかったバグ
 
 =--emit-pdf= はもともと、ReportLabを使って文字単位でマス目に配置する
