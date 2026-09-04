@@ -27,7 +27,7 @@ Emacs の [[https://orgmode.org/][Org-mode]] と [[https://ox-hugo.scripter.co/]
 
 | ツール  | バージョン        | 備考                    |
 |---------+------------------+-------------------------|
-| [[https://gohugo.io/installation/][Hugo]]    | ≥ 0.141.0 extended | ~brew install hugo~   |
+| [[https://gohugo.io/installation/][Hugo]]    | 0.162.0〜0.165.0 extended（テーマの ~min~/~max~、[[#blowfish-テーマについて][Blowfish テーマについて]] 参照） | ~brew install hugo~ |
 | [[https://git-scm.com/][Git]]     | 任意             | submodule 管理用        |
 | [[https://www.gnu.org/software/emacs/][Emacs]]   | ≥ 29             | 記事執筆用              |
 | [[https://ox-hugo.scripter.co/][ox-hugo]] | 最新             | Org → Hugo Markdown     |
@@ -109,8 +109,11 @@ git submodule update --init --recursive
 
 ** Blowfish テーマを最新に更新する手順
 
-Blowfish は Semantic Versioning のタグを切らず ~main~ ブランチを直接追跡する
-運用のため、更新時は「取得して終わり」ではなく以下の順番で確認します。
+Blowfish は SemVer タグ（~vX.Y.Z~）を ~main~ ブランチ上のコミットに直接
+打つ運用（別リリースブランチは存在しない）です。本リポジトリの
+~.gitmodules~ はタグではなく ~branch = main~ を追跡しているため、
+実質的に「最新タグ」を追随することになりますが、タグ固定はしていない
+点に注意し、更新時は「取得して終わり」ではなく以下の順番で確認します。
 
 *** 1. 現在のバージョンを記録（切り戻し用）
 
@@ -136,11 +139,14 @@ diff -ru config/_default/ themes/blowfish/config/_default/
 
 *** 4. Hugo バージョン要件を確認
 
-~themes/blowfish/config/_default/module.toml~ の ~min~ が上がっていないか
-確認し、上がっていればローカルの Hugo と CI 側を両方追随させます。
+Hugo の min/max バージョン要件は ~themes/blowfish/config.toml~ の
+~[module.hugoVersion]~ で管理されています
+（~themes/blowfish/config/_default/module.toml~ は v3 以降空ファイルになり
+使われていません）。~min~ が上がっていないか、ローカルの Hugo が ~max~ を
+超えていないかの両方を確認し、必要ならローカルの Hugo と CI 側を追随させます。
 
 #+begin_src bash
-cat themes/blowfish/config/_default/module.toml
+cat themes/blowfish/config.toml
 hugo version
 #+end_src
 
@@ -328,7 +334,6 @@ hugo version
 | ~languages.en.toml~   | 言語・著者情報                    |
 | ~menus.en.toml~       | ナビゲーション                    |
 | ~markup.toml~         | Markdown / syntax highlight       |
-| ~module.toml~         | Hugo module（バージョン要件のみ、Hugo Modules 自体は未使用） |
 
 * Blowfish テーマについて
 :PROPERTIES:
@@ -352,16 +357,18 @@ Hugo 向けの高機能テーマ。本サイトでは ~themes/blowfish~ に Git 
 
 （変更なし、既存のまま）
 
-Blowfish は明示的な SemVer タグを切らず、~main~ ブランチへの直接コミットを
-リリースとして扱う運用です。そのため本リポジトリの ~.gitmodules~ でも
-タグではなく ~branch = main~ を追跡しています。
+Blowfish は SemVer タグ（~vX.Y.Z~）を ~main~ ブランチ上のコミットに直接
+打つ運用です。本リポジトリの ~.gitmodules~ ではタグではなく
+~branch = main~ を追跡しているため、実質的に最新タグを追随しますが、
+タグへの pin はしていません。
 
 - 「最新版」を取り込む＝~main~ の最新コミットを取り込むことを意味し、
   タグ固定によるロールバック起点が無い点に注意（切り戻し手順は
   [[#submodule-管理][Submodule 管理]] の更新手順内に記載）
-- 最低 Hugo バージョンは ~themes/blowfish/config/_default/module.toml~ の
-  ~min~ で管理される。更新の都度、ローカルとCI（[[#deploy][Deploy]] の
-  ~hugo-version~）の両方を追随させる必要がある
+- Hugo の min/max バージョンは ~themes/blowfish/config.toml~ の
+  ~[module.hugoVersion]~ で管理される（旧 ~config/_default/module.toml~ は
+  v3 以降空ファイルで未使用）。更新の都度、ローカルとCI（[[#deploy][Deploy]] の
+  ~hugo-version~）の両方を ~min~〜~max~ の範囲に収める必要がある
 
 ** 本サイトで使用している主な機能
 
@@ -393,15 +400,16 @@ Blowfish は明示的な SemVer タグを切らず、~main~ ブランチへの�
 - name: Setup Hugo
   uses: peaceiris/actions-hugo@v3
   with:
-    hugo-version: '0.157.0'
+    hugo-version: '0.165.0'
     extended: true
 
 - name: Build
   run: hugo --minify
 #+end_src
 
-~hugo-version~ はテーマ更新時に上がった ~module.toml~ の ~min~ 要件に
-必ず追随させること（[[#submodule-管理][Submodule 管理]] 参照）。放置すると
+~hugo-version~ はテーマ更新時に変わる ~themes/blowfish/config.toml~ の
+~[module.hugoVersion]~ の ~min~〜~max~ 要件に必ず追随させること
+（[[#submodule-管理][Submodule 管理]] 参照）。放置すると
 ローカルビルドは通るのに CI だけ失敗する原因になります。
 
 ** 手動ビルド
