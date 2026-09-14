@@ -15,7 +15,8 @@
 
 - `all-posts.org` — 記事の Org ソース。1 ファイルに全記事を subtree として格納
 - `content/` — **ox-hugo（Emacs）により生成される**。手動編集しない
-- `config/_default/` — Hugo / Blowfish の設定ファイル一式
+- `config/_default/` — Hugo / Blowfish の設定ファイル一式（管理方針は下記
+  「Config 管理方針」参照）
 - `themes/blowfish/` — Blowfish テーマ（Git submodule、`branch = main` を追跡）
 - `deploy.sh` — ローカルからの手動デプロイスクリプト（zsh）。`content/post`
   が既に生成済みであることを前提に、カバー画像配置 → ビルド → 公開ディレクトリ
@@ -39,6 +40,49 @@
 AI エージェントは通常 Emacs を操作できないため、`content/` の再生成が
 必要な場合は上記 `org2hugo.py`（未検証の代替経路である点に注意）を使うか、
 既に生成済みの `content/` をユーザーに確認してもらうこと。
+
+## Config 管理方針(config/_default/)
+
+`config/_default/` は Blowfish テーマの初回セットアップ時に
+`themes/blowfish/config/_default/` から**コピーして自サイト用にカスタマイズ
+したもの**であり、テーマ更新のたびに上書きされる派生物ではない。
+各ファイルの役割は以下の通り。
+
+| ファイル              | 用途                              |
+|-----------------------|-----------------------------------|
+| `hugo.toml`           | サイト全体設定                    |
+| `params.toml`         | Blowfish テーマ設定                |
+| `languages.en.toml`   | 言語・著者情報                     |
+| `menus.en.toml`       | ナビゲーション                     |
+| `markup.toml`         | Markdown / syntax highlight        |
+
+**テーマ(`themes/blowfish`)が更新されても、このディレクトリの「方向性」
+（サイト固有のカスタマイズ）を失わないための鉄則:**
+
+1. **`themes/blowfish/config/_default/*` を `config/_default/` へ丸ごと
+   上書きコピーしてはいけない。** ローカルのカスタマイズが失われる。
+   丸ごとコピーが許されるのは初回セットアップ時のみ。
+2. テーマ更新後は必ず両者を diff し、増えたキー・変更されたデフォルト値
+   だけを手動でマージする。
+
+   ```bash
+   diff -ru config/_default/ themes/blowfish/config/_default/
+   ```
+3. Hugo の min/max バージョン要件は `config/_default/module.toml` ではなく
+   `themes/blowfish/config.toml` の `[module.hugoVersion]` で管理されている
+   （旧 `config/_default/module.toml` は v3 以降空ファイルで未使用）。
+   テーマ更新時は必ずここを確認し、ローカルの Hugo バージョンと CI
+   （`.github/workflows/deploy.yml` の `hugo-version`）の両方を範囲内に
+   追随させる。
+4. 新しい Blowfish の機能（追加ショートコード・新規 params 項目など）を
+   使いたい場合は、`themes/blowfish/exampleSite/` 配下のサンプル設定を
+   参照して該当キーを `params.toml` 等に追記する。
+
+つまり「テーマの設定が正、自サイトの設定はその都度追随させる」のではなく、
+**「自サイトの `config/_default/` が正、テーマ更新時は差分だけを選んで
+取り込む」**という向きで運用する。エージェントがテーマ更新やトラブル対応で
+`config/_default/` を触る際は、この向きを逆転させないこと（詳細は
+README.org の「Submodule 管理」参照）。
 
 ## よく使うコマンド
 

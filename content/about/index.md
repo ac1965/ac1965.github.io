@@ -10,7 +10,7 @@ title = 'about'
     >}}
 
 # About Me
-I was born in 1965. Oh, Master! Please give me Laphroaig.
+I was born in 1965. Make it a cask-strength Laphroaig, please. 🥃🔥
 
 # Skills
 - Emacs Lisp
