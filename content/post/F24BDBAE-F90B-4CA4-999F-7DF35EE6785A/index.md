@@ -2,7 +2,7 @@
 title = "「手札が多めのビクトリア」シリーズを読んだ"
 author = ["YAMASHITA Takao"]
 date = 2026-08-16T10:13:00+09:00
-lastmod = 2026-09-21T15:24:01+09:00
+lastmod = 2026-09-21T16:58:00+09:00
 tags = ["Reading", "Web-Novel", "なろう系小説"]
 categories = ["Entertainment"]
 draft = false

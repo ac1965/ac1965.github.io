@@ -2,7 +2,7 @@
 title = "不要不急"
 author = ["YAMASHITA Takao"]
 date = 2021-02-20T16:43:00+09:00
-lastmod = 2026-09-21T15:23:59+09:00
+lastmod = 2026-09-21T16:57:58+09:00
 tags = ["COVID-19"]
 categories = ["Life"]
 draft = false
