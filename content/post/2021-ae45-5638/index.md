@@ -2,7 +2,7 @@
 title = "2021 GW 大瀧詠一"
 author = ["YAMASHITA Takao"]
 date = 2021-04-29T09:02:00+09:00
-lastmod = 2026-09-13T13:38:57+09:00
+lastmod = 2026-09-21T15:24:00+09:00
 tags = ["大瀧詠一", "GW"]
 categories = ["Entertainment"]
 draft = false

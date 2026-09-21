@@ -2,7 +2,7 @@
 title = "五月晴れの昼下がり"
 author = ["YAMASHITA Takao"]
 date = 2024-05-04T15:19:00+09:00
-lastmod = 2026-09-13T13:38:57+09:00
+lastmod = 2026-09-21T15:24:00+09:00
 tags = ["GW"]
 categories = ["Life"]
 draft = false

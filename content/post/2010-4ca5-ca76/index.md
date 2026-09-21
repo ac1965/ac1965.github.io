@@ -2,7 +2,7 @@
 title = "Guruplug Subquent"
 author = ["YAMASHITA Takao"]
 date = 2010-07-16T23:32:00+09:00
-lastmod = 2026-09-13T13:38:57+09:00
+lastmod = 2026-09-21T15:23:59+09:00
 tags = ["Guruplug"]
 categories = ["Tech"]
 draft = false
@@ -34,7 +34,7 @@ KEYWORD のチェックを無効にしてから Nginx をインストールし�
 
 Nginx + paster + Pyblosxom の組み合わせでは動作を確認できたのだけど、wbgpager だけはうまく動かなかった。
 
-原因を追いかけるのが面倒だったので、いまのところは Apache + mod_wsgi + Pyblosxom で動かしている。<span class="timestamp-wrapper"><span class="timestamp">[2010-07-19 月]</span></span>
+原因を追いかけるのが面倒だったので、いまのところは Apache + mod_wsgi + Pyblosxom で動かしている。<span class="timestamp-wrapper"><span class="timestamp">[2010-07-19 Mon]</span></span>
 
 
 ## 将来 {#将来}
@@ -47,7 +47,7 @@ GuruPlug を使ったアイデアとして、やりたいのは HoneyPod の実�
 
 iptables は問題なく動作した。honeyd も動いている。あとはルータ側で honeyd の virtual-honeypots に流し込むだけ。
 
-ただ、mwcollect が SIGSEGV で落ちてしまっている。<span class="timestamp-wrapper"><span class="timestamp">[2010-07-19 月]</span></span>
+ただ、mwcollect が SIGSEGV で落ちてしまっている。<span class="timestamp-wrapper"><span class="timestamp">[2010-07-19 Mon]</span></span>
 
 
 ## 最後に前回の宿題 {#最後に前回の宿題}

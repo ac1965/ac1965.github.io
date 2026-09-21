@@ -2,7 +2,7 @@
 title = "ボクが満足するような最強のエディタを作って"
 author = ["YAMASHITA Takao"]
 date = 2024-07-30T16:48:00+09:00
-lastmod = 2026-09-13T13:38:57+09:00
+lastmod = 2026-09-21T15:24:00+09:00
 tags = ["Emacs", "ChatGPT"]
 categories = ["Tech"]
 draft = false
