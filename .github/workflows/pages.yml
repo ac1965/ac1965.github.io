@@ -1,0 +1,71 @@
+# GitHub Pages への自動デプロイ(案A: content/post/ を Git 管理下に置く前提)
+#
+# 前提条件(この状態になるまでは動作しない):
+#   1. .gitignore から `content/post` の除外を外し、ox-hugo が生成した
+#      content/post/ を main ブランチにコミットしていること
+#      (このワークフローは Emacs/ox-hugo を実行しない。content/ が
+#      既に生成・コミット済みであることを前提に Hugo ビルドのみ行う)
+#   2. リポジトリの Settings > Pages > Build and deployment > Source を
+#      「GitHub Actions」に切り替えていること(現状は「Deploy from a
+#      branch(deploy)」のままなので、切り替えるまではこのワークフローが
+#      成功してもサイトには反映されない)
+#
+# Hugo バージョンは themes/blowfish/config.toml の [module.hugoVersion]
+# (min 0.162.0 / max 0.165.0) の範囲内で固定する。ローカル環境の
+# hugo v0.166.0 はこの上限を超えているため、CI では追随させずレンジ内の
+# 0.165.0 に固定する。
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時デプロイの競合を避ける。実行中のデプロイは完了させ、
+# 待機中の古い実行はキャンセルしない(pages環境の推奨設定)。
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  HUGO_VERSION: "0.165.0"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Build with Hugo
+        run: hugo --minify
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

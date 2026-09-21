@@ -150,7 +150,7 @@ cat themes/blowfish/config.toml
 hugo version
 #+end_src
 
-CI（~.github/workflows/deploy.yml~）の ~hugo-version:~ もこの値に合わせて
+CI（~.github/workflows/pages.yml~）の ~HUGO_VERSION~ もこの値に合わせて
 更新すること（[[#deploy][Deploy]] 参照）。ここがズレると、ローカルでは
 ビルドできるのに CI だけ失敗する事態になります。
 
@@ -224,41 +224,35 @@ git submodule update --init --recursive
 
 #+begin_export hugo
 {{< alert >}}
-以前このセクションでは ~content/post/my-post/index.md~ のような
-Page Bundle 形式で生成される旨を記載していたが、実際の運用では
-ox-hugo は ~content/post/<slug>.md~ という *flat な単一ファイル* を
-出力している。両者は Hugo 上で挙動が大きく異なる（後述）ため、
-実態に合わせて記述を訂正した。
+以前このセクションでは ~content/post/<slug>.md~ という flat な
+単一ファイルで出力される旨を記載していたが、2026-07-30 の
+全記事一括移行（コミット ~c71d7f32~）により、現在は
+~content/post/<slug>/index.md~ という真の Page Bundle 形式に
+統一されている。それに伴い、当時「既知の設計負債」としていた
+flat file 由来の制約（同名ディレクトリがPage Resourceとして
+認識されない等）は解消済み。記述を実態に合わせて訂正した。
 {{< /alert >}}
 #+end_export
 
 #+begin_example
 all-posts.org（記事のOrgソース。1ファイルに複数記事をsubtreeで格納）
 
-content/ (ox-hugo により生成・手動編集しない)
+content/ (ox-hugo または org2hugo.py により生成。2026-09-21以降 Git 管理下)
 ├── about/
-│   └── index.md          ← about は Page Bundle
+│   └── index.md              ← Page Bundle
 └── post/
-    ├── my-post.md         ← 記事本体は flat file（Page Bundle ではない）
-    └── my-post/
-        └── cover.jpg      ← 同名の別ディレクトリにカバー画像を手動配置
+    └── <slug>/
+        ├── index.md          ← 記事本体（Page Bundle）
+        ├── cover.jpg         ← deploy.sh/prepare-content.sh が自動配置
+        └── (記事内の画像等)   ← Page Resource として正しく認識される
 #+end_example
 
-#+begin_export hugo
-{{< alert >}}
-既知の設計負債: ~my-post.md~ と ~my-post/~ は同名でも Hugo 上は
-無関係な存在として扱われる。~my-post/~ 配下のファイルは
-~my-post.md~ の Page Resource としては認識されない。Blowfish の
-~feature*~ 画像自動検出（~.Resources.ByType "image"~）はこの
-flat 構造では機能しないため、カバー画像は ~deploy.sh~ が
-front matter の日付から機械的に配置する運用でカバーしている
-（[[#deploy][Deploy]] 参照）。記事本文中で ~[[file:foo.jpg]]~ の
-ように参照する画像も、この構造の上に成り立っており、将来的に
-ox-hugo 側の出力を真の Page Bundle（~<slug>/index.md~）に
-切り替えられれば、Blowfish 標準機能だけで完結できる。現状は
-未着手。
-{{< /alert >}}
-#+end_export
+すべての記事が Page Bundle（~<slug>/index.md~）形式なので、記事本文や
+front matter から参照する画像はディレクトリ内に置くだけで Blowfish の
+Page Resource 機構（~.Resources.ByType "image"~ 等）から認識される。
+カバー画像だけは記事ごとの手動指定・自動選定の余地を残すため、
+引き続き ~prepare-content.sh~（[[#deploy][Deploy]] 参照）が機械的に配置する
+運用にしている。
 
 ** Org ファイル Front Matter 例
 
@@ -388,108 +382,162 @@ Blowfish は SemVer タグ（~vX.Y.Z~）を ~main~ ブランチ上のコミッ�
 :CUSTOM_ID: deploy
 :END:
 
-** GitHub Actions
+#+begin_export hugo
+{{< alert >}}
+2026-09-21、公開の仕組みをローカル手動デプロイ（~deploy.sh~ が
+ビルドから ~deploy~ ブランチへの push まで一括で行う方式）から、
+GitHub Actions によるビルド・公開へ移行する作業に着手した。
+以下は新方式の設計・実装を反映しているが、*まだ本番切り替えは
+完了していない*: ~content/post/~ の初回コミット・push、および
+リポジトリの Settings > Pages > Source を「GitHub Actions」へ
+切り替える作業がこれから必要。それまでは現行の ~deploy~ ブランチ
+（legacy branch deploy）が実際の公開経路のまま。
+{{< /alert >}}
+#+end_export
+
+** 新方式の全体像
+
+1. Org-mode（~all-posts.org~）で執筆し、見出しを ~DONE~ にする
+2. ox-hugo（または ~org2hugo.py~）で ~content/post/~ を生成
+3. ~prepare-content.sh~ で画像同期・カバー画像の自動配置
+4. ~content/~ を ~git add~ → commit → push（*手動*。~content/~ は
+   もはやビルド成果物ではなく Git 管理下のファイル）
+5. push をトリガーに GitHub Actions（~.github/workflows/pages.yml~）が
+   起動し、Hugo でビルドして GitHub Pages へ直接デプロイする
+
+旧方式にあった ~PROJECTS_ROOT~・~PUBLIC_DIR~（~deploy/~ という別
+ワークツリー）・~deploy~ ブランチへの手動 push という概念は、本番切り替え
+完了後は不要になる。
+
+** GitHub Actions（~.github/workflows/pages.yml~）
 
 #+begin_src yaml
-# .github/workflows/deploy.yml
-- uses: actions/checkout@v4
-  with:
-    submodules: true
-    fetch-depth: 0
+name: Deploy to GitHub Pages
 
-- name: Setup Hugo
-  uses: peaceiris/actions-hugo@v3
-  with:
-    hugo-version: '0.165.0'
-    extended: true
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
-- name: Build
-  run: hugo --minify
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  HUGO_VERSION: "0.165.0"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+      - run: hugo --minify
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
 #+end_src
 
-~hugo-version~ はテーマ更新時に変わる ~themes/blowfish/config.toml~ の
+~HUGO_VERSION~ はテーマ更新時に変わる ~themes/blowfish/config.toml~ の
 ~[module.hugoVersion]~ の ~min~〜~max~ 要件に必ず追随させること
 （[[#submodule-管理][Submodule 管理]] 参照）。放置すると
 ローカルビルドは通るのに CI だけ失敗する原因になります。
 
-** 手動ビルド
+このワークフローが実際に機能するには、リポジトリの
+Settings > Pages > Build and deployment > Source を
+「GitHub Actions」に切り替える必要がある（現状は「Deploy from a
+branch（~deploy~）」のまま）。
+
+** 手動ビルド（ローカルでの確認用）
 
 #+begin_src bash
 hugo --minify
-# 出力先: ./public/
+# 出力先: ./public/（Git管理対象外のまま）
 #+end_src
 
-** deploy.sh（ローカルからの手動デプロイ）
+** prepare-content.sh / deploy.sh
 
 #+begin_export hugo
 {{< alert >}}
-旧 ~deploy.zsh~ から ~deploy.sh~ へリネーム・全面改修済み。
-~ICLOUD_USE~ 変数は廃止し、~PROJECTS_ROOT~ に統合した。
+旧 ~deploy.zsh~ → ~deploy.sh~（ビルド・push込みの一括スクリプト）から、
+2026-09-21 に ~prepare-content.sh~（画像同期・カバー配置のみ）を
+分離した。~deploy.sh~ 自体は ~prepare-content.sh~ を呼ぶだけの薄い
+ラッパーに縮小し、Hugo ビルド・~deploy~ ディレクトリへの同期・
+commit・push は行わなくなった（廃止した ~PROJECTS_ROOT~ /
+~PUBLIC_DIR~ / ~--dry-run~ も参照）。
 {{< /alert >}}
 #+end_export
 
-GitHub Actions とは別に、ローカル環境から直接デプロイするための zsh スクリプト
-~deploy.sh~ を用意しています。カバー画像の自動配置・ビルド・公開用ディレクトリへの
-同期・コミット & push までを一括で行います。
+~content/post/~ が既に生成済みであることを前提に、画像同期とカバー画像の
+自動配置だけを行う。
 
 *** 使い方
 
-~deploy.sh~ は ~mysite/~ 直下に配置する前提で、*自分自身の設置場所から*
-~PROJECTS_ROOT~（~mysite/~・~deploy/~ の親ディレクトリ）を自動算出する。
-そのため通常は環境変数の指定は不要。
-
 #+begin_src bash
 cd ~/Projects/<repo>/mysite
-./deploy.sh
+./deploy.sh              # 実体は ./prepare-content.sh を呼ぶだけ
+# または直接
+./prepare-content.sh
 #+end_src
 
-プロジェクトごとに配置場所が異なることを前提とした設計であり、
-~export PROJECTS_ROOT=...~ のような恒久的な環境変数設定は行わない
-運用にしている。一時的に上書きしたい場合のみ、実行時に指定する。
+処理が終わったら、次を手動で行う（自動 push はしない。レビューを挟むため
+意図的に手動にしている）。
 
 #+begin_src bash
-PROJECTS_ROOT=/path/to/alt-root ./deploy.sh --dry-run
+git add content
+git commit -m "content: ..."
+git push
 #+end_src
 
-#+begin_export hugo
-{{< alert >}}
-~PROJECTS_ROOT~（≒ 旧 ~ICLOUD_USE~）は、iCloud Drive
-（~$HOME/Documents~・~$HOME/Desktop~ 配下）に *絶対に置かないこと*。
-過去に iCloud の同期競合コピー生成が原因で、カバー画像が壊れ、
-記事の画像が広範囲に失われる事故が発生している
-（[[#known-issues][Known Issues]] 参照）。
-{{< /alert >}}
-#+end_export
+push すると GitHub Actions が起動し、ビルドと公開が走る
+（Pages の Source 切り替え後に限る）。
 
 *** オプション
 
-| オプション       | 説明                                                        |
-|------------------+---------------------------------------------------------------|
-| ~--dry-run~      | Hugo ビルドまで実行し、~rsync~ 同期と ~git push~ の両方をスキップする |
-| ~--skip-cover~   | カバー画像の自動配置をスキップする                           |
-| ~--force~        | 同期競合ファイル（後述）を検出しても処理を続行する            |
-| ~--help~ / ~-h~  | 使い方を表示                                                 |
+| オプション       | 説明                                                |
+|------------------+-----------------------------------------------------|
+| ~--skip-cover~   | カバー画像の自動配置をスキップする                   |
+| ~--force~        | 同期競合ファイル（後述）を検出しても処理を続行する    |
+| ~--help~ / ~-h~  | 使い方を表示                                         |
+
+旧版にあった ~--dry-run~ は廃止した。ビルドと push がスクリプトから
+無くなり、スキップする対象が無くなったため。
 
 *** 処理の流れ
 
-1. *Pre-flight checks* — ~hugo~ / ~git~ / ~rsync~ の存在と、
-   ~HUGO_DIR~・~PUBLIC_DIR~（いずれも ~PROJECTS_ROOT~ 配下）の存在を確認。
+1. *Pre-flight checks* — ~rsync~ の存在と ~content/post/~ の存在を確認。
    加えて、~content/post/~ 配下に ~"foo 2.jpg"~ のような同期競合コピー
    らしき命名のファイルがないか走査し、見つかれば ~--force~ 指定がない限り
    処理を中断する
-2. *Placing cover images* — カバー未設定の記事に、front matter の
+2. *Syncing post-local assets* — ~assets/img/post-assets/<slug>/~ の
+   実ファイルを ~content/post/<slug>/~ へ ~rsync~ で同期
+3. *Placing cover images* — カバー未設定の記事に、front matter の
    ~date~／~publishDate~ から読み取った公開月ベースでカバー画像を配置。
    - 冪等: 既存の ~cover.*~ に加え、~cover 2.jpg~ のようなスペース・
      ハイフン区切りの亜種も「既存扱い」として上書きしない
    - front matter の日付が解析できない記事は、実行時点の月への
      フォールバックを *行わず* スキップし、最後に警告として一覧表示する
      （季節画像が記事ごとの公開日と無関係に同一化するバグの再発防止）
-3. *Building site with Hugo* — ~public/~ を作り直して ~hugo --minify~
-   （~--dry-run~ 指定時はここで終了し、以降の同期・pushは実行されない）
-4. *Syncing to deploy directory* — ~rsync -a --delete --checksum~ で
-   ビルド成果物を ~PUBLIC_DIR~ に同期
-5. *Committing and pushing* — ~PUBLIC_DIR~ 側で差分があれば
-   ~git add --all~ → commit → push
 
 途中でエラーが出た場合、実行は各ステップの ~abort~ で即座に中断されます
 （~set -euo pipefail~）。~carousel~ shortcode 未検出のようなビルドエラーは
@@ -543,12 +591,17 @@ PNG のまま、といった不一致があると、Hugo の ~.Resize~ 処理が
 
 ** 記事内画像（本文からレファレンスされる画像）について
 
-flat な ~.md~ 構造（[[#writing-workflow][Writing Workflow]] 参照）では、
-記事本文中の ~[[file:foo.jpg]]~ のような画像参照も、カバー画像と同様に
-Page Resource としては認識されない構造的制約を抱えている。~hugo~ の
-ビルドはこの種の参照切れをエラーとして検出しないため、*ビルドが
-成功したからといって画像が正しく表示されているとは限らない*。
-記事を大きく触った後は、実際に公開されたページを目視で確認すること。
+2026-07-30 の Page Bundle 移行（[[#writing-workflow][Writing Workflow]] 参照）
+により、ox-hugo 経由で生成した記事では、記事本文中の ~[[file:foo.jpg]]~
+のような画像参照も Page Resource として正しく認識されるようになった。
+ただし ~org2hugo.py~ 側は「~[[file:xxx.jpg]]~ を pandoc が単純に
+~![](xxx.jpg)~ に変換するだけで、Page Bundle 化に伴うパスの付け替えまでは
+未検証」という既知の懸念がスクリプト自身のコメントに残っている
+（[[#deploy][Deploy]] や ~org2hugo.py~ 冒頭のコメント参照）。いずれの
+経路で生成した場合でも、~hugo~ のビルドは画像参照切れをエラーとして
+検出しないため、*ビルドが成功したからといって画像が正しく表示されている
+とは限らない*。記事を大きく触った後は、実際に公開されたページを
+目視で確認すること。
 
 * License
 

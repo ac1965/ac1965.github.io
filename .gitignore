@@ -2,7 +2,6 @@
 * [0-9].*
 
 public
-content/post
 .hugo_build.lock
 
 resources/_gen/
