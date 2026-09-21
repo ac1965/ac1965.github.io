@@ -9714,10 +9714,11 @@ Cloudflareの公式CLIである =flarectl= を導入し、権限を「 =ty07.net
 
 #+begin_export hugo
 {{<details "実行したflarectlコマンド">}}
-
+```bash
 flarectl dns delete --zone=ty07.net --id=6a3fa95634d332428d447e4b10e66a1f
 flarectl dns delete --zone=ty07.net --id=fdc46e1d79ad38890153b81dc4109635
 flarectl dns create --zone=ty07.net --name=www --type=CNAME --content=ac1965.github.io --ttl=1
+```
 {{</details>}}
 #+end_export
 

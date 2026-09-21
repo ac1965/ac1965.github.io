@@ -2,7 +2,7 @@
 title = "dev-ai.el の Touch ID 二重認証エラーを直した話"
 author = ["YAMASHITA Takao"]
 date = 2026-08-15T17:01:00+09:00
-lastmod = 2026-09-21T16:58:00+09:00
+lastmod = 2026-09-21T20:50:54+09:00
 tags = ["Emacs", "auth-source", "touchid", "aidermacs"]
 categories = ["Tech"]
 draft = false

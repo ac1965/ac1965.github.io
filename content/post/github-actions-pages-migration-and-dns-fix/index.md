@@ -2,7 +2,7 @@
 title = "ブログの公開をGitHub Actionsに移したら、10年前のDNSの古傷が出てきた話"
 author = ["YAMASHITA Takao"]
 date = 2026-09-21T14:27:00+09:00
-lastmod = 2026-09-21T16:58:00+09:00
+lastmod = 2026-09-21T20:50:54+09:00
 tags = ["Hugo", "GitHubPages", "Cloudflare", "DNS", "Ox-Hugo", "Deploy"]
 categories = ["Tech"]
 draft = false
@@ -97,10 +97,11 @@ Cloudflareの公式CLIである `flarectl` を導入し、権限を「 `ty07.net
 最終的に、廃止済みのAレコード2本を削除して、GitHub公式が推奨する構成——www → CNAME → `ac1965.github.io` （プロキシなし）——に張り替えた。
 
 {{<details "実行したflarectlコマンド">}}
-
+```bash
 flarectl dns delete --zone=ty07.net --id=6a3fa95634d332428d447e4b10e66a1f
 flarectl dns delete --zone=ty07.net --id=fdc46e1d79ad38890153b81dc4109635
 flarectl dns create --zone=ty07.net --name=www --type=CNAME --content=ac1965.github.io --ttl=1
+```
 {{</details>}}
 
 張り替えた直後は、GitHubがまだ `www.ty07.net` 専用の証明書を発行し終えておらず、HTTPSでアクセスすると証明書エラーが出る一時的な状態になった。数分待ってから確認すると、GitHub自身が発行したLet's Encrypt証明書（CN=www.ty07.net）に切り替わっており、Enforce HTTPSも有効化できた。

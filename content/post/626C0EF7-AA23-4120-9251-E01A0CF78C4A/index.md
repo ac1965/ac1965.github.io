@@ -2,7 +2,7 @@
 title = ".emacs.d を Literate Configuration で管理する"
 author = ["YAMASHITA Takao"]
 date = 2026-03-20T19:19:00+09:00
-lastmod = 2026-09-21T16:57:59+09:00
+lastmod = 2026-09-21T20:50:53+09:00
 tags = ["Emacs", "Org-Mode", "Literate-Programming", "Ox-Hugo", "Claude-APIs"]
 categories = ["Tech"]
 draft = false

@@ -2,7 +2,7 @@
 title = "ひさしぶりに"
 author = ["YAMASHITA Takao"]
 date = 2023-12-03T09:31:00+09:00
-lastmod = 2026-09-21T16:57:58+09:00
+lastmod = 2026-09-21T20:50:52+09:00
 tags = ["Things"]
 categories = ["Life"]
 draft = false

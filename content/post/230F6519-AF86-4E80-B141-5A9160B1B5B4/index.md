@@ -2,7 +2,7 @@
 title = "Makefile が自分自身を tangle する設定で、実機でしかハマらないバグを4連発踏んだ話"
 author = ["YAMASHITA Takao"]
 date = 2026-08-01T20:24:00+09:00
-lastmod = 2026-09-21T16:57:59+09:00
+lastmod = 2026-09-21T20:50:53+09:00
 tags = ["Emacs", "Org-Mode", "Makefile", "Graphviz", "Mermaid", "デバッグ"]
 categories = ["Tech"]
 draft = false

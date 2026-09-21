@@ -2,7 +2,7 @@
 title = "このブログについて"
 author = ["YAMASHITA Takao"]
 date = 2026-03-21T13:42:00+09:00
-lastmod = 2026-09-21T16:57:59+09:00
+lastmod = 2026-09-21T20:50:53+09:00
 tags = ["Blog", "Hugo", "Emacs", "Org-Mode"]
 categories = ["Meta"]
 draft = false

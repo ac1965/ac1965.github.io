@@ -2,7 +2,7 @@
 title = "Git履歴の書き換えで肝を冷やした話 ── filter-repoとClaudeで760コミットのメッセージを直す"
 author = ["YAMASHITA Takao"]
 date = 2026-08-09T13:36:00+09:00
-lastmod = 2026-09-21T16:58:00+09:00
+lastmod = 2026-09-21T20:50:53+09:00
 tags = ["Git", "Claude-Code", "filter-repo"]
 categories = ["Tech"]
 draft = false
