@@ -589,6 +589,69 @@ PNG のまま、といった不一致があると、Hugo の ~.Resize~ 処理が
 ~image: unknown format~ でビルド全体を失敗させる。復元・移動の際は
 必ず ~file <path>~ で実データの形式を確認し、拡張子と一致させること。
 
+** カスタムドメインが廃止済みGitHub IPを向いていた問題（2026-09-21 発見・対策済み）
+
+`www.ty07.net`のDNS Aレコードが、何年も前に廃止されたGitHub Pagesの旧IPアドレス
+（`192.30.252.153`／`192.30.252.154`）を指したままになっていた。実際に証明書を
+確認すると`*.github.io`ではなく`*.github.com`——Pagesとは無関係な、GitHub本体側
+のサーバーの証明書が返ってきており、これらのIPはもうPagesを指していなかった。
+2つのAレコードのうち片方だけが`proxied: true`（Cloudflareのプロキシ有効）に
+なっていたため、公開DNSからはCloudflareのIPしか見えず、Cloudflareが独自の
+証明書でHTTPSを肩代わりする形で表面上は問題なく閲覧できていた。
+
+その裏でGitHub側は`www.ty07.net`のドメイン所有権を検証できておらず、専用の
+Let's Encrypt証明書を発行できていなかった。症状としては、リポジトリの
+Settings > Pagesで「Enforce HTTPS」が「your domain is not properly configured
+to support HTTPS」という理由でグレーアウトし続ける、という形で現れていた。
+
+なお、この`ty07.net`のDNSゾーンには`ac1965@ty07.net`のiCloudカスタムメール
+ドメイン（MX／SPF／DKIM）が生きて動いている。そのため「Cloudflareサービス
+自体（ネームサーバーの委任）を外す」という選択肢は取らず、あくまで`www`の
+1レコードだけをピンポイントで修正する方針にした。
+
+*対策として実施済み*:
+- Cloudflare公式CLI（[[https://github.com/cloudflare/cloudflare-go/tree/v0/cmd/flarectl][flarectl]]）を導入し、
+  `ty07.net`のDNS編集のみに権限を絞った一時APIトークン（有効期限7日）を発行、
+  作業完了後に失効させた
+- 廃止済みのAレコード2本を削除し、GitHub公式が推奨する
+  `www` → CNAME → `ac1965.github.io`（プロキシなし・DNS onlyモード）に
+  張り替えた
+- GitHubが`www.ty07.net`専用のLet's Encrypt証明書を自動発行したことを確認し、
+  APIで「Enforce HTTPS」を有効化した。`http://`→`https://`の301リダイレクトも
+  GitHub自身が返すようになったことを確認済み
+- メール関連のレコード（MX／SPF／DKIM／Appleドメイン確認用TXT）には
+  一切手を触れていない
+
+**** 追記：apex（wwwなしの`ty07.net`）側の警告も解消（同日中に対応）
+
+`www`側を直した直後、GitHubリポジトリのSettings > Pagesに
+「`ty07.net` is improperly configured — Domain does not resolve to the
+GitHub Pages server (NotServedByPagesError)」という別の警告が出ていることに
+気づいた。これは`www.ty07.net`をカスタムドメインに設定すると、GitHub Pagesが
+「wwwなしでアクセスされた場合に`www`へリダイレクトできるか」を確認するために
+apex（`ty07.net`）側のDNSもあわせてチェックするために出る。調べたところ、
+apexには元々AレコードもAAAAレコードも一切存在せず、単純に名前解決すらできない
+状態だった（これは今回の一連の修正が原因ではなく、元々そうだった）。
+
+サイトの主機能（`www.ty07.net`でのHTTPS配信）自体には影響しない、あくまで
+「wwwを付け忘れてアクセスした人がリダイレクトされない」という体験上の問題
+だったが、ついでに解消した。
+
+*対策として実施済み*:
+- 同じくスコープを絞った一時APIトークンを再発行し、`flarectl`でapexに
+  GitHub Pages公式の4つのAレコード（`185.199.108.153`／`.109.153`／
+  `.110.153`／`.111.153`、いずれもプロキシなし）を追加した
+- `www`側のCNAMEやメール関連レコードには一切変更を加えていない
+- GitHubが`ty07.net`宛のHTTPSリクエストを`https://www.ty07.net/`へ
+  301リダイレクトするようになったこと、Settings > Pagesの警告が
+  「✓ DNS check successful」に変わったことを確認済み
+
+*教訓*: DNSプロキシ（Cloudflare等）を経由していると、配信自体は正常に見えて
+いても、その裏でオリジン（この場合GitHub Pages）が実際に何を向いているかは
+別問題として腐っていくことがある。カスタムドメインの設定変更やトラブル調査を
+行う際は、プロキシを経由しない状態（直接IPへの接続や`--resolve`オプションでの
+確認）でオリジン側の実体を確認すること。
+
 ** 記事内画像（本文からレファレンスされる画像）について
 
 2026-07-30 の Page Bundle 移行（[[#writing-workflow][Writing Workflow]] 参照）

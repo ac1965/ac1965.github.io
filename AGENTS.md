@@ -133,10 +133,10 @@ README.org 非記載の別経路であり、正規手順ではない点に注意
   `content/` はビルド成果物であり再生成される。
 - **`resources/_gen/` と `public/` を Git 管理下に置かない**。`.gitignore`
   で除外済みだが、誤ってコミットしないよう注意。
-- 記事本体（`content/post/<slug>.md`）は Page Bundle ではなく **flat file**
-  として出力される既知の設計負債がある。カバー画像・記事内画像は
-  `<slug>/` ディレクトリ配下に手動配置し、`deploy.sh` が front matter の
-  日付を基にカバー画像を機械的に配置している（詳細は README.org の
+- 記事本体は2026-07-30の移行以降 `content/post/<slug>/index.md` という
+  **真のPage Bundle**として出力される（それ以前の「flat file」という記述は
+  古い情報なので参照しないこと）。カバー画像は `prepare-content.sh` が
+  front matter の日付等を基に機械的に配置している（詳細は README.org の
   Writing Workflow / Deploy 参照）。
 - 画像ファイルは拡張子と実データ形式を一致させること。不一致があると
   Hugo の `.Resize` 処理がビルド全体を失敗させる。
@@ -148,6 +148,16 @@ README.org 非記載の別経路であり、正規手順ではない点に注意
   破損した事故がある（README.org の Known Issues 参照）。
 - 記事を大きく編集した後は、Hugo のビルド成功だけでは画像参照切れを
   検出できないため、実際に公開ページを目視で確認すること。
+- **カスタムドメインのDNS設定（2026-09-21修正済み、詳細はREADME.orgの
+  Known Issues参照）**: `www.ty07.net` は `ac1965.github.io` へのCNAME、
+  apex（`ty07.net`）は GitHub Pages公式の4つのA レコード
+  （`185.199.108/109/110/111.153`）で構成されており、どちらもCloudflareの
+  プロキシは**意図的に無効（DNS only）**にしてある。これは以前
+  「Cloudflareのプロキシが古いGitHub IPを覆い隠していた」という不具合を
+  修正した結果なので、プロキシを有効化する提案・変更は行わないこと。
+  また `ty07.net` ゾーンには `ac1965@ty07.net` のiCloudカスタムメール
+  ドメイン（MX/SPF/DKIM/`apple-domain`確認用TXT）が生きているため、
+  ネームサーバーの委任先やこれらメール関連レコードは絶対に変更しないこと。
 
 ## コミットメッセージ
 
