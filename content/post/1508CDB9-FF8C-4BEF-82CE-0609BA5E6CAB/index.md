@@ -2,7 +2,7 @@
 title = "Emacs 31 は「自分で書いたコード」を減らすチャンスだ"
 author = ["YAMASHITA Takao"]
 date = 2026-07-11T22:27:00+09:00
-lastmod = 2026-09-21T20:50:53+09:00
+lastmod = 2026-09-25T16:30:45+09:00
 tags = ["Emacs"]
 categories = ["Tech"]
 draft = false

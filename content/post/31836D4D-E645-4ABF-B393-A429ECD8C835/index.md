@@ -2,7 +2,7 @@
 title = "evalの中身を覗いてみた ─ Emacsが40年抱えてきた矛盾の話"
 author = ["YAMASHITA Takao"]
 date = 2026-07-21T23:19:00+09:00
-lastmod = 2026-09-21T20:50:53+09:00
+lastmod = 2026-09-25T16:30:45+09:00
 tags = ["Emacs", "Elisp"]
 categories = ["Tech"]
 draft = false

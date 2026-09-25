@@ -2,7 +2,7 @@
 title = "ブログの公開をGitHub Actionsに移したら、10年前のDNSの古傷が出てきた話"
 author = ["YAMASHITA Takao"]
 date = 2026-09-21T14:27:00+09:00
-lastmod = 2026-09-21T20:50:54+09:00
+lastmod = 2026-09-25T16:30:46+09:00
 tags = ["Hugo", "GitHubPages", "Cloudflare", "DNS", "Ox-Hugo", "Deploy"]
 categories = ["Tech"]
 draft = false

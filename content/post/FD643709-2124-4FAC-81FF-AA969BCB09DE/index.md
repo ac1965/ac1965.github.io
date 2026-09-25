@@ -2,7 +2,7 @@
 title = "org-capture 中に ox-hugo の記事をブラウザでプレビューできるようにした"
 author = ["YAMASHITA Takao"]
 date = 2026-08-11T09:55:00+09:00
-lastmod = 2026-09-21T20:50:54+09:00
+lastmod = 2026-09-25T16:30:46+09:00
 tags = ["Emacs", "Ox-Hugo", "Org-Capture", "Markdown-Preview-Mode"]
 categories = ["Tech"]
 draft = false

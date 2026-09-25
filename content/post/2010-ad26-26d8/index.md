@@ -2,7 +2,7 @@
 title = "awesome window manager"
 author = ["YAMASHITA Takao"]
 date = 2010-02-13T22:42:00+09:00
-lastmod = 2026-09-21T20:50:51+09:00
+lastmod = 2026-09-25T16:30:44+09:00
 tags = ["Awesome"]
 categories = ["Tech"]
 draft = false
