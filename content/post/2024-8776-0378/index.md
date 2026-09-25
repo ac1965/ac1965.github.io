@@ -2,7 +2,7 @@
 title = "犬山祭"
 author = ["YAMASHITA Takao"]
 date = 2024-04-27T12:03:00+09:00
-lastmod = 2026-09-25T16:30:45+09:00
+lastmod = 2026-09-25T19:59:31+09:00
 tags = ["犬山祭"]
 categories = ["Life"]
 draft = false

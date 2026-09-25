@@ -2,7 +2,7 @@
 title = "2021 GW なろう系小説"
 author = ["YAMASHITA Takao"]
 date = 2021-05-01
-lastmod = 2026-09-25T16:30:44+09:00
+lastmod = 2026-09-25T19:59:30+09:00
 tags = ["なろう系小説", "GW"]
 categories = ["Entertainment"]
 draft = false

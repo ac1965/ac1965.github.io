@@ -2,7 +2,7 @@
 title = "Org インラインタグへの移行と Ox-Hugo 検証"
 author = ["YAMASHITA Takao"]
 date = 2026-08-03T22:46:00+09:00
-lastmod = 2026-09-25T16:30:46+09:00
+lastmod = 2026-09-25T19:59:32+09:00
 tags = ["Emacs", "Org-Mode", "Ox-Hugo", "Blog"]
 categories = ["Tech"]
 draft = false

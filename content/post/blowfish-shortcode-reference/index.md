@@ -2,7 +2,7 @@
 title = "Blowfish（Hugoテーマ）のショートコード使い方まとめ"
 author = ["YAMASHITA Takao"]
 date = 2026-07-27T21:57:00+09:00
-lastmod = 2026-09-25T16:30:46+09:00
+lastmod = 2026-09-25T19:59:32+09:00
 tags = ["Hugo", "Blowfish", "Ox-Hugo", "Shortcode"]
 categories = ["Tech"]
 draft = false

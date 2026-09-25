@@ -2,7 +2,7 @@
 title = "Guruplug 届くまでにやったこと"
 author = ["YAMASHITA Takao"]
 date = 2010-04-14T23:31:00+09:00
-lastmod = 2026-09-25T16:30:44+09:00
+lastmod = 2026-09-25T19:59:30+09:00
 tags = ["Guruplug", "Crossdev"]
 categories = ["Tech"]
 draft = false

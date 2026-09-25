@@ -2,7 +2,7 @@
 title = "Guruplug Std."
 author = ["YAMASHITA Takao"]
 date = 2010-02-18T20:00:00+09:00
-lastmod = 2026-09-25T16:30:44+09:00
+lastmod = 2026-09-25T19:59:30+09:00
 tags = ["Guruplug"]
 categories = ["Tech"]
 draft = false

@@ -2,7 +2,7 @@
 title = "AIエージェントと一緒に、攻撃側/防御側のセキュリティツールを作った遅めの夏休み"
 author = ["YAMASHITA Takao"]
 date = 2026-09-25T16:30:00+09:00
-lastmod = 2026-09-25T16:30:46+09:00
+lastmod = 2026-09-25T19:59:32+09:00
 tags = ["PownForge", "RiskForge", "AIエージェント", "AGENTS-md", "セキュリティ"]
 categories = ["Tech"]
 draft = false
@@ -21,7 +21,7 @@ cover = ""
 学んだことをまとめておく。
 
 
-## AIエージェントに何をさせるかは、最初にAGENTS.mdで決めておく {#aiエージェントに何をさせるかは-最初にagents-dot-mdで決めておく}
+## AIkエージェントに何をさせるかは、最初にAGENTS.mdで決めておく {#aikエージェントに何をさせるかは-最初にagents-dot-mdで決めておく}
 
 両リポジトリには、Claude Code のようなAIエージェント向けの運用ルールを
 まとめた `AGENTS.md` を置いている。PownForge側の `AGENTS.md` には、
