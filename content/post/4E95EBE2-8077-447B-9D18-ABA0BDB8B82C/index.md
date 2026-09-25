@@ -2,7 +2,7 @@
 title = "narou_dl を Python だけで EPUB まで完結させる、という実験"
 author = ["YAMASHITA Takao"]
 date = 2026-08-08T10:18:00+09:00
-lastmod = 2026-09-25T19:59:32+09:00
+lastmod = 2026-09-25T22:15:17+09:00
 tags = ["Python", "EPUB", "AozoraEpub3", "Claude"]
 categories = ["Tech"]
 draft = false

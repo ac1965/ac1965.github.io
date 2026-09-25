@@ -2,7 +2,7 @@
 title = "macOSで「Claude環境が使っているパッケージ」を再現する"
 author = ["YAMASHITA Takao"]
 date = 2026-08-08T20:03:00+09:00
-lastmod = 2026-09-25T19:59:32+09:00
+lastmod = 2026-09-25T22:15:17+09:00
 tags = ["macOS", "Python", "Node-js", "LibreOffice"]
 categories = ["Tech"]
 draft = false
