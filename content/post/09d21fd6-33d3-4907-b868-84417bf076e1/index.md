@@ -2,7 +2,7 @@
 title = "セキュリティ投資のROIを経営層に説明する —— AIエージェント時代の「防げた損失」の語り方"
 author = ["YAMASHITA Takao"]
 date = 2026-08-02T11:51:00+09:00
-lastmod = 2026-09-26T22:31:34+09:00
+lastmod = 2026-09-26T22:44:31+09:00
 tags = ["セキュリティ", "ROI", "AIエージェント", "ガバナンス", "ITコンサル"]
 categories = ["Strategy"]
 draft = false

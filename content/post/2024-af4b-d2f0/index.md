@@ -2,7 +2,7 @@
 title = "備忘録(Emacsのショートカットキー)"
 author = ["YAMASHITA Takao"]
 date = 2024-11-16T02:25:00+09:00
-lastmod = 2026-09-26T22:31:33+09:00
+lastmod = 2026-09-26T22:44:31+09:00
 tags = ["Emacs"]
 categories = ["Tech"]
 draft = false

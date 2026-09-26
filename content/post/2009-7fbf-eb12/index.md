@@ -2,7 +2,7 @@
 title = "New PC"
 author = ["YAMASHITA Takao"]
 date = 2009-11-14T14:22:00+09:00
-lastmod = 2026-09-26T22:31:32+09:00
+lastmod = 2026-09-26T22:44:29+09:00
 tags = ["ISO-Image", "Gentoo", "LiveCD"]
 categories = ["Tech"]
 draft = false

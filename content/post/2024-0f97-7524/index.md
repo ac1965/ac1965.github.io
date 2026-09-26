@@ -2,7 +2,7 @@
 title = "麦わら帽子は"
 author = ["YAMASHITA Takao"]
 date = 2024-09-29T17:05:00+09:00
-lastmod = 2026-09-26T22:31:33+09:00
+lastmod = 2026-09-26T22:44:31+09:00
 tags = ["Life"]
 categories = ["Life"]
 draft = false

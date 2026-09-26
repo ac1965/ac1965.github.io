@@ -2,7 +2,7 @@
 title = "健康診断"
 author = ["YAMASHITA Takao"]
 date = 2016-05-07T11:59:00+09:00
-lastmod = 2026-09-26T22:31:33+09:00
+lastmod = 2026-09-26T22:44:30+09:00
 tags = ["健康診断"]
 categories = ["Life"]
 draft = false

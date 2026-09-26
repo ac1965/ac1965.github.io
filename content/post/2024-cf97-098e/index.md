@@ -2,7 +2,7 @@
 title = "烏は主を選ばない"
 author = ["YAMASHITA Takao"]
 date = 2024-04-28T13:42:00+09:00
-lastmod = 2026-09-26T22:31:33+09:00
+lastmod = 2026-09-26T22:44:31+09:00
 tags = ["烏は主を選ばない"]
 categories = ["Entertainment"]
 draft = false

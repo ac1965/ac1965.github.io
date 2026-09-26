@@ -1,11 +1,11 @@
 +++
 title = "自分像を見る"
 author = ["YAMASHITA Takao"]
-date = 2026-09-26T22:28:00+09:00
-lastmod = 2026-09-26T22:31:35+09:00
+date = 2026-09-26T22:35:00+09:00
+lastmod = 2026-09-26T22:44:32+09:00
 tags = ["Blog", "AI", "Tech", "自己分析"]
 categories = ["Life"]
-draft = true
+draft = false
 cover = ""
 +++
 
