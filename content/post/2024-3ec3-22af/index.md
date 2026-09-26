@@ -2,7 +2,7 @@
 title = "葬送のフリーレン"
 author = ["YAMASHITA Takao"]
 date = 2024-03-23T10:27:00+09:00
-lastmod = 2026-09-25T22:15:16+09:00
+lastmod = 2026-09-26T22:31:33+09:00
 tags = ["Frieren", "葬送のフリーレン"]
 categories = ["Entertainment"]
 draft = false

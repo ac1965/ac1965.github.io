@@ -2,7 +2,7 @@
 title = "dotfilesのGitHub操作スクリプトを gh 認証に寄せた"
 author = ["YAMASHITA Takao"]
 date = 2026-09-13T11:25:00+09:00
-lastmod = 2026-09-25T22:15:18+09:00
+lastmod = 2026-09-26T22:31:35+09:00
 tags = ["GitHub-CLI", "zsh", "dotfiles", "認証", "セキュリティ"]
 categories = ["Tech"]
 draft = false

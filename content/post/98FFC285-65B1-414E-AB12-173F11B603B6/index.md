@@ -2,7 +2,7 @@
 title = "画像消失を直しに行ったら、直すべき場所が4つあった話"
 author = ["YAMASHITA Takao"]
 date = 2026-07-30T01:39:00+09:00
-lastmod = 2026-09-25T22:15:17+09:00
+lastmod = 2026-09-26T22:31:34+09:00
 tags = ["Hugo", "Ox-Hugo", "PageBundle", "Deploy", "夏"]
 categories = ["Tech"]
 draft = false

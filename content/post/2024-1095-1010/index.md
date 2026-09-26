@@ -2,7 +2,7 @@
 title = "macOSメモ"
 author = ["YAMASHITA Takao"]
 date = 2024-10-27T10:11:00+09:00
-lastmod = 2026-09-25T22:15:16+09:00
+lastmod = 2026-09-26T22:31:33+09:00
 tags = ["macOS"]
 categories = ["Tech"]
 draft = false
