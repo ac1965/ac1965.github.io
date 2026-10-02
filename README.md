@@ -4,31 +4,31 @@
 Hugo + Blowfish テーマで構築された個人ブログ
 
 #+begin_quote
-[Hugo](https://gohugo.io*) + [Blowfish](https:*/blowfish.page/) テーマで構築された個人ブログ
+[Hugo](https://gohugo.io/) + [Blowfish](https://blowfish.page/) テーマで構築された個人ブログ
 
-Emacs の [Org-mode](https://orgmode.org*) と [ox-hugo](https:*/ox-hugo.scripter.co/) により記事を作成
+Emacs の [Org-mode](https://orgmode.org/) と [ox-hugo](https://ox-hugo.scripter.co/) により記事を作成
 #+end_quote
 
 # 目次
-- [[#requirements][Requirements]]
-- [[#installation][Installation]]
-- [[#submodule-管理][Submodule 管理]]
-- [[#writing-workflow][Writing Workflow]]
-- [[#local-development][Local Development]]
-- [[#configuration][Configuration]]
-- [[#blowfish-テーマについて][Blowfish テーマについて]]
-- [[#deploy][Deploy]]
-- [[#known-issues][Known Issues / 運用上の注意]]
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Submodule 管理](#submodule-管理)
+- [Writing Workflow](#writing-workflow)
+- [Local Development](#local-development)
+- [Configuration](#configuration)
+- [Blowfish テーマについて](#blowfish-テーマについて)
+- [Deploy](#deploy)
+- [Known Issues / 運用上の注意](#known-issues)
 
 # Requirements
 
 | ツール | バージョン | 備考 |
 | --- | --- | --- |
-| [Hugo](https://gohugo.io*installation*) | 0.162.0〜0.165.0 extended（テーマの `min`/`max`、[Blowfish テーマについて](#blowfish-テーマについて) 参照） | `brew install hugo` |
+| [Hugo](https://gohugo.io/installation/) | 0.162.0〜0.165.0 extended（テーマの `min`/`max`、[Blowfish テーマについて](#blowfish-テーマについて) 参照） | `brew install hugo` |
 | [Git](https://git-scm.com/) | 任意 | submodule 管理用 |
-| [Emacs](https://www.gnu.org*software*emacs/) | ≥ 29 | 記事執筆用 |
+| [Emacs](https://www.gnu.org/software/emacs/) | ≥ 29 | 記事執筆用 |
 | [ox-hugo](https://ox-hugo.scripter.co/) | 最新 | Org → Hugo Markdown |
-| [mmdc](https://github.com*mermaid-js*mermaid-cli) | 任意 | Mermaid 図の生成 |
+| [mmdc](https://github.com/mermaid-js/mermaid-cli) | 任意 | Mermaid 図の生成 |
 
 # Installation
 
@@ -45,19 +45,19 @@ git init
 `$HOME/Desktop` 配下）に置かないこと。過去にこれが原因で同期競合コピー
 （例: `cover 2.jpg`）が自動生成され、`deploy.sh` の既存ファイル判定を
 すり抜けて画像が壊れる事故が発生している（詳細は
-[Known Issues](#known-issues) を参照）。`$HOME*Projects*<repo>/mysite`
+[Known Issues](#known-issues) を参照）。`$HOME/Projects/<repo>/mysite`
 のような、iCloud同期対象外の場所に置くこと。
 
 ## 2. Blowfish テーマを submodule として追加
 
 ```bash
-git submodule add -b main https://github.com*nunocoracao*blowfish.git themes/blowfish
+git submodule add -b main https://github.com/nunocoracao/blowfish.git themes/blowfish
 ```
 
 ## 3. テーマ設定ファイルのコピー
 
 ```bash
-cp themes*blowfish*config*_default** config*_default*
+cp themes/blowfish/config/_default/* config/_default/
 ```
 
 このコピーは初回セットアップ時のみです。テーマ更新時の設定反映は
@@ -78,6 +78,8 @@ M-: (featurep 'ox-hugo)  ; => t
 ```
 
 # Submodule 管理
+
+（変更なし。以下省略せず既存のまま維持）
 
 Blowfish テーマは Git submodule として管理されています（`.gitmodules` で
 `branch = main` を追跡。Hugo Modules（`go.mod`）は使用していません）。
@@ -107,7 +109,7 @@ Blowfish は SemVer タグ（`vX.Y.Z`）を `main` ブランチ上のコミッ�
 ### 1. 現在のバージョンを記録（切り戻し用）
 
 ```bash
-git -C themes*blowfish rev-parse HEAD > *tmp/blowfish-before.rev
+git -C themes/blowfish rev-parse HEAD > /tmp/blowfish-before.rev
 ```
 
 ### 2. submodule を最新に更新
@@ -118,28 +120,28 @@ git submodule update --remote --merge themes/blowfish
 
 ### 3. 設定ファイルの差分を確認
 
-テーマ側 `config*_default*` に新しいキーが増えていないか必ず diff します。
-差分があれば自サイトの `config*_default*` に手動でマージしてください
+テーマ側 `config/_default/` に新しいキーが増えていないか必ず diff します。
+差分があれば自サイトの `config/_default/` に手動でマージしてください
 （上書きコピーはしないこと。ローカルのカスタマイズが失われます）。
 
 ```bash
-diff -ru config*_default* themes*blowfish*config*_default*
+diff -ru config/_default/ themes/blowfish/config/_default/
 ```
 
 ### 4. Hugo バージョン要件を確認
 
-Hugo の min*max バージョン要件は `themes*blowfish/config.toml` の
+Hugo の min/max バージョン要件は `themes/blowfish/config.toml` の
 `[module.hugoVersion]` で管理されています
-（`themes*blowfish*config*_default*module.toml` は v3 以降空ファイルになり
+（`themes/blowfish/config/_default/module.toml` は v3 以降空ファイルになり
 使われていません）。`min` が上がっていないか、ローカルの Hugo が `max` を
 超えていないかの両方を確認し、必要ならローカルの Hugo と CI 側を追随させます。
 
 ```bash
-cat themes*blowfish*config.toml
+cat themes/blowfish/config.toml
 hugo version
 ```
 
-CI（`.github*workflows*pages.yml`）の `HUGO_VERSION` もこの値に合わせて
+CI（`.github/workflows/pages.yml`）の `HUGO_VERSION` もこの値に合わせて
 更新すること（[Deploy](#deploy) 参照）。ここがズレると、ローカルでは
 ビルドできるのに CI だけ失敗する事態になります。
 
@@ -149,24 +151,24 @@ CI（`.github*workflows*pages.yml`）の `HUGO_VERSION` もこの値に合わせ
 hugo server --buildDrafts --disableFastRender
 ```
 
-- ~failed to extract shortcode~ 等のエラーが出ないこと
+- `failed to extract shortcode` 等のエラーが出ないこと
 - WARN の deprecated 設定キーが増えていないこと（出ていれば
   [Configuration](#configuration) のファイルを合わせて修正）
-- ~Resize~ 関連のエラー（~image: unknown format~ 等）が出ないこと。
+- `Resize` 関連のエラー（`image: unknown format` 等）が出ないこと。
   拡張子と実データの形式が一致しない画像が紛れ込んでいる可能性がある
   （[Known Issues](#known-issues) 参照）
 
 問題なければコミットします：
 
 ```bash
-git add themes*blowfish config*_default
+git add themes/blowfish config/_default
 git commit -m "chore: update blowfish theme"
 ```
 
 問題があれば、記録しておいた commit に戻します：
 
 ```bash
-cd themes*blowfish && git checkout $(cat *tmp*blowfish-before.rev) && cd ..*..
+cd themes/blowfish && git checkout $(cat /tmp/blowfish-before.rev) && cd ../..
 git add themes/blowfish
 git commit -m "revert: rollback blowfish theme update"
 ```
@@ -198,7 +200,7 @@ submodule が壊れた場合：
 
 ```bash
 git submodule deinit -f themes/blowfish
-rm -rf .git*modules*themes/blowfish
+rm -rf .git/modules/themes/blowfish
 git submodule update --init --recursive
 ```
 
@@ -208,12 +210,12 @@ git submodule update --init --recursive
 
 ## ディレクトリ構成（現状）
 
-```text
+```html
 {{< alert >}}
-以前このセクションでは `content*post*<slug>.md` という flat な
+以前このセクションでは `content/post/<slug>.md` という flat な
 単一ファイルで出力される旨を記載していたが、2026-07-30 の
 全記事一括移行（コミット `c71d7f32`）により、現在は
-`content*post*<slug>/index.md` という真の Page Bundle 形式に
+`content/post/<slug>/index.md` という真の Page Bundle 形式に
 統一されている。それに伴い、当時「既知の設計負債」としていた
 flat file 由来の制約（同名ディレクトリがPage Resourceとして
 認識されない等）は解消済み。記述を実態に合わせて訂正した。
@@ -250,7 +252,7 @@ Page Resource 機構（`.Resources.ByType "image"` 等）から認識される�
 :EXPORT_HUGO_CATEGORIES: tech
 ```
 
-```text
+```html
 {{< alert >}}
 front matter の `date`／`publishDate` は、単なる表示用メタデータでは
 なく `deploy.sh` のカバー画像ローテーション判定にも使われる
@@ -297,7 +299,7 @@ hugo version
 
 # Configuration
 
-設定ファイルは `config*_default*` に配置
+設定ファイルは `config/_default/` に配置
 
 | ファイル | 用途 |
 | --- | --- |
@@ -309,7 +311,7 @@ hugo version
 
 # Blowfish テーマについて
 
-[Blowfish](https://blowfish.page*) は [Nuno Coração](https:*/nunocoracao.github.io/) が開発する
+[Blowfish](https://blowfish.page/) は [Nuno Coração](https://nunocoracao.github.io/) が開発する
 Hugo 向けの高機能テーマ。本サイトでは `themes/blowfish` に Git submodule として
 組み込んでいます（導入・更新手順は [Submodule 管理](#submodule-管理) を参照）。
 
@@ -318,22 +320,24 @@ Hugo 向けの高機能テーマ。本サイトでは `themes/blowfish` に Git 
 | 用途 | URL |
 | --- | --- |
 | 公式サイト | <https://blowfish.page/> |
-| ドキュメント | <https://blowfish.page*docs*> |
-| GitHub リポジトリ | <https://github.com*nunocoracao*blowfish> |
-| Changelog | <https://github.com*nunocoracao*blowfish/releases> |
+| ドキュメント | <https://blowfish.page/docs/> |
+| GitHub リポジトリ | <https://github.com/nunocoracao/blowfish> |
+| Changelog | <https://github.com/nunocoracao/blowfish/releases> |
 
 ## バージョン運用上の注意
+
+（変更なし、既存のまま）
 
 Blowfish は SemVer タグ（`vX.Y.Z`）を `main` ブランチ上のコミットに直接
 打つ運用です。本リポジトリの `.gitmodules` ではタグではなく
 `branch = main` を追跡しているため、実質的に最新タグを追随しますが、
 タグへの pin はしていません。
 
-- 「最新版」を取り込む＝~main~ の最新コミットを取り込むことを意味し、
+- 「最新版」を取り込む＝`main` の最新コミットを取り込むことを意味し、
   タグ固定によるロールバック起点が無い点に注意（切り戻し手順は
   [Submodule 管理](#submodule-管理) の更新手順内に記載）
-- Hugo の min/max バージョンは ~themes/blowfish/config.toml~ の
-  `[module.hugoVersion]` で管理される（旧 `config*_default*module.toml` は
+- Hugo の min/max バージョンは `themes/blowfish/config.toml` の
+  `[module.hugoVersion]` で管理される（旧 `config/_default/module.toml` は
   v3 以降空ファイルで未使用）。更新の都度、ローカルとCI（[Deploy](#deploy) の
   `hugo-version`）の両方を `min`〜`max` の範囲に収める必要がある
 
@@ -341,24 +345,24 @@ Blowfish は SemVer タグ（`vX.Y.Z`）を `main` ブランチ上のコミッ�
 
 | 機能 | 設定/実体 |
 | --- | --- |
-| カラースキーム・レイアウト | `config*_default*params.toml` |
+| カラースキーム・レイアウト | `config/_default/params.toml` |
 | 記事カバー画像 | 各記事ディレクトリの `cover.*`（`deploy.sh` が自動配置。真の Page Bundle ではないため Blowfish 標準の自動検出は非対応） |
-| `carousel` 等の shortcode | `themes*blowfish*layouts*shortcodes*` 内蔵ショートコード |
-| 多言語設定の土台 | `config*_default*languages.en.toml`（英語のみ運用） |
+| `carousel` 等の shortcode | `themes/blowfish/layouts/shortcodes/` 内蔵ショートコード |
+| 多言語設定の土台 | `config/_default/languages.en.toml`（英語のみ運用） |
 
 新しい Blowfish の機能（追加ショートコード・新規 params 項目など）を使う場合は、
-テーマ更新後に `themes*blowfish*exampleSite/` 配下のサンプル設定を参照すると
+テーマ更新後に `themes/blowfish/exampleSite/` 配下のサンプル設定を参照すると
 該当する `params.toml` のキーを確認しやすい。
 
 # Deploy
 
-```text
+```html
 {{< alert >}}
 2026-09-21、公開の仕組みをローカル手動デプロイ（`deploy.sh` が
 ビルドから `deploy` ブランチへの push まで一括で行う方式）から、
 GitHub Actions によるビルド・公開へ移行する作業に着手した。
 以下は新方式の設計・実装を反映しているが、*まだ本番切り替えは
-完了していない*: `content*post*` の初回コミット・push、および
+完了していない*: `content/post/` の初回コミット・push、および
 リポジトリの Settings > Pages > Source を「GitHub Actions」へ
 切り替える作業がこれから必要。それまでは現行の `deploy` ブランチ
 （legacy branch deploy）が実際の公開経路のまま。
@@ -368,18 +372,18 @@ GitHub Actions によるビルド・公開へ移行する作業に着手した�
 ## 新方式の全体像
 
 1. Org-mode（`all-posts.org`）で執筆し、見出しを `DONE` にする
-2. ox-hugo（または `org2hugo.py`）で `content*post*` を生成
+2. ox-hugo（または `org2hugo.py`）で `content/post/` を生成
 3. `prepare-content.sh` で画像同期・カバー画像の自動配置
-4. `content*` を `git add` → commit → push（**手動**。`content*` は
+4. `content/` を `git add` → commit → push（**手動**。`content/` は
    もはやビルド成果物ではなく Git 管理下のファイル）
-5. push をトリガーに GitHub Actions（`.github*workflows*pages.yml`）が
+5. push をトリガーに GitHub Actions（`.github/workflows/pages.yml`）が
    起動し、Hugo でビルドして GitHub Pages へ直接デプロイする
 
 旧方式にあった `PROJECTS_ROOT`・`PUBLIC_DIR`（`deploy/` という別
 ワークツリー）・`deploy` ブランチへの手動 push という概念は、本番切り替え
 完了後は不要になる。
 
-## GitHub Actions（`.github*workflows*pages.yml`）
+## GitHub Actions（`.github/workflows/pages.yml`）
 
 ```yaml
 name: Deploy to GitHub Pages
@@ -405,15 +409,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-- uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
-- uses: peaceiris/actions-hugo@v3
+      - uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
-- run: hugo --minify
-- uses: actions/upload-pages-artifact@v3
+      - run: hugo --minify
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 
@@ -424,11 +428,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-- id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
 ```
 
-`HUGO_VERSION` はテーマ更新時に変わる `themes*blowfish*config.toml` の
+`HUGO_VERSION` はテーマ更新時に変わる `themes/blowfish/config.toml` の
 `[module.hugoVersion]` の `min`〜`max` 要件に必ず追随させること
 （[Submodule 管理](#submodule-管理) 参照）。放置すると
 ローカルビルドは通るのに CI だけ失敗する原因になります。
@@ -442,12 +446,12 @@ branch（`deploy`）」のまま）。
 
 ```bash
 hugo --minify
-# 出力先: .*public*（Git管理対象外のまま）
+# 出力先: ./public/（Git管理対象外のまま）
 ```
 
 ## prepare-content.sh / deploy.sh
 
-```text
+```html
 {{< alert >}}
 旧 `deploy.zsh` → `deploy.sh`（ビルド・push込みの一括スクリプト）から、
 2026-09-21 に `prepare-content.sh`（画像同期・カバー配置のみ）を
@@ -458,14 +462,14 @@ commit・push は行わなくなった（廃止した `PROJECTS_ROOT` /
 {{< /alert >}}
 ```
 
-`content*post*` が既に生成済みであることを前提に、画像同期とカバー画像の
+`content/post/` が既に生成済みであることを前提に、画像同期とカバー画像の
 自動配置だけを行う。
 
 ### 使い方
 
 ```bash
-cd ~*Projects*<repo>/mysite
-.*deploy.sh              # 実体は .*prepare-content.sh を呼ぶだけ
+cd ~/Projects/<repo>/mysite
+./deploy.sh              # 実体は ./prepare-content.sh を呼ぶだけ
 # または直接
 ./prepare-content.sh
 ```
@@ -495,17 +499,17 @@ push すると GitHub Actions が起動し、ビルドと公開が走る
 
 ### 処理の流れ
 
-1. **Pre-flight checks** — `rsync` の存在と `content*post*` の存在を確認。
-   加えて、`content*post*` 配下に `"foo 2.jpg"` のような同期競合コピー
+1. **Pre-flight checks** — `rsync` の存在と `content/post/` の存在を確認。
+   加えて、`content/post/` 配下に `"foo 2.jpg"` のような同期競合コピー
    らしき命名のファイルがないか走査し、見つかれば `--force` 指定がない限り
    処理を中断する
-2. **Syncing post-local assets** — `assets*img*post-assets*<slug>*` の
-   実ファイルを `content*post*<slug>/` へ `rsync` で同期
+2. **Syncing post-local assets** — `assets/img/post-assets/<slug>/` の
+   実ファイルを `content/post/<slug>/` へ `rsync` で同期
 3. **Placing cover images** — カバー未設定の記事に、front matter の
    `date`／`publishDate` から読み取った公開月ベースでカバー画像を配置。
-- 冪等: 既存の ~cover.*~ に加え、~cover 2.jpg~ のようなスペース・
+   - 冪等: 既存の `cover.*` に加え、`cover 2.jpg` のようなスペース・
      ハイフン区切りの亜種も「既存扱い」として上書きしない
-- front matter の日付が解析できない記事は、実行時点の月への
+   - front matter の日付が解析できない記事は、実行時点の月への
      フォールバックを **行わず** スキップし、最後に警告として一覧表示する
      （季節画像が記事ごとの公開日と無関係に同一化するバグの再発防止）
 
@@ -532,20 +536,20 @@ Git 履歴の直前コミットから該当ファイルを `git show <commit>:<p
 で復元し、事なきを得ている。
 
 **対策として実施済み**:
-- サイトルートを iCloud 同期対象外の ~$HOME/Projects~ 配下へ移動
-- ~deploy.sh~ の既存カバー判定を拡張し、亜種ファイル名も検出
-- ~deploy.sh~ に同期競合ファイルの事前検査（pre-flight check）を追加
+- サイトルートを iCloud 同期対象外の `$HOME/Projects` 配下へ移動
+- `deploy.sh` の既存カバー判定を拡張し、亜種ファイル名も検出
+- `deploy.sh` に同期競合ファイルの事前検査（pre-flight check）を追加
 - front matter 日付解析失敗時のフォールバック挙動を「実行時月で代用」
   から「スキップ＋警告」へ変更
 
-## `resources*_gen*`・`public/` を誤って Git 管理下に置かない
+## `resources/_gen/`・`public/` を誤って Git 管理下に置かない
 
 いずれも Hugo のビルド成果物・キャッシュであり、`hugo` 実行のたびに
 自動再生成される。過去に誤ってコミットされていたことがあるため、
 `.gitignore` に必ず含めること。
 
 ```gitignore
-resources*_gen*
+resources/_gen/
 public/
 ```
 
@@ -577,7 +581,7 @@ to support HTTPS」という理由でグレーアウトし続ける、という�
 1レコードだけをピンポイントで修正する方針にした。
 
 **対策として実施済み**:
-- Cloudflare公式CLI（[[https://github.com/cloudflare/cloudflare-go/tree/v0/cmd/flarectl][flarectl]]）を導入し、
+- Cloudflare公式CLI（[flarectl](https://github.com/cloudflare/cloudflare-go/tree/v0/cmd/flarectl)）を導入し、
   `ty07.net`のDNS編集のみに権限を絞った一時APIトークン（有効期限7日）を発行、
   作業完了後に失効させた
 - 廃止済みのAレコード2本を削除し、GitHub公式が推奨する
@@ -636,4 +640,4 @@ apexには元々AレコードもAAAAレコードも一切存在せず、単純�
 # License
 
 Content © YAMASHITA, Takao. All rights reserved.
-Theme: [Blowfish](https://github.com*nunocoracao*blowfish) — MIT License.
+Theme: [Blowfish](https://github.com/nunocoracao/blowfish) — MIT License.
