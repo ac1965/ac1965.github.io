@@ -3,11 +3,9 @@
 
 Hugo + Blowfish テーマで構築された個人ブログ
 
-#+begin_quote
-[Hugo](https://gohugo.io/) + [Blowfish](https://blowfish.page/) テーマで構築された個人ブログ
-
-Emacs の [Org-mode](https://orgmode.org/) と [ox-hugo](https://ox-hugo.scripter.co/) により記事を作成
-#+end_quote
+> [Hugo](https://gohugo.io/) + [Blowfish](https://blowfish.page/) テーマで構築された個人ブログ
+>
+> Emacs の [Org-mode](https://orgmode.org/) と [ox-hugo](https://ox-hugo.scripter.co/) により記事を作成
 
 # 目次
 - [Requirements](#requirements)
