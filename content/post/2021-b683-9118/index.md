@@ -2,7 +2,7 @@
 title = "貝殻喫茶室"
 author = ["YAMASHITA Takao"]
 date = 2021-02-28T19:50:00+09:00
-lastmod = 2026-09-28T07:59:33+09:00
+lastmod = 2026-10-03T21:57:44+09:00
 tags = ["貝殻喫茶室"]
 categories = ["Life"]
 draft = false

@@ -2,7 +2,7 @@
 title = "肺がんの病理診断結果"
 author = ["YAMASHITA Takao"]
 date = 2026-09-25T20:03:00+09:00
-lastmod = 2026-09-28T07:59:35+09:00
+lastmod = 2026-10-03T21:57:46+09:00
 tags = ["医療", "呼吸器", "メモ", "闘病記"]
 categories = ["Life"]
 draft = false

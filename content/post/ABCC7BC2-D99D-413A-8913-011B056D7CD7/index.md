@@ -2,7 +2,7 @@
 title = "keyboxdのSQLiteエラーからTouch ID復号まで――GPGまわりを一日かけて掘った話"
 author = ["YAMASHITA Takao"]
 date = 2026-07-25T10:09:00+09:00
-lastmod = 2026-09-28T07:59:34+09:00
+lastmod = 2026-10-03T21:57:45+09:00
 tags = ["Emacs", "GnuPG", "macOS", "TouchID", "GPG"]
 categories = ["Tech"]
 draft = false

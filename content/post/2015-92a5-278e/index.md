@@ -2,7 +2,7 @@
 title = "Using Packer for Archassult"
 author = ["YAMASHITA Takao"]
 date = 2015-04-28T14:24:00+09:00
-lastmod = 2026-09-28T07:59:33+09:00
+lastmod = 2026-10-03T21:57:43+09:00
 tags = ["ArchAssault", "Packer"]
 categories = ["Tech"]
 draft = false

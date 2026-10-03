@@ -2,7 +2,7 @@
 title = "gh auth login が効かないと思ったら GITHUB_TOKEN に邪魔されていた話"
 author = ["YAMASHITA Takao"]
 date = 2026-09-13T09:41:00+09:00
-lastmod = 2026-09-28T07:59:35+09:00
+lastmod = 2026-10-03T21:57:46+09:00
 tags = ["GitHub-CLI", "Git", "Shell", "Authentication"]
 categories = ["Tech"]
 draft = false

@@ -2,7 +2,7 @@
 title = "深追いしたら3ヶ月前の全記事画像消失にたどり着いた話"
 author = ["YAMASHITA Takao"]
 date = 2026-07-25T19:56:00+09:00
-lastmod = 2026-09-28T07:59:34+09:00
+lastmod = 2026-10-03T21:57:45+09:00
 tags = ["Hugo", "Git", "Ox-Hugo", "Deploy"]
 categories = ["Tech"]
 draft = false

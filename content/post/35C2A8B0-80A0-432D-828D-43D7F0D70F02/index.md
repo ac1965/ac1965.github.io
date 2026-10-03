@@ -2,7 +2,7 @@
 title = "カバー画像を直したら、また別の穴が3つ出てきた話"
 author = ["YAMASHITA Takao"]
 date = 2026-07-26T15:25:00+09:00
-lastmod = 2026-09-28T07:59:34+09:00
+lastmod = 2026-10-03T21:57:45+09:00
 tags = ["Hugo", "Ox-Hugo", "Emacs"]
 categories = ["Tech"]
 draft = false

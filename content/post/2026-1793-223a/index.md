@@ -2,7 +2,7 @@
 title = "pushは成功したのにサイトが更新されない、を追いかけたら二重の教訓が出てきた"
 author = ["YAMASHITA Takao"]
 date = 2026-09-21T17:10:00+09:00
-lastmod = 2026-09-28T07:59:35+09:00
+lastmod = 2026-10-03T21:57:46+09:00
 tags = ["Hugo", "GitHubActions", "Ox-Hugo", "Deploy"]
 categories = ["Tech"]
 draft = false

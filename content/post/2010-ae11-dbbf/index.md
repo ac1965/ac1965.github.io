@@ -2,7 +2,7 @@
 title = "四季・ユートピアノ 中尾幸世さん"
 author = ["YAMASHITA Takao"]
 date = 2010-07-31T15:14:00+09:00
-lastmod = 2026-09-28T07:59:33+09:00
+lastmod = 2026-10-03T21:57:43+09:00
 tags = ["中尾幸世", "四季・ユートピアノ"]
 categories = ["Entertainment"]
 draft = false

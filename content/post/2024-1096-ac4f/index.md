@@ -2,7 +2,7 @@
 title = "EmacsでLLM"
 author = ["YAMASHITA Takao"]
 date = 2024-11-10T22:33:00+09:00
-lastmod = 2026-09-28T07:59:33+09:00
+lastmod = 2026-10-03T21:57:44+09:00
 tags = ["Emacs", "Ollama", "Ellama", "LLM"]
 categories = ["Tech"]
 draft = false
