@@ -2,7 +2,7 @@
 title = "Xorg"
 author = ["YAMASHITA Takao"]
 date = 2010-06-01T07:39:00+09:00
-lastmod = 2026-10-11T17:50:43+09:00
+lastmod = 2026-10-11T18:24:14+09:00
 tags = ["Xorg"]
 categories = ["Tech"]
 draft = false

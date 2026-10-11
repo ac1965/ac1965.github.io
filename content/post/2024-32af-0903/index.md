@@ -2,7 +2,7 @@
 title = "Yinyoo インイヤーモニター カナル型 CCZ Coffee Bean"
 author = ["YAMASHITA Takao"]
 date = 2024-03-16T13:14:00+09:00
-lastmod = 2026-10-11T17:50:43+09:00
+lastmod = 2026-10-11T18:24:14+09:00
 tags = ["CCZ", "中華イヤフォン"]
 categories = ["Life"]
 draft = false

@@ -2,7 +2,7 @@
 title = "ひさしぶりに Miles をききたくなった"
 author = ["YAMASHITA Takao"]
 date = 2024-04-21T01:12:00+09:00
-lastmod = 2026-10-11T17:50:43+09:00
+lastmod = 2026-10-11T18:24:14+09:00
 tags = ["MilesDavis"]
 categories = ["Entertainment"]
 draft = false

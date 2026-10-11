@@ -2,7 +2,7 @@
 title = "condition-case と catch はバイトコードでどう動くのか"
 author = ["YAMASHITA Takao"]
 date = 2026-10-11T17:16:00+09:00
-lastmod = 2026-10-11T17:50:45+09:00
+lastmod = 2026-10-11T18:24:16+09:00
 tags = ["Emacs", "Elisp", "C"]
 categories = ["Tech"]
 draft = false
