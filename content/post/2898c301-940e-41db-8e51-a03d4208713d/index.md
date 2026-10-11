@@ -2,7 +2,7 @@
 title = "AIエージェント活用の現状と限界 —— 2026年、任せていい業務・危ない業務"
 author = ["YAMASHITA Takao"]
 date = 2026-08-02T11:01:00+09:00
-lastmod = 2026-10-11T18:24:15+09:00
+lastmod = 2026-10-12T07:52:25+09:00
 tags = ["AIエージェント", "DX", "ガバナンス", "生成AI", "ITコンサル"]
 categories = ["Strategy"]
 draft = false

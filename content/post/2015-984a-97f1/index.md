@@ -2,7 +2,7 @@
 title = "Hexo でハロー"
 author = ["YAMASHITA Takao"]
 date = 2015-04-28T08:49:00+09:00
-lastmod = 2026-10-11T18:24:14+09:00
+lastmod = 2026-10-12T07:52:23+09:00
 tags = ["Hexo"]
 categories = ["Tech"]
 draft = false
