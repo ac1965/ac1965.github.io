@@ -2,17 +2,18 @@
 title = "通常起動の Emacs だけ dark テーマの背景が崩れた話"
 author = ["YAMASHITA Takao"]
 date = 2026-10-12T07:48:00+09:00
-lastmod = 2026-10-12T07:52:26+09:00
-tags = ["Tech", "Emacs", "Nano-Theme", "Debug"]
+lastmod = 2026-10-12T08:31:50+09:00
+tags = ["Emacs", "Nano-Theme", "Debug"]
 categories = ["Tech"]
 draft = false
 cover = ""
 +++
 
 自分の Emacs 設定では、テーマに nano を使っている。少し変更した後の確認で、気がついた。
+
 daemon 経由の `emacsclient` で起動すると期待どおりの dark になるのに、daemon なしの通常起動だけ背景が崩れる。
 背景は明るいまま、文字色だけが dark 用の明るい色になっていて、判読しにくい状態だった。
-daemon 経由の `emacsclient` で起動した場合は、期待どおりの dark になる。
+Eydaemon 経由の `emacsclient` で起動した場合は、期待どおりの dark になる。
 
 {{< figure src="nano-dark-expected.webp" caption="<span class=\"figure-number\">Figure 1: </span>emacsclient（daemon）で起動した場合。期待どおりの dark" >}}
 

@@ -10710,7 +10710,7 @@ flowchart LR
 
  =gen-commit-msg.sh= は 271 行ある。この記事では、ロックファイルによる排他などの後半部分は読んでいない。
 
-** DONE 通常起動の Emacs だけ dark テーマの背景が崩れた話 :Tech:Emacs:Nano_Theme:Debug:
+** DONE 通常起動の Emacs だけ dark テーマの背景が崩れた話 :Emacs:Nano_Theme:Debug:
 CLOSED: [2026-10-12 Mon 07:48]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: e79b3bee-1b4d-47b0-a12e-392680c2a6f0
@@ -10721,6 +10721,7 @@ CLOSED: [2026-10-12 Mon 07:48]
 :EXPORT_HUGO_LASTMOD:
 :END:
 自分の Emacs 設定では、テーマに nano を使っている。少し変更した後の確認で、気がついた。
+
 daemon 経由の ~emacsclient~ で起動すると期待どおりの dark になるのに、daemon なしの通常起動だけ背景が崩れる。
 背景は明るいまま、文字色だけが dark 用の明るい色になっていて、判読しにくい状態だった。
 Eydaemon 経由の ~emacsclient~ で起動した場合は、期待どおりの dark になる。
