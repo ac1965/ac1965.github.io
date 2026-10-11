@@ -20,8 +20,10 @@ I was born in 1965. Make it a cask-strength Laphroaig, please. 🥃🔥
 - HTML / JavaScript / CSS
 
 # Link
-- [github](https://github.com/ac1965)
-- [x](https://x.com/ac1965)
-- [instagram](https://www.instagram.com/tjy1965)
+{{< lead >}}
+[{{< icon "github" >}}](https://github.com/ac1965 "GitHub")
+[{{< icon "x-twitter" >}}](https://x.com/ac1965 "X")
+[{{< icon "instagram" >}}](https://www.instagram.com/tjy1965 "Instagram")
+{{< /lead >}}
 
 {{< carousel images="gallery/*" aspectRatio="16-9" interval="2500" >}}
