@@ -2,7 +2,7 @@
 title = "USB Encrypt for Backtrack"
 author = ["YAMASHITA Takao"]
 date = 2010-04-04T17:50:00+09:00
-lastmod = 2026-10-11T17:17:14+09:00
+lastmod = 2026-10-11T17:50:43+09:00
 tags = ["Backtrack"]
 categories = ["Tech"]
 draft = false

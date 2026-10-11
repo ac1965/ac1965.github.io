@@ -2,7 +2,7 @@
 title = "肺がん検査で分かったこと"
 author = ["YAMASHITA Takao"]
 date = 2026-08-02T14:07:00+09:00
-lastmod = 2026-10-11T17:17:16+09:00
+lastmod = 2026-10-11T17:50:45+09:00
 tags = ["医療", "呼吸器", "メモ", "闘病記"]
 categories = ["Life"]
 draft = false

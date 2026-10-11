@@ -2,7 +2,7 @@
 title = "condition-case と catch はバイトコードでどう動くのか"
 author = ["YAMASHITA Takao"]
 date = 2026-10-11T17:16:00+09:00
-lastmod = 2026-10-11T17:17:17+09:00
+lastmod = 2026-10-11T17:50:45+09:00
 tags = ["Emacs", "Elisp", "C"]
 categories = ["Tech"]
 draft = false
@@ -12,6 +12,8 @@ cover = ""
 「 `condition-case` と `catch` は、バイトコードエンジンの中でどう実装されているのか」を読んでみた。
 
 読んだのは `emacs-mirror/emacs` の 2026-10-10 時点（ `2743882114c` ）である。
+
+ソースを読んだだけでは心もとないので、手元の Emacs 32.0.50 で小さな関数を自分で書き、逆アセンブルして実行し、読んだ内容と突き合わせた。確かめたのは、その自作関数の実行結果までである。
 
 結論から言うと、 `condition-case` も `catch` も C の `setjmp` / `longjmp` で実装されていた。 `throw` も `signal` も、最後は `unwind_to_catch` で `longjmp` して戻る。
 
@@ -151,22 +153,52 @@ flowchart LR
 `unbind_to` は `Vquit_flag` を一時的に退避する（ `eval.c:3942-3961` ）。後始末の途中で quit が起きないようにするためである。
 
 
-## 複数節の condition-case は逆順に積まれる {#複数節の-condition-case-は逆順に積まれる}
+## 自分で書いた関数で確かめる {#自分で書いた関数で確かめる}
 
-実際に手元の Emacs 32.0.50 で `byte-compile` して、逆アセンブルしてみた。
+次の 4 つの関数 `f1` ～ `f4` を書いて、 `byte-compile` した。 `lexical-binding` は t にしてある。
+
+```elisp
+;;; -*- lexical-binding: t -*-
+(defvar log nil)
+(defun g (x) (pcase x ('ok 'value) ('arith (/ 1 0)) ('wta (car 1)) ('void undefined-var-zz) ('thr (throw 'tag 'thrown)) (_ (error "other"))))
+(defun cleanup () (push 'cleanup log))
+(defun f1 (x) (condition-case e (g x) (arith-error 1) ((wrong-type-argument void-variable) (list (car e)))))
+(defun f2 (x) (catch 'tag (g x)))
+(defun f3 (x) (unwind-protect (g x) (cleanup)))
+(defun f4 (x) (catch 'tag (condition-case nil (g x) (arith-error 'inner))))
+(dolist (f '(f1 f2 f3 f4)) (byte-compile f))
+```
+
+`g` は引数に応じて、正常終了、 `arith-error` 、 `wrong-type-argument` 、 `void-variable` 、 `throw` 、 `error` のどれかを起こす。 `cleanup` は `log` に記録するだけの関数で、 `unwind-protect` の確認に使う。
+
+逆アセンブルは `(disassemble (symbol-function f) (current-buffer))` で取った。
+
+
+### f1: 複数節の condition-case は逆順に積まれる {#f1-複数節の-condition-case-は逆順に積まれる}
+
+`f1` は `condition-case` を 2 節で書いたものである。
 
 ```text
-f1: (condition-case e (g x) (arith-error 1) ((wrong-type-argument void-variable) (list e)))
+f1: (condition-case e (g x) (arith-error 1) ((wrong-type-argument void-variable) (list (car e))))
  0 constant (wrong-type-argument void-variable)
  1 pushconditioncase 2      ← 最後の節を先に積む（外側）
  4 constant (arith-error)
  5 pushconditioncase 1      ← 最初の節を最後に積む（最内 = 先に検査される）
- 8..10 g を呼ぶ
- 11 pophandler / 12 pophandler / 13 return
+ 8 constant g
+ 9 stack-ref 1
+ 10 call 1
+ 11 pophandler
+ 12 pophandler
+ 13 return
  14:1 pophandler            ← arith-error 節: 外側の1個を捨てる
- 15 constant 1 / return
- 17:2 list1 / return        ← 最後の節: 捨てるハンドラなし
+ 15 constant 1
+ 16 return
+ 17:2 car                   ← 最後の節: 捨てるハンドラなし
+ 18 list1
+ 19 return
 ```
+
+バイト列は `192 49 17 0 193 49 14 0 ...` で、 `pushconditioncase` （49）のオペランドは、リトルエンディアン 2 バイトの絶対番地になっている。
 
 `bytecomp.el:4958` は `(reverse clauses)` で積む。先頭の節が最内になるので、 `handlerlist` を内側から探す `signal` の探索で先に検査される。
 
@@ -177,6 +209,104 @@ f1: (condition-case e (g x) (arith-error 1) ((wrong-type-argument void-variable)
 `:success` 節は `pushconditioncase` を積まず、本体の後ろに置かれる（ `bytecomp.el:5006` ）。
 
 スタック深さは、ハンドラ登録時の `top` を保存し（ `bytecode.c:976` ）、復帰後に値を 1 つ積んで `depth + 1` に一致させている。コンパイラ側の `(setq byte-compile-depth (1+ depth))` （ `bytecomp.el:5013` ）と対応している。
+
+
+### f4: catch の中に condition-case {#f4-catch-の中に-condition-case}
+
+`f4` は `catch` の中に `condition-case` を入れたもので、 `catch` が外側、 `condition-case` が内側になる。
+
+```text
+0	constant  tag
+1	pushcatch 3
+4	constant  (arith-error)
+5	pushconditioncase 1
+8	constant  g
+9	stack-ref 1
+10	call	  1
+11	pophandler
+12	goto	  2
+15:1	discard
+16	constant  inner
+17:2	pophandler
+18:3	return
+```
+
+出口は 3 つある。
+
+-   正常終了: 11 で `condition-case` を外し、 `goto` で 17 へ進み、 `catch` を外して 18 で返る。
+-   `arith-error` : 15 へ復帰する。値が 1 つ積まれるので、 `discard` で捨てる（変数 `e` を使わないため）。 `inner` を積んで、17 で `catch` を外す。
+-   `throw 'tag` : 18 へ直接復帰する。 `condition-case` を素通りして `catch` に届く。
+
+基本ブロックと出口を図にすると、こうなる。点線は `longjmp` による復帰で、 `pophandler` を通らない。
+
+{{< mermaid >}}
+flowchart TD
+    A["pc 0-1 pushcatch<br/>復帰先 pc 18 / 有効: catch"] --> B["pc 4-5 pushconditioncase<br/>復帰先 pc 15 / 有効: catch, cc"]
+    B --> C["pc 8-10 call g<br/>有効: catch, cc"]
+    C -->|"正常終了"| D["pc 11-12 pophandler<br/>cc を外して goto 17"]
+    C -.->|"signal: arith-error"| E["pc 15-16 discard, inner<br/>復帰直後: cc は外済み"]
+    C -.->|"throw 'tag"| G["pc 18 return<br/>ハンドラなしで終了"]
+    D --> F["pc 17 pophandler<br/>catch を外す"]
+    E --> F
+    F --> G
+{{< /mermaid >}}
+
+`arith-error` で 15 に復帰した時点では、 `condition-case` のハンドラは C 側が外し終えている。残る `catch` は、17 の `pophandler` が外す。 `throw` で 18 に復帰した場合は、 `catch` のハンドラも C 側が外すので、 `pophandler` は要らない。
+
+
+### f2 と f3 {#f2-と-f3}
+
+`f2` は `constant tag` 、 `pushcatch 8` 、呼び出し、 `pophandler` 、 `8:return` の並びだった。 `f4` から内側の `condition-case` を除いた形である。
+
+`f3` は `unwind-protect` の後始末を閉包として定数に持ち、 `unwind-protect` 命令で `record_unwind_protect` に登録する。正常終了の `unbind 1` も、非局所脱出の `unbind_to` も、同じ `specpdl` の項目を実行する。後始末の本体は、バイトコード上に 1 か所しかない。
+
+
+### 13 経路の実行結果 {#13-経路の実行結果}
+
+`g` の結果を変えて、13 通りの経路を実行した。
+
+| 呼び出し   | 結果                  | 補足                              |
+|--------|---------------------|---------------------------------|
+| f1 に ok   | value                 |                                   |
+| f1 に arith | 1                     | 1 節目                            |
+| f1 に wta  | (wrong-type-argument) | 2 節目                            |
+| f1 に void | (void-variable)       | 2 節目                            |
+| f1 に other | 関数から脱出          | どの節にも一致しない              |
+| f2 に ok   | value                 |                                   |
+| f2 に thr  | thrown                |                                   |
+| f2 に arith | 関数から脱出          | catch は signal を捕まえない      |
+| f3 に ok   | value                 | cleanup が 1 回走る               |
+| f3 に arith | 関数から脱出          | cleanup は走る                    |
+| f4 に thr  | thrown                |                                   |
+| f4 に arith | inner                 |                                   |
+| f4 に wta  | 関数から脱出          | condition-case に一致せず catch も通り抜ける |
+
+ソースを読んで考えたとおりの結果になった。
+
+
+### signal が飛ぶまでの順序 {#signal-が飛ぶまでの順序}
+
+`f1` に `arith` を渡したときの、C 側の呼び出しの順序を図にする。上の逆アセンブルの 1 節目（ `14:1` ）に復帰する経路である。
+
+{{< mermaid >}}
+sequenceDiagram
+    participant B as exec_byte_code
+    participant G as g (Fquo)
+    participant S as signal_or_quit
+    participant U as unwind_to_catch
+    participant H as handlerlist
+    B->>H: push_handler ×2 と sys_setjmp
+    B->>G: call g
+    G->>S: signal (arith-error)
+    S->>H: 内側から検査
+    H-->>S: 1 個目が一致
+    S->>U: unwind_to_catch
+    U->>H: unbind_to ほか
+    U->>B: sys_longjmp
+    Note over B: handlerlist 先頭を外す, top を bytecode_top に戻す, 値を PUSH, pc 14 へ
+{{< /mermaid >}}
+
+探索の間 `handlerlist` は巻き戻されず、 `unwind_to_catch` に入ってから巻き戻される。この順序が、前節の「一致するハンドラの探索中は巻き戻しをしない」に対応している。
 
 
 ## catch と condition-case の違い {#catch-と-condition-case-の違い}
@@ -207,7 +337,27 @@ obsolete な `Bcatch` と `Bcondition_case` は、この `internal_catch` と `i
 
 そこで疑った。ハンドラ H1 の実行中に起きた signal が、 `SKIP_CONDITIONS` を越えて外側の `handler-bind` のハンドラ H2 に届くと、 `skip` が実際の距離より小さくなる。すると H2 の実行中に積む `SKIP_CONDITIONS` の値が足りず、H2 自身を飛ばし切れないのではないか。
 
-実験してみた。Emacs 32.0.50（2026-10-10 ビルド）で、インタプリタ版とバイトコード版の両方を試している。
+実験してみた。Emacs 32.0.50（2026-10-10 ビルド）で、インタプリタ版とバイトコード版の両方を試している。使った断片は次のとおり。
+
+```elisp
+;;; -*- lexical-binding: t -*-
+(defun run ()
+  (let ((log nil))
+    (condition-case outer
+        (handler-bind ((error (lambda (e) (push (cadr e) log)       ; H2 (outer)
+                                (when (eq (cadr e) 'h2-err) (signal 'error '(from-h2))))))
+          (condition-case _mid                                       ; 間にある catch (別条件)
+              (handler-bind ((error (lambda (e)                      ; H1 (inner)
+                                      (when (eq (cadr e) 'orig) (signal 'error '(h2-err))))))
+                (signal 'error '(orig)))
+            (arith-error 'mid)))
+      (error (list 'outer-caught outer (nreverse log))))))
+(message "interp:   %S" (run))
+(byte-compile 'run)
+(message "bytecode: %S" (run))
+```
+
+結果は、インタプリタ版もバイトコード版も `(outer-caught (error from-h2) (h2-err from-h2))` だった。対照として、H1 を外して H2 だけにした場合は、H2 が見たエラーは `(orig)` のみで期待どおりだった。
 
 | ケース                                    | H2 が受け取ったエラー | 期待       |
 |----------------------------------------|--------------|----------|

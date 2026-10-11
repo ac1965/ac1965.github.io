@@ -2,7 +2,7 @@
 title = "AIエージェントと一緒に、攻撃側/防御側のセキュリティツールを作った遅めの夏休み"
 author = ["YAMASHITA Takao"]
 date = 2026-09-25T16:30:00+09:00
-lastmod = 2026-10-11T17:17:17+09:00
+lastmod = 2026-10-11T17:50:45+09:00
 tags = ["PownForge", "RiskForge", "AIエージェント", "AGENTS-md", "セキュリティ"]
 categories = ["Tech"]
 draft = false

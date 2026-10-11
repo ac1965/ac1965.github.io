@@ -2,7 +2,7 @@
 title = "このサイトのデプロイについて"
 author = ["YAMASHITA Takao"]
 date = 2024-03-30T14:52:00+09:00
-lastmod = 2026-10-11T17:17:15+09:00
+lastmod = 2026-10-11T17:50:43+09:00
 tags = ["Hugo", "GitHubPages", "Deploy"]
 categories = ["Tech"]
 draft = false

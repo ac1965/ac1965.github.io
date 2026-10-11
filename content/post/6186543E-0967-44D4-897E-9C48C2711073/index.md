@@ -2,7 +2,7 @@
 title = "1.2GBの.appと、静かに壊れていた–no-chaptersの話"
 author = ["YAMASHITA Takao"]
 date = 2026-08-22T19:14:00+09:00
-lastmod = 2026-10-11T17:17:16+09:00
+lastmod = 2026-10-11T17:50:45+09:00
 tags = ["Python", "PySide6", "py2app", "argparse", "macOS", "narou-dl"]
 categories = ["Tech"]
 draft = false
