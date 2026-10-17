@@ -1,8 +1,8 @@
 +++
-title = "Hdeploy.sh から push-and-watch.sh までの公開手順を読み解く"
+title = "deploy.sh から push-and-watch.sh までの公開手順を読み解く"
 author = ["YAMASHITA Takao"]
 date = 2026-10-11T18:23:00+09:00
-lastmod = 2026-10-12T08:31:50+09:00
+lastmod = 2026-10-17T20:50:04+09:00
 tags = ["Hugo", "Git", "Deploy"]
 categories = ["Tech"]
 draft = false

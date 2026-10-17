@@ -2,7 +2,7 @@
 title = "iPhone 12 Pro"
 author = ["YAMASHITA Takao"]
 date = 2020-11-15T08:53:00+09:00
-lastmod = 2026-10-12T08:31:47+09:00
+lastmod = 2026-10-17T20:50:02+09:00
 tags = ["iPhone"]
 categories = ["Life"]
 draft = false

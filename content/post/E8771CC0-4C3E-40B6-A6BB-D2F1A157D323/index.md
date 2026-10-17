@@ -2,7 +2,7 @@
 title = "Claude on Safari"
 author = ["YAMASHITA Takao"]
 date = 2026-07-05T16:38:00+09:00
-lastmod = 2026-10-12T08:31:48+09:00
+lastmod = 2026-10-17T20:50:03+09:00
 tags = ["Safari", "Claude"]
 categories = ["Tech"]
 draft = false

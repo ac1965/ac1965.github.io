@@ -2,7 +2,7 @@
 title = "py2appバンドルの署名が壊れる不具合を追いかけた顛末"
 author = ["YAMASHITA Takao"]
 date = 2026-08-23T10:29:00+09:00
-lastmod = 2026-10-12T08:31:49+09:00
+lastmod = 2026-10-17T20:50:04+09:00
 tags = ["macOS", "py2app", "codesign", "Python"]
 categories = ["Tech"]
 draft = false

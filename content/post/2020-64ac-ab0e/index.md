@@ -2,7 +2,7 @@
 title = "Hugo"
 author = ["YAMASHITA Takao"]
 date = 2020-10-27T22:46:00+09:00
-lastmod = 2026-10-12T08:31:47+09:00
+lastmod = 2026-10-17T20:50:02+09:00
 tags = ["Hugo"]
 categories = ["Tech"]
 draft = false

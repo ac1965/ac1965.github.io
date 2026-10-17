@@ -2,7 +2,7 @@
 title = "GNU Machのソースコードを、素人が興味本位で読んでみた話"
 author = ["YAMASHITA Takao"]
 date = 2026-07-20T18:43:00+09:00
-lastmod = 2026-10-12T08:31:48+09:00
+lastmod = 2026-10-17T20:50:03+09:00
 tags = ["Hurd", "GNUMach", "カーネル", "コードリーディング", "OS自作"]
 categories = ["Tech"]
 draft = false

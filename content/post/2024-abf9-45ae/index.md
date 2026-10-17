@@ -2,7 +2,7 @@
 title = "ThemaをBlowfishにした"
 author = ["YAMASHITA Takao"]
 date = 2024-04-17T22:49:00+09:00
-lastmod = 2026-10-12T08:31:48+09:00
+lastmod = 2026-10-17T20:50:02+09:00
 tags = ["Hugo", "Blowfish"]
 categories = ["Tech"]
 draft = false

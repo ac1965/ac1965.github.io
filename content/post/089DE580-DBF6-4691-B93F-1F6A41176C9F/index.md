@@ -2,7 +2,7 @@
 title = "PDF化のつづき、Chromiumに全部任せることにした"
 author = ["YAMASHITA Takao"]
 date = 2026-08-23T13:08:00+09:00
-lastmod = 2026-10-12T08:31:49+09:00
+lastmod = 2026-10-17T20:50:04+09:00
 tags = ["narou-dl", "Playwright", "Chromium", "PDF"]
 categories = ["Tech"]
 draft = false

@@ -2,7 +2,7 @@
 title = "Xmonad for Backtrack4"
 author = ["YAMASHITA Takao"]
 date = 2010-03-08T08:23:00+09:00
-lastmod = 2026-10-12T08:31:47+09:00
+lastmod = 2026-10-17T20:50:01+09:00
 tags = ["Xmonad", "Backtrack4"]
 categories = ["Tech"]
 draft = false

@@ -2,7 +2,7 @@
 title = "xmonad window manager"
 author = ["YAMASHITA Takao"]
 date = 2010-03-06T19:50:00+09:00
-lastmod = 2026-10-12T08:31:47+09:00
+lastmod = 2026-10-17T20:50:01+09:00
 tags = ["Xmonad"]
 categories = ["Tech"]
 draft = false

@@ -2,7 +2,7 @@
 title = "2026年の生成AI、エンジニア的に気になるトレンド3選"
 author = ["YAMASHITA Takao"]
 date = 2026-03-20T16:46:00+09:00
-lastmod = 2026-10-12T08:31:48+09:00
+lastmod = 2026-10-17T20:50:02+09:00
 tags = ["LLM", "Trend"]
 categories = ["Tech"]
 draft = false

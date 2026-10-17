@@ -2,7 +2,7 @@
 title = "通常起動の Emacs だけ dark テーマの背景が崩れた話"
 author = ["YAMASHITA Takao"]
 date = 2026-10-12T07:48:00+09:00
-lastmod = 2026-10-12T08:31:50+09:00
+lastmod = 2026-10-17T20:50:04+09:00
 tags = ["Emacs", "Nano-Theme", "Debug"]
 categories = ["Tech"]
 draft = false

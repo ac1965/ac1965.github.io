@@ -2,7 +2,7 @@
 title = "emacs:libgccjit:'libgcc_s.1.1.dylib' no such file"
 author = ["YAMASHITA Takao"]
 date = 2024-05-12T16:48:00+09:00
-lastmod = 2026-10-12T08:31:48+09:00
+lastmod = 2026-10-17T20:50:02+09:00
 tags = ["Emacs", "Native-Compilation"]
 categories = ["Tech"]
 draft = false
