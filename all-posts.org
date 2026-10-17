@@ -10619,7 +10619,7 @@ obsolete な =Bcatch= と =Bcondition_case= は、この =internal_catch= と =i
 
 このあたりは、また気が向いたら掘ってみることにする。
 
-** DONE Hdeploy.sh から push-and-watch.sh までの公開手順を読み解く :Hugo:Git:Deploy:
+** DONE deploy.sh から push-and-watch.sh までの公開手順を読み解く :Hugo:Git:Deploy:
 CLOSED: [2026-10-11 Sun 18:23]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: cf349e57-623a-4984-9466-21eb26f20d6b
